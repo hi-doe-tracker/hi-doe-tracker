@@ -23,7 +23,7 @@ const ViewBills = () => {
   return (
     <Container id={PAGE_IDS.VIEW_BILLS}>
       <Row>
-        <Col>
+        <Col sm="3">
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
