@@ -6,7 +6,7 @@ const BillViewDisplay = ({ billData }) => {
 
   if (billData.isDisabled) {
     return (
-      <ListGroup.Item disabled>
+      <ListGroup.Item action href={billData.url} disabled>
         <Row>
           <Col>
             {billData.billName}
@@ -26,7 +26,7 @@ const BillViewDisplay = ({ billData }) => {
     );
   }
   return (
-    <ListGroup.Item>
+    <ListGroup.Item action href={billData.url}>
       <Row>
         <Col>
           {billData.billName}
@@ -51,6 +51,7 @@ BillViewDisplay.propTypes = {
     billName: PropTypes.string,
     offices: PropTypes.arrayOf(PropTypes.string),
     date: PropTypes.string,
+    url: PropTypes.string,
     progress: PropTypes.number,
     isDisabled: PropTypes.bool,
   }).isRequired,
