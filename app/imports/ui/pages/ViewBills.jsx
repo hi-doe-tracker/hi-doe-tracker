@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ListGroup, Row, Col, Tab, Nav } from 'react-bootstrap';
+import { ListGroup, Row, Col, Tab, Nav } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewDisplay from '../components/BillViewDisplay';
 
@@ -21,33 +21,58 @@ const ViewBills = () => {
   ];
 
   return (
-    <Container id={PAGE_IDS.VIEW_BILLS}>
+    <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
       <Row>
         <Col sm="3">
-          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first">ALL BILLS</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second">DEPUTY</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="third">OFSS</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="forth">OSF</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Tab.Container>
+          <Nav variant="pills" className="flex-column">
+            <Nav.Item>
+              <Nav.Link eventKey="all-bills">ALL BILLS</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="deputy-bills">DEPUTY</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="ofss-bills">OFSS</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="osf-bills">OSF</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="ofc-bills">OFC</Nav.Link>
+            </Nav.Item>
+          </Nav>
         </Col>
-        <Col>
-          <ListGroup>
-            {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
-          </ListGroup>
+        <Col sm="8">
+          <Tab.Content>
+            <Tab.Pane eventKey="all-bills">
+              <ListGroup>
+                {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
+            <Tab.Pane eventKey="deputy-bills">
+              <ListGroup>
+                {testData.filter(bill => bill.offices.includes('DEPUTY')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
+            <Tab.Pane eventKey="ofss-bills">
+              <ListGroup>
+                {testData.filter(bill => bill.offices.includes('OFFF')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
+            <Tab.Pane eventKey="osf-bills">
+              <ListGroup>
+                {testData.filter(bill => bill.offices.includes('OSF')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
+            <Tab.Pane eventKey="ofc-bills">
+              <ListGroup>
+                {testData.filter(bill => bill.offices.includes('OFC')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
+          </Tab.Content>
         </Col>
       </Row>
-    </Container>
+    </Tab.Container>
   );
 };
 
