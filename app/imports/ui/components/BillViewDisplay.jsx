@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Row, Col, ProgressBar } from 'react-bootstrap';
+import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 
 const BillViewDisplay = ({ billData }) => {
 
@@ -8,18 +8,21 @@ const BillViewDisplay = ({ billData }) => {
     return (
       <ListGroup.Item action href={billData.url} disabled>
         <Row>
-          <Col>
+          <Col sm="2">
             {billData.billName}
           </Col>
-          <Col>
+          <Col sm="2">
             {billData.date}
           </Col>
-          <Col>
+          <Col sm="3">
             {billData.offices}
           </Col>
-          <Col>
+          <Col sm="3">
             Progress
             <ProgressBar variant="danger" now={billData.progress} />
+          </Col>
+          <Col sm="1">
+            <Button variant="outline-danger" disabled>Delete</Button>
           </Col>
         </Row>
       </ListGroup.Item>
@@ -28,18 +31,21 @@ const BillViewDisplay = ({ billData }) => {
   return (
     <ListGroup.Item action href={billData.url}>
       <Row>
-        <Col>
+        <Col sm="2">
           {billData.billName}
         </Col>
-        <Col>
+        <Col sm="2">
           {billData.date}
         </Col>
-        <Col>
+        <Col sm="3">
           {billData.offices}
         </Col>
-        <Col>
+        <Col sm="3">
           Progress
           <ProgressBar now={billData.progress} />
+        </Col>
+        <Col sm="1">
+          <Button variant="outline-danger">Delete</Button>
         </Col>
       </Row>
     </ListGroup.Item>
