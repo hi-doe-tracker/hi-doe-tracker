@@ -44,7 +44,9 @@ const officeNames = [
 const ViewBills = () => (
   <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
     <Row>
-      <Col sm="3">
+      <Col sm="1" />
+      <Col sm="2">
+        <h2>Offices</h2>
         <Nav variant="pills" className="flex-column">
           {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
         </Nav>

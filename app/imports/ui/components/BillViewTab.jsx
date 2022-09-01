@@ -6,7 +6,7 @@ import BillViewDisplay from './BillViewDisplay';
 const testData = [
   {
     billName: 'Bill 1',
-    offices: ['OFC', 'OFFF'],
+    offices: ['OSSS', 'OTM'],
     date: '03/22/2019',
     url: 'Bill 1 Link',
     progress: 50,
@@ -14,7 +14,7 @@ const testData = [
   },
   {
     billName: 'Bill 2',
-    offices: ['DEPUTY', 'OFFF'],
+    offices: ['DEPUTY', 'OITS'],
     date: '02/25/2022',
     url: 'Bill 2 Link',
     progress: 20,
@@ -22,7 +22,7 @@ const testData = [
   },
   {
     billName: 'Bill 3',
-    offices: ['OSF'],
+    offices: ['OFO'],
     date: '11/19/2021',
     url: 'Bill 3 Link',
     progress: 80,
