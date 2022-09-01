@@ -44,6 +44,9 @@ const ViewBills = () => {
               <Nav.Link eventKey="deputy-bills">DEPUTY</Nav.Link>
             </Nav.Item>
             <Nav.Item>
+              <Nav.Link eventKey="ocid-bills">OCID</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Nav.Link eventKey="ofss-bills">OFSS</Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -57,16 +60,25 @@ const ViewBills = () => {
         <Col sm="8">
           <Tab.Content>
             <Tab.Pane eventKey="all-bills">
+              <h2>All Bills</h2>
               <ListGroup>
                 {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
               </ListGroup>
             </Tab.Pane>
             <Tab.Pane eventKey="deputy-bills">
+              <h2>DEPUTY Bills</h2>
               <ListGroup>
                 {testData.filter(bill => bill.offices.includes('DEPUTY')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
               </ListGroup>
             </Tab.Pane>
+            <Tab.Pane eventKey="ocid-bills">
+              <h2>OCID Bills</h2>
+              <ListGroup>
+                {testData.filter(bill => bill.offices.includes('OCID')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              </ListGroup>
+            </Tab.Pane>
             <Tab.Pane eventKey="ofss-bills">
+              <h2>OFSS Bills</h2>
               <ListGroup>
                 {testData.filter(bill => bill.offices.includes('OFFF')).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
               </ListGroup>
