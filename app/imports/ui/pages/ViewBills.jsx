@@ -9,14 +9,20 @@ const ViewBills = () => {
     {
       billName: 'Bill 1',
       offices: ['OFC', 'OFFF'],
+      date: '03/22/2019',
+      progress: 50,
     },
     {
       billName: 'Bill 2',
       offices: ['DEPUTY', 'OFFF'],
+      date: '02/25/2022',
+      progress: 20,
     },
     {
       billName: 'Bill 3',
       offices: ['OSF'],
+      date: '11/19/2021',
+      progress: 80,
     },
   ];
 
