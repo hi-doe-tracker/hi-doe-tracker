@@ -36,7 +36,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
       <Tab.Pane eventKey={eventKey}>
         <h2>{officeName}</h2>
         <ListGroup>
-          {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill}/>)}
+          {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
         </ListGroup>
       </Tab.Pane>
     );
@@ -45,7 +45,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
       <ListGroup>
-        {testData.filter((bill) => bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill}/>)}
+        {testData.filter((bill) => bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
       </ListGroup>
     </Tab.Pane>
   );

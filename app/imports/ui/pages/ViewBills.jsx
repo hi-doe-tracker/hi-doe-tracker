@@ -1,7 +1,6 @@
 import React from 'react';
-import { ListGroup, Row, Col, Tab, Nav } from 'react-bootstrap';
+import { Row, Col, Tab, Nav } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import BillViewDisplay from '../components/BillViewDisplay';
 import BillViewTab from '../components/BillViewTab';
 
 const officeNames = [
@@ -42,41 +41,21 @@ const officeNames = [
     eventKey: 'otm-bills',
   }];
 
-const ViewBills = () => {
-
-  return (
-    <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
-      <Row>
-        <Col sm="3">
-          <Nav variant="pills" className="flex-column">
-            <Nav.Item>
-              <Nav.Link eventKey="all-bills">ALL BILLS</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="deputy-bills">DEPUTY</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="ocid-bills">OCID</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="ofss-bills">OFSS</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="osf-bills">OSF</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="ofc-bills">OFC</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col sm="8">
-          <Tab.Content>
-            {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
-          </Tab.Content>
-        </Col>
-      </Row>
-    </Tab.Container>
-  );
-};
+const ViewBills = () => (
+  <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
+    <Row>
+      <Col sm="3">
+        <Nav variant="pills" className="flex-column">
+          {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
+        </Nav>
+      </Col>
+      <Col sm="8">
+        <Tab.Content>
+          {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
+        </Tab.Content>
+      </Col>
+    </Row>
+  </Tab.Container>
+);
 
 export default ViewBills;
