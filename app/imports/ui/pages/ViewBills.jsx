@@ -11,18 +11,21 @@ const ViewBills = () => {
       offices: ['OFC', 'OFFF'],
       date: '03/22/2019',
       progress: 50,
+      isDisabled: false,
     },
     {
       billName: 'Bill 2',
       offices: ['DEPUTY', 'OFFF'],
       date: '02/25/2022',
       progress: 20,
+      isDisabled: false,
     },
     {
       billName: 'Bill 3',
       offices: ['OSF'],
       date: '11/19/2021',
       progress: 80,
+      isDisabled: true,
     },
   ];
 
