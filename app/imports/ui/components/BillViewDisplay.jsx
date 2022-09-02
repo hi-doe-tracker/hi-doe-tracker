@@ -15,7 +15,7 @@ const BillViewDisplay = ({ billData }) => {
             {billData.date}
           </Col>
           <Col sm="3">
-            {billData.offices}
+            {billData.offices.toString()}
           </Col>
           <Col sm="3">
             Progress
@@ -38,7 +38,7 @@ const BillViewDisplay = ({ billData }) => {
           {billData.date}
         </Col>
         <Col sm="3">
-          {billData.offices}
+          {billData.offices.toString()}
         </Col>
         <Col sm="3">
           Progress
