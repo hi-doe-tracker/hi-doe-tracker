@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 
-const inactiveIndicatorStyle = { color: 'red' };
-const activeIndicatorStyle = { color: 'green' };
-
 const BillViewDisplay = ({ billData }) => (
   <ListGroup.Item action href={billData.url}>
     <Row>
@@ -14,7 +11,6 @@ const BillViewDisplay = ({ billData }) => (
       <Col sm="3">Progress<ProgressBar now={billData.progress} /></Col>
       <Col sm="1"><Button variant="outline-danger">Delete</Button></Col>
     </Row>
-    {billData.isDisabled ? <h6 style={inactiveIndicatorStyle}>Inactive</h6> : <h6 style={activeIndicatorStyle}>Active</h6>}
   </ListGroup.Item>
 );
 
