@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Nav, Tab } from 'react-bootstrap';
+import { ListGroup, Tab, Tabs } from 'react-bootstrap';
 import BillViewDisplay from './BillViewDisplay';
-import { PAGE_IDS } from '../utilities/PageIDs';
 
 const testData = [
   {
@@ -36,26 +35,36 @@ const BillViewTab = ({ eventKey, officeName }) => {
     return (
       <Tab.Pane eventKey={eventKey}>
         <h2>{officeName}</h2>
-        <Nav variant="tabs" >
-          <Nav.Item><Nav.Link eventKey="active-bills">ACTIVE BILLS</Nav.Link></Nav.Item>
-          <Nav.Item><Nav.Link eventKey="inactive-bills">INACTIVE BILLS</Nav.Link></Nav.Item>
-        </Nav>
-        <ListGroup>
-          {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
-        </ListGroup>
+        <Tabs defaultActiveKey="active-bills">
+          <Tab eventKey="active-bills" title="ACTIVE BILLS">
+            <ListGroup>
+              {testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+            </ListGroup>
+          </Tab>
+          <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
+            <ListGroup>
+              {testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+            </ListGroup>
+          </Tab>
+        </Tabs>
       </Tab.Pane>
     );
   }
   return (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
-      <Nav variant="pills">
-        <Nav.Item><Nav.Link>ACTIVE BILLS</Nav.Link></Nav.Item>
-        <Nav.Item><Nav.Link>INACTIVE BILLS</Nav.Link></Nav.Item>
-      </Nav>
-      <ListGroup>
-        {testData.filter((bill) => bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
-      </ListGroup>
+      <Tabs defaultActiveKey="active-bills">
+        <Tab eventKey="active-bills" title="ACTIVE BILLS">
+          <ListGroup>
+            {testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+          </ListGroup>
+        </Tab>
+        <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
+          <ListGroup>
+            {testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+          </ListGroup>
+        </Tab>
+      </Tabs>
     </Tab.Pane>
   );
 };
