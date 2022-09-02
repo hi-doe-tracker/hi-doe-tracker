@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Tab } from 'react-bootstrap';
+import { ListGroup, Nav, Tab } from 'react-bootstrap';
 import BillViewDisplay from './BillViewDisplay';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const testData = [
   {
@@ -31,10 +32,14 @@ const testData = [
 ];
 
 const BillViewTab = ({ eventKey, officeName }) => {
-  if (officeName === 'All Bills') {
+  if (officeName === 'ALL BILLS') {
     return (
       <Tab.Pane eventKey={eventKey}>
         <h2>{officeName}</h2>
+        <Nav variant="tabs" >
+          <Nav.Item><Nav.Link eventKey="active-bills">ACTIVE BILLS</Nav.Link></Nav.Item>
+          <Nav.Item><Nav.Link eventKey="inactive-bills">INACTIVE BILLS</Nav.Link></Nav.Item>
+        </Nav>
         <ListGroup>
           {testData.map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
         </ListGroup>
@@ -44,6 +49,10 @@ const BillViewTab = ({ eventKey, officeName }) => {
   return (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
+      <Nav variant="pills">
+        <Nav.Item><Nav.Link>ACTIVE BILLS</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link>INACTIVE BILLS</Nav.Link></Nav.Item>
+      </Nav>
       <ListGroup>
         {testData.filter((bill) => bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
       </ListGroup>

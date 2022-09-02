@@ -5,7 +5,7 @@ import BillViewTab from '../components/BillViewTab';
 
 const officeNames = [
   {
-    name: 'All Bills',
+    name: 'ALL BILLS',
     eventKey: 'all-bills',
   },
   {
