@@ -3,7 +3,7 @@
 
 /* Set up some CSS variables to theme the application. */
 :root {
-  --matr-navbar-bg: #ECECEC;
+  --matr-navbar-bg: #ececec;
   --matr-navbar-bg-rgb: 236, 236, 236;
 }
 
@@ -15,7 +15,8 @@ body {
 }
 
 /* Set the SignIn and SignUp alerts background. */
-#signin-page .alert-light, #signup-page .alert-light {
+#signin-page .alert-light,
+#signup-page .alert-light {
   --bs-alert-bg: var(--matr-navbar-bg);
 }
 
@@ -25,4 +26,13 @@ body {
   color: var(--bs-dark);
   padding-top: 10px;
   padding-bottom: 20px;
+}
+.listview-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+.listview-div span:first-of-type {
+  color: rebeccapurple;
 }
