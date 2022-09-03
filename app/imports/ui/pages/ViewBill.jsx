@@ -27,49 +27,49 @@ export default ViewBill = () => {
           {/* <Card style={{ width: "18rem" }} className="text-center"> */}
           <ListGroup>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font ">
                 <span className="fw-bold">Bill/Resolution No</span>
                 <span>AA1, BA1, CA2, DVB3</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Office</span>
                 <span>OSIP, OPS, OCID, ABCD, EFGH, HIJK</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Action</span>
                 <span>Testimony</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Status</span>
                 <span>2nd Crossover</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Companion</span>
                 <span>What goes here?</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Legislation Type</span>
                 <span>Bill</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Committee Referral</span>
                 <span>ABC, DEF, GHI</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
-              <div className="ms-2 me-auto viewbill-div">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Introduced By</span>
                 <span>ABC, DEF, GHI</span>
               </div>
@@ -77,7 +77,60 @@ export default ViewBill = () => {
           </ListGroup>
           {/* </Card> */}
         </Col>
-        <Col>2 of 2</Col>
+        <Col>
+          {/* <Card style={{ width: "18rem" }} className="text-center"> */}
+          <ListGroup className="viewbill-col2">
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Bill/Resolution No</div>
+                <div>AA1, BA1, CA2, DVB3</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Office</div>
+                <div>OSIP, OPS, OCID, ABCD, EFGH, HIJK</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Action</div>
+                <div>Testimony</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Status</div>
+                <div>2nd Crossover</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Companion</div>
+                <div>What goes here?</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Legislation Type</div>
+                <div>Bill</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Committee Referral</div>
+                <div>ABC, DEF, GHI</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Introduced By</div>
+                <div>ABC, DEF, GHI</div>
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+          {/* </Card> */}
+        </Col>
       </Row>
       <Row>
         <Col>1 of 3</Col>
