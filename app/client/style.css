@@ -27,12 +27,23 @@ body {
   padding-top: 10px;
   padding-bottom: 20px;
 }
-.listview-div {
+
+.viewbill-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.viewbill-breadcrumb {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.viewbill-div {
   display: flex;
   width: 100%;
   justify-content: space-between;
   font-size: 1.2rem;
+  flex-wrap: wrap;
 }
-.listview-div span:first-of-type {
+.viewbill-div span:first-of-type {
   color: rebeccapurple;
 }
