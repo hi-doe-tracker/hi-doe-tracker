@@ -45,7 +45,10 @@ body {
   flex-wrap: wrap;
 }
 .viewbill-font {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+}
+.description-font {
+  font-size: 1.2rem !important;
 }
 .viewbill-div span:first-of-type {
   color: dodgerblue;

@@ -29,49 +29,51 @@ export default ViewBill = () => {
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font ">
                 <span className="fw-bold">Bill/Resolution No</span>
-                <span>AA1, BA1, CA2, DVB3</span>
+                <span className="description-font">AA1, BA1, CA2, DVB3</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Office</span>
-                <span>OSIP, OPS, OCID, ABCD, EFGH, HIJK</span>
+                <span className="description-font">
+                  OSIP, OPS, OCID, ABCD, EFGH, HIJK
+                </span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Action</span>
-                <span>Testimony</span>
+                <span className="description-font">Testimony</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Status</span>
-                <span>2nd Crossover</span>
+                <span className="description-font">2nd Crossover</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Companion</span>
-                <span>What goes here?</span>
+                <span className="description-font">What goes here?</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Legislation Type</span>
-                <span>Bill</span>
+                <span className="description-font">Bill</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Committee Referral</span>
-                <span>ABC, DEF, GHI</span>
+                <span className="description-font">ABC, DEF, GHI</span>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold">Introduced By</span>
-                <span>ABC, DEF, GHI</span>
+                <span className="description-font">ABC, DEF, GHI</span>
               </div>
             </ListGroup.Item>
           </ListGroup>
@@ -83,49 +85,51 @@ export default ViewBill = () => {
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Bill/Resolution No</div>
-                <div>AA1, BA1, CA2, DVB3</div>
+                <div className="description-font">AA1, BA1, CA2, DVB3</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Office</div>
-                <div>OSIP, OPS, OCID, ABCD, EFGH, HIJK</div>
+                <div className="description-font">
+                  OSIP, OPS, OCID, ABCD, EFGH, HIJK
+                </div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Action</div>
-                <div>Testimony</div>
+                <div className="description-font">Testimony</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Status</div>
-                <div>2nd Crossover</div>
+                <div className="description-font">2nd Crossover</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Companion</div>
-                <div>What goes here?</div>
+                <div className="description-font">What goes here?</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Legislation Type</div>
-                <div>Bill</div>
+                <div className="description-font">Bill</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Committee Referral</div>
-                <div>ABC, DEF, GHI</div>
+                <div className="description-font">ABC, DEF, GHI</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Introduced By</div>
-                <div>ABC, DEF, GHI</div>
+                <div className="description-font">ABC, DEF, GHI</div>
               </div>
             </ListGroup.Item>
           </ListGroup>
