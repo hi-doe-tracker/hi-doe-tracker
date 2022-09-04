@@ -29,8 +29,15 @@ body {
 }
 
 .viewbill-container {
-  background-color: papayawhip;
+  /* background-color: papayawhip; */
+  position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  /* box-sizing: inherit; */
+  /* margin: 0 !important; */
+  /* flex-basis: content; */
 }
 .viewbill-container h2 {
   color: rebeccapurple;
@@ -38,7 +45,7 @@ body {
 
 .viewbill-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
   justify-content: space-between;
   align-items: center;
 }
@@ -56,13 +63,16 @@ body {
   flex-wrap: wrap;
 }
 .viewbill-font {
-  font-size: 1.7rem;
+  font-size: 1.3rem;
+  /* width: 100%; */
+  text-align: center;
 }
 .viewbill-font p {
   margin: 0;
 }
 .description-font {
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
+  margin: 0;
 }
 .viewbill-div span:first-of-type {
   color: dodgerblue;
@@ -76,13 +86,34 @@ body {
 } */
 .flexcenter {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative;
+  width: 100% !important;
 }
 
 .divcolor {
   color: rebeccapurple;
   border-bottom: 2px solid purple;
+}
+.viewbill-accordion {
+  width: 100%;
+}
+
+.viewbill-accbody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewbill-acchead {
+  width: 100%;
+  /* text-align: center; */
+}
+
+.acc-header {
+  width: 100%;
+  border-bottom: 0 !important;
 }

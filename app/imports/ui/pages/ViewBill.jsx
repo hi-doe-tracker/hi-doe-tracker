@@ -6,6 +6,7 @@ import {
   Breadcrumb,
   ListGroup,
   Card,
+  Accordion,
 } from "react-bootstrap";
 // import { Container } from "react-bootstrap"
 export default ViewBill = () => {
@@ -23,7 +24,7 @@ export default ViewBill = () => {
         </center>
       </Row>
       <Row className="viewbill-row">
-        <Col xs={5}>
+        <Col>
           {/* <Card style={{ width: "18rem" }} className="text-center"> */}
           <ListGroup>
             <ListGroup.Item as="li" className="d-flex">
@@ -109,7 +110,7 @@ export default ViewBill = () => {
           </ListGroup>
           {/* </Card> */}
         </Col>
-        <Col xs={7}>
+        <Col>
           {/* <Card style={{ width: "18rem" }} className="text-center"> */}
           <ListGroup className="viewbill-col2">
             <ListGroup.Item as="li" className="d-flex flex2">
@@ -139,80 +140,177 @@ export default ViewBill = () => {
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Notified Of Hearing</div>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">All Versions</div>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Committee Reports</div>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Youtube</div>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Last Status Check</div>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-                <p className="description-font">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Introduced By</div>
-                <div className="description-font">ABC, DEF, GHI</div>
-              </div>
+              <Accordion
+                // defaultActiveKey={["0"]}
+                // alwaysOpen
+                className="viewbill-accordion description-font"
+              >
+                <Accordion.Item eventKey="0" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      All Versions
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Committee Reports
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Youtube
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Last Status Check
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Similar
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Lead Office Position
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Testifier
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Approved testimony
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                    <p className="description-font">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </ListGroup.Item>
           </ListGroup>
           {/* </Card> */}
