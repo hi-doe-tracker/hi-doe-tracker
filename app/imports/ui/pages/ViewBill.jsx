@@ -23,7 +23,7 @@ export default ViewBill = () => {
         </center>
       </Row>
       <Row className="viewbill-row">
-        <Col>
+        <Col xs={5}>
           {/* <Card style={{ width: "18rem" }} className="text-center"> */}
           <ListGroup>
             <ListGroup.Item as="li" className="d-flex">
@@ -76,54 +76,136 @@ export default ViewBill = () => {
                 <span className="description-font">ABC, DEF, GHI</span>
               </div>
             </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold">Hearing Date</span>
+                <span className="description-font">ABC, DEF, GHI</span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold">Hearing Time</span>
+                <span className="description-font">ABC, DEF, GHI</span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold">Hearing Location</span>
+                <span className="description-font">ABC, DEF, GHI</span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold">Committee</span>
+                <span className="description-font">ABC, DEF, GHI</span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold">Type</span>
+                <span className="description-font">ABC, DEF, GHI</span>
+              </div>
+            </ListGroup.Item>
           </ListGroup>
           {/* </Card> */}
         </Col>
-        <Col>
+        <Col xs={7}>
           {/* <Card style={{ width: "18rem" }} className="text-center"> */}
           <ListGroup className="viewbill-col2">
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Bill/Resolution No</div>
-                <div className="description-font">AA1, BA1, CA2, DVB3</div>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as="li" className="d-flex flex2">
-              <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Office</div>
+                <div className="fw-bold divcolor">Report Title</div>
                 <div className="description-font">
-                  OSIP, OPS, OCID, ABCD, EFGH, HIJK
+                  Department of Education, Community Schools, Grants, Pilot
+                  Program
                 </div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Action</div>
-                <div className="description-font">Testimony</div>
+                <div className="fw-bold divcolor">Measure Title</div>
+                <div className="description-font">Relating to Education</div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Status</div>
-                <div className="description-font">2nd Crossover</div>
+                <div className="fw-bold divcolor">Description</div>
+                <div className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </div>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Companion</div>
-                <div className="description-font">What goes here?</div>
+                <div className="fw-bold divcolor">Notified Of Hearing</div>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Legislation Type</div>
-                <div className="description-font">Bill</div>
+                <div className="fw-bold divcolor">All Versions</div>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
-                <div className="fw-bold divcolor">Committee Referral</div>
-                <div className="description-font">ABC, DEF, GHI</div>
+                <div className="fw-bold divcolor">Committee Reports</div>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Youtube</div>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Last Status Check</div>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+                <p className="description-font">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
