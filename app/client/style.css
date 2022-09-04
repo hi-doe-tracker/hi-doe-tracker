@@ -28,15 +28,25 @@ body {
   padding-bottom: 20px;
 }
 
+.viewbill-container {
+  background-color: papayawhip;
+  width: 100%;
+}
+.viewbill-container h2 {
+  color: rebeccapurple;
+}
+
 .viewbill-row {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  align-items: center;
 }
 .viewbill-breadcrumb {
   display: flex;
   justify-content: center !important;
   align-items: center !important;
+  font-size: 1.2rem;
 }
 .viewbill-div {
   display: flex;
@@ -48,11 +58,15 @@ body {
 .viewbill-font {
   font-size: 1.7rem;
 }
+.viewbill-font p {
+  margin: 0;
+}
 .description-font {
   font-size: 1.2rem !important;
 }
 .viewbill-div span:first-of-type {
   color: dodgerblue;
+  border-bottom: 2px solid blue;
 }
 
 /* .flex2 {
@@ -70,4 +84,5 @@ body {
 
 .divcolor {
   color: rebeccapurple;
+  border-bottom: 2px solid purple;
 }
