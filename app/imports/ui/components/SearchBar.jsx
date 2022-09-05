@@ -1,11 +1,18 @@
 import React from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { Button } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 const SearchBar = () => (
-  <Button>
-    <BsSearch />
-  </Button>
+  <Container>
+    <Row>
+      <Col xs={11} />
+      <Col>
+        <Button variant="outline-dark">
+          <BsSearch />
+        </Button>
+      </Col>
+    </Row>
+  </Container>
 );
 
 export default SearchBar;
