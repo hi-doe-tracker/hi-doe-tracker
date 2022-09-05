@@ -17,17 +17,17 @@ import SignIn from '../pages/SignIn';
 import NotAuthorized from '../pages/NotAuthorized';
 import { ROLE } from '../../api/role/Role';
 import ViewBills from '../pages/ViewBills';
-import SearchBar from '../components/SearchBar';
+import SearchBarButton from '../components/SearchBarButton';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
-  const style1 = { backgroundColor: 'white' };
+  const style1 = { opacity: '1' };
   const [style, setStyle] = useState(style1);
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
         <NavBar />
-        <SearchBar setStyle={setStyle} />
+        <SearchBarButton setStyle={setStyle} />
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
@@ -43,8 +43,8 @@ const App = () => {
             <Route path="/notauthorized" element={<NotAuthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
         </div>
+        <Footer />
       </div>
     </Router>
   );
