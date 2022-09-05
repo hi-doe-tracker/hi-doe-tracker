@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 
 const SearchBarButton = ({ setStyle }) => {
   const style1 = { opacity: '1' };
-  const style2 = { opacity: '0.2' };
+  const style2 = { opacity: '0.1' };
   const [click, setClick] = useState(false);
 
   useEffect(() => {
