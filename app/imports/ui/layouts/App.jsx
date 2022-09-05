@@ -17,12 +17,14 @@ import SignIn from '../pages/SignIn';
 import NotAuthorized from '../pages/NotAuthorized';
 import { ROLE } from '../../api/role/Role';
 import ViewBills from '../pages/ViewBills';
+import SearchBar from '../components/SearchBar';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => (
   <Router>
     <div className="d-flex flex-column min-vh-100">
       <NavBar />
+      <SearchBar />
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/bills" element={<ViewBills />} />
