@@ -3,6 +3,7 @@ import { BsSearch } from 'react-icons/bs';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
+import SearchSuggestions from './SearchSuggestions';
 
 const SearchBarButton = ({ setStyle }) => {
   // Holds CSS for normal state and search state.
@@ -31,6 +32,7 @@ const SearchBarButton = ({ setStyle }) => {
         </Col>
       </Row>
       {click ? <SearchBar /> : <div />}
+      {click ? <SearchSuggestions /> : <div />}
     </Container>
   );
 };
