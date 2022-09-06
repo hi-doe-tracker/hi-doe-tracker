@@ -17,8 +17,12 @@ export default ViewBill = () => {
           <Col>
             <h2>Bill | Resolution Tracking</h2>
             <Breadcrumb className="viewbill-breadcrumb">
-              <Breadcrumb.Item href="#">Current Bill</Breadcrumb.Item>
-              <Breadcrumb.Item href="#">Measure(Status)</Breadcrumb.Item>
+              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+                Current Bill
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+                Measure(Status)
+              </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </center>

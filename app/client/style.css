@@ -55,6 +55,13 @@ body {
   align-items: center !important;
   font-size: 1.2rem;
 }
+
+.viewbill-breadcrumbItem {
+  margin: 0 !important;
+  position: relative;
+  top: -10px;
+  font-weight: 600;
+}
 .viewbill-div {
   display: flex;
   width: 100%;
@@ -94,8 +101,9 @@ body {
 }
 
 .divcolor {
-  color: rebeccapurple;
-  border-bottom: 2px solid purple;
+  /* color: rebeccapurple; */
+  color: dodgerblue;
+  border-bottom: 2px solid blue;
 }
 .viewbill-accordion {
   width: 100%;
