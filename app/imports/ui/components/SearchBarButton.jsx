@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
 const SearchBarButton = ({ setStyle }) => {
-  const style1 = { opacity: '1' };
-  const style2 = { opacity: '0.1' };
+  // Holds CSS for normal state and search state.
+  const normalStyle = { opacity: '1' };
+  const searchStyle = { opacity: '0.1', pointerEvents: 'none' };
+  // Holds the state of a button click.
   const [click, setClick] = useState(false);
 
+  // Updates CSS in App.jsx whenever click is changed by calling setStyle with different styles.
   useEffect(() => {
     if (click) {
-      setStyle(style2);
+      setStyle(searchStyle);
     } else {
-      setStyle(style1);
+      setStyle(normalStyle);
     }
   }, [click]);
 
