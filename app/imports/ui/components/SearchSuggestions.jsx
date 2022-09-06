@@ -4,6 +4,7 @@ import { ListGroup, Row } from 'react-bootstrap';
 
 const SearchSuggestions = ({ searchWord }) => {
   const searchSuggestionsStyle = { position: 'absolute', top: '237px', right: '200px', width: '972px', height: '10px' };
+  const testSearchSuggestions = [`Suggestion 1 for ${searchWord}`, `Suggestion 2 for ${searchWord}`, `Suggestion 3 for ${searchWord}`];
 
   // Displays no suggestions is searchWord is nothing.
   if (searchWord === '') {
@@ -14,9 +15,7 @@ const SearchSuggestions = ({ searchWord }) => {
   return (
     <Row style={searchSuggestionsStyle}>
       <ListGroup>
-        <ListGroup.Item>{`Suggestion for ${searchWord}`}</ListGroup.Item>
-        <ListGroup.Item>{`Suggestion for ${searchWord}`}</ListGroup.Item>
-        <ListGroup.Item>{`Suggestion for ${searchWord}`}</ListGroup.Item>
+        {testSearchSuggestions.map((suggestion) => <ListGroup.Item key={suggestion}>{suggestion}</ListGroup.Item>)}
       </ListGroup>
     </Row>
   );
