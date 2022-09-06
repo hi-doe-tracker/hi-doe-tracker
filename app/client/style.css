@@ -40,24 +40,25 @@ body {
   /* flex-basis: content; */
 }
 .viewbill-container h2 {
-  color: rebeccapurple;
+  /* color: rebeccapurple; */
+  color: dodgerblue;
 }
 
 .viewbill-row {
   display: flex;
-  flex-wrap: wrap !important;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
 .viewbill-breadcrumb {
   display: flex;
-  justify-content: center !important;
-  align-items: center !important;
+  justify-content: center;
+  align-items: center;
   font-size: 1.2rem;
 }
 
 .viewbill-breadcrumbItem {
-  margin: 0 !important;
+  margin: 0;
   position: relative;
   top: -10px;
   font-weight: 600;
@@ -78,7 +79,7 @@ body {
   margin: 0;
 }
 .description-font {
-  font-size: 1rem !important;
+  font-size: 1rem;
   margin: 0;
 }
 .viewbill-div span:first-of-type {
@@ -93,9 +94,9 @@ body {
 } */
 .flexcenter {
   display: flex;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 100% !important;
 }
