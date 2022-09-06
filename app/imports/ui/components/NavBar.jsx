@@ -4,6 +4,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Bell } from 'react-bootstrap-icons';
 import { BoxArrowRight, CloudDownload, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -33,6 +34,17 @@ const NavBar = () => {
             ) : ''}
           </Nav>
           <Nav className="justify-content-end">
+            {Roles.userIsInRole(Meteor.userId(), [ROLE.USER]) ? (
+              [<NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title={<Bell size={20} />} key="manage-dropdown">
+                <NavDropdown.Item href="#action1">
+                    Bill #228922
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                  <NavDropdown.Item href="SeeAll">
+                    See All Bills
+                  </NavDropdown.Item>
+               </NavDropdown>]
+            ) : ''}
             {currentUser === '' ? (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} title="Login">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} to="/signin"><PersonFill />Sign in</NavDropdown.Item>
