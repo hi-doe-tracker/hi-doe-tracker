@@ -11,13 +11,16 @@ const SearchBarButton = ({ setStyle }) => {
   const searchStyle = { opacity: '0.1', pointerEvents: 'none' };
   // Holds the state of a button click.
   const [click, setClick] = useState(false);
+  // Golds the state for a searchWord.
+  const [searchWord, setSearchWord] = useState('');
 
-  // Updates CSS in App.jsx whenever click is changed by calling setStyle with different styles.
+  // Updates CSS and searchWord in App.jsx whenever click is changed by calling setStyle with different styles.
   useEffect(() => {
     if (click) {
       setStyle(searchStyle);
     } else {
       setStyle(normalStyle);
+      setSearchWord('');
     }
   }, [click]);
 
@@ -31,12 +34,13 @@ const SearchBarButton = ({ setStyle }) => {
           </Button>
         </Col>
       </Row>
-      {click ? <SearchBar /> : <div />}
-      {click ? <SearchSuggestions /> : <div />}
+      {click ? <SearchBar setSearchWord={setSearchWord} /> : <div />}
+      {click ? <SearchSuggestions searchWord={searchWord} /> : <div />}
     </Container>
   );
 };
 
+/* Function for setting the style of another component is passed as a prop. */
 SearchBarButton.propTypes = {
   setStyle: PropTypes.func.isRequired,
 };
