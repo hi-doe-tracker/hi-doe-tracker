@@ -17,6 +17,7 @@ import SignIn from '../pages/SignIn';
 import NotAuthorized from '../pages/NotAuthorized';
 import { ROLE } from '../../api/role/Role';
 import ViewBills from '../pages/ViewBills';
+import SendHearingNotice from '../pages/SendHearingNotice';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => (
@@ -26,6 +27,7 @@ const App = () => (
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/bills" element={<ViewBills />} />
+        <Route exact path="/send" element={<SendHearingNotice />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signout" element={<SignOut />} />
