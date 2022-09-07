@@ -34,11 +34,8 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  /* box-sizing: inherit; */
-  /* margin: 0 !important; */
-  /* flex-basis: content; */
 }
+
 .viewbill-container h2 {
   /* color: rebeccapurple; */
   color: dodgerblue;
