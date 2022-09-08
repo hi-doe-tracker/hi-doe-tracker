@@ -48,6 +48,7 @@ const ViewBills = () => {
   if (mobileView) {
     return (
       <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
+        <br />
         <Row>
           <Col sm="1" />
           <Col sm="2">
@@ -55,6 +56,7 @@ const ViewBills = () => {
             <Nav variant="pills" className="mb-3">
               {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
             </Nav>
+            <br />
           </Col>
           <Col sm="8">
             <Tab.Content>
