@@ -9,11 +9,11 @@ const BillViewDisplay = ({ billData }) => {
   if (mobileView) {
     return (
       <ListGroup.Item action href={billData.url}>
-        <Row>{billData.billName}</Row>
-        <Row>{billData.date}</Row>
-        <Row>{billData.offices.toString()}</Row>
-        <Row>Progress<ProgressBar now={billData.progress} /></Row>
-        <Row><Button variant="outline-danger">Delete</Button></Row>
+        <Row><Col>{billData.billName}</Col></Row>
+        <Row><Col>{billData.date}</Col></Row>
+        <Row><Col>{billData.offices.toString()}</Col></Row>
+        <Row><Col>Progress<ProgressBar now={billData.progress} /><br /></Col></Row>
+        <Row><Col><Button variant="outline-danger">Delete</Button></Col></Row>
       </ListGroup.Item>
     );
   }
