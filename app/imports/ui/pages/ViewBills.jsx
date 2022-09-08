@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 import { Row, Col, Tab, Nav } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewTab from '../components/BillViewTab';
@@ -41,23 +42,48 @@ const officeNames = [
     eventKey: 'otm-bills',
   }];
 
-const ViewBills = () => (
-  <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
-    <Row>
-      <Col sm="1" />
-      <Col sm="2">
-        <h2>Offices</h2>
-        <Nav variant="pills" className="flex-column">
-          {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
-        </Nav>
-      </Col>
-      <Col sm="8">
-        <Tab.Content>
-          {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
-        </Tab.Content>
-      </Col>
-    </Row>
-  </Tab.Container>
-);
+const ViewBills = () => {
+  const mobileView = useMediaQuery('(max-width: 760px)');
+
+  if (mobileView) {
+    return (
+      <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
+        <Row>
+          <Col sm="1" />
+          <Col sm="2">
+            <h2>Offices</h2>
+            <Nav variant="pills" className="mb-3">
+              {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
+            </Nav>
+          </Col>
+          <Col sm="8">
+            <Tab.Content>
+              {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
+    );
+  }
+
+  return (
+    <Tab.Container id={PAGE_IDS.VIEW_BILLS} defaultActiveKey="all-bills">
+      <Row>
+        <Col sm="1" />
+        <Col sm="2">
+          <h2>Offices</h2>
+          <Nav variant="pills" className="flex-column">
+            {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
+          </Nav>
+        </Col>
+        <Col sm="8">
+          <Tab.Content>
+            {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
+          </Tab.Content>
+        </Col>
+      </Row>
+    </Tab.Container>
+  );
+};
 
 export default ViewBills;
