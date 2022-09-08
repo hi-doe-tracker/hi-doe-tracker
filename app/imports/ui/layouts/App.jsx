@@ -18,37 +18,32 @@ import NotAuthorized from '../pages/NotAuthorized';
 import { ROLE } from '../../api/role/Role';
 import ViewBills from '../pages/ViewBills';
 import SearchBarButton from '../components/SearchBarButton';
+import SendHearingNotice from '../pages/SendHearingNotice';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
-const App = () => {
-  const style1 = { opacity: '1' };
-  const [style, setStyle] = useState(style1);
-  return (
-    <Router>
-      <div className="d-flex flex-column min-vh-100">
-        <NavBar />
-        <SearchBarButton setStyle={setStyle} />
-        <div style={style}>
-          <Routes>
-            <Route exact path="/" element={<Landing />} />
-            <Route exact path="/bills" element={<ViewBills />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signout" element={<SignOut />} />
-            <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
-            <Route path="/list" element={<ProtectedRoute><ListStuff /></ProtectedRoute>} />
-            <Route path="/add" element={<ProtectedRoute><AddStuff /></ProtectedRoute>} />
-            <Route path="/edit/:_id" element={<ProtectedRoute><EditStuff /></ProtectedRoute>} />
-            <Route path="/admin" element={<AdminProtectedRoute><ListStuffAdmin /></AdminProtectedRoute>} />
-            <Route path="/notauthorized" element={<NotAuthorized />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <div className="d-flex flex-column min-vh-100">
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/bills" element={<ViewBills />} />
+        <Route exact path="/send" element={<SendHearingNotice />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signout" element={<SignOut />} />
+        <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
+        <Route path="/list" element={<ProtectedRoute><ListStuff /></ProtectedRoute>} />
+        <Route path="/add" element={<ProtectedRoute><AddStuff /></ProtectedRoute>} />
+        <Route path="/edit/:_id" element={<ProtectedRoute><EditStuff /></ProtectedRoute>} />
+        <Route path="/admin" element={<AdminProtectedRoute><ListStuffAdmin /></AdminProtectedRoute>} />
+        <Route path="/notauthorized" element={<NotAuthorized />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </div>
+  </Router>
+);
 
 /*
  * ProtectedRoute (see React Router v6 sample)
