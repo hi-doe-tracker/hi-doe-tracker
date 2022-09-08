@@ -3,7 +3,7 @@
 
 /* Set up some CSS variables to theme the application. */
 :root {
-  --matr-navbar-bg: #ECECEC;
+  --matr-navbar-bg: #ececec;
   --matr-navbar-bg-rgb: 236, 236, 236;
 }
 
@@ -15,7 +15,8 @@ body {
 }
 
 /* Set the SignIn and SignUp alerts background. */
-#signin-page .alert-light, #signup-page .alert-light {
+#signin-page .alert-light,
+#signup-page .alert-light {
   --bs-alert-bg: var(--matr-navbar-bg);
 }
 
@@ -25,4 +26,100 @@ body {
   color: var(--bs-dark);
   padding-top: 10px;
   padding-bottom: 20px;
+}
+
+.viewbill-container {
+  /* background-color: papayawhip; */
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.viewbill-container h2 {
+  /* color: rebeccapurple; */
+  color: dodgerblue;
+}
+
+.viewbill-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.viewbill-breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.viewbill-breadcrumbItem {
+  margin: 0;
+  position: relative;
+  top: -10px;
+  font-weight: 600;
+}
+.viewbill-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* font-size: 1.2rem; */
+  flex-wrap: wrap;
+}
+.viewbill-font {
+  font-size: 1.3rem;
+  /* width: 100%; */
+  text-align: center;
+}
+.viewbill-font p {
+  margin: 0;
+}
+.description-font {
+  font-size: 1rem;
+  margin: 0;
+}
+.viewbill-div span:first-of-type {
+  color: dodgerblue;
+  border-bottom: 2px solid blue;
+}
+
+/* .flex2 {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+} */
+.flexcenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100% !important;
+}
+
+.divcolor {
+  /* color: rebeccapurple; */
+  color: dodgerblue;
+  border-bottom: 2px solid blue;
+}
+.viewbill-accordion {
+  width: 100%;
+}
+
+.viewbill-accbody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewbill-acchead {
+  width: 100%;
+  /* text-align: center; */
+}
+
+.acc-header {
+  width: 100%;
+  border-bottom: 0 !important;
 }
