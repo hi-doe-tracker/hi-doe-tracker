@@ -123,3 +123,23 @@ body {
   width: 100%;
   border-bottom: 0 !important;
 }
+
+@media screen and (max-width: 1000px) {
+  .viewbill-row {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .viewbill-row {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+  }
+}

@@ -26,86 +26,86 @@ const ViewBill = () => (
       </center>
     </Row>
     <Row className="viewbill-row">
-      <Col>
+      <Col >
         <ListGroup>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font ">
-              <span className="fw-bold">Bill/Resolution No</span>
-              <span className="description-font">AA1, BA1, CA2, DVB3</span>
+              <span className="fw-bold viewbill-spandiv">Bill/Resolution No</span>
+              <span className="description-font viewbill-spandiv">AA1, BA1, CA2, DVB3</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Office</span>
-              <span className="description-font">
+              <span className="fw-bold viewbill-spandiv">Office</span>
+              <span className="description-font viewbill-spandiv">
                 OSIP, OPS, OCID, ABCD, EFGH, HIJK
               </span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Action</span>
-              <span className="description-font">Testimony</span>
+              <span className="fw-bold viewbill-spandiv">Action</span>
+              <span className="description-font viewbill-spandiv">Testimony</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Status</span>
-              <span className="description-font">2nd Crossover</span>
+              <span className="fw-bold viewbill-spandiv">Status</span>
+              <span className="description-font viewbill-spandiv">2nd Crossover</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Companion</span>
-              <span className="description-font">What goes here?</span>
+              <span className="fw-bold viewbill-spandiv">Companion</span>
+              <span className="description-font viewbill-spandiv">What goes here?</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Legislation Type</span>
-              <span className="description-font">Bill</span>
+              <span className="fw-bold viewbill-spandiv">Legislation Type</span>
+              <span className="description-font viewbill-spandiv">Bill</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Committee Referral</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Committee Referral</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Introduced By</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Introduced By</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Hearing Date</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Hearing Date</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Hearing Time</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Hearing Time</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Hearing Location</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Hearing Location</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Committee</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Committee</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold">Type</span>
-              <span className="description-font">ABC, DEF, GHI</span>
+              <span className="fw-bold viewbill-spandiv">Type</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
             </div>
           </ListGroup.Item>
         </ListGroup>
