@@ -135,11 +135,17 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-  .viewbill-row {
+  .viewbill-spandiv{
+    margin: 7px;
+  }
+  .viewbill-div {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
+    justify-content: center;
+    align-items: center;
+  }
+  .viewbill-div span:first-of-type{
+    width: 50%;
+    /* text-align: center; */
   }
 }
