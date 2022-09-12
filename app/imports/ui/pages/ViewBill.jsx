@@ -26,7 +26,7 @@ const ViewBill = () => (
       </center>
     </Row>
     <Row className="viewbill-row">
-      <Col >
+      <Col>
         <ListGroup>
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font ">
