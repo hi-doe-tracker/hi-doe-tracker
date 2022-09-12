@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, NumField, SelectField, SubmitField, TextField, LongTextField} from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, SubmitField, TextField, LongTextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -48,12 +48,12 @@ const SendHearingNotice = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField name="to" placeholder="admin@foo.com"/>
-                <TextField name="cc" placeholder="user@foo.com"/>
-                <TextField name="bcc"/>
-                <TextField name="from" placeholder="admin@foo.com"/>
-                <TextField name="subject" placeholder="Subject"/>
-                <LongTextField name="message" placeholder="Type a message..."/>
+                <TextField name="to" placeholder="admin@foo.com" />
+                <TextField name="cc" placeholder="user@foo.com" />
+                <TextField name="bcc" />
+                <TextField name="from" placeholder="admin@foo.com" />
+                <TextField name="subject" placeholder="Subject" />
+                <LongTextField name="message" placeholder="Type a message..." />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>

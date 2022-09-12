@@ -14,7 +14,7 @@ import SignUp from '../pages/SignUp';
 import SignOut from '../pages/SignOut';
 import NavBar from '../components/NavBar';
 import SignIn from '../pages/SignIn';
-import ViewBill from '../pages/ViewBill'
+import ViewBill from '../pages/ViewBill';
 import NotAuthorized from '../pages/NotAuthorized';
 import { ROLE } from '../../api/role/Role';
 import ViewBills from '../pages/ViewBills';
