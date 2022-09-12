@@ -136,7 +136,7 @@ body {
 
 @media screen and (max-width: 650px) {
   .viewbill-spandiv{
-    margin: 7px;
+    margin: 5px;
   }
   .viewbill-div {
     display: flex;
@@ -145,7 +145,7 @@ body {
     align-items: center;
   }
   .viewbill-div span:first-of-type{
-    width: 50%;
-    /* text-align: center; */
+    width: fit-content;
+    border-bottom-width: 3px;
   }
 }
