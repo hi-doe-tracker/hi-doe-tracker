@@ -4,7 +4,8 @@ import { BsSearch } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 
 const SearchBar = ({ setSearchWord }) => {
-  const searchBarStyle = { position: 'absolute', top: '200px', right: '200px', width: '1000px', height: '10px' };
+  // const searchBarStyle = { margin: 'auto', top: '100px', right: '-100px', width: '100%' };
+  const searchBarStyleMobile = { margin: 'auto', top: '100px', right: '-50px', width: '80%' };
   // Sets searchWord to the inputted search word.
   const checkSearchWord = event => {
     setSearchWord(event.target.value);
@@ -12,7 +13,7 @@ const SearchBar = ({ setSearchWord }) => {
   return (
     <Row>
       <Col xs={10}>
-        <InputGroup style={searchBarStyle} onChange={checkSearchWord}>
+        <InputGroup style={searchBarStyleMobile} onChange={checkSearchWord}>
           <InputGroup.Text><BsSearch /></InputGroup.Text>
           <Form.Control id="inlineFormInputGroup" placeholder="Search" />
         </InputGroup>
