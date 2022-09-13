@@ -71,7 +71,7 @@ const BillQuickReference = () => {
 
   const showLess = () => {
     setShow(false);
-  }
+  };
 
   return (
     <Card style={{ width: '225px' }}>
@@ -91,5 +91,5 @@ const BillQuickReference = () => {
       </Card.Footer>
     </Card>
   );
-}
+};
 export default BillQuickReference;
