@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, ButtonGroup, Table, ToggleButton, ListGroup } from 'react-bootstrap';
+import { CaretRight, CaretLeft } from 'react-bootstrap-icons';
 
 const testData = [
   {
@@ -36,20 +37,6 @@ const months = [
   'November',
   'December',
 ];
-
-// Right arrow icon HTML
-const rightArrow = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-right" viewBox="0 0 16 16">
-    <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
-  </svg>
-);
-
-// Left arrow icon HTML
-const leftArrow = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-left" viewBox="0 0 16 16">
-    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
-  </svg>
-);
 
 const MiniCalendar = () => {
   // State variable that determines which month is being displayed
@@ -189,7 +176,7 @@ const MiniCalendar = () => {
 
   // Main Body for MiniCalendar
   return (
-    <Card style={{ width: '225px' }}>
+    <Card style={{ width: '225px' }} className="float-end">
       <Card.Header>
         <Table size="sm" className="p-0 m-0" borderless>
           <tfoot>
@@ -201,10 +188,10 @@ const MiniCalendar = () => {
                 <div className="text-center d-grid p-0 m-0">
                   <ButtonGroup>
                     <Button variant="light" size="sm" onClick={prevMonth}>
-                      {leftArrow()}
+                      <CaretLeft />
                     </Button>
                     <Button variant="light" size="sm" onClick={nextMonth}>
-                      {rightArrow()}
+                      <CaretRight />
                     </Button>
                   </ButtonGroup>
                 </div>
