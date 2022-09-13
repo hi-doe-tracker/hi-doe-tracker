@@ -28,6 +28,11 @@ body {
   padding-bottom: 20px;
 }
 
+.landing-background {
+  background: url('public/images/hi-state-capitol.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
 .viewbill-container {
   /* background-color: papayawhip; */
   position: relative;
@@ -149,3 +154,4 @@ body {
     border-bottom-width: 3px;
   }
 }
+
