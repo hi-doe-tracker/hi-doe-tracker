@@ -1,18 +1,24 @@
 import React from 'react';
-import { Container, Col } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
-  const divStyle = { paddingTop: '15px' };
+  const divStyle = { paddingTop: '15px', paddingBottom: '15px' };
   return (
     <footer className="mt-auto bg-light">
       <Container style={divStyle}>
-        <Col className="text-center">
-          Department of Information and Computer Sciences <br />
-          University of Hawaii<br />
-          Honolulu, HI 96822 <br />
-          <a href="http://ics-software-engineering.github.io/meteor-application-template-production">Template Home Page</a>
-        </Col>
+        <Row>
+          <Col className="text-center">
+            Hawaii State Department of Education <br />
+            1390 Miller St. <br />
+            Honolulu, HI 96813 <br />
+          </Col>
+          <Col className="text-center">
+            Contact Information: <br />
+            Phone: 808-784-6200 <br />
+            Email: doeinfo@k12.hi.us <br />
+          </Col>
+        </Row>
       </Container>
     </footer>
   );
