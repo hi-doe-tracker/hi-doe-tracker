@@ -8,7 +8,6 @@ const SearchBar = ({ setSearchWord }) => {
   const mobileView = useMediaQuery('(max-width: 760px)');
   const searchBarStyle = { margin: 'auto', top: '100px', right: '-100px', width: '100%' };
   const searchBarStyleMobile = { margin: 'auto', top: '100px', right: '-50px', width: '80%' };
-  // Holds the state for the style based on screen dimensions.
   // Sets searchWord to the inputted search word.
   const checkSearchWord = event => {
     setSearchWord(event.target.value);

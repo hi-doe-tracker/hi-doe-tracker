@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row } from 'react-bootstrap';
-// import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'usehooks-ts';
 
 const SearchSuggestions = ({ searchWord }) => {
-  // const mobileView = useMediaQuery('(max-width: 760px)');
+  const mobileView = useMediaQuery('(max-width: 800px)');
   const searchSuggestionsStyle = { margin: 'auto', top: '100px', right: '-17px', width: '79%' };
+  const searchSuggestionsStyleMobile = { margin: 'auto', top: '100px', right: '0px', width: '69%' };
   const linkStyle = { color: 'black', textDecoration: 'none' };
   const testSearchSuggestions = [
     {
@@ -25,6 +26,15 @@ const SearchSuggestions = ({ searchWord }) => {
   // Displays no suggestions is searchWord is nothing.
   if (searchWord === '') {
     return <div />;
+  }
+  if (mobileView) {
+    return (
+      <Row>
+        <ListGroup>
+          {testSearchSuggestions.map((suggestion) => <ListGroup.Item key={suggestion.name} style={searchSuggestionsStyleMobile}><a href={suggestion.link} style={linkStyle}>{suggestion.name}</a></ListGroup.Item>)}
+        </ListGroup>
+      </Row>
+    );
   }
 
   // Displays suggestions for search word.
