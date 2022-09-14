@@ -24,15 +24,15 @@ const formSchema = new SimpleSchema({
   lastName: String,
   position: {
     type: String,
-    allowedValues: ['Support', 'Oppose', 'Comments Only'],
+    allowedValues: [' Support', ' Oppose', ' Comments Only'],
   },
   testifying: {
     type: String,
-    allowedValues: ['As an individual', 'On behalf of an organization'],
+    allowedValues: [' As an individual', ' On behalf of an organization'],
   },
   testifyingMethod: {
     type: String,
-    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
+    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
   },
   testimony: String,
 });
@@ -70,11 +70,11 @@ const SubmitTestimony = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField name="firstName" placeholder="First Name" />
-                <TextField name="lastName" placeholder="Last Name" />
-                <SelectField name="position" placeholder="Select" />
-                <SelectField name="testifying" placeholder="Select" />
-                <SelectField name="testifyingMethod" placeholder="Select" />
+                <TextField name="firstName" placeholder="Type first name here" />
+                <TextField name="lastName" placeholder="Type last name here" />
+                <SelectField name="position" multiple checkboxes />
+                <SelectField name="testifying" multiple checkboxes />
+                <SelectField name="testifyingMethod" multiple checkboxes />
                 <LongTextField name="testimony" placeholder="Type testimony here..." />
                 <SubmitField value="Submit" />
                 <ErrorsField />
