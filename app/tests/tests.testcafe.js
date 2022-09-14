@@ -70,3 +70,7 @@ test('Test that admin pages show up', async () => {
   // await navBar.gotoManageDatabasePage();
   // await manageDatabasePage.isDisplayed();
 });
+
+test('Test that view bills page shows up', async () => {
+
+});
