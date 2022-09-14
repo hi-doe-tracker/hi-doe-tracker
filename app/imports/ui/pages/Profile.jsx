@@ -12,12 +12,7 @@ const Profile = () => {
   };
   return (
     <Container id={PAGE_IDS.PROFILE} className="py-3">
-      {/* <Row>
-            <Col xs={4}>
-                <Image src="/images/meteor-logo.png"></Image>
-            </Col>
-        </Row> */}
-      <div className="card">
+      <div className="card-body text-center">
         <div className="card-body text-center">
           <Card.Img
             src={user.image}
@@ -26,12 +21,13 @@ const Profile = () => {
           />
           <br />
           <button type="button" className="btn btn-light mt-2">Change profile photo</button>
-
-          {/* <Card.Title className="profile-card mt-4">{user.name}</Card.Title> */}
           <h4 className="mt-4">{user.name}</h4>
           <p className="card-text">{user.title}</p>
           <p className="card-text">{user.email}</p>
         </div>
+      </div>
+      <div className="text-center mt-4">
+        <button type="button" className="btn btn-light mt-2">Change password</button>
       </div>
     </Container>
   );
