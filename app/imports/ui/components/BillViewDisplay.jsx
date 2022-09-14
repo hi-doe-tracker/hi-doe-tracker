@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 809px)');
 
   if (mobileView) {
     return (
-      <LinkContainer to='/viewbill'>
+      <LinkContainer to="/viewbill">
         <ListGroup.Item action href={billData.url}>
           <Row><Col>{billData.billName}</Col></Row>
           <Row><Col>{billData.date}</Col></Row>
@@ -21,7 +21,7 @@ const BillViewDisplay = ({ billData }) => {
     );
   }
   return (
-   <LinkContainer to='/viewbill'>
+    <LinkContainer to="/viewbill">
       <ListGroup.Item action href={billData.url}>
         <Row>
           <Col sm="2">{billData.billName}</Col>
