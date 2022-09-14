@@ -17,9 +17,8 @@ const Landing = () => (
             Provides a quick and easy access to the information
             needed to participate in the lawmaking process.
           </p>
-          <Button type="button" className="btn btn-link">Learn More</Button>
+          <Button type="button" size="sm" className="btn btn-light">Learn More</Button>
         </Col>
-
       </Row>
     </Container>
   </div>
