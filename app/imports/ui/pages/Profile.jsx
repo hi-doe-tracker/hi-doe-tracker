@@ -29,6 +29,7 @@ const Profile = () => {
       <div className="text-center mt-4">
         <button type="button" className="btn btn-light mt-2">Change password</button>
       </div>
+
     </Container>
   );
 };
