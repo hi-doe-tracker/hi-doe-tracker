@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, ButtonGroup, Table, ToggleButton, ListGroup } from 'react-bootstrap';
 import { CaretRight, CaretLeft } from 'react-bootstrap-icons';
+import PropTypes from 'prop-types';
 
 const testData = [
   {
@@ -38,11 +39,16 @@ const months = [
   'December',
 ];
 
-const MiniCalendar = () => {
+const MiniCalendar = ({ darkTheme }) => {
   // State variable that determines which month is being displayed
   const [date, setDate] = useState(new Date());
   const [radioValue, setRadioValue] = useState(date.toDateString());
   const isEventArray = new Array(32).fill(false);
+  let color = 'light';
+
+  if (darkTheme) {
+    color = 'dark';
+  }
 
   const updateIsEventArray = () => {
     let testDate;
@@ -81,12 +87,12 @@ const MiniCalendar = () => {
           if (isEventArray[tempDate.getDate()]) {
             variant = 'warning';
           } else {
-            variant = 'light';
+            variant = color;
           }
           disabled = false;
         }
       } else {
-        variant = 'light';
+        variant = color;
         disabled = true;
       }
       dateString = tempDate.toDateString();
@@ -161,7 +167,7 @@ const MiniCalendar = () => {
         tempDate.getDate() === testDate.getDate()
       ) {
         content.push(
-          <ListGroup.Item key={testData[i].measureNumber}>
+          <ListGroup.Item key={testData[i].measureNumber} variant={color}>
             <h6>{testData[i].measureNumber} {testData[i].measureType}</h6>
             Time: {testDate.toLocaleTimeString('en-US')}
           </ListGroup.Item>,
@@ -176,21 +182,26 @@ const MiniCalendar = () => {
 
   // Main Body for MiniCalendar
   return (
-    <Card style={{ width: '225px' }} className="float-end">
+    <Card
+      style={{ width: '228px' }}
+      className="float-end"
+      bg={darkTheme ? 'dark' : ''}
+      text={darkTheme ? 'light' : 'dark'}
+    >
       <Card.Header>
         <Table size="sm" className="p-0 m-0" borderless>
           <tfoot>
             <tr>
-              <td className="w-75 p-0 m-0">
+              <td className={`w-75 p-0 m-0 ${darkTheme ? 'text-white' : null}`}>
                 {months[date.getMonth()]} {date.getFullYear()}
               </td>
               <td className="p-0 m-0">
                 <div className="text-center d-grid p-0 m-0">
                   <ButtonGroup>
-                    <Button variant="light" size="sm" onClick={prevMonth}>
+                    <Button variant={color} size="sm" onClick={prevMonth}>
                       <CaretLeft />
                     </Button>
-                    <Button variant="light" size="sm" onClick={nextMonth}>
+                    <Button variant={color} size="sm" onClick={nextMonth}>
                       <CaretRight />
                     </Button>
                   </ButtonGroup>
@@ -220,6 +231,10 @@ const MiniCalendar = () => {
       </Card.Footer>
     </Card>
   );
+};
+
+MiniCalendar.propTypes = {
+  darkTheme: PropTypes.bool.isRequired,
 };
 
 export default MiniCalendar;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { FileEarmarkText, FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
+import { FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
@@ -38,11 +38,13 @@ const objects = [
   },
 ];
 
+const darkTheme = false;
+
 const Home = () => (
   <Container fluid className="px-5">
     <Row>
       <Col xs={3}>
-        <BillQuickReference />
+        <BillQuickReference darkTheme={darkTheme} />
       </Col>
       <Col>
         <Row xs={1} md={3} className="g-4">
@@ -52,8 +54,12 @@ const Home = () => (
                 placement="bottom"
                 delay={{ show: 250, hide: 400 }}
                 overlay={<Tooltip id="button-tooltip-2">{info.description}</Tooltip>}
+                defaultShow={false}
               >
-                <Card>
+                <Card
+                  bg={darkTheme ? 'dark' : ''}
+                  text={darkTheme ? 'light' : 'dark'}
+                >
                   <Card.Body>
                     <div className="d-flex justify-content-center">
                       {info.icon}
@@ -69,8 +75,8 @@ const Home = () => (
         </Row>
       </Col>
       <Col xs={3}>
-        <MiniCalendar />
-        <MiniMeasureTracker />
+        <MiniCalendar darkTheme={darkTheme} />
+        <MiniMeasureTracker darkTheme={darkTheme} />
       </Col>
     </Row>
   </Container>
