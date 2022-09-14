@@ -2,7 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 import { Roles } from 'meteor/alanning:roles';
 import { Container, Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
 import { BoxArrowRight, CloudDownload, PersonFill, PersonPlusFill, Bell, Person, Alarm, FileText } from 'react-bootstrap-icons';
@@ -27,7 +27,7 @@ const NavBar = () => {
           <Nav className="me-auto justify-content-start">
             {currentUser ? ([
               <Nav.Link id={COMPONENT_IDS.NAVBAR_ADD_STUFF} as={NavLink} to="/add" key="add" style={menuStyle2}>Home</Nav.Link>,
-              <LinkContainer to='/bills'><Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} to="/list" key="list" style={menuStyle2}>View Bills</Nav.Link></LinkContainer>,
+              <LinkContainer to="/bills"><Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} to="/list" key="list" style={menuStyle2}>View Bills</Nav.Link></LinkContainer>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} to="/list" key="list" style={menuStyle2}>Submit Testimony</Nav.Link>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
@@ -38,11 +38,13 @@ const NavBar = () => {
             ) : ''}
           </Nav>
           <Nav className="justify-content-end">
-          {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
-            [<NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title = {<Bell size='20'/>}>
-              <LinkContainer to='/viewbill'><NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/manage-database"><FileText/> Bill 1</NavDropdown.Item></LinkContainer>
-              <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
-            </NavDropdown>]
+            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
+              [
+                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title={<Bell size="20" />}>
+                  <LinkContainer to="/viewbill"><NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/manage-database"><FileText /> Bill 1</NavDropdown.Item></LinkContainer>
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
+                </NavDropdown>,
+              ]
             ) : ''}
             {currentUser === '' ? (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} title="Login">
