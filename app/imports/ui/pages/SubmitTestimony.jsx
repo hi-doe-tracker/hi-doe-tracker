@@ -24,15 +24,19 @@ const formSchema = new SimpleSchema({
   lastName: String,
   position: {
     type: String,
-    allowedValues: [' Support', ' Oppose', ' Comments Only'],
+    allowedValues: ['Support', 'Oppose', 'Comments Only'],
   },
   testifying: {
     type: String,
-    allowedValues: [' As an individual', ' On behalf of an organization'],
+    allowedValues: ['As an individual', 'On behalf of an organization'],
+  },
+  organization: {
+    type: String,
+    optional: true,
   },
   testifyingMethod: {
     type: String,
-    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
+    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
   },
   testimony: String,
 });
@@ -42,10 +46,10 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 /* Renders the Submit Testimony page for adding a document. */
 const SubmitTestimony = () => {
   const submit = (data, formRef) => {
-    const { firstName, lastName, position, testifying, testifyingMethod, testimony } = data;
+    const { firstName, lastName, position, testifying, organization, testifyingMethod, testimony } = data;
     const owner = Meteor.user().username;
     const collectionName = Stuffs.getCollectionName();
-    const definitionData = { firstName, lastName, position, testifying, testifyingMethod, testimony, owner };
+    const definitionData = { firstName, lastName, position, testifying, organization, testifyingMethod, testimony, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -74,6 +78,7 @@ const SubmitTestimony = () => {
                 <TextField name="lastName" placeholder="Type last name here" />
                 <SelectField name="position" multiple checkboxes />
                 <SelectField name="testifying" multiple checkboxes />
+                <TextField name="organization" placeholder="Type organization name here" disabled />
                 <SelectField name="testifyingMethod" multiple checkboxes />
                 <LongTextField name="testimony" placeholder="Type testimony here..." />
                 <SubmitField value="Submit" />
