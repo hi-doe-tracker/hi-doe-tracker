@@ -4,7 +4,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { Container, Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
-import { BoxArrowRight, CloudDownload, PersonFill, PersonPlusFill, Bell, Person, Alarm, FileText } from 'react-bootstrap-icons';
+import { BoxArrowRight, PersonFill, PersonPlusFill, Bell, Person, Alarm, FileText } from 'react-bootstrap-icons';
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
@@ -25,7 +25,7 @@ const NavBar = () => {
         <Navbar.Collapse id={COMPONENT_IDS.NAVBAR_COLLAPSE}>
           <Nav className="me-auto justify-content-start">
             {currentUser ? ([
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/" key="home" style={menuStyle2}>Home</Nav.Link>,
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/home" key="home" style={menuStyle2}>Home</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE} as={NavLink} to="/bills" key="bills" style={menuStyle2}>View Bills</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuStyle2}>Submit Testimony</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE} as={NavLink} to="/send" key="send" style={menuStyle2}>Send Hearing Notice</Nav.Link>,

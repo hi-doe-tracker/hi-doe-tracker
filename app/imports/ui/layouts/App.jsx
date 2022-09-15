@@ -22,6 +22,7 @@ import SearchBarButton from '../components/SearchBarButton';
 import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
+import Landing from '../pages/Landing';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -34,7 +35,7 @@ const App = () => {
         <SearchBarButton setStyle={setStyle} />
         <div style={style}>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<Landing />} />
             <Route exact path="/bills" element={<ViewBills />} />
             <Route exact path="/send" element={<SendHearingNotice />} />
             <Route exact path="/viewbill" element={<ViewBill />} />
