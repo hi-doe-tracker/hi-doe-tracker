@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
+import { useMediaQuery } from 'usehooks-ts';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
-import { LinkContainer } from 'react-router-bootstrap';
+import HomeMobile from './HomeMobile';
 
 const objects = [
   {
@@ -41,7 +42,7 @@ const objects = [
 
 const darkTheme = false;
 
-const Home = () => (
+const HomeContent = () => (
   <Container fluid className="px-5">
     <Row>
       <Col xs={3}>
@@ -53,9 +54,7 @@ const Home = () => (
             <Col>
               <OverlayTrigger
                 placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={<Tooltip id="button-tooltip-2">{info.description}</Tooltip>}
-                defaultShow={false}
+                overlay={(<Tooltip>{info.description}</Tooltip>)}
               >
                 <Card
                   bg={darkTheme ? 'dark' : ''}
@@ -82,5 +81,13 @@ const Home = () => (
     </Row>
   </Container>
 );
+
+const Home = () => {
+  const mobileView = useMediaQuery('(max-width: 760px)');
+  if (mobileView) {
+    return (<HomeMobile darkTheme={darkTheme} />);
+  }
+  return (<HomeContent />);
+};
 
 export default Home;
