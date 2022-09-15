@@ -136,6 +136,7 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE}`);
   }
 
+  /* Go to the submit testimony page. */
   async gotoSubmitTestimonyPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
@@ -144,7 +145,8 @@ class NavBar {
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
     await t.click(`#${COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE}`);
   }
-  
+
+  /* Go to the profile page. */
   async gotoProfilePage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
