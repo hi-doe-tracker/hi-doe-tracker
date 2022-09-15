@@ -16,7 +16,9 @@ class SimplePage {
   }
 }
 
+export const homePage = new SimplePage(PAGE_IDS.HOME);
 export const viewBillsPage = new SimplePage(PAGE_IDS.VIEW_BILLS);
+export const viewBillPage = new SimplePage(PAGE_IDS.VIEW_BILL);
 export const addStuffPage = new SimplePage(PAGE_IDS.ADD_STUFF);
 export const editStuffPage = new SimplePage(PAGE_IDS.EDIT_STUFF);
 export const listStuffPage = new SimplePage(PAGE_IDS.LIST_STUFF);
