@@ -12,7 +12,7 @@ class SubmitTestimonyPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 
-  /** Checks that the current page has at least nine interests on it.  */
+  /** Checks that the current page has at least 1 card on it.  */
   async hasDefaultFields(testController) {
     const cardCount = Selector('.card').count;
     await testController.expect(cardCount).gte(1);

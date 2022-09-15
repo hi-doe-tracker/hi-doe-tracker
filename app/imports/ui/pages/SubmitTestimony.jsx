@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Select from 'react-select';
-import { Stuffs } from '../../api/stuff/StuffCollection';
+import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -48,7 +48,7 @@ const SubmitTestimony = () => {
   const submit = (data, formRef) => {
     const { firstName, lastName, position, testifying, organization, testifyingMethod, testimony } = data;
     const owner = Meteor.user().username;
-    const collectionName = Stuffs.getCollectionName();
+    const collectionName = Testimonies.getCollectionName();
     const definitionData = { firstName, lastName, position, testifying, organization, testifyingMethod, testimony, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
