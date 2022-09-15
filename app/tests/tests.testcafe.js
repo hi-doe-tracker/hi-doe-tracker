@@ -44,6 +44,8 @@ test('Test that user pages show up', async () => {
   await sendHearingNoticePage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await submitTestimonyPage.isDisplayed();
+  await navBar.gotoProfilePage();
+  await profilePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
@@ -87,4 +89,4 @@ test('Test that Profile page shows up', async () => {
   await navBar.isLoggedIn(adminCredentials.username);
   await navBar.gotoProfilePage();
   await profilePage.isDisplayed();
-});
+}); */
