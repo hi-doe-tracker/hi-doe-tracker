@@ -74,6 +74,16 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
   }
 
+  /* Go to the send hearing notice page. */
+  async gotoSendHearingNoticePage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE}`);
+  }
+
   /* Go to the list stuff page. */
   async gotoListStuffPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
