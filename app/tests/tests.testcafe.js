@@ -1,6 +1,6 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { signUpPage } from './signup.page';
@@ -39,6 +39,8 @@ test('Test that user pages show up', async () => {
   // await listStuffPage.isDisplayed();
   await navBar.gotoViewBillsPage();
   await viewBillsPage.isDisplayed();
+  await navBar.gotoSendHearingNoticePage();
+  await sendHearingNoticePage.isDisplayed();
   // // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
@@ -60,6 +62,8 @@ test('Test that admin pages show up', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
+  await navBar.gotoSendHearingNoticePage();
+  await sendHearingNoticePage.isDisplayed();
   // await navBar.gotoAddStuffPage();
   // await addStuffPage.isDisplayed();
   // await navBar.gotoListStuffPage();
