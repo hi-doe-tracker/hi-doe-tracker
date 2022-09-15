@@ -44,8 +44,6 @@ test('Test that user pages show up', async () => {
   await sendHearingNoticePage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await submitTestimonyPage.isDisplayed();
-  await navBar.gotoProfilePage();
-  await profilePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
@@ -57,6 +55,14 @@ test('Test that sign up and sign out work', async () => {
   await navBar.isLoggedIn(newCredentials.username);
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
+
+test('Test that Profile page shows up', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoProfilePage();
+  await profilePage.isDisplayed();
 });
 
 /*
@@ -81,12 +87,4 @@ test('Test that admin pages show up', async () => {
   await navBar.logout();
   await signOutPage.isDisplayed();
 
-});
-
-test('Test that Profile page shows up', async () => {
-  await navBar.gotoSignInPage();
-  await signInPage.signin(adminCredentials.username, adminCredentials.password);
-  await navBar.isLoggedIn(adminCredentials.username);
-  await navBar.gotoProfilePage();
-  await profilePage.isDisplayed();
 }); */
