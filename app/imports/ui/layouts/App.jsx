@@ -21,6 +21,7 @@ import ViewBills from '../pages/ViewBills';
 import SearchBarButton from '../components/SearchBarButton';
 import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
+import SubmitTestimony from '../pages/SubmitTestimony';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
             <Route exact path="/bills" element={<ViewBills />} />
             <Route exact path="/send" element={<SendHearingNotice />} />
             <Route exact path="/viewbill" element={<ViewBill />} />
+            <Route exact path="/submit" element={<ProtectedRoute><SubmitTestimony /></ProtectedRoute>} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signout" element={<SignOut />} />
