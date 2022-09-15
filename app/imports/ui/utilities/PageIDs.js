@@ -1,5 +1,6 @@
 /** Define ids for each page. */
 export const PAGE_IDS = {
+  VIEW_BILLS: 'view-bills',
   ADD_STUFF: 'add-stuff',
   EDIT_STUFF: 'edit-stuff',
   LANDING: 'landing',
@@ -11,4 +12,5 @@ export const PAGE_IDS = {
   SIGN_IN: 'sign-in',
   SIGN_OUT: 'sign-out',
   SIGN_UP: 'sign-up',
+  PROFILE: 'profile',
 };

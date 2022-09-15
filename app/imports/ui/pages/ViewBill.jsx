@@ -1,0 +1,330 @@
+import React from 'react';
+import {
+  Row,
+  Container,
+  Col,
+  Breadcrumb,
+  ListGroup,
+  Accordion,
+} from 'react-bootstrap';
+import TestimonyProgressBar from '../components/TestimonyProgressBar';
+
+const ViewBill = () => (
+  <Container className="viewbill-container">
+    <Row>
+      <center>
+        <Col>
+          <h2>Bill | Resolution Tracking</h2>
+          <Breadcrumb className="viewbill-breadcrumb">
+            <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+              Current Bill
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+              Measure(Status)
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Col>
+      </center>
+    </Row>
+    <Row className="viewbill-row">
+      <Col>
+        <ListGroup>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font ">
+              <span className="fw-bold viewbill-spandiv">Bill/Resolution No</span>
+              <span className="description-font viewbill-spandiv">AA1, BA1, CA2, DVB3</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Office</span>
+              <span className="description-font viewbill-spandiv">
+                OSIP, OPS, OCID, ABCD, EFGH, HIJK
+              </span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Action</span>
+              <span className="description-font viewbill-spandiv">Testimony</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Status</span>
+              <span className="description-font viewbill-spandiv">2nd Crossover</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Companion</span>
+              <span className="description-font viewbill-spandiv">What goes here?</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Legislation Type</span>
+              <span className="description-font viewbill-spandiv">Bill</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Committee Referral</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Introduced By</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Hearing Date</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Hearing Time</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Hearing Location</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Committee</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex">
+            <div className="ms-2 me-auto viewbill-div viewbill-font">
+              <span className="fw-bold viewbill-spandiv">Type</span>
+              <span className="description-font viewbill-spandiv">ABC, DEF, GHI</span>
+            </div>
+          </ListGroup.Item>
+        </ListGroup>
+      </Col>
+      <Col>
+        <ListGroup className="viewbill-col2">
+          <ListGroup.Item as="li" className="d-flex flex2">
+            <div className="ms-2 me-auto flexcenter viewbill-font">
+              <div className="fw-bold divcolor">Report Title</div>
+              <div className="description-font">
+                Department of Education, Community Schools, Grants, Pilot
+                Program
+              </div>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex flex2">
+            <div className="ms-2 me-auto flexcenter viewbill-font">
+              <div className="fw-bold divcolor">Measure Title</div>
+              <div className="description-font">Relating to Education</div>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex flex2">
+            <div className="ms-2 me-auto flexcenter viewbill-font">
+              <div className="fw-bold divcolor">Description</div>
+              <div className="description-font">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+              </div>
+            </div>
+          </ListGroup.Item>
+          <ListGroup.Item as="li" className="d-flex flex2">
+            <Accordion className="viewbill-accordion description-font">
+              <Accordion.Item eventKey="0" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    All Versions
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Committee Reports
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="2" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Youtube
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="3" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Last Status Check
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="4" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Similar
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="5" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Lead Office Position
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="6" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Testifier
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="viewbill-accbody">
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                  <p className="description-font">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="7" className="flexcenter">
+                <Accordion.Header className="viewbill-acchead">
+                  <div className="fw-bold divcolor viewbill-font acc-header">
+                    Testimony
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="full-body-testimony">
+                  <ListGroup>
+                    <ListGroup.Item as="li" className="full-body-testimony">
+                      <div className="ms-2 me-auto viewbill-div viewbill-font ">
+                        <span className="fw-bold viewbill-spandiv">Testimony 3</span>
+                        <span className="description-font viewbill-spandiv">09/06/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={50} />
+                    </ListGroup.Item>
+                    <br />
+                    <ListGroup.Item as="li" className="full-body-testimony">
+                      <div className="ms-2 me-auto viewbill-div viewbill-font">
+                        <span className="fw-bold viewbill-spandiv">Testimony 2</span>
+                        <span className="description-font viewbill-spandiv">09/01/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={100} />
+                    </ListGroup.Item>
+                    <br />
+                    <ListGroup.Item>
+                      <div className="ms-2 me-auto viewbill-div viewbill-font">
+                        <span className="fw-bold viewbill-spandiv">Testimony 1</span>
+                        <span className="description-font viewbill-spandiv">08/16/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={100} />
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </ListGroup.Item>
+        </ListGroup>
+      </Col>
+    </Row>
+  </Container>
+);
+
+export default ViewBill;
