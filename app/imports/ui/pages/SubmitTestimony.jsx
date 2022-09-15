@@ -6,10 +6,10 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Select from 'react-select';
-import { Stuffs } from '../../api/stuff/StuffCollection';
-// import { Testimony } from '../../api/testimony/TestimonyCollection';
+import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // Test data for bills
 const billOptions = [
@@ -48,7 +48,7 @@ const SubmitTestimony = () => {
   const submit = (data, formRef) => {
     const { firstName, lastName, position, testifying, organization, testifyingMethod, testimony } = data;
     const owner = Meteor.user().username;
-    const collectionName = Stuffs.getCollectionName();
+    const collectionName = Testimonies.getCollectionName();
     const definitionData = { firstName, lastName, position, testifying, organization, testifyingMethod, testimony, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -61,7 +61,7 @@ const SubmitTestimony = () => {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
-    <Container id={PAGE_IDS.ADD_STUFF} className="py-3">
+    <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
         <div className="mb-3 required">
           <span>Relevant Bill</span>
@@ -74,14 +74,14 @@ const SubmitTestimony = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField name="firstName" placeholder="Type first name here" />
-                <TextField name="lastName" placeholder="Type last name here" />
-                <SelectField name="position" multiple checkboxes />
-                <SelectField name="testifying" multiple checkboxes />
+                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
+                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes />
                 <TextField name="organization" placeholder="Type organization name here" disabled />
-                <SelectField name="testifyingMethod" multiple checkboxes />
-                <LongTextField name="testimony" placeholder="Type testimony here..." />
-                <SubmitField value="Submit" />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
+                <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>
