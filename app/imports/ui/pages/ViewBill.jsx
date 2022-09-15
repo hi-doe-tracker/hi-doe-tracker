@@ -8,9 +8,10 @@ import {
   Accordion,
 } from 'react-bootstrap';
 import TestimonyProgressBar from '../components/TestimonyProgressBar';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const ViewBill = () => (
-  <Container className="viewbill-container">
+  <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
     <Row>
       <center>
         <Col>
