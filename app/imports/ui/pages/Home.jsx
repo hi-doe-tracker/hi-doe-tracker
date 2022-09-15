@@ -6,6 +6,7 @@ import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
 import HomeMobile from './HomeMobile';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const objects = [
   {
@@ -43,7 +44,7 @@ const objects = [
 const darkTheme = false;
 
 const HomeContent = () => (
-  <Container fluid className="px-5">
+  <Container id={PAGE_IDS.HOME} fluid className="px-5">
     <Row>
       <Col xs={3}>
         <BillQuickReference darkTheme={darkTheme} />
