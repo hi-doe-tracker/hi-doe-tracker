@@ -21,7 +21,7 @@ const BillViewDisplay = ({ billData }) => {
     );
   }
   return (
-    <LinkContainer to="/viewbill">
+    <LinkContainer id="bill-view" to="/viewbill">
       <ListGroup.Item action href={billData.url}>
         <Row>
           <Col sm="2">{billData.billName}</Col>

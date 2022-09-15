@@ -74,6 +74,27 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
   }
 
+  /* Go to the view bill page. */
+  async gotoViewBillPage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
+    await t.click('#bill-view');
+  }
+
+  /* Go to the home page. */
+  async gotoHomePage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_HOME_PAGE}`);
+  }
+
   /* Go to the send hearing notice page. */
   async gotoSendHearingNoticePage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
