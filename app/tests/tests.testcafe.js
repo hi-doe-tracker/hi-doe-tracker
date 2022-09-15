@@ -5,6 +5,7 @@ import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPa
 import { signInPage } from './signin.page';
 import { signUpPage } from './signup.page';
 import { navBar } from './navbar.component';
+import { profilePage } from './profile.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -78,4 +79,13 @@ test('Test that admin pages show up', async () => {
   // await manageDatabasePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
-}); */
+
+});
+
+test('Test that Profile page shows up', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  await navBar.gotoProfilePage();
+  await profilePage.isDisplayed();
+});
