@@ -42,6 +42,7 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage.isDisplayed();
+  await navBar.gotoSubmitTestimonyPagePage();
   await submitTestimonyPage.isDisplayed();
   // // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
@@ -66,6 +67,8 @@ test('Test that admin pages show up', async () => {
   await navBar.isLoggedIn(adminCredentials.username);
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage.isDisplayed();
+  await navBar.gotoSubmitTestimonyPagePage();
+  await submitTestimonyPage.isDisplayed();
   // await navBar.gotoAddStuffPage();
   // await addStuffPage.isDisplayed();
   // await navBar.gotoListStuffPage();
