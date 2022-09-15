@@ -61,7 +61,7 @@ const SubmitTestimony = () => {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
-    <Container id={PAGE_IDS.ADD_STUFF} className="py-3">
+    <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
         <div className="mb-3 required">
           <span>Relevant Bill</span>
