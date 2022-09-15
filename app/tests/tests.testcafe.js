@@ -1,6 +1,6 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, submitTestimonyPage } from './simple.page';
 // import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { signUpPage } from './signup.page';
@@ -42,6 +42,8 @@ test('Test that user pages show up', async () => {
   await viewBillPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage.isDisplayed();
+  await navBar.gotoSubmitTestimonyPage();
+  await submitTestimonyPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
