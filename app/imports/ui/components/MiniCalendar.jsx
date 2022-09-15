@@ -5,19 +5,24 @@ import PropTypes from 'prop-types';
 
 const testData = [
   {
-    measureType: 'BILL',
+    measureType: 'hb',
     measureNumber: 101,
     datetime: 'Wed Sep 21 2022 08:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
   },
   {
-    measureType: 'BILL',
+    measureType: 'hb',
     measureNumber: 103,
     datetime: 'Wed Sep 21 2022 10:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
   },
   {
-    measureType: 'BILL',
+    measureType: 'hb',
     measureNumber: 107,
     datetime: 'Fri Sep 23 2022 12:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
+  },
+  {
+    measureType: 'hb',
+    measureNumber: 107,
+    datetime: 'Sat Oct 01 2022 12:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
   },
 ];
 
