@@ -7,9 +7,9 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Select from 'react-select';
 import { Stuffs } from '../../api/stuff/StuffCollection';
-// import { Testimony } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // Test data for bills
 const billOptions = [
@@ -74,14 +74,14 @@ const SubmitTestimony = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField name="firstName" placeholder="Type first name here" />
-                <TextField name="lastName" placeholder="Type last name here" />
-                <SelectField name="position" multiple checkboxes />
-                <SelectField name="testifying" multiple checkboxes />
+                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
+                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes />
                 <TextField name="organization" placeholder="Type organization name here" disabled />
-                <SelectField name="testifyingMethod" multiple checkboxes />
-                <LongTextField name="testimony" placeholder="Type testimony here..." />
-                <SubmitField value="Submit" />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
+                <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>
