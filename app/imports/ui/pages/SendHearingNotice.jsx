@@ -61,7 +61,7 @@ const SendHearingNotice = () => {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
-    <Container id={PAGE_IDS.ADD_STUFF} className="py-3">
+    <Container id={PAGE_IDS.SEND_HEARING_NOTICE} className="py-3">
       <Row className="justify-content-center">
         <Col>
           <Col className="text-center"><h2>Send Hearing Notice</h2></Col>
