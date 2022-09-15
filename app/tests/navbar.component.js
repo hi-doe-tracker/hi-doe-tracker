@@ -64,6 +64,16 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_ADD_STUFF}`);
   }
 
+  /* Go to the view bills page. */
+  async gotoViewBillsPage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
+  }
+
   /* Go to the list stuff page. */
   async gotoListStuffPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
