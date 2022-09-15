@@ -121,7 +121,7 @@ class NavBar {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE}`);
   }
 }
 
