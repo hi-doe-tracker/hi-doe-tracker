@@ -124,6 +124,10 @@ body {
   border-bottom: 0 !important;
 }
 
+.landing-space{
+  margin-top: 200px;
+}
+
 @media screen and (max-width: 1000px) {
   .viewbill-row {
     display: flex;
@@ -149,3 +153,4 @@ body {
     border-bottom-width: 3px;
   }
 }
+
