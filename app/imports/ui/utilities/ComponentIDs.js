@@ -27,4 +27,11 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_EMAIL: 'sign-up-form-email',
   SIGN_UP_FORM_PASSWORD: 'sign-up-form-password',
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
+  SUBMIT_TESTIMONY_FORM_FIRST_NAME: 'submit-testimony-form-first-name',
+  SUBMIT_TESTIMONY_FORM_LAST_NAME: 'submit-testimony-form-last-name',
+  SUBMIT_TESTIMONY_FORM_POSITION: 'submit-testimony-form-position',
+  SUBMIT_TESTIMONY_FORM_TESTIFYING: 'submit-testimony-form-testifying',
+  SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD: 'submit-testimony-form-testifying-method',
+  SUBMIT_TESTIMONY_FORM_TESTIMONY: 'submit-testimony-form-testimony',
+  SUBMIT_TESTIMONY_FORM_SUBMIT: 'submit-testimony-form-submit',
 };
