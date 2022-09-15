@@ -7,6 +7,7 @@ import {
   ListGroup,
   Accordion,
 } from 'react-bootstrap';
+import TestimonyProgressBar from '../components/TestimonyProgressBar';
 
 const ViewBill = () => (
   <Container className="viewbill-container">
@@ -287,22 +288,35 @@ const ViewBill = () => (
               <Accordion.Item eventKey="7" className="flexcenter">
                 <Accordion.Header className="viewbill-acchead">
                   <div className="fw-bold divcolor viewbill-font acc-header">
-                    Approved testimony
+                    Testimony
                   </div>
                 </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  <p className="description-font">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </p>
-                  <p className="description-font">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </p>
-                  <p className="description-font">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </p>
-                  <p className="description-font">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </p>
+                <Accordion.Body className="full-body-testimony">
+                  <ListGroup>
+                    <ListGroup.Item as="li" className="full-body-testimony">
+                      <div className="ms-2 me-auto viewbill-div viewbill-font ">
+                        <span className="fw-bold viewbill-spandiv">Testimony 3</span>
+                        <span className="description-font viewbill-spandiv">09/06/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={50} />
+                    </ListGroup.Item>
+                    <br />
+                    <ListGroup.Item as="li" className="full-body-testimony">
+                      <div className="ms-2 me-auto viewbill-div viewbill-font">
+                        <span className="fw-bold viewbill-spandiv">Testimony 2</span>
+                        <span className="description-font viewbill-spandiv">09/01/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={100} />
+                    </ListGroup.Item>
+                    <br />
+                    <ListGroup.Item>
+                      <div className="ms-2 me-auto viewbill-div viewbill-font">
+                        <span className="fw-bold viewbill-spandiv">Testimony 1</span>
+                        <span className="description-font viewbill-spandiv">08/16/2022</span>
+                      </div>
+                      <TestimonyProgressBar percent={100} />
+                    </ListGroup.Item>
+                  </ListGroup>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
