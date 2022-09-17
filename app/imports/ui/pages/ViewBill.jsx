@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Row,
   Container,
@@ -10,7 +11,11 @@ import {
 import TestimonyProgressBar from '../components/TestimonyProgressBar';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-const ViewBill = () => (
+const ViewBill = ({viewBill}) => 
+{
+  console.log(viewBill);
+  const {billlink, billno, office} = viewBill;
+  return (
   <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
     <Row>
       <center>
@@ -33,7 +38,7 @@ const ViewBill = () => (
           <ListGroup.Item as="li" className="d-flex">
             <div className="ms-2 me-auto viewbill-div viewbill-font ">
               <span className="fw-bold viewbill-spandiv">Bill/Resolution No</span>
-              <span className="description-font viewbill-spandiv">AA1, BA1, CA2, DVB3</span>
+              <span className="description-font viewbill-spandiv">{billno}</span>
             </div>
           </ListGroup.Item>
           <ListGroup.Item as="li" className="d-flex">
@@ -327,5 +332,42 @@ const ViewBill = () => (
     </Row>
   </Container>
 );
+  }
+
+ViewBill.propTypes = {
+  billlink: PropTypes.string,
+  billno: PropTypes.number,
+  office: PropTypes.arrayOf(PropTypes.string),
+  action: PropTypes.number,
+  actno: PropTypes.number,
+  companion: PropTypes.string,
+  reporttitle: PropTypes.string,
+  legtype: PropTypes.string,
+  committeereferral : PropTypes.arrayOf(PropTypes.string),
+  measuretitle: PropTypes.string,
+  introducedby: PropTypes.string,
+  introducedbydate: PropTypes.string,
+  description: PropTypes.string,
+  allversion: PropTypes.arrayOf(PropTypes.string),
+  committeereports: PropTypes.arrayOf(PropTypes.string),
+  hearingnotices: PropTypes.arrayOf(PropTypes.string),
+  laststatus:PropTypes.arrayOf(PropTypes.string),
+  notifiedhearing: PropTypes.string,
+  hearingdate:PropTypes.string,
+  hearingtime: PropTypes.string,
+  hearinglocation: PropTypes.string,
+  committee: PropTypes.string,
+  type: PropTypes.string,
+  testifiercontact: PropTypes.arrayOf(PropTypes.string),
+  similar: PropTypes.string,
+  leadofficeposition: PropTypes.string,
+  testifier: PropTypes.string,
+  approvedtestimony: PropTypes.arrayOf(PropTypes.string),
+  monitoringreports: PropTypes.string,
+  hearingcomments: PropTypes.arrayOf(PropTypes.string),
+  testimony: PropTypes.arrayOf(PropTypes.string),
+  rationale: PropTypes.string,
+  statustext: PropTypes.arrayOf(PropTypes.string)
+}
 
 export default ViewBill;

@@ -1,5 +1,5 @@
 
-const viewBill = {
+export const viewBill = {
     billlink: "http://www.google.com",
     billno: "HB 012E",
     office: ["OSIP", "OPS", "OCID", "ABCD", "EFGH", "HIJK"],
@@ -23,7 +23,7 @@ const viewBill = {
     hearingdate: "Wed Sep 21 2022",
     hearingtime: "02:30 PM",
     hearingLocation: "Cabinet Building",
-    Committee: "Senate",
+    committee: "Senate",
     type: "Decision Making",
     testifiercontact: ["abc@gmail.com", "def@gmail.com"],
     similar: "Placeholder for similar",
@@ -35,11 +35,4 @@ const viewBill = {
     testimony: ["orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet", "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"],
     rationale: "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     statustext:["orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet", "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"],
-
-
-
-
-
-
-
 }

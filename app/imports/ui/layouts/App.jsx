@@ -23,6 +23,7 @@ import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
+import {viewBill} from '../../test-utilities/viewbilltestdata';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -38,7 +39,7 @@ const App = () => {
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/bills" element={<ViewBills />} />
             <Route exact path="/send" element={<SendHearingNotice />} />
-            <Route exact path="/viewbill" element={<ViewBill />} />
+            <Route exact path="/viewbill" element={<ViewBill viewBill={viewBill}/>} />
             <Route exact path="/submit" element={<ProtectedRoute><SubmitTestimony /></ProtectedRoute>} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
