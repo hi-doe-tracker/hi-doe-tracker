@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
 import ListStuff from '../pages/ListStuff';
@@ -23,7 +28,7 @@ import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
-import {viewBill} from '../../test-utilities/viewbilltestdata';
+import { viewBill } from '../../test-utilities/viewbilltestdata';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -39,16 +44,75 @@ const App = () => {
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/bills" element={<ViewBills />} />
             <Route exact path="/send" element={<SendHearingNotice />} />
-            <Route exact path="/viewbill" element={<ViewBill viewBill={viewBill}/>} />
-            <Route exact path="/submit" element={<ProtectedRoute><SubmitTestimony /></ProtectedRoute>} />
+            <Route
+              exact
+              path="/viewbill"
+              element={<ViewBill viewBill={viewBill} />}
+            />
+            <Route
+              exact
+              path="/submit"
+              element={
+                (
+                  <ProtectedRoute>
+                    <SubmitTestimony />
+                  </ProtectedRoute>
+                )
+              }
+            />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signout" element={<SignOut />} />
-            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="/list" element={<ProtectedRoute><ListStuff /></ProtectedRoute>} />
-            <Route path="/add" element={<ProtectedRoute><AddStuff /></ProtectedRoute>} />
-            <Route path="/edit/:_id" element={<ProtectedRoute><EditStuff /></ProtectedRoute>} />
-            <Route path="/admin" element={<AdminProtectedRoute><ListStuffAdmin /></AdminProtectedRoute>} />
+            <Route
+              path="/home"
+              element={
+                (
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/list"
+              element={
+                (
+                  <ProtectedRoute>
+                    <ListStuff />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                (
+                  <ProtectedRoute>
+                    <AddStuff />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/edit/:_id"
+              element={
+                (
+                  <ProtectedRoute>
+                    <EditStuff />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                (
+                  <AdminProtectedRoute>
+                    <ListStuffAdmin />
+                  </AdminProtectedRoute>
+                )
+              }
+            />
             <Route path="/notauthorized" element={<NotAuthorized />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
@@ -83,7 +147,7 @@ const AdminProtectedRoute = ({ children }) => {
   }
   const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
   console.log('AdminProtectedRoute', isLogged, isAdmin);
-  return (isLogged && isAdmin) ? children : <Navigate to="/notauthorized" />;
+  return isLogged && isAdmin ? children : <Navigate to="/notauthorized" />;
 };
 
 // Require a component and location to be passed to each ProtectedRoute.
