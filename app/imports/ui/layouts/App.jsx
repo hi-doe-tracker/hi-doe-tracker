@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
+import { useTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import {
   BrowserRouter as Router,
@@ -34,11 +35,14 @@ import { viewBill } from '../../test-utilities/viewbilltestdata';
 
 const App = () => {
   const [style, setStyle] = useState({ opacity: '1' });
+  const { currentUser } = useTracker(() => ({
+    currentUser: Meteor.user() ? Meteor.user().username : '',
+  }), []);
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
         <NavBar />
-        <SearchBarButton setStyle={setStyle} />
+        {currentUser ? <SearchBarButton setStyle={setStyle} /> : ''}
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
