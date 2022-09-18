@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Row,
   Container,
@@ -7,12 +7,12 @@ import {
   Breadcrumb,
   ListGroup,
   Accordion,
-} from "react-bootstrap";
-import TestimonyProgressBar from "../components/TestimonyProgressBar";
-import { PAGE_IDS } from "../utilities/PageIDs";
+} from 'react-bootstrap';
+import TestimonyProgressBar from '../components/TestimonyProgressBar';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
+// ViewBill component displays information about the specific bill
 const ViewBill = ({ viewBill }) => {
-  console.log(viewBill);
   const {
     billlink,
     billno,
@@ -50,6 +50,7 @@ const ViewBill = ({ viewBill }) => {
     rationale,
   } = viewBill;
   return (
+    // returns a single container containing information about the bill
     <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
       <Row>
         <center>
@@ -87,7 +88,7 @@ const ViewBill = ({ viewBill }) => {
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold viewbill-spandiv">Office</span>
                 <span className="description-font viewbill-spandiv">
-                  {office.join(", ")}
+                  {office.join(', ')}
                 </span>
               </div>
             </ListGroup.Item>
@@ -139,7 +140,7 @@ const ViewBill = ({ viewBill }) => {
                   Committee Referral
                 </span>
                 <span className="description-font viewbill-spandiv">
-                  {committeereferral.join(", ")}
+                  {committeereferral.join(', ')}
                 </span>
               </div>
             </ListGroup.Item>
@@ -211,6 +212,16 @@ const ViewBill = ({ viewBill }) => {
                 </span>
               </div>
             </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Monitoring Reports
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {monitoringreports}
+                </span>
+              </div>
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col>
@@ -243,14 +254,21 @@ const ViewBill = ({ viewBill }) => {
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Notified of Hearing</div>
                 <div className="description-font">{notifiedhearingdate}</div>
-                <a className="description-font">{notifiedhearing}</a>
+                <a
+                  className="description-font"
+                  href={`https://${notifiedhearing}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {notifiedhearing}
+                </a>
               </div>
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex flex2">
               <div className="ms-2 me-auto flexcenter viewbill-font">
                 <div className="fw-bold divcolor">Testifier Contact</div>
                 <div className="description-font">
-                  {testifiercontact.join(", ")}
+                  {testifiercontact.join(', ')}
                 </div>
               </div>
             </ListGroup.Item>
@@ -264,7 +282,13 @@ const ViewBill = ({ viewBill }) => {
                   </Accordion.Header>
                   <Accordion.Body className="viewbill-accbody">
                     {allversion.map((item) => (
-                      <a className="description-font" key={item}>
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         {item}
                       </a>
                     ))}
@@ -278,7 +302,11 @@ const ViewBill = ({ viewBill }) => {
                   </Accordion.Header>
                   <Accordion.Body className="viewbill-accbody">
                     {committeereports.map((item) => (
-                      <a className="description-font" key={item}>
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                      >
                         {item}
                       </a>
                     ))}
@@ -292,7 +320,11 @@ const ViewBill = ({ viewBill }) => {
                   </Accordion.Header>
                   <Accordion.Body className="viewbill-accbody">
                     {hearingnotices.map((item) => (
-                      <a className="description-font" key={item}>
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                      >
                         {item}
                       </a>
                     ))}
@@ -326,7 +358,7 @@ const ViewBill = ({ viewBill }) => {
                     ))}
                   </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item eventKey="4" className="flexcenter">
+                <Accordion.Item eventKey="5" className="flexcenter">
                   <Accordion.Header className="viewbill-acchead">
                     <div className="fw-bold divcolor viewbill-font acc-header">
                       Hearing Comments
@@ -334,6 +366,20 @@ const ViewBill = ({ viewBill }) => {
                   </Accordion.Header>
                   <Accordion.Body className="viewbill-accbody">
                     {hearingcomments.map((item) => (
+                      <p className="description-font" key={item}>
+                        {item}
+                      </p>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="6" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Approved Testimony
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {approvedtestimony.map((item) => (
                       <p className="description-font" key={item}>
                         {item}
                       </p>
@@ -348,41 +394,19 @@ const ViewBill = ({ viewBill }) => {
                   </Accordion.Header>
                   <Accordion.Body className="full-body-testimony">
                     <ListGroup>
-                      <ListGroup.Item as="li" className="full-body-testimony">
-                        <div className="ms-2 me-auto viewbill-div viewbill-font ">
-                          <span className="fw-bold viewbill-spandiv">
-                            Testimony 3
-                          </span>
-                          <span className="description-font viewbill-spandiv">
-                            09/06/2022
-                          </span>
-                        </div>
-                        <TestimonyProgressBar percent={50} />
-                      </ListGroup.Item>
-                      <br />
-                      <ListGroup.Item as="li" className="full-body-testimony">
-                        <div className="ms-2 me-auto viewbill-div viewbill-font">
-                          <span className="fw-bold viewbill-spandiv">
-                            Testimony 2
-                          </span>
-                          <span className="description-font viewbill-spandiv">
-                            09/01/2022
-                          </span>
-                        </div>
-                        <TestimonyProgressBar percent={100} />
-                      </ListGroup.Item>
-                      <br />
-                      <ListGroup.Item>
-                        <div className="ms-2 me-auto viewbill-div viewbill-font">
-                          <span className="fw-bold viewbill-spandiv">
-                            Testimony 1
-                          </span>
-                          <span className="description-font viewbill-spandiv">
-                            08/16/2022
-                          </span>
-                        </div>
-                        <TestimonyProgressBar percent={100} />
-                      </ListGroup.Item>
+                      {testimony.map((item) => (
+                        <ListGroup.Item as="li" className="full-body-testimony">
+                          <div className="ms-2 me-auto viewbill-div viewbill-font ">
+                            <span className="fw-bold viewbill-spandiv">
+                              {item}
+                            </span>
+                            <span className="description-font viewbill-spandiv">
+                              09/06/2022
+                            </span>
+                          </div>
+                          <TestimonyProgressBar percent={75} />
+                        </ListGroup.Item>
+                      ))}
                     </ListGroup>
                   </Accordion.Body>
                 </Accordion.Item>
@@ -416,6 +440,7 @@ ViewBill.propTypes = {
     hearingnotices: PropTypes.arrayOf(PropTypes.string),
     laststatus: PropTypes.arrayOf(PropTypes.string),
     notifiedhearing: PropTypes.string,
+    notifiedhearingdate: PropTypes.string,
     hearingdate: PropTypes.string,
     hearingtime: PropTypes.string,
     hearinglocation: PropTypes.string,
@@ -431,7 +456,7 @@ ViewBill.propTypes = {
     testimony: PropTypes.arrayOf(PropTypes.string),
     rationale: PropTypes.string,
     statustext: PropTypes.arrayOf(PropTypes.string),
-  }),
+  }).isRequired,
 };
 
 export default ViewBill;
