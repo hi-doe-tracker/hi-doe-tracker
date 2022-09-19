@@ -4,7 +4,7 @@ import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
 
 const BillViewDisplay = ({ billData }) => {
-  const mobileView = useMediaQuery('(max-width: 809px)');
+  const mobileView = useMediaQuery('(max-width: 850px)');
 
   if (mobileView) {
     return (
