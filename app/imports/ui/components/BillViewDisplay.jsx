@@ -8,7 +8,7 @@ const BillViewDisplay = ({ billData }) => {
 
   if (mobileView) {
     return (
-      <ListGroup.Item action href="/viewbill">
+      <ListGroup.Item action id="bill-view" href="/viewbill">
         <Row><Col>{billData.billName}</Col></Row>
         <Row><Col>{billData.date}</Col></Row>
         <Row><Col>{billData.offices.toString()}</Col></Row>
@@ -18,7 +18,7 @@ const BillViewDisplay = ({ billData }) => {
     );
   }
   return (
-    <ListGroup.Item action href="/viewbill">
+    <ListGroup.Item action id="bill-view" href="/viewbill">
       <Row>
         <Col sm="2">{billData.billName}</Col>
         <Col sm="2">{billData.date}</Col>
