@@ -9,8 +9,8 @@ const BillViewDisplay = ({ billData }) => {
 
   if (mobileView) {
     return (
-      <ListGroup.Item action>
-        <Row><Col><Link id="bill-view" to="/viewbill">{billData.billName}</Link></Col></Row>
+      <ListGroup.Item action href="/viewbill">
+        <Row><Col>{billData.billName}</Col></Row>
         <Row><Col>{billData.date}</Col></Row>
         <Row><Col>{billData.offices.toString()}</Col></Row>
         <Row><Col>Progress<ProgressBar now={billData.progress} /><br /></Col></Row>
@@ -19,9 +19,9 @@ const BillViewDisplay = ({ billData }) => {
     );
   }
   return (
-    <ListGroup.Item action>
+    <ListGroup.Item action href="/viewbill">
       <Row>
-        <Col sm="2"><Link id="bill-view" to="/viewbill">{billData.billName}</Link></Col>
+        <Col sm="2">{billData.billName}</Col>
         <Col sm="2">{billData.date}</Col>
         <Col sm="3">{billData.offices.toString()}</Col>
         <Col sm="3">Progress<ProgressBar now={billData.progress} /></Col>
