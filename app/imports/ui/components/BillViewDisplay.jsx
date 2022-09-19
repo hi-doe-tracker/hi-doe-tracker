@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
-import { Link } from 'react-router-dom';
 
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 809px)');
