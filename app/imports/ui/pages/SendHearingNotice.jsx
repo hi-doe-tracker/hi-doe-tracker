@@ -53,7 +53,7 @@ const SendHearingNotice = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', 'Item added successfully', 'success');
+        swal('Success', 'Hearing Notice submitted successfully', 'success');
         formRef.reset();
       });
   };
