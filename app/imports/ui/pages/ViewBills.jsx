@@ -40,50 +40,36 @@ const officeNames = [
   {
     name: 'OTM',
     eventKey: 'otm-bills',
-  }];
+  },
+];
 
 const ViewBills = () => {
-  const mobileView = useMediaQuery('(max-width: 760px)');
-
-  if (mobileView) {
-    return (
-      <Container id={PAGE_IDS.VIEW_BILLS}>
-        <Tab.Container defaultActiveKey="all-bills">
-          <br />
-          <Row>
-            <Col sm="1" />
-            <Col sm="2">
-              <h2>Offices</h2>
-              <Nav variant="pills" className="mb-3">
-                {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
-              </Nav>
-              <br />
-            </Col>
-            <Col sm="8">
-              <Tab.Content>
-                {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
-              </Tab.Content>
-            </Col>
-          </Row>
-        </Tab.Container>
-      </Container>
-    );
-  }
+  const mobileView = useMediaQuery('(max-width: 850px)');
 
   return (
     <Container id={PAGE_IDS.VIEW_BILLS}>
       <Tab.Container defaultActiveKey="all-bills">
+        {mobileView ? <br /> : <div />}
         <Row>
           <Col sm="1" />
           <Col sm="2">
             <h2>Offices</h2>
-            <Nav variant="pills" className="flex-column">
-              {officeNames.map(office => <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>)}
+            <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
+              {officeNames.map((office) => (
+                <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
+              ))}
             </Nav>
+            {mobileView ? <br /> : <div />}
           </Col>
           <Col sm="8">
             <Tab.Content>
-              {officeNames.map(officeName => <BillViewTab key={officeName.name} eventKey={officeName.eventKey} officeName={officeName.name} />)}
+              {officeNames.map((officeName) => (
+                <BillViewTab
+                  key={officeName.name}
+                  eventKey={officeName.eventKey}
+                  officeName={officeName.name}
+                />
+              ))}
             </Tab.Content>
           </Col>
         </Row>
