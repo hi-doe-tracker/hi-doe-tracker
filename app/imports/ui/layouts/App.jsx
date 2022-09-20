@@ -30,6 +30,7 @@ import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
+import MiniCalendar from '../components/MiniCalendar';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -46,6 +47,7 @@ const App = () => {
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
+            <Route exact path="/calendar" element={<MiniCalendar />} />
             <Route exact path="/bills" element={<ViewBills />} />
             <Route exact path="/send" element={<SendHearingNotice />} />
             <Route
