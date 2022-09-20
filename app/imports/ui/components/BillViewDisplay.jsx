@@ -2,36 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
-import { LinkContainer } from 'react-router-bootstrap';
 
 const BillViewDisplay = ({ billData }) => {
-  const mobileView = useMediaQuery('(max-width: 809px)');
+  const mobileView = useMediaQuery('(max-width: 850px)');
 
   if (mobileView) {
     return (
-      <LinkContainer to="/viewbill">
-        <ListGroup.Item action href={billData.url}>
-          <Row><Col>{billData.billName}</Col></Row>
-          <Row><Col>{billData.date}</Col></Row>
-          <Row><Col>{billData.offices.toString()}</Col></Row>
-          <Row><Col>Progress<ProgressBar now={billData.progress} /><br /></Col></Row>
-          <Row><Col><Button variant="outline-danger">Delete</Button></Col></Row>
-        </ListGroup.Item>
-      </LinkContainer>
+      <ListGroup.Item action id="bill-view" href="/viewbill">
+        <Row><Col>{billData.billName}</Col></Row>
+        <Row><Col>{billData.date}</Col></Row>
+        <Row><Col>{billData.offices.toString()}</Col></Row>
+        <Row><Col>Progress<ProgressBar now={billData.progress} /><br /></Col></Row>
+        <Row><Col><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col></Row>
+      </ListGroup.Item>
     );
   }
   return (
-    <LinkContainer id="bill-view" to="/viewbill">
-      <ListGroup.Item action href={billData.url}>
-        <Row>
-          <Col sm="2">{billData.billName}</Col>
-          <Col sm="2">{billData.date}</Col>
-          <Col sm="3">{billData.offices.toString()}</Col>
-          <Col sm="3">Progress<ProgressBar now={billData.progress} /></Col>
-          <Col sm="1"><Button variant="outline-danger">Delete</Button></Col>
-        </Row>
-      </ListGroup.Item>
-    </LinkContainer>
+    <ListGroup.Item action id="bill-view" href="/viewbill">
+      <Row>
+        <Col sm="2">{billData.billName}</Col>
+        <Col sm="2">{billData.date}</Col>
+        <Col sm="3">{billData.offices.toString()}</Col>
+        <Col sm="3">Progress<ProgressBar now={billData.progress} /></Col>
+        <Col sm="1"><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col>
+      </Row>
+    </ListGroup.Item>
   );
 };
 
