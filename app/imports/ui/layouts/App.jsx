@@ -47,13 +47,13 @@ const App = () => {
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/calendar" element={<MiniCalendar />} />
-            <Route exact path="/bills" element={<ViewBills />} />
-            <Route exact path="/send" element={<SendHearingNotice />} />
+            <Route exact path="/calendar" element={<ProtectedRoute><MiniCalendar /></ProtectedRoute>} />
+            <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
+            <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
             <Route
               exact
               path="/viewbill"
-              element={<ViewBill viewBill={viewBill} />}
+              element={(<ProtectedRoute><ViewBill viewBill={viewBill} /></ProtectedRoute>)}
             />
             <Route
               exact
