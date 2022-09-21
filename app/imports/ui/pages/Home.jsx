@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
 import { useMediaQuery } from 'usehooks-ts';
+import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
@@ -18,14 +19,14 @@ const objects = [
   {
     title: 'Measures',
     icon: (<Archive size={100} />),
-    link: '',
-    description: 'description of where this will take you',
+    link: '/bills',
+    description: 'View all measures here',
   },
   {
     title: 'Submit Testimony',
     icon: (<FileEarmarkPdf size={100} />),
-    link: '',
-    description: 'description of where this will take you',
+    link: '/submit',
+    description: 'Fill out a form to sumbit your testimony here',
   },
   {
     title: 'Reports',
@@ -36,8 +37,8 @@ const objects = [
   {
     title: 'Calendar',
     icon: (<CalendarMonth size={100} />),
-    link: '',
-    description: 'description of where this will take you',
+    link: '/calendar',
+    description: 'Manage your calendar here',
   },
 ];
 
@@ -61,7 +62,7 @@ const HomeContent = () => (
                   bg={darkTheme ? 'dark' : ''}
                   text={darkTheme ? 'light' : 'dark'}
                 >
-                  <Card.Body>
+                  <Card.Body as={NavLink} to={info.link}>
                     <div className="d-flex justify-content-center">
                       {info.icon}
                     </div>
