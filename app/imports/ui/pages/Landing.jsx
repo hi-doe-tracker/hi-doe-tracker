@@ -13,7 +13,7 @@ const Landing = () => {
           <Row className="align-middle text-center">
             <Col xs={5}>
               <div className="state-logo-pic">
-                <Image src="/images/state-logo.png" class="image-fluid" />
+                <Image fluid src="/images/state-logo.png" />
               </div>
             </Col>
 
@@ -36,7 +36,7 @@ const Landing = () => {
       <Container id={PAGE_IDS.LANDING} className="py-3">
         <Row className="align-middle text-center">
           <Col xs={5}>
-            <Image roundedCircle src="/images/state-logo.png" width="300px" />
+            <Image fluid src="/images/state-logo.png" width="300px" />
           </Col>
 
           <Col xs={6} className="d-flex flex-column justify-content-center">
