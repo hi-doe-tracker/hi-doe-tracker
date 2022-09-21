@@ -128,6 +128,10 @@ body {
   margin-top: 200px;
 }
 
+.state-logo-pic {
+  max-width: 200px;
+}
+
 @media screen and (max-width: 1000px) {
   .viewbill-row {
     display: flex;
