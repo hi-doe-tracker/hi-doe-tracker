@@ -3,6 +3,7 @@ export const PAGE_IDS = {
   HOME: 'home',
   VIEW_BILLS: 'view-bills',
   VIEW_BILL: 'view-bill',
+  ASSIGN_BILLS: 'assign-bills',
   ADD_STUFF: 'add-stuff',
   EDIT_STUFF: 'edit-stuff',
   LANDING: 'landing',
