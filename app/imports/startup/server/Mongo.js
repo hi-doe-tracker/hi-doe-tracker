@@ -9,6 +9,7 @@ function addData(data) {
   Stuffs.define(data);
 }
 
+// Adds a scraper bill to database.
 function addScraperBill(scraperBill) {
   console.log(`Adding scraper bill: ${scraperBill.measureTitle}`);
   ScraperBills.define(scraperBill);
@@ -23,6 +24,7 @@ if (Stuffs.count() === 0) {
   }
 }
 
+// Initializes scraper bills collection.
 if (ScraperBills.count() === 0) {
   if (Meteor.settings.defaultScraperBills) {
     console.log('Creating default scraper bills.');
