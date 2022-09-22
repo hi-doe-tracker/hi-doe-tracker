@@ -5,7 +5,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { Link } from 'react-router-dom';
 
 const BillViewDisplay = ({ billData }) => {
-  const mobileView = useMediaQuery('(max-width: 809px)');
+  const mobileView = useMediaQuery('(max-width: 850px)');
 
   if (mobileView) {
     return (
@@ -20,8 +20,8 @@ const BillViewDisplay = ({ billData }) => {
   }
   return (
     <ListGroup.Item action>
-      <Row>
-        <Col sm="2"><Link id="bill-view" to="/viewbill">{billData.billName}</Link></Col>
+      <Row style={{ width: '100%' }}>
+        <Col><Link id="bill-view" to="/viewbill">{billData.billName}</Link></Col>
         <Col sm="2">{billData.date}</Col>
         <Col sm="3">{billData.offices.toString()}</Col>
         <Col sm="3">Progress<ProgressBar now={billData.progress} /></Col>
