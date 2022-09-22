@@ -51,11 +51,14 @@ const SendHearingNotice = () => {
     const collectionName = Stuffs.getCollectionName();
     const definitionData = { to, cc, bcc, from, subject, message, owner };
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', 'Hearing Notice submitted successfully', 'success');
+    (error) => {
+      if (error) {
+        swal('Error', error.message, 'error');
+      } else {
+        swal('Success', 'Hearing notice successfully sent!', 'success');
         formRef.reset();
-      });
+      }
+    });
   };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
