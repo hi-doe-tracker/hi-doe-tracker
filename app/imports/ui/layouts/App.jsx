@@ -12,7 +12,6 @@ import {
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
 import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddStuff from '../pages/AddStuff';
 import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
@@ -32,6 +31,7 @@ import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
 import MiniCalendar from '../components/MiniCalendar';
 import AssignBill from '../pages/AssignBill';
+import AdminManagement from '../pages/AdminManagement';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -115,7 +115,7 @@ const App = () => {
               element={
                 (
                   <AdminProtectedRoute>
-                    <ListStuffAdmin />
+                    <AdminManagement />
                   </AdminProtectedRoute>
                 )
               }
