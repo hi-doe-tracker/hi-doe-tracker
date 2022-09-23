@@ -21,13 +21,14 @@ class NoticeCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Stuff item.
+   * Defines a new Hearing Notice item.
    * @param to the email of the receiver.
    * @param from the sender.
    * @param cc additional receiver.
    * @param bcc additional receiver.
-   * @param dateOfHearing the condition of the item.
-   * @param testimony .
+   * @param dateOfHearing the date of the hearing.
+   * @param subject the email headline.
+   * @param message the context of the email.
    * @return {String} the docID of the new document.
    */
   define({ to, from, cc, bcc, dateOfHearing, subject, message }) {
@@ -46,12 +47,12 @@ class NoticeCollection extends BaseCollection {
   /**
    * Updates the given document.
    * @param docID the id of the document to update.
-   * @param firstName the first name of the testifier (optional).
-   * @param lastName the last name of the testifier (optional).
-   * @param position (optional).
-   * @param testifying the owner of the item (optional).
-   * @param testifyingMethod the condition of the item (optional).
-   * @param testimony (optional).
+   * @param from the sender.
+   * @param cc additional receiver.
+   * @param bcc additional receiver.
+   * @param dateOfHearing the date of the hearing.
+   * @param subject the email headline.
+   * @param message the context of the email.
    */
   update(docID, { to, from, cc, bcc, dateOfHearing, subject, message }) {
     const updateData = {};
@@ -81,7 +82,7 @@ class NoticeCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the stuff associated to an owner.
+   * It publishes the entire collection for admin and just the notice associated to an owner.
    */
   publish() {
     if (Meteor.isServer) {
@@ -98,7 +99,7 @@ class NoticeCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for stuff owned by the current user.
+   * Subscription method for hearing notice owned by the current user.
    */
   subscribeStuff() {
     if (Meteor.isClient) {
