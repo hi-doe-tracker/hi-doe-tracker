@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../../api/stuff/StuffCollection';
-import { ScraperBills } from '../../api/bill/ScraperBillCollection';
+import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
