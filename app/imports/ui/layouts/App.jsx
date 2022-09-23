@@ -11,9 +11,6 @@ import {
 } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
-import ListStuff from '../pages/ListStuff';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import SignUp from '../pages/SignUp';
 import SignOut from '../pages/SignOut';
@@ -76,36 +73,6 @@ const App = () => {
                 (
                   <ProtectedRoute>
                     <Home />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/list"
-              element={
-                (
-                  <ProtectedRoute>
-                    <ListStuff />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/add"
-              element={
-                (
-                  <ProtectedRoute>
-                    <AddStuff />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/edit/:_id"
-              element={
-                (
-                  <ProtectedRoute>
-                    <EditStuff />
                   </ProtectedRoute>
                 )
               }
