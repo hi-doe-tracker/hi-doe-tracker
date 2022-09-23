@@ -14,7 +14,7 @@ class ScraperBillCollection extends BaseCollection {
     super('ScraperBills', new SimpleSchema({
       bitAppropriation: Number,
       code: String,
-      companion: String,
+      companion: { type: String, optional: true },
       currentReferral: String,
       description: String,
       introducer: String,
