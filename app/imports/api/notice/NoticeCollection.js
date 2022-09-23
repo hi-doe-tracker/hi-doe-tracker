@@ -9,7 +9,7 @@ export const noticePublications = {
 
 class NoticeCollection extends BaseCollection {
   constructor() {
-    super('Notice', new SimpleSchema({
+    super('Notices', new SimpleSchema({
       to: String,
       from: String,
       cc: String,
@@ -88,7 +88,7 @@ class NoticeCollection extends BaseCollection {
       // get the NoticeCollection instance.
       const instance = this;
       /** This subscription publishes all hearing notice to a logged in user */
-      Meteor.publish(noticePublications.testimony, function publish() {
+      Meteor.publish(noticePublications.notice, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -102,7 +102,7 @@ class NoticeCollection extends BaseCollection {
    */
   subscribeStuff() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(noticePublications.testimony);
+      return Meteor.subscribe(noticePublications.notice);
     }
     return null;
   }
@@ -121,4 +121,4 @@ class NoticeCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Testimonies = new NoticeCollection();
+export const Notices = new NoticeCollection();

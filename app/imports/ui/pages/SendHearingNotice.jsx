@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { Notice } from '../../api/notice/NoticeCollection';
+import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
@@ -58,7 +58,7 @@ const SendHearingNotice = () => {
   const submit = (data, formRef) => {
     const { to, cc, bcc, from, subject, message } = data;
     const owner = Meteor.user().username;
-    const collectionName = Notice.getCollectionName();
+    const collectionName = Notices.getCollectionName();
     const definitionData = { to, cc, bcc, from, subject, message, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
