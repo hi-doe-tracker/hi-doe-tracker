@@ -16,17 +16,6 @@ const formSchema = new SimpleSchema({
   from: String,
   cc: String,
   bcc: String,
-  /*
-  officeOptions: {
-    type: String,
-    allowedValues: ['All', 'Deputy', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
-  },
-  billOptions: {
-    type: String,
-    allowedValues: ['HB150', 'SB234', 'HB563'],
-  },
-
-   */
   dateOfHearing: Date,
   subject: String,
   message: String,
@@ -63,7 +52,7 @@ const SendHearingNotice = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', 'Item added successfully', 'success');
+        swal('Success', 'Notice successfully sent', 'success');
         formRef.reset();
       });
   };
