@@ -11,9 +11,6 @@ import {
 } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
-import ListStuff from '../pages/ListStuff';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import SignUp from '../pages/SignUp';
 import SignOut from '../pages/SignOut';
@@ -48,13 +45,13 @@ const App = () => {
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/calendar" element={<MiniCalendar />} />
-            <Route exact path="/bills" element={<ViewBills />} />
-            <Route exact path="/send" element={<SendHearingNotice />} />
+            <Route exact path="/calendar" element={<ProtectedRoute><MiniCalendar /></ProtectedRoute>} />
+            <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
+            <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
             <Route
               exact
               path="/viewbill"
-              element={<ViewBill viewBill={viewBill} />}
+              element={(<ProtectedRoute><ViewBill viewBill={viewBill} /></ProtectedRoute>)}
             />
             <Route
               exact
@@ -76,36 +73,6 @@ const App = () => {
                 (
                   <ProtectedRoute>
                     <Home />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/list"
-              element={
-                (
-                  <ProtectedRoute>
-                    <ListStuff />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/add"
-              element={
-                (
-                  <ProtectedRoute>
-                    <AddStuff />
-                  </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/edit/:_id"
-              element={
-                (
-                  <ProtectedRoute>
-                    <EditStuff />
                   </ProtectedRoute>
                 )
               }
