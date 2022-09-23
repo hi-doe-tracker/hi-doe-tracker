@@ -56,7 +56,7 @@ const HomeContent = () => (
             <Col>
               <OverlayTrigger
                 placement="bottom"
-                overlay={(<Tooltip>{info.description}</Tooltip>)}
+                overlay={(<Tooltip key={info.title} id={info.title}>{info.description}</Tooltip>)}
               >
                 <Card
                   bg={darkTheme ? 'dark' : ''}
