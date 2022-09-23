@@ -6,16 +6,27 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { Stuffs } from '../../api/stuff/StuffCollection';
+import { Notice } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
   to: String,
+  from: String,
   cc: String,
   bcc: String,
-  from: String,
+  /*
+  officeOptions: {
+    type: String,
+    allowedValues: ['All', 'Deputy', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
+  },
+  billOptions: {
+    type: String,
+    allowedValues: ['HB150', 'SB234', 'HB563'],
+  },
+
+   */
   dateOfHearing: Date,
   subject: String,
   message: String,
@@ -41,14 +52,13 @@ const billOptions = [
 
 const bridge = new SimpleSchema2Bridge(formSchema);
 
-/* Renders the AddStuff page for adding a document. */
 const SendHearingNotice = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { to, cc, bcc, from, subject, message } = data;
     const owner = Meteor.user().username;
-    const collectionName = Stuffs.getCollectionName();
+    const collectionName = Notice.getCollectionName();
     const definitionData = { to, cc, bcc, from, subject, message, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -70,11 +80,11 @@ const SendHearingNotice = () => {
               <Card.Body>
                 <Row>
                   <Row>
-                    <Col><TextField name="to" placeholder="admin@foo.com" /></Col>
-                    <Col><TextField name="from" placeholder="admin@foo.com" /></Col>
+                    <Col><TextField name="to" placeholder="Email address" /></Col>
+                    <Col><TextField name="from" placeholder="Email address" /></Col>
                   </Row>
                   <Row>
-                    <Col><TextField name="cc" placeholder="user@foo.com" /></Col>
+                    <Col><TextField name="cc" placeholder="Email address" /></Col>
                     <Col><TextField name="bcc" /></Col>
                   </Row>
                   <Row>
