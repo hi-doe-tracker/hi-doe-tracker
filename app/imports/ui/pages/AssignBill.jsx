@@ -5,26 +5,11 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const bills = [
-  {
-    billId: 1,
-    billName: 'First Bill',
-  },
-  {
-    billId: 2,
-    billName: 'Second Bill',
-  },
-  {
-    billId: 3,
-    billName: 'Third Bill',
-  },
-];
-
 const offices = ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'];
 
 const AssignBill = () => {
   const { ready, scraperBills } = useTracker(() => {
-    const subscription = ScraperBills.subscribeScraperBill();
+    const subscription = ScraperBills.subscribeScraperBillAdmin();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the Stuff documents
@@ -40,7 +25,7 @@ const AssignBill = () => {
         <h3>Assigned Bill</h3>
         <Form.Select>
           <option>Assign an existing bill</option>
-          {bills.map(bill => <option key={bill.id} value={bill.id}>{bill.billName}</option>)}
+          {scraperBills.map(scraperBill => <option key={scraperBill._id} value={scraperBill._id}>{scraperBill.measureTitle}</option>)}
         </Form.Select>
         <h3>Offices</h3>
         {offices.map(office => (
@@ -54,7 +39,7 @@ const AssignBill = () => {
         ))}
       </Form>
     </Container>
-  ) : <LoadingSpinner message="Loading Stuff" />);
+  ) : <LoadingSpinner message="Loading Data" />);
 };
 
 export default AssignBill;
