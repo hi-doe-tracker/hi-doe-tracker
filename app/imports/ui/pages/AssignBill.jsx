@@ -1,11 +1,95 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Form, Button } from 'react-bootstrap';
+import SimpleSchema from 'simpl-schema';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import swal from 'sweetalert';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { Stuffs } from '../../api/stuff/StuffCollection';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
 
-const offices = ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'];
+const officeNames = ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'];
+
+// Creates a schema based on if the data is ready and the scraper bills given.
+const createSchema = (ready, scraperBills) => {
+  if (ready) {
+    // Create a schema to specify the structure of the data to appear in the form.
+    return new SimpleSchema({
+      assignedBill: {
+        type: String,
+        allowedValues: scraperBills,
+        defaultValue: 'Assign an existing bill',
+      },
+      offices: {
+        type: String,
+        allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
+        defaultValues: 'Pick an Office',
+      },
+      action: String,
+      actionnumber: String,
+      legaltype: String,
+      committeereferral: String,
+      allversions: String,
+      committeereports: String,
+      hearingnotices: String,
+      notifiedhearingdate: String,
+      notifiedhearing: String,
+      hearingdate: String,
+      hearingtime: String,
+      hearinglocation: String,
+      committee: String,
+      type: String,
+      testifiercontact: String,
+      similar: String,
+      leadofficeposition: String,
+      testifier: String,
+      approvedtestimony: String,
+      monitoringreports: String,
+      hearingComments: String,
+      testimony: String,
+      rationale: String,
+    });
+  }
+
+  return new SimpleSchema({
+    assignedBill: {
+      type: String,
+      allowedValues: [],
+      defaultValue: 'Assign an existing bill',
+    },
+    offices: {
+      type: String,
+      allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
+      defaultValues: 'Pick an Office',
+    },
+    action: String,
+    actionnumber: String,
+    legaltype: String,
+    committeereferral: String,
+    allversions: String,
+    committeereports: String,
+    hearingnotices: String,
+    notifiedhearingdate: String,
+    notifiedhearing: String,
+    hearingdate: String,
+    hearingtime: String,
+    hearinglocation: String,
+    committee: String,
+    type: String,
+    testifiercontact: String,
+    similar: String,
+    leadofficeposition: String,
+    testifier: String,
+    approvedtestimony: String,
+    monitoringreports: String,
+    hearingComments: String,
+    testimony: String,
+    rationale: String,
+  });
+};
 
 const AssignBill = () => {
   const { ready, scraperBills } = useTracker(() => {
@@ -19,6 +103,78 @@ const AssignBill = () => {
       ready: rdy,
     };
   }, []);
+
+  const bridge = new SimpleSchema2Bridge(createSchema(ready, scraperBills));
+
+  // On submit, insert the data.
+  const submit = (data, formRef) => {
+    if (ready) {
+      const {
+        assignedBill,
+        offices,
+        action,
+        actionnumber,
+        legaltype,
+        committeereferral,
+        allversions,
+        committeereports,
+        hearingnotices,
+        notifiedhearingdate,
+        notifiedhearing,
+        hearingdate,
+        hearingtime,
+        hearinglocation,
+        committee,
+        type,
+        testifiercontact,
+        similar,
+        leadofficeposition,
+        testifier,
+        approvedtestimony,
+        monitoringreports,
+        hearingComments,
+        testimony,
+        rationale,
+      } = data;
+      const owner = Meteor.user().username;
+      const collectionName = Stuffs.getCollectionName();
+      const definitionData = {
+        assignedBill,
+        offices,
+        action,
+        actionnumber,
+        legaltype,
+        committeereferral,
+        allversions,
+        committeereports,
+        hearingnotices,
+        notifiedhearingdate,
+        notifiedhearing,
+        hearingdate,
+        hearingtime,
+        hearinglocation,
+        committee,
+        type,
+        testifiercontact,
+        similar,
+        leadofficeposition,
+        testifier,
+        approvedtestimony,
+        monitoringreports,
+        hearingComments,
+        testimony,
+        rationale,
+        owner,
+      };
+      defineMethod.callPromise({ collectionName, definitionData })
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', 'Bill added successfully', 'success');
+          formRef.reset();
+        });
+    }
+  };
+
   return (ready ? (
     <Container id={PAGE_IDS.ASSIGN_BILLS}>
       <Form>
@@ -28,7 +184,7 @@ const AssignBill = () => {
           {scraperBills.map(scraperBill => <option key={scraperBill._id} value={scraperBill._id}>{scraperBill.measureTitle}</option>)}
         </Form.Select>
         <h3>Offices</h3>
-        {offices.map(office => (
+        {officeNames.map(office => (
           <Form.Check
             inline
             label={office}
