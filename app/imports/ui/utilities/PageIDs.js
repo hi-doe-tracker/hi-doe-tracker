@@ -19,4 +19,5 @@ export const PAGE_IDS = {
   PROFILE: 'profile',
   SUBMIT_TESTIMONY: 'submit-testimony',
   MANAGE_ACCOUNTS: 'manage-accounts',
+  VIEW_HEARINGS: 'view-hearings',
 };
