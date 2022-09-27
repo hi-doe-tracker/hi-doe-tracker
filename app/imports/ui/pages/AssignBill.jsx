@@ -17,8 +17,8 @@ import LoadingSpinner from '../components/LoadingSpinner';
 const formSchema = new SimpleSchema({
   'assigned bill': {
     type: String,
-    allowedValues: ['1', '2', '3'],
-    defaultValue: '1',
+    allowedValues: ['Bill 1', 'Bill 2', 'Bill 3'],
+    defaultValue: 'Bill 1',
   },
   offices: {
     type: String,
@@ -38,10 +38,8 @@ const formSchema = new SimpleSchema({
   'hearing notices': { type: Array, minCount: 1 },
   'hearing notices.$': Object,
   'hearing notices.$.report': { type: String, min: 200 },
-  'notified hearing date': { type: Date, defaultValue: new Date() },
   'notified hearing': String,
   'hearing date': { type: Date, defaultValue: new Date() },
-  'hearing time': String,
   'hearing location': String,
   committee: String,
   type: String,
@@ -56,7 +54,11 @@ const formSchema = new SimpleSchema({
   'hearing comments': { type: Array, minCount: 1 },
   'hearing comments.$': Object,
   'hearing comments.$.report': { type: String, min: 200 },
-  testimony: String,
+  testimony: {
+    type: String,
+    allowedValues: ['Testimony 1', 'Testimony 2', 'Testimony 3'],
+    defaultValue: 'Testimony 1',
+  },
   rationale: String,
 });
 
@@ -89,10 +91,8 @@ const AssignBill = () => {
         allversions,
         committeereports,
         hearingnotices,
-        notifiedhearingdate,
         notifiedhearing,
         hearingdate,
-        hearingtime,
         hearinglocation,
         committee,
         type,
@@ -118,10 +118,8 @@ const AssignBill = () => {
         allversions,
         committeereports,
         hearingnotices,
-        notifiedhearingdate,
         notifiedhearing,
         hearingdate,
-        hearingtime,
         hearinglocation,
         committee,
         type,
@@ -208,13 +206,11 @@ const AssignBill = () => {
                       showInlineError
                     />
                   </Col>
-                  <Col><DateField name="notified hearing date" /></Col>
-                  <Col><TextField name="notified hearing" /></Col>
-                </Row>
-                <Row>
-                  <Col><DateField name="hearing date" /></Col>
-                  <Col><TextField name="hearing time" /></Col>
-                  <Col><TextField name="hearing location" /></Col>
+                  <Col>
+                    <TextField name="notified hearing" />
+                    <DateField name="hearing date" />
+                    <TextField name="hearing location" />
+                  </Col>
                 </Row>
                 <Row>
                   <Col><TextField name="committee" /></Col>
@@ -248,7 +244,7 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="testimony" /></Col>
+                  <Col><SelectField name="testimony" /></Col>
                   <Col><TextField name="rationale" /></Col>
                 </Row>
                 <SubmitField value="Submit" />
