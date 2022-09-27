@@ -24,7 +24,7 @@ import SearchBarButton from '../components/SearchBarButton';
 import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
-// import Landing from '../pages/Landing';
+import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
 import MiniCalendar from '../components/MiniCalendar';
 import AssignBill from '../pages/AssignBill';
