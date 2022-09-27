@@ -105,6 +105,9 @@ class BaseCollection {
     return this._collection.findOne(theSelector, options);
   }
 
+  findAll(){
+    return this._collection.find({});
+  }
   /**
    * Return the type of this collection.
    * @returns { String } The type, as a string.
