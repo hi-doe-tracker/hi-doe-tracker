@@ -1,7 +1,8 @@
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { Roles } from 'meteor/alanning:roles';
 import BaseProfileCollection from './BaseProfileCollection';
 import { ROLE } from '../role/Role';
-import { Roles } from 'meteor/alanning:roles';
 import { Users } from './UserCollection';
 
 class UserProfileCollection extends BaseProfileCollection {
@@ -57,10 +58,9 @@ class UserProfileCollection extends BaseProfileCollection {
    */
   removeIt(profileID) {
     if (this.isDefined(profileID)) {
-      console.log('called 2')
       return super.removeIt(profileID);
     }
-    console.log(profileID)
+    console.log(profileID);
     return null;
   }
 
@@ -104,12 +104,11 @@ class UserProfileCollection extends BaseProfileCollection {
     return { email, firstName, lastName };
   }
 
-  
   /**
    * Default publication method for entities.
    * It publishes the entire UserProfileCollection collection for admi.
    */
-   publish() {
+  publish() {
     if (Meteor.isServer) {
       // get the UserProfileCollection instance.
       const instance = this;
