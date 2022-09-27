@@ -2,10 +2,12 @@ import React from 'react';
 // import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Card, Col, Row } from 'react-bootstrap';
+import { GrFormAdd } from 'react-icons/gr';
+import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
-import { AutoForm, ListAddField, RadioField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, ListAddField, ListField, RadioField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -27,9 +29,16 @@ const formSchema = new SimpleSchema({
   'action number': String,
   'legal type': String,
   'committee referral': String,
-  'all versions': String,
-  'committee reports': String,
-  'hearing notices': String,
+  'all versions': { type: Array, minCount: 1 },
+  'all versions.$': Object,
+  'all versions.$.version': { type: String, min: 200 },
+  /* 'all versions': String, */
+  'committee reports': { type: Array, minCount: 1 },
+  'committee reports.$': Object,
+  'committee reports.$.report': { type: String, min: 200 },
+  'hearing notices': { type: Array, minCount: 1 },
+  'hearing notices.$': Object,
+  'hearing notices.$.report': { type: String, min: 200 },
   'notified hearing date': String,
   'notified hearing': String,
   'hearing date': String,
@@ -42,8 +51,12 @@ const formSchema = new SimpleSchema({
   'lead office position': String,
   testifier: String,
   'approved testimony': String,
-  'monitoring reports': String,
-  'hearing comments': String,
+  'monitoring reports': { type: Array, minCount: 1 },
+  'monitoring reports.$': Object,
+  'monitoring reports.$.report': { type: String, min: 200 },
+  'hearing comments': { type: Array, minCount: 1 },
+  'hearing comments.$': Object,
+  'hearing comments.$.report': { type: String, min: 200 },
   testimony: String,
   rationale: String,
 });
@@ -167,11 +180,35 @@ const AssignBill = () => {
                   <Col><TextField name="action number" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="all versions" /></Col>
-                  <Col><TextField name="committee reports" /></Col>
+                  <Col>
+                    <ListField
+                      name="all versions"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
+                  <Col>
+                    <ListField
+                      name="committee reports"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="hearing notices" /></Col>
+                  <Col>
+                    <ListField
+                      name="hearing notices"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                   <Col><TextField name="notified hearing date" /></Col>
                   <Col><TextField name="notified hearing" /></Col>
                 </Row>
@@ -192,8 +229,24 @@ const AssignBill = () => {
                   <Col><TextField name="approved testimony" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="monitoring reports" /></Col>
-                  <Col><TextField name="hearing comments" /></Col>
+                  <Col>
+                    <ListField
+                      name="monitoring reports"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
+                  <Col>
+                    <ListField
+                      name="hearing comments"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                 </Row>
                 <Row>
                   <Col><TextField name="testimony" /></Col>
