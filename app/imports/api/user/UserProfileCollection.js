@@ -107,22 +107,12 @@ class UserProfileCollection extends BaseProfileCollection {
   
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the stuff associated to an owner.
+   * It publishes the entire UserProfileCollection collection for admi.
    */
    publish() {
     if (Meteor.isServer) {
-      // get the StuffCollection instance.
+      // get the UserProfileCollection instance.
       const instance = this;
-      // /** This subscription publishes only the documents associated with the logged in user */
-      // Meteor.publish(stuffPublications.stuff, function publish() {
-      //   if (this.userId) {
-      //     const username = Meteor.users.findOne(this.userId).username;
-      //     return instance._collection.find({ owner: username });
-      //   }
-      //   return this.ready();
-      // });
-
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
       Meteor.publish('UserProfile', function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
@@ -133,7 +123,7 @@ class UserProfileCollection extends BaseProfileCollection {
   }
 
   /**
-   * Subscription method for stuff owned by the current user.
+   * Subscription method for USerProfileCollection
    */
   subscribeUserProfiles() {
     if (Meteor.isClient) {
