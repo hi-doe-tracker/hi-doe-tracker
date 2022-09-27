@@ -45,10 +45,10 @@ const SendHearingNotice = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { to, cc, bcc, from, subject, message } = data;
+    const { to, cc, bcc, from, dateOfHearing, subject, message } = data;
     const owner = Meteor.user().username;
     const collectionName = Notices.getCollectionName();
-    const definitionData = { to, cc, bcc, from, subject, message, owner };
+    const definitionData = { to, cc, bcc, from, dateOfHearing, subject, message, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
