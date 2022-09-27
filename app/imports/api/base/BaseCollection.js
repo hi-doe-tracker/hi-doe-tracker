@@ -53,7 +53,6 @@ class BaseCollection {
   removeIt(id) {
     const doc = this.findDoc(id);
     check(doc, Object);
-    console.log('called 4')
     this._collection.remove(doc._id);
     return true;
   }
@@ -106,13 +105,19 @@ class BaseCollection {
     return this._collection.findOne(theSelector, options);
   }
 
-  findAll(){
-    return this._collection.find({})
+  /**
+   * Return the users of this collection.
+   * @returns [users] array of users.
+   */
+
+  findAll() {
+    return this._collection.find({});
   }
   /**
    * Return the type of this collection.
    * @returns { String } The type, as a string.
    */
+
   getType() {
     return this._type;
   }
