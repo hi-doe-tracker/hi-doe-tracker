@@ -172,22 +172,6 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                {/*
-                 <h3>Assigned Bill</h3>
-                 <Form.Select>
-                   <option>Assign an existing bill</option>
-                   {scraperBills.map(scraperBill => <option key={scraperBill._id} value={scraperBill._id}>{scraperBill.measureTitle}</option>)}
-                 </Form.Select>
-                 <h3>Offices</h3>
-                 {officeNames.map(office => (
-                   <Form.Check
-                     inline
-                     label={office}
-                     name={office}
-                     type="checkbox"
-                     id="inline-checkbox-1"
-                   />
-                 ))} */}
                 <Row>
                   <Col><SelectField name="assigned bill" /></Col>
                   <Col><SelectField name="offices" checkboxes="true" inline="true" /></Col>
