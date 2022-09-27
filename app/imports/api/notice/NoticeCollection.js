@@ -14,7 +14,7 @@ class NoticeCollection extends BaseCollection {
       from: String,
       cc: String,
       bcc: String,
-      dateOfHearing: String,
+      dateOfHearing: Date,
       subject: String,
       message: String,
     }));
