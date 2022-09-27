@@ -28,7 +28,7 @@ import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
 import MiniCalendar from '../components/MiniCalendar';
 import AssignBill from '../pages/AssignBill';
-import ManageAccount from '../pages/ManageAccount';
+import ManageAccounts from '../pages/ManageAccounts';
 import AdminManagement from '../pages/AdminManagement';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -99,11 +99,11 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/manageaccount"
+              path="/admin/manageaccounts"
               element={
                 (
                   <AdminProtectedRoute>
-                    <ManageAccount />
+                    <ManageAccounts />
                   </AdminProtectedRoute>
                 )
               }

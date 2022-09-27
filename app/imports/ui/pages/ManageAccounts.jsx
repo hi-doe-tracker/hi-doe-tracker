@@ -4,9 +4,10 @@ import swal from 'sweetalert';
 import { Button, Table, Spinner } from 'react-bootstrap';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { removeItMethod } from '../../api/base/BaseCollection.methods';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 // React component to edit and delete users
-const ManageAccount = () => {
+const ManageAccounts = () => {
   const { ready, userProfiles } = useTracker(() => {
     const subscription = UserProfiles.subscribeUserProfiles();
     const rdy = subscription.ready();
@@ -52,7 +53,7 @@ const ManageAccount = () => {
   }
 
   return (
-    <Table responsive>
+    <Table responsive id={PAGE_IDS.MANAGE_ACCOUNTS}>
       <thead>
         <tr>
           <th>First Name</th>
@@ -81,26 +82,30 @@ const ManageAccount = () => {
         (
           <tbody>
             <tr>
-              <Button variant="primary" disabled>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Loading...</span>
-              </Button>{' '}
-              <Button variant="primary" disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                Loading...
-              </Button>
+              <td>
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="visually-hidden">Loading...</span>
+                </Button>
+              </td>
+              <td>
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
+                </Button>
+              </td>
             </tr>
           </tbody>
         )}
@@ -108,4 +113,4 @@ const ManageAccount = () => {
   );
 };
 
-export default ManageAccount;
+export default ManageAccounts;
