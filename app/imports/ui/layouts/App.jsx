@@ -31,6 +31,7 @@ import AssignBill from '../pages/AssignBill';
 import ManageAccounts from '../pages/ManageAccounts';
 import AdminManagement from '../pages/AdminManagement';
 import ViewHearings from '../pages/ViewHearings';
+import AdminCreate from '../pages/AdminCreate';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -106,6 +107,16 @@ const App = () => {
                 (
                   <AdminProtectedRoute>
                     <ManageAccounts />
+                  </AdminProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/admin/createaccount"
+              element={
+                (
+                  <AdminProtectedRoute>
+                    <AdminCreate />
                   </AdminProtectedRoute>
                 )
               }

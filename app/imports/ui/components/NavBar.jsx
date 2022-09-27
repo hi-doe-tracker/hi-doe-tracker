@@ -30,12 +30,14 @@ const NavBar = () => {
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuStyle2}>Submit Testimony</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE} as={NavLink} to="/send" key="send" style={menuStyle2}>Send Hearing Notice</Nav.Link>,
             ]) : ''}
-            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
-              [<Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} to="/admin" key="admin">Admin</Nav.Link>,
+            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+                <NavDropdown id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN} title="Admin" key="admin-dropdown">
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>
+                </NavDropdown>,
                 <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title="Manage" key="manage-dropdown">
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} to="/manage-database">Database</NavDropdown.Item>
-                </NavDropdown>]
-            ) : ''}
+                </NavDropdown>
+            ]) : ''}
           </Nav>
           <Nav className="justify-content-end">
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
