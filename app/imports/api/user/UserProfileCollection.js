@@ -1,6 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection from './BaseProfileCollection';
 import { ROLE } from '../role/Role';
+import { Roles } from 'meteor/alanning:roles';
 import { Users } from './UserCollection';
 
 class UserProfileCollection extends BaseProfileCollection {
@@ -99,6 +100,44 @@ class UserProfileCollection extends BaseProfileCollection {
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     return { email, firstName, lastName };
+  }
+
+  
+  /**
+   * Default publication method for entities.
+   * It publishes the entire collection for admin and just the stuff associated to an owner.
+   */
+   publish() {
+    if (Meteor.isServer) {
+      // get the StuffCollection instance.
+      const instance = this;
+      // /** This subscription publishes only the documents associated with the logged in user */
+      // Meteor.publish(stuffPublications.stuff, function publish() {
+      //   if (this.userId) {
+      //     const username = Meteor.users.findOne(this.userId).username;
+      //     return instance._collection.find({ owner: username });
+      //   }
+      //   return this.ready();
+      // });
+
+      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
+      Meteor.publish('UserProfile', function publish() {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
+          return instance._collection.find();
+        }
+        return this.ready();
+      });
+    }
+  }
+
+  /**
+   * Subscription method for stuff owned by the current user.
+   */
+  subscribeUserProfiles() {
+    if (Meteor.isClient) {
+      return Meteor.subscribe('UserProfile');
+    }
+    return null;
   }
 }
 
