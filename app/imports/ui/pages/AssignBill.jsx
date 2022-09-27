@@ -7,7 +7,7 @@ import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
-import { AutoForm, ListAddField, ListField, RadioField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, DateField, ListAddField, ListField, RadioField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -32,16 +32,15 @@ const formSchema = new SimpleSchema({
   'all versions': { type: Array, minCount: 1 },
   'all versions.$': Object,
   'all versions.$.version': { type: String, min: 200 },
-  /* 'all versions': String, */
   'committee reports': { type: Array, minCount: 1 },
   'committee reports.$': Object,
   'committee reports.$.report': { type: String, min: 200 },
   'hearing notices': { type: Array, minCount: 1 },
   'hearing notices.$': Object,
   'hearing notices.$.report': { type: String, min: 200 },
-  'notified hearing date': String,
+  'notified hearing date': { type: Date, defaultValue: new Date() },
   'notified hearing': String,
-  'hearing date': String,
+  'hearing date': { type: Date, defaultValue: new Date() },
   'hearing time': String,
   'hearing location': String,
   committee: String,
@@ -209,11 +208,11 @@ const AssignBill = () => {
                       showInlineError
                     />
                   </Col>
-                  <Col><TextField name="notified hearing date" /></Col>
+                  <Col><DateField name="notified hearing date" /></Col>
                   <Col><TextField name="notified hearing" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="hearing date" /></Col>
+                  <Col><DateField name="hearing date" /></Col>
                   <Col><TextField name="hearing time" /></Col>
                   <Col><TextField name="hearing location" /></Col>
                 </Row>
