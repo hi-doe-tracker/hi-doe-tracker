@@ -7,18 +7,18 @@ import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
-import { AutoForm, DateField, ListAddField, ListField, RadioField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, DateField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 // import { defineMethod } from '../../api/base/BaseCollection.methods';
 
-// Creates a schema based on if the data is ready and the scraper bills given.
-const formSchema = new SimpleSchema({
+// A schema for a form.
+const formSchema = {
   'assigned bill': {
     type: String,
-    allowedValues: ['Bill 1', 'Bill 2', 'Bill 3'],
-    defaultValue: 'Bill 1',
+    allowedValues: ['Pick a bill'],
+    defaultValue: 'Pick a bill',
   },
   offices: {
     type: String,
@@ -60,10 +60,27 @@ const formSchema = new SimpleSchema({
     defaultValue: 'Testimony 1',
   },
   rationale: String,
-});
+};
 
-const bridge = new SimpleSchema2Bridge(formSchema);
+// Returns an array of the scraper bill names provided as well as 'Pick a bill' as allowed values for the form.
+const holdBillAllowedValues = (scraperBills) => {
+  const allowedValues = [];
+  allowedValues.push('Pick a bill');
+  scraperBills.map((bill) => allowedValues.push(bill.measureTitle));
+  return allowedValues;
+};
 
+// Creates a schema based on if the data is ready and the scraper bills given.
+const createFormSchema = (ready, scraperBills) => {
+  if (ready) {
+    // Sets the allowed values for assigned bill to the scraper bill names.
+    formSchema['assigned bill'].allowedValues = holdBillAllowedValues(scraperBills);
+    return new SimpleSchema(formSchema);
+  }
+  return new SimpleSchema(formSchema);
+};
+
+/* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
 const AssignBill = () => {
   const { ready, scraperBills } = useTracker(() => {
     const subscription = ScraperBills.subscribeScraperBillAdmin();
@@ -76,6 +93,9 @@ const AssignBill = () => {
       ready: rdy,
     };
   }, []);
+
+  // Creates the bridge based on the data given.
+  const bridge = new SimpleSchema2Bridge(createFormSchema(ready, scraperBills));
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
