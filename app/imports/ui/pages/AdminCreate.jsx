@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
@@ -16,7 +14,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
  */
 const SignUp = () => {
   const [error, setError] = useState('');
-  const [redirectToReferer, setRedirectToRef] = useState(false);
+  // const [redirectToReferer, setRedirectToRef] = useState(false);
 
   const schema = new SimpleSchema({
     firstName: String,
@@ -24,10 +22,10 @@ const SignUp = () => {
     email: String,
     password: String,
     position: {
-    type: String,
-    allowedValues: ['Secretary', 'Writer', 'Office Approver', 'PIPE Approver', 'Final Approver', 'Processor', 'Admin'],
-    defaultValue: 'Writer',
-  },
+      type: String,
+      allowedValues: ['Secretary', 'Writer', 'Office Approver', 'PIPE Approver', 'Final Approver', 'Processor', 'Admin'],
+      defaultValue: 'Writer',
+    },
   });
   const bridge = new SimpleSchema2Bridge(schema);
 
@@ -38,13 +36,14 @@ const SignUp = () => {
     // create the new UserProfile
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((err) => setError(err.reason));
+    return <Navigate to="/admin/createaccount" />;
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
   // if correct authentication, redirect to from: page instead of signup screen
-  if (redirectToReferer) {
-    return <Navigate to="/add" />;
-  }
+  // if (redirectToReferer) {
+  //   return <Navigate to="/add" />;
+  // }
   return (
     <Container id={PAGE_IDS.SIGN_UP} className="py-3">
       <Row className="justify-content-center">
