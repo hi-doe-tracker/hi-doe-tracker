@@ -31,6 +31,7 @@ import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
 import MiniCalendar from '../components/MiniCalendar';
+import AdminCreate from '../pages/AdminCreate';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -121,6 +122,7 @@ const App = () => {
             />
             <Route path="/notauthorized" element={<NotAuthorized />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/admincreate" element={<AdminCreate />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
