@@ -57,8 +57,10 @@ class UserProfileCollection extends BaseProfileCollection {
    */
   removeIt(profileID) {
     if (this.isDefined(profileID)) {
+      console.log('called 2')
       return super.removeIt(profileID);
     }
+    console.log(profileID)
     return null;
   }
 

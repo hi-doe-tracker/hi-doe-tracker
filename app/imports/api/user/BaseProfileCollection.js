@@ -126,6 +126,7 @@ class BaseProfileCollection extends BaseCollection {
     // console.log('BaseProfileCollection.removeIt', profileID);
     const profile = this._collection.findOne({ _id: profileID });
     const userID = profile.userID;
+    console.log('called 3')
     if (!Users.isReferenced(userID)) {
       Meteor.users.remove({ _id: userID });
       return super.removeIt(profileID);

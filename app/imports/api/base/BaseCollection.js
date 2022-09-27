@@ -53,6 +53,7 @@ class BaseCollection {
   removeIt(id) {
     const doc = this.findDoc(id);
     check(doc, Object);
+    console.log('called 4')
     this._collection.remove(doc._id);
     return true;
   }
@@ -106,7 +107,7 @@ class BaseCollection {
   }
 
   findAll(){
-    return this._collection.find({});
+    return this._collection.find({})
   }
   /**
    * Return the type of this collection.

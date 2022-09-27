@@ -1,10 +1,13 @@
 import React from 'react'
+import { useState } from 'react';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { Button, Table } from 'react-bootstrap'
 import { useTracker } from 'meteor/react-meteor-data';
+import { removeItMethod } from '../../api/base/BaseCollection.methods';
 
 
 const ManageAccount = () => {
+  const { track, setTrack } = useState(true);
   const { ready, userProfiles } = useTracker(() => {
     const subscription = UserProfiles.subscribeUserProfiles();
     const rdy = subscription.ready();
@@ -13,8 +16,21 @@ const ManageAccount = () => {
       ready: rdy,
       userProfiles: users,
     };
-  }, []);
+  }, [track]);
 
+  function handleDelete(profileID){
+    const collectionName = UserProfiles.getCollectionName();
+    removeItMethod.callPromise({ collectionName, profileID })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => { 
+        // setTrack(!track)
+        return swal('Success', 'User Removed Successfully', 'success')
+      });
+  }
+
+  function handleEdit(profileID){
+    window.alert("You clicked edit")
+  }
   
   //  ready ? console.log(userProfiles) : console.log('not ready')
   return (
@@ -32,13 +48,14 @@ const ManageAccount = () => {
     {ready ? 
     <tbody>
      { userProfiles.map(user =>
-     <tr>
+     <tr key={user._id}>
         <td>{user.firstName}</td>
         <td>{user.lastName}</td>
         <td>{user.email}</td>
         <td>{user.role}</td>
-        <td><Button variant="primary">Edit</Button></td>
-        <td><Button variant="danger" onClick = {() => handleDelete(user.userID)}>Delete</Button></td>
+        {/* {console.log(user._id)} */}
+        <td><Button variant="primary" onClick ={() => handleEdit(user._id)}>Edit</Button></td>
+        <td><Button variant="danger" onClick = {() => handleDelete(user._id)}>Delete</Button></td>
       </tr> 
       )}
     </tbody> : <tbody></tbody> }
