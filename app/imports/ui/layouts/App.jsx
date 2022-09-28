@@ -26,7 +26,7 @@ import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
-import MiniCalendar from '../components/MiniCalendar';
+import Calendar from '../pages/Calendar';
 import AssignBill from '../pages/AssignBill';
 import ManageAccounts from '../pages/ManageAccounts';
 import AdminManagement from '../pages/AdminManagement';
@@ -48,7 +48,7 @@ const App = () => {
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/calendar" element={<ProtectedRoute><MiniCalendar /></ProtectedRoute>} />
+            <Route exact path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
             <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
             <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
             <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
@@ -82,7 +82,7 @@ const App = () => {
               }
             />
             <Route
-              path="/admin"
+              path="/admin/manage"
               element={
                 (
                   <AdminProtectedRoute>

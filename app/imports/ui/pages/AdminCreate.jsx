@@ -14,7 +14,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
  */
 const SignUp = () => {
   const [error, setError] = useState('');
-  const [redirectToReferer] = useState(false);
+  // const [redirectToReferer, setRedirectToRef] = useState(false);
 
   const schema = new SimpleSchema({
     firstName: String,
@@ -36,13 +36,14 @@ const SignUp = () => {
     // create the new UserProfile
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((err) => setError(err.reason));
+    return <Navigate to="/admin/createaccount" />;
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
   // if correct authentication, redirect to from: page instead of signup screen
-  if (redirectToReferer) {
-    return <Navigate to="/add" />;
-  }
+  // if (redirectToReferer) {
+  //   return <Navigate to="/add" />;
+  // }
   return (
     <Container id={PAGE_IDS.SIGN_UP} className="py-3">
       <Row className="justify-content-center">
