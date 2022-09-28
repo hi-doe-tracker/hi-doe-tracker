@@ -14,29 +14,21 @@ const NavBar = () => {
     currentUser: Meteor.user() ? Meteor.user().username : '',
   }), []);
   const menuStyle = { marginBottom: '10px' };
-  const menuStyle1 = { marginLeft: '20px' };
-  const menuStyle2 = { marginRight: '10px', marginLeft: '10px' };
+  const titleLeftMargin = { marginLeft: '20px' };
+  const menuSpacing = { marginRight: '10px', marginLeft: '10px' };
   return (
     <Navbar bg="light" expand="lg" style={menuStyle}>
       <Container>
         <Image roundedCircle src="/images/logo.png" width="75px" />
-        <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} to="/" style={menuStyle1}><h1>HI DOE Tracker</h1></Navbar.Brand>
+        <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} to="/" style={titleLeftMargin}><h2>HI DOE Tracker</h2></Navbar.Brand>
         <Navbar.Toggle aria-controls={COMPONENT_IDS.NAVBAR_COLLAPSE} />
         <Navbar.Collapse id={COMPONENT_IDS.NAVBAR_COLLAPSE}>
           <Nav className="me-auto justify-content-start">
             {currentUser ? ([
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/home" key="home" style={menuStyle2}>Home</Nav.Link>,
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE} as={NavLink} to="/bills" key="bills" style={menuStyle2}>View Bills</Nav.Link>,
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuStyle2}>Submit Testimony</Nav.Link>,
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE} as={NavLink} to="/send" key="send" style={menuStyle2}>Send Hearing Notice</Nav.Link>,
-            ]) : ''}
-            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
-                <NavDropdown id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN} title="Admin" key="admin-dropdown">
-                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>
-                </NavDropdown>,
-                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title="Manage" key="manage-dropdown">
-                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} to="/manage-database">Database</NavDropdown.Item>
-                </NavDropdown>
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/home" key="home" style={menuSpacing}>Home</Nav.Link>,
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE} as={NavLink} to="/bills" key="bills" style={menuSpacing}>View Bills</Nav.Link>,
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuSpacing}>Submit Testimony</Nav.Link>,
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE} as={NavLink} to="/send" key="send" style={menuSpacing}>Send Hearing Notice</Nav.Link>,
             ]) : ''}
           </Nav>
           <Nav className="justify-content-end">
@@ -59,6 +51,9 @@ const NavBar = () => {
                   Profile
                   <Person />
                 </NavDropdown.Item>
+                {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>,
+                ]) : ''}
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} as={NavLink} to="/signout"><BoxArrowRight /> Sign out</NavDropdown.Item>
               </NavDropdown>
             )}
