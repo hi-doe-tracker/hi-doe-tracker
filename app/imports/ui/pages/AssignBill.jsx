@@ -17,7 +17,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 const formSchema = {
   'assigned bill': {
     type: String,
-    allowedValues: ['Pick a bill'],
+    allowedValues: [],
     defaultValue: 'Pick a bill',
   },
   deputy: {
@@ -89,11 +89,10 @@ const formSchema = {
   rationale: String,
 };
 
-// Returns an array of the scraper bill names provided as well as 'Pick a bill' as allowed values for the form.
+// Returns an array of the scraper bill names provided as allowed values for the form.
 const holdBillAllowedValues = (scraperBills) => {
   const allowedValues = [];
-  allowedValues.push('Pick a bill');
-  scraperBills.map((bill) => allowedValues.push(`Title: ${bill.measureTitle}, Number: ${bill.measureNumber}`));
+  scraperBills.map((bill) => allowedValues.push(`#${bill.measureNumber}: ${bill.measureTitle}`));
   return allowedValues;
 };
 
@@ -102,7 +101,6 @@ const createFormSchema = (ready, scraperBills) => {
   if (ready) {
     // Sets the allowed values for assigned bill to the scraper bill names.
     formSchema['assigned bill'].allowedValues = holdBillAllowedValues(scraperBills);
-    console.log(holdBillAllowedValues(scraperBills));
     return new SimpleSchema(formSchema);
   }
   return new SimpleSchema(formSchema);
