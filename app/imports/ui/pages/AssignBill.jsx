@@ -7,7 +7,7 @@ import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
-import { AutoForm, DateField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, BoolField, DateField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -15,11 +15,13 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // A schema for a form.
 const formSchema = {
-  'assigned bill': {
+  assignedbill: {
     type: String,
     allowedValues: ['Pick a bill'],
     defaultValue: 'Pick a bill',
   },
+  deputy: Boolean,
+  ocid: Boolean,
   offices: {
     type: String,
     allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
@@ -66,7 +68,7 @@ const formSchema = {
 const holdBillAllowedValues = (scraperBills) => {
   const allowedValues = [];
   allowedValues.push('Pick a bill');
-  scraperBills.map((bill) => allowedValues.push(bill.measureTitle));
+  scraperBills.map((bill) => allowedValues.push(`Title: ${bill.measureTitle}, Number: ${bill.measureNumber}`));
   return allowedValues;
 };
 
@@ -74,10 +76,16 @@ const holdBillAllowedValues = (scraperBills) => {
 const createFormSchema = (ready, scraperBills) => {
   if (ready) {
     // Sets the allowed values for assigned bill to the scraper bill names.
-    formSchema['assigned bill'].allowedValues = holdBillAllowedValues(scraperBills);
+    formSchema['assignedbill'].allowedValues = holdBillAllowedValues(scraperBills);
+    console.log(holdBillAllowedValues(scraperBills));
     return new SimpleSchema(formSchema);
   }
   return new SimpleSchema(formSchema);
+};
+
+const getOfficesSelected = (deputy, ocid) => {
+  console.log(deputy);
+  console.log(ocid);
 };
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
@@ -99,6 +107,35 @@ const AssignBill = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
+    const {
+      assignedbill,
+      deputy,
+      ocid,
+      offices,
+      action,
+      actionnumber,
+      legaltype,
+      committeereferral,
+      allversions,
+      committeereports,
+      hearingnotices,
+      notifiedhearing,
+      hearingdate,
+      hearinglocation,
+      committee,
+      type,
+      testifiercontact,
+      similar,
+      leadofficeposition,
+      testifier,
+      approvedtestimony,
+      monitoringreports,
+      hearingcomments,
+      testimony,
+      rationale,
+    } = data;
+    console.log(`Assigned Bill: ${assignedbill}`);
+    getOfficesSelected(deputy, ocid);
     /*
     if (ready) {
       const {
@@ -173,7 +210,11 @@ const AssignBill = () => {
             <Card>
               <Card.Body>
                 <Row>
-                  <Col><SelectField name="assigned bill" /></Col>
+                  <Col><SelectField name="assignedbill" /></Col>
+                  <Col>
+                    <BoolField name="deputy" />
+                    <BoolField name="ocid" />
+                  </Col>
                   <Col><SelectField name="offices" checkboxes="true" inline="true" /></Col>
                 </Row>
                 <Row>
