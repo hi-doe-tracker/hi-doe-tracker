@@ -1,4 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { Roles } from 'meteor/alanning:roles';
 import BaseProfileCollection from './BaseProfileCollection';
 import { ROLE } from '../role/Role';
 import { Users } from './UserCollection';
@@ -58,6 +60,7 @@ class UserProfileCollection extends BaseProfileCollection {
     if (this.isDefined(profileID)) {
       return super.removeIt(profileID);
     }
+    console.log(profileID);
     return null;
   }
 
@@ -99,6 +102,33 @@ class UserProfileCollection extends BaseProfileCollection {
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     return { email, firstName, lastName };
+  }
+
+  /**
+   * Default publication method for entities.
+   * It publishes the entire UserProfileCollection collection for admi.
+   */
+  publish() {
+    if (Meteor.isServer) {
+      // get the UserProfileCollection instance.
+      const instance = this;
+      Meteor.publish('UserProfile', function publish() {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
+          return instance._collection.find();
+        }
+        return this.ready();
+      });
+    }
+  }
+
+  /**
+   * Subscription method for USerProfileCollection
+   */
+  subscribeUserProfiles() {
+    if (Meteor.isClient) {
+      return Meteor.subscribe('UserProfile');
+    }
+    return null;
   }
 }
 

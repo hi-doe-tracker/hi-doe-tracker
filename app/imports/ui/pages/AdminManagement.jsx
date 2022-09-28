@@ -7,6 +7,9 @@ const AdminManagement = () => {
   const goToAssignBill = () => {
     navigate('/admin/assignbills');
   };
+  const goToManageAccounts = () => {
+    navigate('/admin/manageaccounts');
+  };
 
   return (
     <Container>
@@ -18,7 +21,7 @@ const AdminManagement = () => {
       <br />
       <Row>
         <Col>
-          <Button variant="outline-primary">Manage Accounts</Button>
+          <Button variant="outline-primary" onClick={() => goToManageAccounts()}>Manage Accounts</Button>
         </Col>
       </Row>
     </Container>

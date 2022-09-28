@@ -106,9 +106,18 @@ class BaseCollection {
   }
 
   /**
+   * Return the users of this collection.
+   * @returns [users] array of users.
+   */
+
+  findAll() {
+    return this._collection.find({});
+  }
+  /**
    * Return the type of this collection.
    * @returns { String } The type, as a string.
    */
+
   getType() {
     return this._type;
   }
