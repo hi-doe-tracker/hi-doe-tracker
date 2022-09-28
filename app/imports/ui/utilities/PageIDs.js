@@ -18,6 +18,7 @@ export const PAGE_IDS = {
   SIGN_UP: 'sign-up',
   PROFILE: 'profile',
   SUBMIT_TESTIMONY: 'submit-testimony',
+  CALENDAR: 'calendar',
   MANAGE_ACCOUNTS: 'manage-accounts',
   VIEW_HEARINGS: 'view-hearings',
 };
