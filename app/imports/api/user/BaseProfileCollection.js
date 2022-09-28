@@ -123,7 +123,6 @@ class BaseProfileCollection extends BaseCollection {
    * @param profileID The ID for this profile object.
    */
   removeIt(profileID) {
-    // console.log('BaseProfileCollection.removeIt', profileID);
     const profile = this._collection.findOne({ _id: profileID });
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {

@@ -28,7 +28,10 @@ import Landing from '../pages/Landing';
 import { viewBill } from '../../test-utilities/viewbilltestdata';
 import Calendar from '../pages/Calendar';
 import AssignBill from '../pages/AssignBill';
+import ManageAccounts from '../pages/ManageAccounts';
 import AdminManagement from '../pages/AdminManagement';
+import ViewHearings from '../pages/ViewHearings';
+import AdminCreate from '../pages/AdminCreate';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -48,6 +51,7 @@ const App = () => {
             <Route exact path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
             <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
             <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
+            <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
             <Route
               exact
               path="/viewbill"
@@ -78,7 +82,7 @@ const App = () => {
               }
             />
             <Route
-              path="/admin"
+              path="/admin/manage"
               element={
                 (
                   <AdminProtectedRoute>
@@ -93,6 +97,26 @@ const App = () => {
                 (
                   <AdminProtectedRoute>
                     <AssignBill />
+                  </AdminProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/admin/manageaccounts"
+              element={
+                (
+                  <AdminProtectedRoute>
+                    <ManageAccounts />
+                  </AdminProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/admin/createaccount"
+              element={
+                (
+                  <AdminProtectedRoute>
+                    <AdminCreate />
                   </AdminProtectedRoute>
                 )
               }
