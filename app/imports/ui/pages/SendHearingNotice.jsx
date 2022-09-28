@@ -43,18 +43,29 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 
 const SendHearingNotice = () => {
 
+  // function that validated email. Returns true if emails are valid, else returns false
+  function validateEmail(cc, bcc, from, to) {
+    const validate = /@foo\.com$/;
+    return validate.test(to) && validate.test(from) && validate.test(cc) && validate.test(bcc);
+  }
+
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { to, cc, bcc, from, dateOfHearing, subject, message } = data;
     const owner = Meteor.user().username;
     const collectionName = Notices.getCollectionName();
-    const definitionData = { to, cc, bcc, from, dateOfHearing, subject, message, owner };
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', 'Notice successfully sent', 'success');
-        formRef.reset();
-      });
+    const validation = validateEmail(cc, bcc, from, to);
+    if (validation) {
+      const definitionData = { to, cc, bcc, from, dateOfHearing, subject, message, owner };
+      defineMethod.callPromise({ collectionName, definitionData })
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', 'Notice successfully sent', 'success');
+          formRef.reset();
+        });
+    } else {
+      swal('Invalid Email', 'One or more email fields are invalid', 'error');
+    }
   };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
