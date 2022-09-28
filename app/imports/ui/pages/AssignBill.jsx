@@ -171,34 +171,10 @@ const AssignBill = () => {
       testimony,
       rationale,
     } = data;
-    getOfficesSelected(deputy, ocid);
+
+    // Holds the offices the bill is categorized under.
+    const offices = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
     /*
-    if (ready) {
-      const {
-        assignedbill,
-        offices,
-        action,
-        actionnumber,
-        legaltype,
-        committeereferral,
-        allversions,
-        committeereports,
-        hearingnotices,
-        notifiedhearing,
-        hearingdate,
-        hearinglocation,
-        committee,
-        type,
-        testifiercontact,
-        similar,
-        leadofficeposition,
-        testifier,
-        approvedtestimony,
-        monitoringreports,
-        hearingcomments,
-        testimony,
-        rationale,
-      } = data;
       const owner = Meteor.user().username;
       const collectionName = Stuffs.getCollectionName();
       const definitionData = {
@@ -232,10 +208,13 @@ const AssignBill = () => {
           swal('Success', 'Bill added successfully', 'success');
           formRef.reset();
         });
-    } */
+     */
   };
 
   let fRef = null;
+
+  // Makes all office form fields capitalized.
+  const officeFormStyle = { textTransform: 'uppercase' };
 
   return (ready ? (
     <Container id={PAGE_IDS.ASSIGN_BILLS}>
@@ -246,7 +225,7 @@ const AssignBill = () => {
             <Card>
               <Card.Body>
                 <Row><Col><SelectField name="assigned bill" /></Col></Row>
-                <Row>
+                <Row style={officeFormStyle}>
                   <p>Offices</p>
                   <Col>
                     <BoolField name="deputy" />
