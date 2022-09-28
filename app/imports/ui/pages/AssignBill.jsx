@@ -15,17 +15,42 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // A schema for a form.
 const formSchema = {
-  assignedbill: {
+  'assigned bill': {
     type: String,
     allowedValues: ['Pick a bill'],
     defaultValue: 'Pick a bill',
   },
-  deputy: Boolean,
-  ocid: Boolean,
-  offices: {
-    type: String,
-    allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
-    defaultValue: 'DEPUTY',
+  deputy: {
+    type: Boolean,
+    optional: true,
+  },
+  ocid: {
+    type: Boolean,
+    optional: true,
+  },
+  ofo: {
+    type: Boolean,
+    optional: true,
+  },
+  ofs: {
+    type: Boolean,
+    optional: true,
+  },
+  oits: {
+    type: Boolean,
+    optional: true,
+  },
+  osip: {
+    type: Boolean,
+    optional: true,
+  },
+  osss: {
+    type: Boolean,
+    optional: true,
+  },
+  otm: {
+    type: Boolean,
+    optional: true,
   },
   action: String,
   'action number': String,
@@ -76,16 +101,25 @@ const holdBillAllowedValues = (scraperBills) => {
 const createFormSchema = (ready, scraperBills) => {
   if (ready) {
     // Sets the allowed values for assigned bill to the scraper bill names.
-    formSchema['assignedbill'].allowedValues = holdBillAllowedValues(scraperBills);
+    formSchema['assigned bill'].allowedValues = holdBillAllowedValues(scraperBills);
     console.log(holdBillAllowedValues(scraperBills));
     return new SimpleSchema(formSchema);
   }
   return new SimpleSchema(formSchema);
 };
 
-const getOfficesSelected = (deputy, ocid) => {
-  console.log(deputy);
-  console.log(ocid);
+// Takes in the selected offices' bool values on the form and returns an array of offices the bill fits under.
+const getOfficesSelected = (...officeBoolValues) => {
+  const selectedOffices = [];
+  const offices = ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'];
+
+  // Iterates through arguments passed, checks if value is true and adds the corresponding office to the array.
+  for (let i = 0; i < officeBoolValues.length; i++) {
+    if (officeBoolValues[i]) {
+      selectedOffices.push(offices[i]);
+    }
+  }
+  return selectedOffices;
 };
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
@@ -107,12 +141,16 @@ const AssignBill = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    console.log("HIIII");
     const {
       assignedbill,
       deputy,
       ocid,
-      offices,
+      ofo,
+      ofs,
+      oits,
+      osip,
+      osss,
+      otm,
       action,
       actionnumber,
       legaltype,
@@ -135,7 +173,6 @@ const AssignBill = () => {
       testimony,
       rationale,
     } = data;
-    console.log(`Assigned Bill: ${assignedbill}`);
     getOfficesSelected(deputy, ocid);
     /*
     if (ready) {
@@ -210,13 +247,25 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
+                <Row><Col><SelectField name="assigned bill" /></Col></Row>
                 <Row>
-                  <Col><SelectField name="assignedbill" /></Col>
+                  <p>Offices</p>
                   <Col>
                     <BoolField name="deputy" />
                     <BoolField name="ocid" />
                   </Col>
-                  <Col><SelectField name="offices" checkboxes="true" inline="true" /></Col>
+                  <Col>
+                    <BoolField name="ofo" />
+                    <BoolField name="ofs" />
+                  </Col>
+                  <Col>
+                    <BoolField name="oits" />
+                    <BoolField name="osip" />
+                  </Col>
+                  <Col>
+                    <BoolField name="osss" />
+                    <BoolField name="otm" />
+                  </Col>
                 </Row>
                 <Row>
                   <Col><TextField name="action" /></Col>
