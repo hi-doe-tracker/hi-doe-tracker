@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
@@ -16,7 +14,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
  */
 const SignUp = () => {
   const [error, setError] = useState('');
-  const [redirectToReferer, setRedirectToRef] = useState(false);
+  const [redirectToReferer] = useState(false);
 
   const schema = new SimpleSchema({
     firstName: String,
@@ -24,10 +22,10 @@ const SignUp = () => {
     email: String,
     password: String,
     position: {
-    type: String,
-    allowedValues: ['Secretary', 'Writer', 'Office Approver', 'PIPE Approver', 'Final Approver', 'Processor', 'Admin'],
-    defaultValue: 'Writer',
-  },
+      type: String,
+      allowedValues: ['Secretary', 'Writer', 'Office Approver', 'PIPE Approver', 'Final Approver', 'Processor', 'Admin'],
+      defaultValue: 'Writer',
+    },
   });
   const bridge = new SimpleSchema2Bridge(schema);
 
