@@ -7,7 +7,7 @@ import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
-import { AutoForm, BoolField, DateField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, BoolField, DateField, ErrorsField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -107,6 +107,7 @@ const AssignBill = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
+    console.log("HIIII");
     const {
       assignedbill,
       deputy,
@@ -222,6 +223,10 @@ const AssignBill = () => {
                   <Col><TextField name="action number" /></Col>
                 </Row>
                 <Row>
+                  <Col><TextField name="legal type" /></Col>
+                  <Col><TextField name="committee referral" /></Col>
+                </Row>
+                <Row>
                   <Col>
                     <ListField
                       name="all versions"
@@ -293,6 +298,7 @@ const AssignBill = () => {
                   <Col><TextField name="rationale" /></Col>
                 </Row>
                 <SubmitField value="Submit" />
+                <ErrorsField />
               </Card.Body>
             </Card>
           </AutoForm>
