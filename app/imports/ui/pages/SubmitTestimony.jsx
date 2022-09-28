@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row, Form } from 'react-bootstrap';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField, LongTextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
@@ -80,7 +80,15 @@ const SubmitTestimony = () => {
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes />
                 <TextField name="organization" placeholder="Type organization name here" disabled />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                <h3>Type out testimony or upload pdf file</h3>
                 <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
+                <h5>OR</h5>
+                <Row controlId="formFile" className="mb-3">
+                  <Col className="col-sm-1 col-form-label bold-text">Upload file: </Col>
+                  <Col className="col-sm-9">
+                    <Form.Control type="file" accept="application/pdf" />
+                  </Col>
+                </Row>
                 <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
                 <ErrorsField />
               </Card.Body>
