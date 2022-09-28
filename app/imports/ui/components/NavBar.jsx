@@ -30,6 +30,12 @@ const NavBar = () => {
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuSpacing}>Submit Testimony</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_SEND_HEARING_NOTICE_PAGE} as={NavLink} to="/send" key="send" style={menuSpacing}>Send Hearing Notice</Nav.Link>,
             ]) : ''}
+            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN} title="Admin" key="admin-dropdown" style={menuSpacing}>
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_ADMIN_MANAGE} key="admin-manage" as={NavLink} to="/admin/manage">Manage(Bills/Accounts)</NavDropdown.Item>
+              </NavDropdown>,
+            ]) : ''}
           </Nav>
           <Nav className="justify-content-end">
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
