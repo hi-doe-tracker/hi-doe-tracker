@@ -46,11 +46,11 @@ export const removeItMethod = new ValidatedMethod({
   name: 'BaseCollection.removeIt',
   mixins: [CallPromiseMixin],
   validate: null,
-  run({ collectionName, instance }) {
+  run({ collectionName, profileID }) {
     if (Meteor.isServer) {
       const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
-      return collection.removeIt(instance);
+      return collection.removeIt(profileID);
     }
     return true;
   },

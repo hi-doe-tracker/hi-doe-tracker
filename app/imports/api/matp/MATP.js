@@ -3,7 +3,9 @@ import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
 import { Testimonies } from '../testimony/TestimonyCollection';
+import { Notices } from '../notice/NoticeCollection';
 import { ScraperBills } from '../scraperbill/ScraperBillCollection';
+import { Bills } from '../bill/BillCollection';
 
 class MATPClass {
   collections;
@@ -19,7 +21,9 @@ class MATPClass {
       Stuffs,
       UserProfiles,
       Testimonies,
+      Notices,
       ScraperBills,
+      Bills,
     ];
     /*
      * A list of collection class instances in the order required for them to be sequentially loaded from a file.
@@ -29,7 +33,9 @@ class MATPClass {
       UserProfiles,
       Stuffs,
       Testimonies,
+      Notices,
       ScraperBills,
+      Bills,
     ];
 
     /*
