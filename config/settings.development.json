@@ -477,7 +477,7 @@
     ],
     "action": "Testimony",
     "status": "3rd Crossover",
-    "actNumber": 10,
+    "actionNumber": 10,
     "companion": "placeholder for companion",
     "reportTitle": "Placeholder for report title",
     "legalType": "Bill",
