@@ -4,7 +4,7 @@ import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
 import { Testimonies } from '../testimony/TestimonyCollection';
 import { Notices } from '../notice/NoticeCollection';
-import { ScraperBills } from '../scraperbill/ScraperBillCollection';
+import { ScraperBills } from '../scraperBill/ScraperBillCollection';
 import { Bills } from '../bill/BillCollection';
 
 class MATPClass {
