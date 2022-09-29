@@ -9,7 +9,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 // import swal from 'sweetalert';
 import { AutoForm, BoolField, DateField, ErrorsField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { ScraperBills } from '../../api/scraperbill/ScraperBillCollection';
+import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 // import { defineMethod } from '../../api/base/BaseCollection.methods';
 
