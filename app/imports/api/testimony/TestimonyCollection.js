@@ -33,7 +33,7 @@ class TestimonyCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Stuff item.
+   * Defines a new Testimony item.
    * @param firstName the first name of the testifier.
    * @param lastName the last name of the testifier.
    * @param position .

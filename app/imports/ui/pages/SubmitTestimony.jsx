@@ -10,6 +10,7 @@ import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import ViewDocument from '../components/BuildDocument';
 
 // Test data for bills
 const billOptions = [
@@ -65,6 +66,7 @@ const SubmitTestimony = () => {
   let fRef = null;
   return (
     <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
+      <ViewDocument />
       <Row className="justify-content-center">
         <div className="mb-3 required">
           <span>Relevant Bill</span>
@@ -92,7 +94,7 @@ const SubmitTestimony = () => {
                     <Form.Control type="file" accept="application/pdf" />
                   </Col>
                 </Row>
-                <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
+                <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" onClick={openDocument} />
                 <ErrorsField />
               </Card.Body>
             </Card>
