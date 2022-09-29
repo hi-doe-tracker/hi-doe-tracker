@@ -191,37 +191,61 @@ const AssignBill = () => {
       rationale,
     } = data;
 
-    // Holds the offices the bill is categorized under.
+    // Gets offices and billData.
     const offices = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
     const billData = getChosenBillData(assignedBill, scraperBills);
+
+    // Fills new bill data with scraper bill data.
+    const billLink = billData.measureArchiveUrl;
+    const billNo = billData.measureNumber;
+    const status = billData.status;
+    const companion = billData.companion;
+    const reportTitle = billData.reportTitle;
+    const measureTitle = billData.measureTitle;
+    const introducedBy = billData.introducer;
+    const introducedByDate = billData.year;
+    const description = billData.description;
+    const lastStatus = billData.lastUpdated;
+
     /*
       const owner = Meteor.user().username;
-      const collectionName = Stuffs.getCollectionName();
-      const definitionData = {
-        assignedBill,
-        offices,
-        action,
-        actionNumber,
-        legalType,
-        committeeReferral,
-        allVersions,
-        committeeReports,
-        hearingNotices,
-        notifiedHearing,
-        hearingDate,
-        hearingLocation,
-        committee,
-        type,
-        testifierContact,
-        similar,
-        leadOfficePosition,
-        testifier,
-        approvedTestimony,
-        monitoringReports,
-        hearingComments,
-        testimony,
-        rationale,
-      };
+      const collectionName = Stuffs.getCollectionName(); */
+    const definitionData = {
+      assignedBill,
+      offices,
+      action,
+      actionNumber,
+      legalType,
+      committeeReferral,
+      allVersions,
+      committeeReports,
+      hearingNotices,
+      notifiedHearing,
+      hearingDate,
+      hearingLocation,
+      committee,
+      type,
+      testifierContact,
+      similar,
+      leadOfficePosition,
+      testifier,
+      approvedTestimony,
+      monitoringReports,
+      hearingComments,
+      testimony,
+      rationale,
+      billLink,
+      billNo,
+      status,
+      companion,
+      reportTitle,
+      measureTitle,
+      introducedBy,
+      introducedByDate,
+      description,
+      lastStatus,
+    };
+      /*
       defineMethod.callPromise({ collectionName, definitionData })
         .catch(error => swal('Error', error.message, 'error'))
         .then(() => {
