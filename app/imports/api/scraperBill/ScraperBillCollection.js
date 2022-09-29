@@ -5,8 +5,8 @@ import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
 export const scraperBillsPublications = {
-  scraperBill: 'Bill',
-  scraperBillAdmin: 'BillAdmin',
+  scraperBill: 'ScraperBill',
+  scraperBillAdmin: 'ScraperBillAdmin',
 };
 
 class ScraperBillCollection extends BaseCollection {
