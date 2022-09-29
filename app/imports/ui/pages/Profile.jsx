@@ -11,7 +11,7 @@ const Profile = () => {
     image: '/images/profile-image.png',
   };
 
-  const [info, setInfo] = React.useState({
+  const [info] = React.useState({
     username: 'Jane Doe',
     useremail: 'Jane.doe@hidoe.com',
   });

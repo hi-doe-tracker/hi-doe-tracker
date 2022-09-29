@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Col, Container, Row, Form } from 'react-bootstrap';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField, LongTextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
@@ -57,6 +57,11 @@ const SubmitTestimony = () => {
       });
   };
 
+  const [hidden, setHidden] = useState(true);
+  const toggleHidden = () => {
+    if (hidden) setHidden(false);
+    if (!hidden) setHidden(true);
+  };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
@@ -76,8 +81,8 @@ const SubmitTestimony = () => {
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes />
-                <TextField name="organization" placeholder="Type organization name here" disabled />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes onClick={toggleHidden} />
+                <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
                 <h3>Type out testimony or upload pdf file</h3>
                 <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
