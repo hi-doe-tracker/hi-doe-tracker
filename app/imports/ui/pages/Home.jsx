@@ -14,7 +14,7 @@ const objects = [
     title: 'Hearings',
     icon: (<Megaphone size={100} />),
     link: '/view-hearings',
-    description: 'description of where this will take you',
+    description: 'View all hearings here',
   },
   {
     title: 'Measures',
