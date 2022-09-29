@@ -60,7 +60,6 @@ const SubmitTestimony = () => {
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
     if (hidden) setHidden(false);
-    if (!hidden) setHidden(true);
   };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
