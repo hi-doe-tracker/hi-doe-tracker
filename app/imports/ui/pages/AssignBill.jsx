@@ -57,7 +57,7 @@ const formSchema = {
   legalType: String,
   committeeReferral: { type: Array, minCount: 1 },
   'committeeReferral.$': Object,
-  'committeeReferral.$.version': { type: String, min: 0 },
+  'committeeReferral.$.referral': { type: String, min: 0 },
   allVersions: { type: Array, minCount: 1 },
   'allVersions.$': Object,
   'allVersions.$.version': { type: String, min: 0 },
@@ -66,7 +66,7 @@ const formSchema = {
   'committeeReports.$.report': { type: String, min: 0 },
   hearingNotices: { type: Array, minCount: 1 },
   'hearingNotices.$': Object,
-  'hearingNotices.$.report': { type: String, min: 0 },
+  'hearingNotices.$.hearingNotice': { type: String, min: 0 },
   notifiedHearing: String,
   hearingDate: { type: Date, defaultValue: new Date() },
   hearingLocation: String,
@@ -74,24 +74,24 @@ const formSchema = {
   type: String,
   testifierContact: { type: Array, minCount: 1 },
   'testifierContact.$': Object,
-  'testifierContact.$.report': { type: String, min: 0 },
+  'testifierContact.$.contact': { type: String, min: 0 },
   similar: { type: Array, minCount: 1 },
   'similar.$': Object,
-  'similar.$.report': { type: String, min: 0 },
+  'similar.$.similar': { type: String, min: 0 },
   leadOfficePosition: String,
   testifier: String,
   approvedTestimony: { type: Array, minCount: 1 },
   'approvedTestimony.$': Object,
-  'approvedTestimony.$.report': { type: String, min: 0 },
+  'approvedTestimony.$.approvedTestimony': { type: String, min: 0 },
   monitoringReports: { type: Array, minCount: 1 },
   'monitoringReports.$': Object,
   'monitoringReports.$.report': { type: String, min: 0 },
   hearingComments: { type: Array, minCount: 1 },
   'hearingComments.$': Object,
-  'hearingComments.$.report': { type: String, min: 0 },
+  'hearingComments.$.comment': { type: String, min: 0 },
   testimony: { type: Array, minCount: 1 },
   'testimony.$': Object,
-  'testimony.$.report': { type: String, min: 0 },
+  'testimony.$.testimony': { type: String, min: 0 },
   rationale: String,
 };
 
@@ -296,23 +296,12 @@ const AssignBill = () => {
                 <Row>
                   <Col><TextField name="action" /></Col>
                   <Col><TextField name="actionNumber" /></Col>
+                  <Col><TextField name="legalType" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="legalType" /></Col>
                   <Col>
                     <ListField
                       name="committeeReferral"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <ListField
-                      name="allVersions"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -332,23 +321,19 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      name="allVersions"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                    <ListField
                       name="hearingNotices"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
                       showInlineError
                     />
-                  </Col>
-                  <Col>
-                    <TextField name="notifiedHearing" />
-                    <DateField name="hearingDate" />
-                    <TextField name="hearingLocation" />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col><TextField name="committee" /></Col>
-                  <Col><TextField name="type" /></Col>
-                  <Col>
                     <ListField
                       name="testifierContact"
                       addIcon={<GrFormAdd />}
@@ -356,6 +341,15 @@ const AssignBill = () => {
                       removeIcon={<CgRemove />}
                       showInlineError
                     />
+                  </Col>
+                  <Col>
+                    <DateField name="hearingDate" />
+                    <TextField name="notifiedHearing" />
+                    <TextField name="hearingLocation" />
+                    <TextField name="committee" />
+                    <TextField name="type" />
+                    <TextField name="leadOfficePosition" />
+                    <TextField name="testifier" />
                   </Col>
                 </Row>
                 <Row>
@@ -368,8 +362,6 @@ const AssignBill = () => {
                       showInlineError
                     />
                   </Col>
-                  <Col><TextField name="leadOfficePosition" /></Col>
-                  <Col><TextField name="testifier" /></Col>
                   <Col>
                     <ListField
                       name="approvedTestimony"
