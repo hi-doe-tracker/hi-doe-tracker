@@ -46,10 +46,9 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 /* Renders the Submit Testimony page for adding a document. */
 const SubmitTestimony = () => {
   const submit = (data, formRef) => {
-    const { firstName, lastName, position, testifying, organization, testifyingMethod, testimony } = data;
     const owner = Meteor.user().username;
     const collectionName = Testimonies.getCollectionName();
-    const definitionData = { firstName, lastName, position, testifying, organization, testifyingMethod, testimony, owner };
+    const definitionData = { ...data, owner };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
