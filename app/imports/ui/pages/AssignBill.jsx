@@ -1,17 +1,17 @@
 import React from 'react';
-// import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Card, Col, Row } from 'react-bootstrap';
 import { GrFormAdd } from 'react-icons/gr';
 import { CgRemove } from 'react-icons/cg';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import { AutoForm, BoolField, DateField, ErrorsField, ListField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
+import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
-// import { defineMethod } from '../../api/base/BaseCollection.methods';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 // A schema for a form.
 const formSchema = {
@@ -55,7 +55,9 @@ const formSchema = {
   action: String,
   actionNumber: String,
   legalType: String,
-  committeeReferral: String,
+  committeeReferral: { type: Array, minCount: 1 },
+  'committeeReferral.$': Object,
+  'committeeReferral.$.version': { type: String, min: 0 },
   allVersions: { type: Array, minCount: 1 },
   'allVersions.$': Object,
   'allVersions.$.version': { type: String, min: 0 },
@@ -70,22 +72,26 @@ const formSchema = {
   hearingLocation: String,
   committee: String,
   type: String,
-  testifierContact: String,
-  similar: String,
+  testifierContact: { type: Array, minCount: 1 },
+  'testifierContact.$': Object,
+  'testifierContact.$.report': { type: String, min: 0 },
+  similar: { type: Array, minCount: 1 },
+  'similar.$': Object,
+  'similar.$.report': { type: String, min: 0 },
   leadOfficePosition: String,
   testifier: String,
-  approvedTestimony: String,
+  approvedTestimony: { type: Array, minCount: 1 },
+  'approvedTestimony.$': Object,
+  'approvedTestimony.$.report': { type: String, min: 0 },
   monitoringReports: { type: Array, minCount: 1 },
   'monitoringReports.$': Object,
   'monitoringReports.$.report': { type: String, min: 0 },
   hearingComments: { type: Array, minCount: 1 },
   'hearingComments.$': Object,
   'hearingComments.$.report': { type: String, min: 0 },
-  testimony: {
-    type: String,
-    allowedValues: ['Testimony 1', 'Testimony 2', 'Testimony 3'],
-    defaultValue: 'Testimony 1',
-  },
+  testimony: { type: Array, minCount: 1 },
+  'testimony.$': Object,
+  'testimony.$.report': { type: String, min: 0 },
   rationale: String,
 };
 
@@ -191,9 +197,10 @@ const AssignBill = () => {
       rationale,
     } = data;
 
-    // Gets offices and billData.
-    const offices = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
+    // Gets the bill data from the bill title chosen.
     const billData = getChosenBillData(assignedBill, scraperBills);
+    // Gets the offices from the office bool values selected.
+    const office = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
 
     // Fills new bill data with scraper bill data.
     const billLink = billData.measureArchiveUrl;
@@ -207,19 +214,27 @@ const AssignBill = () => {
     const description = billData.description;
     const lastStatus = billData.lastUpdated;
 
-    /*
-      const owner = Meteor.user().username;
-      const collectionName = Stuffs.getCollectionName(); */
+    const collectionName = Bills.getCollectionName();
+
     const definitionData = {
-      assignedBill,
-      offices,
+      billLink,
+      billNo,
+      office,
       action,
+      status,
       actionNumber,
+      companion,
+      reportTitle,
       legalType,
       committeeReferral,
+      measureTitle,
+      introducedBy,
+      introducedByDate,
+      description,
       allVersions,
       committeeReports,
       hearingNotices,
+      lastStatus,
       notifiedHearing,
       hearingDate,
       hearingLocation,
@@ -234,25 +249,15 @@ const AssignBill = () => {
       hearingComments,
       testimony,
       rationale,
-      billLink,
-      billNo,
-      status,
-      companion,
-      reportTitle,
-      measureTitle,
-      introducedBy,
-      introducedByDate,
-      description,
-      lastStatus,
     };
-      /*
-      defineMethod.callPromise({ collectionName, definitionData })
-        .catch(error => swal('Error', error.message, 'error'))
-        .then(() => {
-          swal('Success', 'Bill added successfully', 'success');
-          formRef.reset();
-        });
-     */
+
+    // Inserts the newly created bill into the database.
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', 'Bill added successfully', 'success');
+        formRef.reset();
+      });
   };
 
   let fRef = null;
@@ -294,7 +299,15 @@ const AssignBill = () => {
                 </Row>
                 <Row>
                   <Col><TextField name="legalType" /></Col>
-                  <Col><TextField name="committeeReferral" /></Col>
+                  <Col>
+                    <ListField
+                      name="committeeReferral"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                 </Row>
                 <Row>
                   <Col>
@@ -335,13 +348,37 @@ const AssignBill = () => {
                 <Row>
                   <Col><TextField name="committee" /></Col>
                   <Col><TextField name="type" /></Col>
-                  <Col><TextField name="testifierContact" /></Col>
+                  <Col>
+                    <ListField
+                      name="testifierContact"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="similar" /></Col>
+                  <Col>
+                    <ListField
+                      name="similar"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                   <Col><TextField name="leadOfficePosition" /></Col>
                   <Col><TextField name="testifier" /></Col>
-                  <Col><TextField name="approvedTestimony" /></Col>
+                  <Col>
+                    <ListField
+                      name="approvedTestimony"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                 </Row>
                 <Row>
                   <Col>
@@ -364,7 +401,15 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col><SelectField name="testimony" /></Col>
+                  <Col>
+                    <ListField
+                      name="testimony"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                   <Col><TextField name="rationale" /></Col>
                 </Row>
                 <SubmitField value="Submit" />
