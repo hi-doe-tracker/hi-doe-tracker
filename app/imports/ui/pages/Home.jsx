@@ -13,7 +13,7 @@ const objects = [
   {
     title: 'Hearings',
     icon: (<Megaphone size={100} />),
-    link: '',
+    link: '/view-hearings',
     description: 'description of where this will take you',
   },
   {
@@ -56,7 +56,7 @@ const HomeContent = () => (
             <Col>
               <OverlayTrigger
                 placement="bottom"
-                overlay={(<Tooltip>{info.description}</Tooltip>)}
+                overlay={(<Tooltip key={info.title} id={info.title}>{info.description}</Tooltip>)}
               >
                 <Card
                   bg={darkTheme ? 'dark' : ''}

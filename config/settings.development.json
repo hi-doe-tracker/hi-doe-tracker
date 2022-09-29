@@ -2,7 +2,10 @@
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP"
     },
-    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" }
+    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" },
+    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does" },
+    { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode" },
+    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea" }
   ],
 
   "defaultData": [
@@ -462,8 +465,8 @@
   },
   "defaultBills": [
     {
-    "billlink": "www.google.com",
-    "billno": "HB 012E",
+    "billLink": "www.google.com",
+    "billNo": "HB 012E",
     "office": [
       "OSIP",
       "OPS",
@@ -474,47 +477,47 @@
     ],
     "action": "Testimony",
     "status": "3rd Crossover",
-    "actno": 10,
+    "actionNumber": 10,
     "companion": "placeholder for companion",
-    "reporttitle": "Placeholder for report title",
-    "legtype": "Bill",
-    "committeereferral": [
+    "reportTitle": "Placeholder for report title",
+    "legalType": "Bill",
+    "committeeReferral": [
       "com1",
       "com2",
       "com3"
     ],
-    "measuretitle": "Placeholder for measure title",
-    "introducedby": "ABCDEFGHI",
-    "introducedbydate": "Wed Sep 21 2022",
+    "measureTitle": "Placeholder for measure title",
+    "introducedBy": "ABCDEFGHI",
+    "introducedByDate": "Wed Sep 21 2022",
     "description": "Lorem ipsum dolor sdsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "allversion": [
+    "allVersions": [
       "www.google.com",
       "www.youtube.com",
       "www.yahoo.com"
     ],
-    "committeereports": [
+    "committeeReports": [
       "www.google.com",
       "www.youtube.com",
       "www.yahoo.com"
     ],
-    "hearingnotices": [
+    "hearingNotices": [
       "www.google.com",
       "www.youtube.com",
       "www.yahoo.com"
     ],
-    "laststatus": [
+    "lastStatus": [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
       "Lorem ipsum dolsdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
       "Lorem ipsum dasolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"
     ],
-    "notifiedhearingdate": "Wed Sep 21 2022",
-    "notifiedhearing": "www.google.com",
-    "hearingdate": "Wed Sep 21 2022",
-    "hearingtime": "02:30 PM",
-    "hearinglocation": "Cabinet Building",
+    "notifiedHearingDate": "Wed Sep 21 2022",
+    "notifiedHearing": "www.google.com",
+    "hearingDate": "Wed Sep 21 2022",
+    "hearingTime": "02:30 PM",
+    "hearingLocation": "Cabinet Building",
     "committee": "Senate",
     "type": "Decision Making",
-    "testifiercontact": [
+    "testifierContact": [
       "abc@gmail.com",
       "def@gmail.com"
     ],
@@ -522,15 +525,15 @@
       "orasdasem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
       "orem ipsdsdsum sddolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"
     ],
-    "leadofficeposition": "What goes here?",
+    "leadOfficePosition": "What goes here?",
     "testifier": "Cara Tanimura",
-    "approvedtestimony": [
+    "approvedTestimony": [
       "abcdefghij.pdf",
       "abcdefghi.pdf",
       "abcdefghsi.pdf"
     ],
-    "monitoringreports": "what goes here?",
-    "hearingcomments": [
+    "monitoringReports": "what goes here?",
+    "hearingComments": [
       "Comment 1",
       "Comment 2",
       "Comment 3"
