@@ -56,42 +56,32 @@ const formSchema = {
   actionNumber: String,
   legalType: String,
   committeeReferral: { type: Array, minCount: 1 },
-  'committeeReferral.$': Object,
-  'committeeReferral.$.referral': { type: String, min: 0 },
+  'committeeReferral.$': String,
   allVersions: { type: Array, minCount: 1 },
-  'allVersions.$': Object,
-  'allVersions.$.version': { type: String, min: 0 },
+  'allVersions.$': String,
   committeeReports: { type: Array, minCount: 1 },
-  'committeeReports.$': Object,
-  'committeeReports.$.report': { type: String, min: 0 },
+  'committeeReports.$': String,
   hearingNotices: { type: Array, minCount: 1 },
-  'hearingNotices.$': Object,
-  'hearingNotices.$.hearingNotice': { type: String, min: 0 },
+  'hearingNotices.$': String,
   notifiedHearing: String,
   hearingDate: { type: Date, defaultValue: new Date() },
   hearingLocation: String,
   committee: String,
   type: String,
   testifierContact: { type: Array, minCount: 1 },
-  'testifierContact.$': Object,
-  'testifierContact.$.contact': { type: String, min: 0 },
+  'testifierContact.$': String,
   similar: { type: Array, minCount: 1 },
-  'similar.$': Object,
-  'similar.$.similar': { type: String, min: 0 },
+  'similar.$': String,
   leadOfficePosition: String,
   testifier: String,
   approvedTestimony: { type: Array, minCount: 1 },
-  'approvedTestimony.$': Object,
-  'approvedTestimony.$.approvedTestimony': { type: String, min: 0 },
+  'approvedTestimony.$': String,
   monitoringReports: { type: Array, minCount: 1 },
-  'monitoringReports.$': Object,
-  'monitoringReports.$.report': { type: String, min: 0 },
+  'monitoringReports.$': String,
   hearingComments: { type: Array, minCount: 1 },
-  'hearingComments.$': Object,
-  'hearingComments.$.comment': { type: String, min: 0 },
+  'hearingComments.$': String,
   testimony: { type: Array, minCount: 1 },
-  'testimony.$': Object,
-  'testimony.$.testimony': { type: String, min: 0 },
+  'testimony.$': String,
   rationale: String,
 };
 
@@ -197,8 +187,11 @@ const AssignBill = () => {
       rationale,
     } = data;
 
+    console.log(committeeReferral);
+
     // Gets the bill data from the bill title chosen.
-    const billData = getChosenBillData(assignedBill, scraperBills);
+    const filteredBillData = getChosenBillData(assignedBill, scraperBills);
+    const billData = filteredBillData[0];
     // Gets the offices from the office bool values selected.
     const office = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
 
@@ -212,7 +205,7 @@ const AssignBill = () => {
     const introducedBy = billData.introducer;
     const introducedByDate = billData.year;
     const description = billData.description;
-    const lastStatus = billData.lastUpdated;
+    const lastStatus = [];
 
     const collectionName = Bills.getCollectionName();
 
