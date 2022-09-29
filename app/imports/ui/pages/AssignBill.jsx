@@ -15,9 +15,9 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // A schema for a form.
 const formSchema = {
-  'assigned bill': {
+  assignedbill: {
     type: String,
-    allowedValues: [],
+    allowedValues: ['Pick a bill'],
     defaultValue: 'Pick a bill',
   },
   deputy: {
@@ -53,34 +53,34 @@ const formSchema = {
     optional: true,
   },
   action: String,
-  'action number': String,
-  'legal type': String,
-  'committee referral': String,
-  'all versions': { type: Array, minCount: 1 },
-  'all versions.$': Object,
-  'all versions.$.version': { type: String, min: 0 },
-  'committee reports': { type: Array, minCount: 1 },
-  'committee reports.$': Object,
-  'committee reports.$.report': { type: String, min: 0 },
-  'hearing notices': { type: Array, minCount: 1 },
-  'hearing notices.$': Object,
-  'hearing notices.$.report': { type: String, min: 0 },
-  'notified hearing': String,
-  'hearing date': { type: Date, defaultValue: new Date() },
-  'hearing location': String,
+  actionnumber: String,
+  legaltype: String,
+  committeereferral: String,
+  allversions: { type: Array, minCount: 1 },
+  'allversions.$': Object,
+  'allversions.$.version': { type: String, min: 0 },
+  committeereports: { type: Array, minCount: 1 },
+  'committeereports.$': Object,
+  'committeereports.$.report': { type: String, min: 0 },
+  hearingnotices: { type: Array, minCount: 1 },
+  'hearingnotices.$': Object,
+  'hearingnotices.$.report': { type: String, min: 0 },
+  notifiedhearing: String,
+  hearingdate: { type: Date, defaultValue: new Date() },
+  hearinglocation: String,
   committee: String,
   type: String,
-  'testifier contact': String,
+  testifiercontact: String,
   similar: String,
-  'lead office position': String,
+  leadofficeposition: String,
   testifier: String,
-  'approved testimony': String,
-  'monitoring reports': { type: Array, minCount: 1 },
-  'monitoring reports.$': Object,
-  'monitoring reports.$.report': { type: String, min: 0 },
-  'hearing comments': { type: Array, minCount: 1 },
-  'hearing comments.$': Object,
-  'hearing comments.$.report': { type: String, min: 0 },
+  approvedtestimony: String,
+  monitoringreports: { type: Array, minCount: 1 },
+  'monitoringreports.$': Object,
+  'monitoringreports.$.report': { type: String, min: 0 },
+  hearingcomments: { type: Array, minCount: 1 },
+  'hearingcomments.$': Object,
+  'hearingcomments.$.report': { type: String, min: 0 },
   testimony: {
     type: String,
     allowedValues: ['Testimony 1', 'Testimony 2', 'Testimony 3'],
@@ -92,6 +92,7 @@ const formSchema = {
 // Returns an array of the scraper bill names provided as allowed values for the form.
 const holdBillAllowedValues = (scraperBills) => {
   const allowedValues = [];
+  allowedValues.push('Pick a bill');
   scraperBills.map((bill) => allowedValues.push(`#${bill.measureNumber}: ${bill.measureTitle}`));
   return allowedValues;
 };
@@ -100,7 +101,7 @@ const holdBillAllowedValues = (scraperBills) => {
 const createFormSchema = (ready, scraperBills) => {
   if (ready) {
     // Sets the allowed values for assigned bill to the scraper bill names.
-    formSchema['assigned bill'].allowedValues = holdBillAllowedValues(scraperBills);
+    formSchema['assignedbill'].allowedValues = holdBillAllowedValues(scraperBills);
     return new SimpleSchema(formSchema);
   }
   return new SimpleSchema(formSchema);
@@ -118,6 +119,24 @@ const getOfficesSelected = (...officeBoolValues) => {
     }
   }
   return selectedOffices;
+};
+
+// Gets the data for a chosen bill.
+const getChosenBillData = (billChosen, scraperBills) => {
+  let billNumberString = '';
+
+  for (let i = 1; i < billChosen.length; i++) {
+    // Exits loop once bill number is read.
+    if (billChosen[i] === ':') {
+      break;
+    }
+    billNumberString = billNumberString.concat(billChosen[i]);
+  }
+
+  // Parses the number an then searches for the bill data given the number.
+  const billNumber = Number(billNumberString);
+  const billData = scraperBills.filter((bill) => bill.measureNumber === billNumber);
+  return billData;
 };
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
@@ -174,6 +193,7 @@ const AssignBill = () => {
 
     // Holds the offices the bill is categorized under.
     const offices = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
+    const billData = getChosenBillData(assignedbill, scraperBills);
     /*
       const owner = Meteor.user().username;
       const collectionName = Stuffs.getCollectionName();
@@ -224,7 +244,7 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <Row><Col><SelectField name="assigned bill" /></Col></Row>
+                <Row><Col><SelectField name="assignedbill" /></Col></Row>
                 <Row style={officeFormStyle}>
                   <p>Offices</p>
                   <Col>
@@ -246,16 +266,16 @@ const AssignBill = () => {
                 </Row>
                 <Row>
                   <Col><TextField name="action" /></Col>
-                  <Col><TextField name="action number" /></Col>
+                  <Col><TextField name="actionnumber" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="legal type" /></Col>
-                  <Col><TextField name="committee referral" /></Col>
+                  <Col><TextField name="legaltype" /></Col>
+                  <Col><TextField name="committeereferral" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
-                      name="all versions"
+                      name="allversions"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -264,7 +284,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
-                      name="committee reports"
+                      name="committeereports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -275,7 +295,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
-                      name="hearing notices"
+                      name="hearingnotices"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -283,26 +303,26 @@ const AssignBill = () => {
                     />
                   </Col>
                   <Col>
-                    <TextField name="notified hearing" />
-                    <DateField name="hearing date" />
-                    <TextField name="hearing location" />
+                    <TextField name="notifiedhearing" />
+                    <DateField name="hearingdate" />
+                    <TextField name="hearinglocation" />
                   </Col>
                 </Row>
                 <Row>
                   <Col><TextField name="committee" /></Col>
                   <Col><TextField name="type" /></Col>
-                  <Col><TextField name="testifier contact" /></Col>
+                  <Col><TextField name="testifiercontact" /></Col>
                 </Row>
                 <Row>
                   <Col><TextField name="similar" /></Col>
-                  <Col><TextField name="lead office position" /></Col>
+                  <Col><TextField name="leadofficeposition" /></Col>
                   <Col><TextField name="testifier" /></Col>
-                  <Col><TextField name="approved testimony" /></Col>
+                  <Col><TextField name="approvedtestimony" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
-                      name="monitoring reports"
+                      name="monitoringreports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -311,7 +331,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
-                      name="hearing comments"
+                      name="hearingcomments"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
