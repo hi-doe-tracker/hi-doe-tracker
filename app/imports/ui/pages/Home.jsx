@@ -13,7 +13,7 @@ const objects = [
   {
     title: 'Hearings',
     icon: (<Megaphone size={100} />),
-    link: '',
+    link: '/view-hearings',
     description: 'description of where this will take you',
   },
   {
