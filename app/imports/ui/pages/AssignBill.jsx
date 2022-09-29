@@ -15,7 +15,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 // A schema for a form.
 const formSchema = {
-  assignedbill: {
+  assignedBill: {
     type: String,
     allowedValues: ['Pick a bill'],
     defaultValue: 'Pick a bill',
@@ -53,34 +53,34 @@ const formSchema = {
     optional: true,
   },
   action: String,
-  actionnumber: String,
-  legaltype: String,
-  committeereferral: String,
-  allversions: { type: Array, minCount: 1 },
-  'allversions.$': Object,
-  'allversions.$.version': { type: String, min: 0 },
-  committeereports: { type: Array, minCount: 1 },
-  'committeereports.$': Object,
-  'committeereports.$.report': { type: String, min: 0 },
-  hearingnotices: { type: Array, minCount: 1 },
-  'hearingnotices.$': Object,
-  'hearingnotices.$.report': { type: String, min: 0 },
-  notifiedhearing: String,
-  hearingdate: { type: Date, defaultValue: new Date() },
-  hearinglocation: String,
+  actionNumber: String,
+  legalType: String,
+  committeeReferral: String,
+  allVersions: { type: Array, minCount: 1 },
+  'allVersions.$': Object,
+  'allVersions.$.version': { type: String, min: 0 },
+  committeeReports: { type: Array, minCount: 1 },
+  'committeeReports.$': Object,
+  'committeeReports.$.report': { type: String, min: 0 },
+  hearingNotices: { type: Array, minCount: 1 },
+  'hearingNotices.$': Object,
+  'hearingNotices.$.report': { type: String, min: 0 },
+  notifiedHearing: String,
+  hearingDate: { type: Date, defaultValue: new Date() },
+  hearingLocation: String,
   committee: String,
   type: String,
-  testifiercontact: String,
+  testifierContact: String,
   similar: String,
-  leadofficeposition: String,
+  leadOfficePosition: String,
   testifier: String,
-  approvedtestimony: String,
-  monitoringreports: { type: Array, minCount: 1 },
-  'monitoringreports.$': Object,
-  'monitoringreports.$.report': { type: String, min: 0 },
-  hearingcomments: { type: Array, minCount: 1 },
-  'hearingcomments.$': Object,
-  'hearingcomments.$.report': { type: String, min: 0 },
+  approvedTestimony: String,
+  monitoringReports: { type: Array, minCount: 1 },
+  'monitoringReports.$': Object,
+  'monitoringReports.$.report': { type: String, min: 0 },
+  hearingComments: { type: Array, minCount: 1 },
+  'hearingComments.$': Object,
+  'hearingComments.$.report': { type: String, min: 0 },
   testimony: {
     type: String,
     allowedValues: ['Testimony 1', 'Testimony 2', 'Testimony 3'],
@@ -101,7 +101,7 @@ const holdBillAllowedValues = (scraperBills) => {
 const createFormSchema = (ready, scraperBills) => {
   if (ready) {
     // Sets the allowed values for assigned bill to the scraper bill names.
-    formSchema['assignedbill'].allowedValues = holdBillAllowedValues(scraperBills);
+    formSchema.assignedBill.allowedValues = holdBillAllowedValues(scraperBills);
     return new SimpleSchema(formSchema);
   }
   return new SimpleSchema(formSchema);
@@ -159,7 +159,7 @@ const AssignBill = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const {
-      assignedbill,
+      assignedBill,
       deputy,
       ocid,
       ofo,
@@ -169,56 +169,56 @@ const AssignBill = () => {
       osss,
       otm,
       action,
-      actionnumber,
-      legaltype,
-      committeereferral,
-      allversions,
-      committeereports,
-      hearingnotices,
-      notifiedhearing,
-      hearingdate,
-      hearinglocation,
+      actionNumber,
+      legalType,
+      committeeReferral,
+      allVersions,
+      committeeReports,
+      hearingNotices,
+      notifiedHearing,
+      hearingDate,
+      hearingLocation,
       committee,
       type,
-      testifiercontact,
+      testifierContact,
       similar,
-      leadofficeposition,
+      leadOfficePosition,
       testifier,
-      approvedtestimony,
-      monitoringreports,
-      hearingcomments,
+      approvedTestimony,
+      monitoringReports,
+      hearingComments,
       testimony,
       rationale,
     } = data;
 
     // Holds the offices the bill is categorized under.
     const offices = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
-    const billData = getChosenBillData(assignedbill, scraperBills);
+    const billData = getChosenBillData(assignedBill, scraperBills);
     /*
       const owner = Meteor.user().username;
       const collectionName = Stuffs.getCollectionName();
       const definitionData = {
-        assignedbill,
+        assignedBill,
         offices,
         action,
-        actionnumber,
-        legaltype,
-        committeereferral,
-        allversions,
-        committeereports,
-        hearingnotices,
-        notifiedhearing,
-        hearingdate,
-        hearinglocation,
+        actionNumber,
+        legalType,
+        committeeReferral,
+        allVersions,
+        committeeReports,
+        hearingNotices,
+        notifiedHearing,
+        hearingDate,
+        hearingLocation,
         committee,
         type,
-        testifiercontact,
+        testifierContact,
         similar,
-        leadofficeposition,
+        leadOfficePosition,
         testifier,
-        approvedtestimony,
-        monitoringreports,
-        hearingcomments,
+        approvedTestimony,
+        monitoringReports,
+        hearingComments,
         testimony,
         rationale,
       };
@@ -244,7 +244,7 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <Row><Col><SelectField name="assignedbill" /></Col></Row>
+                <Row><Col><SelectField name="assignedBill" /></Col></Row>
                 <Row style={officeFormStyle}>
                   <p>Offices</p>
                   <Col>
@@ -266,16 +266,16 @@ const AssignBill = () => {
                 </Row>
                 <Row>
                   <Col><TextField name="action" /></Col>
-                  <Col><TextField name="actionnumber" /></Col>
+                  <Col><TextField name="actionNumber" /></Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="legaltype" /></Col>
-                  <Col><TextField name="committeereferral" /></Col>
+                  <Col><TextField name="legalType" /></Col>
+                  <Col><TextField name="committeeReferral" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
-                      name="allversions"
+                      name="allVersions"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -284,7 +284,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
-                      name="committeereports"
+                      name="committeeReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -295,7 +295,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
-                      name="hearingnotices"
+                      name="hearingNotices"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -303,26 +303,26 @@ const AssignBill = () => {
                     />
                   </Col>
                   <Col>
-                    <TextField name="notifiedhearing" />
-                    <DateField name="hearingdate" />
-                    <TextField name="hearinglocation" />
+                    <TextField name="notifiedHearing" />
+                    <DateField name="hearingDate" />
+                    <TextField name="hearingLocation" />
                   </Col>
                 </Row>
                 <Row>
                   <Col><TextField name="committee" /></Col>
                   <Col><TextField name="type" /></Col>
-                  <Col><TextField name="testifiercontact" /></Col>
+                  <Col><TextField name="testifierContact" /></Col>
                 </Row>
                 <Row>
                   <Col><TextField name="similar" /></Col>
-                  <Col><TextField name="leadofficeposition" /></Col>
+                  <Col><TextField name="leadOfficePosition" /></Col>
                   <Col><TextField name="testifier" /></Col>
-                  <Col><TextField name="approvedtestimony" /></Col>
+                  <Col><TextField name="approvedTestimony" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
-                      name="monitoringreports"
+                      name="monitoringReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -331,7 +331,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
-                      name="hearingcomments"
+                      name="hearingComments"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
