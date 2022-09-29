@@ -18,7 +18,7 @@ class BillCollection extends BaseCollection {
       action: String,
       status: String,
       actionNumber: Number,
-      companion: String,
+      companion: { type: String, optional: true },
       reportTitle: String,
       legalType: String,
       committeeReferral: [String],
