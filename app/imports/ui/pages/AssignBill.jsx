@@ -187,8 +187,6 @@ const AssignBill = () => {
       rationale,
     } = data;
 
-    console.log(committeeReferral);
-
     // Gets the bill data from the bill title chosen.
     const filteredBillData = getChosenBillData(assignedBill, scraperBills);
     const billData = filteredBillData[0];
