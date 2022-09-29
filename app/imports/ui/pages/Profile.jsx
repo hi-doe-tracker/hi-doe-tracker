@@ -1,8 +1,7 @@
 import React from 'react';
 import '/client/style.css';
-import { AutoForm, Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle, Row, Col, TextField, InputGroup, useState} from 'react-bootstrap';
+import { Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const Profile = () => {
   const user = {
@@ -11,8 +10,6 @@ const Profile = () => {
     email: 'Jane.doe@hidoe.com',
     image: '/images/profile-image.png',
   };
-  // const [username, setusername] = React.useState('Jane Doe');
-  // const [useremail, setuseremail] = React.useState('Jane.doe@hidoe.com');
 
   const [info, setInfo] = React.useState({
     username: 'Jane Doe',
@@ -26,23 +23,12 @@ const Profile = () => {
     setModalShow(false);
   };
 
-  // const updateUser  = (data) => {
-  //   console.log('HERJA');
-  //   setusername(getInp);
-  //   setuseremail(event.target.email);
-  //   console.log(event.target.name);
-  //   handleClose();
-  // };
-
-  const handleChange = (e) => {
-    setInfo({ [e.target.id]: e.target.value });
-  };
-
+  // TODO: fix non updating values
   const handleSubmit = () => {
-    setInfo((state) => ({
-      username: state.username1,
-      textInput: state.useremail1,
-    }));
+    // setInfo((state) => ({
+    //   username: state.username,
+    //   textInput: state.useremail,
+    // }));
     handleClose();
   };
 
@@ -73,16 +59,16 @@ const Profile = () => {
             <ModalBody>
               <Form.Group>
                 <Form.Label>Name: </Form.Label>
-                <Form.Control id="username1" name="InputName" type="name" defaultValue={info.username} onChange={handleChange} />
-                <br></br>
+                <Form.Control id="username" name="InputName" type="name" defaultValue={info.username} />
+                <br />
                 <Form.Label>Position: </Form.Label>
                 <Form.Control name="title" type="text" value={user.title} />
-                <br></br>
+                <br />
                 <Form.Label>Email: </Form.Label>
-                <Form.Control id="useremail1" name="InputEmail" type="email" defaultValue={info.useremail} onChange={handleChange} />
+                <Form.Control id="useremail" name="InputEmail" type="email" defaultValue={info.useremail} />
               </Form.Group>
             </ModalBody>
-            <ModalFooter> 
+            <ModalFooter>
               <Button type="submit" onClick={handleSubmit}>
                 Save Changes
               </Button>
