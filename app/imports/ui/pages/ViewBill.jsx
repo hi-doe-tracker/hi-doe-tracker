@@ -402,7 +402,7 @@ ViewBill.propTypes = {
     leadOfficePosition: PropTypes.string,
     testifier: PropTypes.string,
     approvedTestimony: PropTypes.arrayOf(PropTypes.string),
-    monitoringReports: PropTypes.string,
+    monitoringReports: PropTypes.arrayOf(PropTypes.string).isRequired,
     hearingComments: PropTypes.arrayOf(PropTypes.string),
     testimony: PropTypes.arrayOf(PropTypes.string),
     rationale: PropTypes.string,
