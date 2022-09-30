@@ -44,19 +44,19 @@ const NavBar = () => {
           <Nav className="justify-content-end">
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
               [
-                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title={<Bell size="20" />}>
+                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="adminuser-dropdown" title={<Bell size="20" />}>
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/viewbill"><FileText /> Bill 1</NavDropdown.Item>
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
                 </NavDropdown>,
               ]
             ) : ''}
             {currentUser === '' ? (
-              <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} title="Login">
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} key="nonuser-dropdown" title="Login">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} to="/signin"><PersonFill />Sign in</NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} as={NavLink} to="/signup"><PersonPlusFill />Sign up</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} title={currentUser}>
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_PROFILE} as={NavLink} to="/profile">
                   Profile
                   <Person />

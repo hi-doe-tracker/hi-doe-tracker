@@ -53,10 +53,10 @@ const HomeContent = () => (
       <Col>
         <Row xs={1} md={3} className="g-4">
           {objects.map((info) => (
-            <Col>
+            <Col key={info.link}>
               <OverlayTrigger
                 placement="bottom"
-                overlay={(<Tooltip key={info.title} id={info.title}>{info.description}</Tooltip>)}
+                overlay={(<Tooltip key={info.title} id={info.title} style={{ position: 'absolute' }}>{info.description}</Tooltip>)}
               >
                 <Card
                   bg={darkTheme ? 'dark' : ''}
