@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import swal from 'sweetalert';
-import { Button, Table, Spinner } from 'react-bootstrap';
+import { Button, Table, Spinner, Container } from 'react-bootstrap';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { removeItMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -53,63 +53,65 @@ const ManageAccounts = () => {
   }
 
   return (
-    <Table responsive id={PAGE_IDS.MANAGE_ACCOUNTS}>
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      {ready ?
-        (
-          <tbody>
-            { userProfiles.map(user => (
-              <tr key={user._id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td><Button variant="primary" onClick={() => handleEdit(user._id)}>Edit</Button></td>
-                <td><Button variant="danger" onClick={() => handleDelete(user._id)}>Delete</Button></td>
+    <Container>
+      <Table responsive id={PAGE_IDS.MANAGE_ACCOUNTS}>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        {ready ?
+          (
+            <tbody>
+              { userProfiles.map(user => (
+                <tr key={user._id}>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td><Button variant="primary" onClick={() => handleEdit(user._id)}>Edit</Button></td>
+                  <td><Button variant="danger" onClick={() => handleDelete(user._id)}>Delete</Button></td>
+                </tr>
+              ))}
+            </tbody>
+          ) :
+          (
+            <tbody>
+              <tr>
+                <td>
+                  <Button variant="primary" disabled>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    <span className="visually-hidden">Loading...</span>
+                  </Button>
+                </td>
+                <td>
+                  <Button variant="primary" disabled>
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    Loading...
+                  </Button>
+                </td>
               </tr>
-            ))}
-          </tbody>
-        ) :
-        (
-          <tbody>
-            <tr>
-              <td>
-                <Button variant="primary" disabled>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                  <span className="visually-hidden">Loading...</span>
-                </Button>
-              </td>
-              <td>
-                <Button variant="primary" disabled>
-                  <Spinner
-                    as="span"
-                    animation="grow"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                  Loading...
-                </Button>
-              </td>
-            </tr>
-          </tbody>
-        )}
-    </Table>
+            </tbody>
+          )}
+      </Table>
+    </Container>
   );
 };
 
