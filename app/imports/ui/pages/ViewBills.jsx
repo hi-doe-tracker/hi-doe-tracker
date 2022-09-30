@@ -45,7 +45,6 @@ const officeNames = [
 
 const ViewBills = () => {
   const mobileView = useMediaQuery('(max-width: 850px)');
-
   return (
     <Container id={PAGE_IDS.VIEW_BILLS}>
       <Tab.Container defaultActiveKey="all-bills">
