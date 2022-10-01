@@ -31,70 +31,76 @@ const ViewHearings = () => {
           <h2>Hearings</h2>
         </Col>
       </Row>
-      <Row lg={3} md={2} xs={1} className="g-4">
-        <Card>
-          <Card.Body>
-            <Card.Title>08/09/2022 Hearing</Card.Title>
-            <Card.Subtitle>2:00 PM</Card.Subtitle>
-            <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Row>
-              <div className="d-grid gap-2">
-                <Button variant="outline-secondary">Details</Button>
-                <Button variant="outline-success">Follow</Button>
-              </div>
-            </Row>
-          </Card.Footer>
-          <Card.Footer>
-            <Badge bg="primary">HB 150</Badge>
-            <Badge bg="primary">SB 152</Badge>
-            <Badge bg="secondary">BOE</Badge>
-            <Badge bg="secondary">OSSS</Badge>
-          </Card.Footer>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>08/09/2022 Hearing</Card.Title>
-            <Card.Subtitle>2:00 PM</Card.Subtitle>
-            <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Row>
-              <div className="d-grid gap-2">
-                <Button variant="outline-secondary">Details</Button>
-                <Button variant="outline-success">Follow</Button>
-              </div>
-            </Row>
-          </Card.Footer>
-          <Card.Footer>
-            <Badge bg="primary">HB 150</Badge>
-            <Badge bg="primary">SB 152</Badge>
-            <Badge bg="secondary">BOE</Badge>
-            <Badge bg="secondary">OSSS</Badge>
-          </Card.Footer>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>{hearing}</Card.Title>
-            <Card.Subtitle>2:00 PM</Card.Subtitle>
-            <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Row>
-              <div className="d-grid gap-2">
-                <Button variant="outline-secondary">Details</Button>
-                <Button variant="outline-success">Follow</Button>
-              </div>
-            </Row>
-          </Card.Footer>
-          <Card.Footer>
-            <Badge bg="primary">HB 150</Badge>
-            <Badge bg="primary">SB 152</Badge>
-            <Badge bg="secondary">BOE</Badge>
-            <Badge bg="secondary">OSSS</Badge>
-          </Card.Footer>
-        </Card>
+      <Row className="g-4">
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>08/09/2022 Hearing</Card.Title>
+              <Card.Subtitle>2:00 PM</Card.Subtitle>
+              <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Row>
+                <div className="d-grid gap-2">
+                  <Button variant="outline-secondary">Details</Button>
+                  <Button variant="outline-success">Follow</Button>
+                </div>
+              </Row>
+            </Card.Footer>
+            <Card.Footer>
+              <Badge bg="primary">HB 150</Badge>
+              <Badge bg="primary">SB 152</Badge>
+              <Badge bg="secondary">BOE</Badge>
+              <Badge bg="secondary">OSSS</Badge>
+            </Card.Footer>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>08/09/2022 Hearing</Card.Title>
+              <Card.Subtitle>2:00 PM</Card.Subtitle>
+              <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Row>
+                <div className="d-grid gap-2">
+                  <Button variant="outline-secondary">Details</Button>
+                  <Button variant="outline-success">Follow</Button>
+                </div>
+              </Row>
+            </Card.Footer>
+            <Card.Footer>
+              <Badge bg="primary">HB 150</Badge>
+              <Badge bg="primary">SB 152</Badge>
+              <Badge bg="secondary">BOE</Badge>
+              <Badge bg="secondary">OSSS</Badge>
+            </Card.Footer>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>{hearing}</Card.Title>
+              <Card.Subtitle>2:00 PM</Card.Subtitle>
+              <Card.Text>Filler Text. This is a description on what this hearing is about. Location, bills to be heardetc...</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Row>
+                <div className="d-grid gap-2">
+                  <Button variant="outline-secondary">Details</Button>
+                  <Button variant="outline-success">Follow</Button>
+                </div>
+              </Row>
+            </Card.Footer>
+            <Card.Footer>
+              <Badge bg="primary">HB 150</Badge>
+              <Badge bg="primary">SB 152</Badge>
+              <Badge bg="secondary">BOE</Badge>
+              <Badge bg="secondary">OSSS</Badge>
+            </Card.Footer>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
