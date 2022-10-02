@@ -38,12 +38,12 @@ const BillViewTab = ({ eventKey, officeName }) => {
         <Tabs defaultActiveKey="active-bills">
           <Tab eventKey="active-bills" title="ACTIVE BILLS">
             <ListGroup>
-              {testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              {testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
             </ListGroup>
           </Tab>
           <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
             <ListGroup>
-              {testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+              {testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
             </ListGroup>
           </Tab>
         </Tabs>
@@ -56,12 +56,12 @@ const BillViewTab = ({ eventKey, officeName }) => {
       <Tabs defaultActiveKey="active-bills">
         <Tab eventKey="active-bills" title="ACTIVE BILLS">
           <ListGroup>
-            {testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+            {testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
           </ListGroup>
         </Tab>
         <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
           <ListGroup>
-            {testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />)}
+            {testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
           </ListGroup>
         </Tab>
       </Tabs>
