@@ -86,7 +86,7 @@ const SubmitTestimony = () => {
                 <h3>Type out testimony or upload pdf file</h3>
                 <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
                 <h5>OR</h5>
-                <Row controlId="formFile" className="mb-3">
+                <Row className="mb-3">
                   <Col className="col-sm-1 col-form-label bold-text">Upload file: </Col>
                   <Col className="col-sm-9">
                     <Form.Control type="file" accept="application/pdf" />
