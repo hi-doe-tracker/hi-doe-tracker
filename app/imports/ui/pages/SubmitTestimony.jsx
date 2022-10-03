@@ -52,7 +52,7 @@ const SubmitTestimony = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', 'Item added successfully', 'success');
+        swal('Success', 'Testimony successfully submitted', 'success');
         formRef.reset();
       });
   };
