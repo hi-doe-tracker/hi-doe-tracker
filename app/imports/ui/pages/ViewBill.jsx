@@ -19,16 +19,16 @@ import LoadingSpinner from '../components/LoadingSpinner';
 const ViewBill = () => {
   const { _id } = useParams();
   const { ready, viewBill } = useTracker(() => {
-    const subscription = Bills.subscribeBillAdmin();
+    const subscription = Bills.subscribeBill();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
-    // Get the scraper bill data from DB.
+    // Get the bill data from DB.
     const billDoc = Bills.findDoc(_id);
     return {
       viewBill: billDoc,
       ready: rdy,
     };
-  }, []);
+  }, [_id]);
   // returns a single container containing information about the bill
   return (ready ? (
     <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">

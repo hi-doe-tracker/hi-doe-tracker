@@ -35,7 +35,7 @@ import LoadingSpinner from './LoadingSpinner';
 
 const BillViewTab = ({ eventKey, officeName }) => {
   const { ready, bills } = useTracker(() => {
-    const subscription = Bills.subscribeBillAdmin();
+    const subscription = Bills.subscribeBill();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the scraper bill data from DB.
