@@ -54,8 +54,8 @@ const App = () => {
             <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
             <Route
               exact
-              path="/viewbill"
-              element={(<ProtectedRoute><ViewBill viewBill={viewBill} /></ProtectedRoute>)}
+              path="/viewbill:_id"
+              element={(<ProtectedRoute><ViewBill /></ProtectedRoute>)}
             />
             <Route
               exact
