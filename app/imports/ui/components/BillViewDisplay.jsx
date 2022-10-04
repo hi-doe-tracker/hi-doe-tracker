@@ -10,7 +10,7 @@ const BillViewDisplay = ({ billData }) => {
   if (mobileView) {
     return (
       <ListGroup.Item action>
-        <Row><Col><Link id="bill-view" to="/viewbill">{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col></Row>
+        <Row><Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col></Row>
         <Row><Col>{billData.hearingDate.getDate()}</Col></Row>
         <Row><Col>{billData.office.toString()}</Col></Row>
         <Row><Col>Progress<ProgressBar now="25" /><br /></Col></Row>
@@ -21,7 +21,7 @@ const BillViewDisplay = ({ billData }) => {
   return (
     <ListGroup.Item action>
       <Row style={{ width: '100%' }}>
-        <Col><Link id="bill-view" to="/viewbill">{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col>
+        <Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col>
         <Col sm="2">{billData.hearingDate.getDate()}</Col>
         <Col sm="3">{billData.office.toString()}</Col>
         <Col sm="3">Progress<ProgressBar now="25" /></Col>
@@ -33,6 +33,7 @@ const BillViewDisplay = ({ billData }) => {
 
 BillViewDisplay.propTypes = {
   billData: PropTypes.shape({
+    _id: PropTypes.number.isRequired,
     billLink: PropTypes.string.isRequired,
     billNo: PropTypes.string.isRequired,
     office: PropTypes.arrayOf(PropTypes.string).isRequired,
