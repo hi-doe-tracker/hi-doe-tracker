@@ -1,5 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
+import { useTracker } from 'meteor/react-meteor-data';
+// import PropTypes from 'prop-types';
 import {
   Row,
   Container,
@@ -10,368 +12,385 @@ import {
 } from 'react-bootstrap';
 import TestimonyProgressBar from '../components/TestimonyProgressBar';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { Bills } from '../../api/bill/BillCollection';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // ViewBill component displays information about the specific bill
-const ViewBill = ({ viewBill }) => (
+const ViewBill = () => {
+  const { _id } = useParams();
+  const { ready, viewBill } = useTracker(() => {
+    const subscription = Bills.subscribeBillAdmin();
+    // Determine if the subscription is ready
+    const rdy = subscription.ready();
+    // Get the scraper bill data from DB.
+    const billDoc = Bills.findDoc(_id);
+    return {
+      viewBill: billDoc,
+      ready: rdy,
+    };
+  }, []);
   // returns a single container containing information about the bill
-  <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
-    <Row>
-      <center>
-        <Col>
-          <h2>Bill | Resolution Tracking</h2>
-          <Breadcrumb className="viewbill-breadcrumb">
-            <Breadcrumb.Item
-              href={viewBill.billLink}
-              target="_blank"
-              className="viewbill-breadcrumbItem"
-            >
-              Current Bill
-            </Breadcrumb.Item>
-            <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
-              Measure(Status)
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
-      </center>
-    </Row>
-    <Row className="viewbill-row">
-      <Col>
-        <ListGroup>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font ">
-              <span className="fw-bold viewbill-spandiv">
-                Bill/Resolution No
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.billNo}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Office</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.office.join(', ')}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Action</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.action}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Act #</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.actionNumber}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Status</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.status}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Companion</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.companion}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">
-                Legislation Type
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.legalType}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">
-                Committee Referral
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.committeeReferral.join(', ')}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Introduced By</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.introducedBy}({viewBill.introducedByDate})
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Hearing Date</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.hearingDate}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">
-                Hearing Location
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.hearingLocation}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Committee</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.committee}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Type</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.type}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">
-                Lead Office Position
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.leadOfficePosition}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">Testifier</span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.testifier}
-              </span>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex">
-            <div className="ms-2 me-auto viewbill-div viewbill-font">
-              <span className="fw-bold viewbill-spandiv">
-                Monitoring Reports
-              </span>
-              <span className="description-font viewbill-spandiv">
-                {viewBill.monitoringReports}
-              </span>
-            </div>
-          </ListGroup.Item>
-        </ListGroup>
-      </Col>
-      <Col>
-        <ListGroup className="viewbill-col2">
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Report Title</div>
-              <div className="description-font">{viewBill.reportTitle}</div>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Measure Title</div>
-              <div className="description-font">{viewBill.measureTitle}</div>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Description</div>
-              <div className="description-font">{viewBill.description}</div>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Rationale</div>
-              <div className="description-font">{viewBill.rationale}</div>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Notified of Hearing</div>
-              <a
-                className="description-font"
-                href={`https://${viewBill.notifiedHearing}`}
+  return (ready ? (
+    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
+      <Row>
+        <center>
+          <Col>
+            <h2>Bill | Resolution Tracking</h2>
+            <Breadcrumb className="viewbill-breadcrumb">
+              <Breadcrumb.Item
+                href={viewBill.billLink}
                 target="_blank"
-                rel="noreferrer"
+                className="viewbill-breadcrumbItem"
               >
-                {viewBill.notifiedHearing}
-              </a>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <div className="ms-2 me-auto flexcenter viewbill-font">
-              <div className="fw-bold divcolor">Testifier Contact</div>
-              <div className="description-font">
-                {viewBill.testifierContact.join(', ')}
+                Current Bill
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+                Measure(Status)
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </center>
+      </Row>
+      <Row className="viewbill-row">
+        <Col>
+          <ListGroup>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font ">
+                <span className="fw-bold viewbill-spandiv">
+                  Bill/Resolution No
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.billNo}
+                </span>
               </div>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item as="li" className="d-flex flex2">
-            <Accordion className="viewbill-accordion description-font">
-              <Accordion.Item eventKey="0" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    All Versions
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.allVersions.map((item) => (
-                    <a
-                      className="description-font"
-                      key={item}
-                      href={`https://${item}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Committee Reports
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.committeeReports.map((item) => (
-                    <a
-                      className="description-font"
-                      key={item}
-                      href={`https://${item}`}
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="2" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Hearing Notices
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.hearingNotices.map((item) => (
-                    <a
-                      className="description-font"
-                      key={item}
-                      href={`https://${item}`}
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="3" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Last Status Check
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.lastStatus.map((item) => (
-                    <p className="description-font" key={item}>
-                      {item}
-                    </p>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="4" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Similar
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.similar.map((item) => (
-                    <p className="description-font" key={item}>
-                      {item}
-                    </p>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="5" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Hearing Comments
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.hearingComments.map((item) => (
-                    <p className="description-font" key={item}>
-                      {item}
-                    </p>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="6" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Approved Testimony
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="viewbill-accbody">
-                  {viewBill.approvedTestimony.map((item) => (
-                    <p className="description-font" key={item}>
-                      {item}
-                    </p>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="7" className="flexcenter">
-                <Accordion.Header className="viewbill-acchead">
-                  <div className="fw-bold divcolor viewbill-font acc-header">
-                    Testimony
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body className="full-body-testimony">
-                  <ListGroup>
-                    {viewBill.testimony.map((item) => (
-                      <ListGroup.Item as="li" className="full-body-testimony">
-                        <div className="ms-2 me-auto viewbill-div viewbill-font ">
-                          <span className="fw-bold viewbill-spandiv">
-                            {item}
-                          </span>
-                          <span className="description-font viewbill-spandiv">
-                            09/06/2022
-                          </span>
-                        </div>
-                        <TestimonyProgressBar percent={75} />
-                      </ListGroup.Item>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Office</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.office.join(', ')}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Action</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.action}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Act #</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.actionNumber}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Status</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.status}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Companion</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.companion}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Legislation Type
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.legalType}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Committee Referral
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.committeeReferral.join(', ')}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Introduced By</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.introducedBy}({viewBill.introducedByDate})
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Hearing Date</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.hearingDate}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Hearing Location
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.hearingLocation}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Committee</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.committee}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Type</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.type}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Lead Office Position
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.leadOfficePosition}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Testifier</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.testifier}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">
+                  Monitoring Reports
+                </span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.monitoringReports}
+                </span>
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col>
+          <ListGroup className="viewbill-col2">
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Report Title</div>
+                <div className="description-font">{viewBill.reportTitle}</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Measure Title</div>
+                <div className="description-font">{viewBill.measureTitle}</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Description</div>
+                <div className="description-font">{viewBill.description}</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Rationale</div>
+                <div className="description-font">{viewBill.rationale}</div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Notified of Hearing</div>
+                <a
+                  className="description-font"
+                  href={`https://${viewBill.notifiedHearing}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {viewBill.notifiedHearing}
+                </a>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <div className="ms-2 me-auto flexcenter viewbill-font">
+                <div className="fw-bold divcolor">Testifier Contact</div>
+                <div className="description-font">
+                  {viewBill.testifierContact.join(', ')}
+                </div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex flex2">
+              <Accordion className="viewbill-accordion description-font">
+                <Accordion.Item eventKey="0" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      All Versions
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.allVersions.map((item) => (
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item}
+                      </a>
                     ))}
-                  </ListGroup>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </ListGroup.Item>
-        </ListGroup>
-      </Col>
-    </Row>
-  </Container>
-);
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Committee Reports
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.committeeReports.map((item) => (
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Hearing Notices
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.hearingNotices.map((item) => (
+                      <a
+                        className="description-font"
+                        key={item}
+                        href={`https://${item}`}
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Last Status Check
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.lastStatus.map((item) => (
+                      <p className="description-font" key={item}>
+                        {item}
+                      </p>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="4" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Similar
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.similar.map((item) => (
+                      <p className="description-font" key={item}>
+                        {item}
+                      </p>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="5" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Hearing Comments
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.hearingComments.map((item) => (
+                      <p className="description-font" key={item}>
+                        {item}
+                      </p>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="6" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Approved Testimony
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="viewbill-accbody">
+                    {viewBill.approvedTestimony.map((item) => (
+                      <p className="description-font" key={item}>
+                        {item}
+                      </p>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="7" className="flexcenter">
+                  <Accordion.Header className="viewbill-acchead">
+                    <div className="fw-bold divcolor viewbill-font acc-header">
+                      Testimony
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body className="full-body-testimony">
+                    <ListGroup>
+                      {viewBill.testimony.map((item) => (
+                        <ListGroup.Item as="li" className="full-body-testimony">
+                          <div className="ms-2 me-auto viewbill-div viewbill-font ">
+                            <span className="fw-bold viewbill-spandiv">
+                              {item}
+                            </span>
+                            <span className="description-font viewbill-spandiv">
+                              09/06/2022
+                            </span>
+                          </div>
+                          <TestimonyProgressBar percent={75}/>
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+      </Row>
+    </Container>
+  ) : <LoadingSpinner message="Loading Data" />);
+};
 
+/*
 ViewBill.propTypes = {
   viewBill: PropTypes.shape({
     billLink: PropTypes.string.isRequired,
@@ -408,6 +427,6 @@ ViewBill.propTypes = {
     rationale: PropTypes.string,
     statusText: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-};
+}; */
 
 export default ViewBill;
