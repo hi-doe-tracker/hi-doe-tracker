@@ -25,7 +25,6 @@ import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
 import Landing from '../pages/Landing';
-import { viewBill } from '../../test-utilities/viewbilltestdata';
 import Calendar from '../pages/Calendar';
 import AssignBill from '../pages/AssignBill';
 import ManageAccounts from '../pages/ManageAccounts';
