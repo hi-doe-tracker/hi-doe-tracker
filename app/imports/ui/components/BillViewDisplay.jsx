@@ -12,9 +12,8 @@ const BillViewDisplay = ({ billData }) => {
       <tr>
         <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
         <td>{billData.hearingDate.getDate()}</td>
-        <td>{billData.office.toString()}</td>
+        <td>{billData.office.map(office => <div>{office.toString()}<br /></div>)}</td>
         <td>Progress<ProgressBar now="25" /><br /></td>
-        <td><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></td>
       </tr>
     );
   }
@@ -24,7 +23,6 @@ const BillViewDisplay = ({ billData }) => {
       <td>{billData.hearingDate.getDate()}</td>
       <td>{billData.office.toString()}</td>
       <td>Progress<ProgressBar now="25" /><br /></td>
-      <td><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></td>
     </tr>
   );
 };

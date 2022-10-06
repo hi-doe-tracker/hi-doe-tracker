@@ -52,14 +52,13 @@ const BillViewTab = ({ eventKey, officeName }) => {
         <h2>{officeName}</h2>
         <Tabs defaultActiveKey="active-bills">
           <Tab eventKey="active-bills" title="ACTIVE BILLS">
-            <Table striped bordered>
+            <Table striped bordered responsive="sm">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Hearing Date</th>
                   <th>Offices</th>
                   <th>Progress</th>
-                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,7 +74,6 @@ const BillViewTab = ({ eventKey, officeName }) => {
                   <th>Hearing Date</th>
                   <th>Offices</th>
                   <th>Progress</th>
-                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
