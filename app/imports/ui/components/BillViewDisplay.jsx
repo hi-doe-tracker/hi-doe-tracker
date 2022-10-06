@@ -33,7 +33,6 @@ const BillViewDisplay = ({ billData }) => {
 
 BillViewDisplay.propTypes = {
   billData: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
     billLink: PropTypes.string.isRequired,
     billNo: PropTypes.string.isRequired,
     office: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -67,6 +66,7 @@ BillViewDisplay.propTypes = {
     testimony: PropTypes.arrayOf(PropTypes.string),
     rationale: PropTypes.string,
     statusText: PropTypes.arrayOf(PropTypes.string),
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

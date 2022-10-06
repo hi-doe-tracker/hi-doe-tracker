@@ -23,7 +23,9 @@ const ViewBill = () => {
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the bill data from DB.
-    const billDoc = Bills.findDoc(_id);
+    // const billDoc = Bills.findDoc(_id);
+    const allBills = Bills.find({ _id: _id }, { sort: { name: 1 } }).fetch();
+    const billDoc = allBills[0];
     return {
       viewBill: billDoc,
       ready: rdy,
@@ -136,7 +138,7 @@ const ViewBill = () => {
               <div className="ms-2 me-auto viewbill-div viewbill-font">
                 <span className="fw-bold viewbill-spandiv">Hearing Date</span>
                 <span className="description-font viewbill-spandiv">
-                  {viewBill.hearingDate}
+                  {viewBill.hearingDate.getDate()}
                 </span>
               </div>
             </ListGroup.Item>
@@ -375,7 +377,7 @@ const ViewBill = () => {
                               09/06/2022
                             </span>
                           </div>
-                          <TestimonyProgressBar percent={75}/>
+                          <TestimonyProgressBar percent={75} />
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
