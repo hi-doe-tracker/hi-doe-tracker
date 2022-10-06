@@ -9,25 +9,23 @@ const BillViewDisplay = ({ billData }) => {
 
   if (mobileView) {
     return (
-      <ListGroup.Item action>
-        <Row><Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col></Row>
-        <Row><Col>{billData.hearingDate.getDate()}</Col></Row>
-        <Row><Col>{billData.office.toString()}</Col></Row>
-        <Row><Col>Progress<ProgressBar now="25" /><br /></Col></Row>
-        <Row><Col><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col></Row>
-      </ListGroup.Item>
+      <tr>
+        <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
+        <td>{billData.hearingDate.getDate()}</td>
+        <td>{billData.office.toString()}</td>
+        <td>Progress<ProgressBar now="25" /><br /></td>
+        <td><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></td>
+      </tr>
     );
   }
   return (
-    <ListGroup.Item action>
-      <Row style={{ width: '100%' }}>
-        <Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col>
-        <Col sm="2">{billData.hearingDate.getDate()}</Col>
-        <Col sm="3">{billData.office.toString()}</Col>
-        <Col sm="3">Progress<ProgressBar now="25" /></Col>
-        <Col sm="1"><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col>
-      </Row>
-    </ListGroup.Item>
+    <tr>
+      <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
+      <td>{billData.hearingDate.getDate()}</td>
+      <td>{billData.office.toString()}</td>
+      <td>Progress<ProgressBar now="25" /><br /></td>
+      <td><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></td>
+    </tr>
   );
 };
 
