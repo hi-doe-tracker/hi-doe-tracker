@@ -1,8 +1,11 @@
 import React from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { Row, Col, Tab, Nav, Container } from 'react-bootstrap';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewTab from '../components/BillViewTab';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 const officeNames = [
   {
@@ -61,6 +64,11 @@ const ViewBills = () => {
             {mobileView ? <br /> : <div />}
           </Col>
           <Col sm="8">
+            <DropdownButton id="dropdown-basic-button" title="Sort bills">
+              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            </DropdownButton>
             <Tab.Content>
               {officeNames.map((officeName) => (
                 <BillViewTab
