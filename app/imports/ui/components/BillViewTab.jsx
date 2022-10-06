@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTracker } from 'meteor/react-meteor-data';
 import { ListGroup, Tab, Tabs } from 'react-bootstrap';
 import BillViewDisplay from './BillViewDisplay';
+import { Bills } from '../../api/bill/BillCollection';
+import LoadingSpinner from './LoadingSpinner';
 
-const testData = [
+/* const testData = [
   {
     billName: 'Bill 1',
     offices: ['OSSS', 'OTM'],
@@ -28,45 +31,61 @@ const testData = [
     progress: 80,
     isDisabled: true,
   },
-];
+]; */
 
 const BillViewTab = ({ eventKey, officeName }) => {
+  const { ready, bills } = useTracker(() => {
+    const subscription = Bills.subscribeBill();
+    // Determine if the subscription is ready
+    const rdy = subscription.ready();
+    // Get the scraper bill data from DB.
+    const billItems = Bills.find({}, { sort: { name: 1 } }).fetch();
+    return {
+      bills: billItems,
+      ready: rdy,
+    };
+  }, []);
+
   if (officeName === 'ALL BILLS') {
-    return (
+    return (ready ? (
       <Tab.Pane eventKey={eventKey}>
         <h2>{officeName}</h2>
         <Tabs defaultActiveKey="active-bills">
           <Tab eventKey="active-bills" title="ACTIVE BILLS">
             <ListGroup>
-              {testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
+              {/* testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
+              {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
             </ListGroup>
           </Tab>
           <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
             <ListGroup>
-              {testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
+              {/* testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
+              {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
             </ListGroup>
           </Tab>
         </Tabs>
       </Tab.Pane>
-    );
+    ) : <LoadingSpinner message="Loading Data" />);
   }
-  return (
+  return (ready ? (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
       <Tabs defaultActiveKey="active-bills">
         <Tab eventKey="active-bills" title="ACTIVE BILLS">
           <ListGroup>
-            {testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
+            {/* testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
+            {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
           </ListGroup>
         </Tab>
         <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
           <ListGroup>
-            {testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.billName} billData={bill} />)}
+            {/* testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
+            {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
           </ListGroup>
         </Tab>
       </Tabs>
     </Tab.Pane>
-  );
+  ) : <LoadingSpinner message="Loading Data" />);
 };
 
 BillViewTab.propTypes = {
