@@ -65,9 +65,9 @@ const ViewBills = () => {
           </Col>
           <Col sm="8">
             <DropdownButton id="dropdown-basic-button" title="Sort bills">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              <Dropdown.Item href="#/due-date">Due date</Dropdown.Item>
+              <Dropdown.Item href="#/progress">Progress (most to least)</Dropdown.Item>
+              <Dropdown.Item href="#/date-updated">Date updated (most recent)</Dropdown.Item>
             </DropdownButton>
             <Tab.Content>
               {officeNames.map((officeName) => (
