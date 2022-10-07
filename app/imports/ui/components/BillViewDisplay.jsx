@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
 import { Link } from 'react-router-dom';
 
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 850px)');
-
-  if (mobileView) {
-    return (
-      <tr>
-        <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
-        <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
-        <td>{billData.office.map(office => <div>{office.toString()}<br /></div>)}</td>
-        <td>Progress<ProgressBar now="25" /><br /></td>
-      </tr>
-    );
-  }
   return (
     <tr>
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
       <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
-      <td>{billData.office.toString()}</td>
+      <td>
+        {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (billData.office.toString())}
+      </td>
       <td>Progress<ProgressBar now="25" /><br /></td>
     </tr>
   );
