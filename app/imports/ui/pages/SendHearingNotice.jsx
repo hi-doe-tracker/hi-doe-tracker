@@ -17,12 +17,12 @@ const formSchema = new SimpleSchema({
   cc: {
     type: String,
     optional: true,
-    defaultValue: ""
+    defaultValue: '',
   },
   bcc: {
     type: String,
     optional: true,
-    defaultValue: ""
+    defaultValue: '',
   },
   dateOfHearing: Date,
   subject: String,
@@ -54,17 +54,17 @@ const SendHearingNotice = () => {
   // function that validated email. Returns true if emails are valid, else returns false
   function validateEmail(cc, bcc, from, to) {
     const validate = /@foo\.com$/;
-    if (cc){
-      if (bcc){ 
-        return validate.test(to) && validate.test(from) && validate.test(cc) && validate.test(bcc)
+    if (cc) {
+      if (bcc) {
+        return validate.test(to) && validate.test(from) && validate.test(cc) && validate.test(bcc);
       }
       return validate.test(to) && validate.test(from) && validate.test(cc);
-    } else if (bcc){
-      return validate.test(to) && validate.test(from) && validate.test(bcc)
+    } if (bcc) {
+      return validate.test(to) && validate.test(from) && validate.test(bcc);
     }
-    else {
-      return validate.test(to) && validate.test(from)
-    }
+
+    return validate.test(to) && validate.test(from);
+
   }
 
   // On submit, insert the data.
@@ -73,7 +73,7 @@ const SendHearingNotice = () => {
     const owner = Meteor.user().username;
     const collectionName = Notices.getCollectionName();
     const validation = validateEmail(cc, bcc, from, to);
-    console.log(validation)
+    console.log(validation);
     if (validation) {
       const definitionData = { to, cc, bcc, from, dateOfHearing, subject, message, owner };
       defineMethod.callPromise({ collectionName, definitionData })
