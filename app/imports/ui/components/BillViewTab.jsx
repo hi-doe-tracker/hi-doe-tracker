@@ -6,6 +6,7 @@ import BillViewDisplay from './BillViewDisplay';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from './LoadingSpinner';
 
+/** Returns the UI for a Tab given the office Name. */
 const BillViewTab = ({ eventKey, officeName }) => {
   const { ready, bills } = useTracker(() => {
     const subscription = Bills.subscribeBill();

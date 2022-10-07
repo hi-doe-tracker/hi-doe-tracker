@@ -4,6 +4,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
 import { Link } from 'react-router-dom';
 
+/** Returns the table display for a given billData. */
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 850px)');
   return (
