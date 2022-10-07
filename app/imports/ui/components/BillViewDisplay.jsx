@@ -11,7 +11,7 @@ const BillViewDisplay = ({ billData }) => {
     return (
       <tr>
         <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
-        <td>{billData.hearingDate.getDate()}</td>
+        <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
         <td>{billData.office.map(office => <div>{office.toString()}<br /></div>)}</td>
         <td>Progress<ProgressBar now="25" /><br /></td>
       </tr>
@@ -20,7 +20,7 @@ const BillViewDisplay = ({ billData }) => {
   return (
     <tr>
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
-      <td>{billData.hearingDate.getDate()}</td>
+      <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
       <td>{billData.office.toString()}</td>
       <td>Progress<ProgressBar now="25" /><br /></td>
     </tr>
