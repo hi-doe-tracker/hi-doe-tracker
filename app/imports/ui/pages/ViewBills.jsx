@@ -2,9 +2,10 @@ import React from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { Row, Col, Tab, Nav, Container } from 'react-bootstrap';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewTab from '../components/BillViewTab';
-import Dropdown from 'react-bootstrap/Dropdown';
+
 
 
 const officeNames = [
@@ -65,7 +66,7 @@ const ViewBills = () => {
           </Col>
           <Col sm="8">
             <DropdownButton id="dropdown-basic-button" title="Sort bills">
-              <Dropdown.Item href="#/due-date">Due date</Dropdown.Item>
+              <Dropdown.Item href="#/hearing-date">Hearing date</Dropdown.Item>
               <Dropdown.Item href="#/progress">Progress (most to least)</Dropdown.Item>
               <Dropdown.Item href="#/date-updated">Date updated (most recent)</Dropdown.Item>
             </DropdownButton>
