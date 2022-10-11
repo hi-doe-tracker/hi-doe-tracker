@@ -26,6 +26,11 @@ const SignUp = () => {
       allowedValues: ['Secretary', 'Writer', 'Office Approver', 'PIPE Approver', 'Final Approver', 'Processor', 'Admin'],
       defaultValue: 'Writer',
     },
+    assignedOffice: {
+      type: String,
+      allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
+      defaultValue: 'DEPUTY',
+    },
   });
   const bridge = new SimpleSchema2Bridge(schema);
 
@@ -59,6 +64,7 @@ const SignUp = () => {
                 <TextField id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL} name="email" placeholder="E-mail address" />
                 <TextField id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD} name="password" placeholder="Password" type="password" />
                 <SelectField name="position" />
+                <SelectField name="assignedOffice" />
                 <ErrorsField />
                 <SubmitField id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} />
               </Card.Body>
