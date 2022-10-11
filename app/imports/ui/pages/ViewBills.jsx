@@ -6,8 +6,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewTab from '../components/BillViewTab';
 
-
-
 const officeNames = [
   {
     name: 'ALL BILLS',
