@@ -1,11 +1,16 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP"
+    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY"
     },
-    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" },
-    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does" },
-    { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode" },
-    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea" }
+    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" }
   ],
 
   "defaultData": [
