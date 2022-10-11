@@ -17,14 +17,14 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param firstName The first name.
    * @param lastName The last name.
    */
-  define({ email, firstName, lastName, password }) {
+  define({ email, firstName, lastName, password, position, office }) {
     // if (Meteor.isServer) {
     const username = email;
-    const user = this.findOne({ email, firstName, lastName });
+    const user = this.findOne({ email, firstName, lastName, position, office });
     if (!user) {
       const role = ROLE.USER;
-      const userID = Users.define({ username, role, password });
-      const profileID = this._collection.insert({ email, firstName, lastName, userID, role });
+      const userID = Users.define({ username, role, password, position, office});
+      const profileID = this._collection.insert({ email, firstName, lastName, userID, role, position, office});
       // this._collection.update(profileID, { $set: { userID } });
       return profileID;
     }
@@ -39,7 +39,7 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param firstName new first name (optional).
    * @param lastName new last name (optional).
    */
-  update(docID, { firstName, lastName }) {
+  update(docID, { firstName, lastName, position, office}) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) {
@@ -47,6 +47,12 @@ class UserProfileCollection extends BaseProfileCollection {
     }
     if (lastName) {
       updateData.lastName = lastName;
+    }
+    if (position) {
+      updateData.position = position;
+    }
+    if (lastName) {
+      updateData.office = office;
     }
     this._collection.update(docID, { $set: updateData });
   }
@@ -101,7 +107,9 @@ class UserProfileCollection extends BaseProfileCollection {
     const email = doc.email;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
-    return { email, firstName, lastName };
+    const position = doc.position
+    const office = doc.office
+    return { email, firstName, lastName, position, office };
   }
 
   /**
