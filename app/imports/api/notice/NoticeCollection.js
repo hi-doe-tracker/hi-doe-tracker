@@ -12,8 +12,14 @@ class NoticeCollection extends BaseCollection {
     super('Notices', new SimpleSchema({
       to: String,
       from: String,
-      cc: String,
-      bcc: String,
+      cc: {
+        type: String,
+        optional: true,
+      },
+      bcc: {
+        type: String,
+        optional: true,
+      },
       dateOfHearing: Date,
       subject: String,
       message: String,

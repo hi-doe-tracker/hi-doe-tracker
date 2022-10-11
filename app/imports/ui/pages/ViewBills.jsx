@@ -45,6 +45,7 @@ const officeNames = [
   },
 ];
 
+/** Displays all bills that were assigned to a scraper bill by admin. */
 const ViewBills = () => {
   const mobileView = useMediaQuery('(max-width: 850px)');
   return (

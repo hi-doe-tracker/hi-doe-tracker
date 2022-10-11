@@ -1,38 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTracker } from 'meteor/react-meteor-data';
-import { ListGroup, Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs, Table } from 'react-bootstrap';
 import BillViewDisplay from './BillViewDisplay';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from './LoadingSpinner';
 
-/* const testData = [
-  {
-    billName: 'Bill 1',
-    offices: ['OSSS', 'OTM'],
-    date: '03/22/2019',
-    url: 'Bill 1 Link',
-    progress: 50,
-    isDisabled: false,
-  },
-  {
-    billName: 'Bill 2',
-    offices: ['DEPUTY', 'OITS'],
-    date: '02/25/2022',
-    url: 'Bill 2 Link',
-    progress: 20,
-    isDisabled: false,
-  },
-  {
-    billName: 'Bill 3',
-    offices: ['OFO'],
-    date: '11/19/2021',
-    url: 'Bill 3 Link',
-    progress: 80,
-    isDisabled: true,
-  },
-]; */
-
+/** Returns the UI for a Tab given the office Name. */
 const BillViewTab = ({ eventKey, officeName }) => {
   const { ready, bills } = useTracker(() => {
     const subscription = Bills.subscribeBill();
@@ -46,42 +20,41 @@ const BillViewTab = ({ eventKey, officeName }) => {
     };
   }, []);
 
-  if (officeName === 'ALL BILLS') {
-    return (ready ? (
-      <Tab.Pane eventKey={eventKey}>
-        <h2>{officeName}</h2>
-        <Tabs defaultActiveKey="active-bills">
-          <Tab eventKey="active-bills" title="ACTIVE BILLS">
-            <ListGroup>
-              {/* testData.filter((bill) => !bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
-              {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
-            </ListGroup>
-          </Tab>
-          <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
-            <ListGroup>
-              {/* testData.filter((bill) => bill.isDisabled).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
-              {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
-            </ListGroup>
-          </Tab>
-        </Tabs>
-      </Tab.Pane>
-    ) : <LoadingSpinner message="Loading Data" />);
-  }
   return (ready ? (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
       <Tabs defaultActiveKey="active-bills">
         <Tab eventKey="active-bills" title="ACTIVE BILLS">
-          <ListGroup>
-            {/* testData.filter((bill) => !bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
-            {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
-          </ListGroup>
+          <Table striped bordered responsive="sm">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Hearing Date</th>
+                <th>Offices</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              {officeName === 'ALL BILLS' ? (bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
+                (bills.filter(bill => bill.office.includes(officeName)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
+            </tbody>
+          </Table>
         </Tab>
         <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
-          <ListGroup>
-            {/* testData.filter((bill) => bill.isDisabled && bill.offices.includes(officeName)).map((bill) => <BillViewDisplay key={bill.name} billData={bill} />) */}
-            {bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)}
-          </ListGroup>
+          <Table striped bordered>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Hearing Date</th>
+                <th>Offices</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              {officeName === 'ALL BILLS' ? (bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
+                (bills.filter(bill => bill.office.includes(officeName)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
+            </tbody>
+          </Table>
         </Tab>
       </Tabs>
     </Tab.Pane>

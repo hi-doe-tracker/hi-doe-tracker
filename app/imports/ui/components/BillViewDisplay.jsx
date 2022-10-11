@@ -1,33 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Row, Col, ProgressBar, Button } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
 import { Link } from 'react-router-dom';
 
+/** Returns the table display for a given billData. */
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 850px)');
-
-  if (mobileView) {
-    return (
-      <ListGroup.Item action>
-        <Row><Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col></Row>
-        <Row><Col>{billData.hearingDate.getDate()}</Col></Row>
-        <Row><Col>{billData.office.toString()}</Col></Row>
-        <Row><Col>Progress<ProgressBar now="25" /><br /></Col></Row>
-        <Row><Col><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col></Row>
-      </ListGroup.Item>
-    );
-  }
   return (
-    <ListGroup.Item action>
-      <Row style={{ width: '100%' }}>
-        <Col><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></Col>
-        <Col sm="2">{billData.hearingDate.getDate()}</Col>
-        <Col sm="3">{billData.office.toString()}</Col>
-        <Col sm="3">Progress<ProgressBar now="25" /></Col>
-        <Col sm="1"><Button variant="outline-danger" onClick={() => window.alert('Button Clicked')}>Delete</Button></Col>
-      </Row>
-    </ListGroup.Item>
+    <tr>
+      <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
+      <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
+      <td>
+        {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (billData.office.toString())}
+      </td>
+      <td>Progress<ProgressBar now="25" /><br /></td>
+    </tr>
   );
 };
 

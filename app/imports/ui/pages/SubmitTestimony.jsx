@@ -24,11 +24,11 @@ const formSchema = new SimpleSchema({
   lastName: String,
   position: {
     type: String,
-    allowedValues: ['Support', 'Oppose', 'Comments Only'],
+    allowedValues: [' Support', ' Oppose', ' Comments Only'],
   },
-  testifying: {
+  testifyingAs: {
     type: String,
-    allowedValues: ['As an individual', 'On behalf of an organization'],
+    allowedValues: [' Individual', ' Organization'],
   },
   organization: {
     type: String,
@@ -36,7 +36,7 @@ const formSchema = new SimpleSchema({
   },
   testifyingMethod: {
     type: String,
-    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
+    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
   },
   testimony: String,
 });
@@ -63,11 +63,12 @@ const SubmitTestimony = () => {
   };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
+  const menuStyle = { fontWeight: 'bold' };
   return (
     <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
         <div className="mb-3 required">
-          <span>Relevant Bill</span>
+          <span style={menuStyle}>Relevant Bill</span>
           <Select
             options={billOptions}
           />
@@ -80,7 +81,7 @@ const SubmitTestimony = () => {
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes onClick={toggleHidden} />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
                 <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
                 <h3>Type out testimony or upload pdf file</h3>
