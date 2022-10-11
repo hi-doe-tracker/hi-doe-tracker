@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Col, Container, Row, Form } from 'react-bootstrap';
+import { useTracker } from 'meteor/react-meteor-data';
+import { Card, Col, Container, Row, Form, Spinner } from 'react-bootstrap';
 import { AutoForm, ErrorsField, SelectField, SubmitField, TextField, LongTextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
@@ -10,25 +11,27 @@ import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Bills } from '../../api/bill/BillCollection';
 
 // Test data for bills
-const billOptions = [
-  { value: 'hb-150', label: 'HB150' },
-  { value: 'sb-234', label: 'SB234' },
-  { value: 'hb-563', label: 'HB563' },
-];
+// const billOptions = [
+//   { value: 'hb-150', label: 'HB150' },
+//   { value: 'sb-234', label: 'SB234' },
+//   { value: 'hb-563', label: 'HB563' },
+// ];
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
+  // bill: String,
   firstName: String,
   lastName: String,
   position: {
     type: String,
-    allowedValues: [' Support', ' Oppose', ' Comments Only'],
+    allowedValues: ['Support', 'Oppose', 'Comments Only'],
   },
   testifyingAs: {
     type: String,
-    allowedValues: [' Individual', ' Organization'],
+    allowedValues: ['Individual', 'Organization'],
   },
   organization: {
     type: String,
@@ -36,7 +39,7 @@ const formSchema = new SimpleSchema({
   },
   testifyingMethod: {
     type: String,
-    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
+    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
   },
   testimony: String,
 });
@@ -45,17 +48,51 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 
 /* Renders the Submit Testimony page for adding a document. */
 const SubmitTestimony = () => {
+
+  let billOptions = [];
+  const { billName, ready } = useTracker(() => {
+    const subscription = Bills.subscribeBill();
+    // Determine if the subscription is ready
+    const rdy = subscription.ready();
+    // Get the scraper bill data from DB.
+    const billItems = Bills.find({}, { sort: { name: 1 } }).fetch();
+    const billName = billItems.map((bill) => bill.billNo);
+    return {
+      billName,
+      ready: rdy,
+    };
+  }, []);
+
   const submit = (data, formRef) => {
     const owner = Meteor.user().username;
     const collectionName = Testimonies.getCollectionName();
-    const definitionData = { ...data, owner };
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', 'Testimony successfully submitted', 'success');
-        formRef.reset();
-      });
+    const bill = document.getElementById('bill').value;
+    if (!bill){
+      swal('Error', "Select a bill!!!", 'error');
+    }
+    else{
+      const definitionData = { ...data, owner, bill };
+      console.table(definitionData);
+      defineMethod.callPromise({ collectionName, definitionData })
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', 'Testimony successfully submitted', 'success');
+          formRef.reset();
+        });
+    }
   };
+ 
+  // if(ready){
+  //   billOptions = billName.map(bill => ({value: bill, label: bill}));
+  //  }
+
+  //  if(ready){
+  //   console.log(billOptions) 
+  //  }
+//  const changed = () => {
+//   let val = document.getElementById('bill');
+//   console.log(val.value)
+//  }
 
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
@@ -65,17 +102,43 @@ const SubmitTestimony = () => {
   let fRef = null;
   const menuStyle = { fontWeight: 'bold' };
   return (
+    ready ? 
     <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
-        <div className="mb-3 required">
+      {/* <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}> */}
+        {/* <div className="mb-3 required">
           <span style={menuStyle}>Relevant Bill</span>
           <Select
+            name="bill"
+            // id ="bill"
+            onChange={changed}
             options={billOptions}
           />
-        </div>
+        </div> */}
+        <Form.Group >
+        {/* {/* <Form.Label>Select the Bill</Form.Label> */}
+        <span style={menuStyle}>Relevant Bill</span>
+        <Form.Select
+          // as="select"
+          id="bill"
+          // onChange={changed}
+        >
+          {/* <option value="DICTUM">RamSaili</option>
+          <option value="CONSTANCY">Ujj</option>
+          <option value="COMPLEMENT">CIDK</option> */}
+          <option></option> 
+          {billName.map(bill => <option key={bill} value={bill}>{bill}</option> )}
+        </Form.Select>
+      </Form.Group>
         <Col xs={12}>
           <Col className="text-center"><h2>Submit Testimony</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          {/* <Form.Select aria-label="Default select example">
+                  <option>Open this select menu</option>
+                  <option name="bill"  value="1">One</option>
+                  <option  name="bill" value="2">Two</option>
+                  <option name="bill" value="3">Three</option>
+          </Form.Select> */}
             <Card>
               <Card.Body>
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
@@ -99,8 +162,9 @@ const SubmitTestimony = () => {
             </Card>
           </AutoForm>
         </Col>
+        {/* </AutoForm> */}
       </Row>
-    </Container>
+    </Container> : <Spinner>Loading.....</Spinner>
   );
 };
 

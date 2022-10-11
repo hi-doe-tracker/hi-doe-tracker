@@ -544,5 +544,9 @@
       "Testimony 3"
     ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-  }]
+  }],
+  
+  "defaultHearingNotice":[
+    {"to": "john@foo.com",  "from": "admin@foo.com", "cc": "", "bcc": "", "dateOfHearing": "Wed Sep 21 2022", "subject": "Hearing notice for HB-12BHSH", "message": "Hearing notice for HB-12BHSH is sent"}
+    ]
 }

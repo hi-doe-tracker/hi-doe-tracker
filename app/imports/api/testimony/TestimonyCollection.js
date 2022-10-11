@@ -10,15 +10,16 @@ export const testimonyPublications = {
 class TestimonyCollection extends BaseCollection {
   constructor() {
     super('Testimonies', new SimpleSchema({
+      bill: String,
       firstName: String,
       lastName: String,
       position: {
         type: String,
         allowedValues: ['Support', 'Oppose', 'Comments Only'],
       },
-      testifying: {
+      testifyingAs: {
         type: String,
-        allowedValues: ['As an individual', 'On behalf of an organization'],
+        allowedValues: ['Individual', 'Organization'],
       },
       organization: {
         type: String,
@@ -34,20 +35,22 @@ class TestimonyCollection extends BaseCollection {
 
   /**
    * Defines a new Stuff item.
+   * @param bill the name of the testified bill
    * @param firstName the first name of the testifier.
    * @param lastName the last name of the testifier.
    * @param position .
-   * @param testifying the owner of the item.
+   * @param testifyingAs the owner of the item.
    * @param testifyingMethod the condition of the item.
    * @param testimony .
    * @return {String} the docID of the new document.
    */
-  define({ firstName, lastName, position, testifying, testifyingMethod, testimony }) {
+  define({ bill,firstName, lastName, position, testifyingAs, testifyingMethod, testimony }) {
     const docID = this._collection.insert({
+      bill,
       firstName,
       lastName,
       position,
-      testifying,
+      testifyingAs,
       testifyingMethod,
       testimony,
     });
@@ -60,7 +63,7 @@ class TestimonyCollection extends BaseCollection {
    * @param firstName the first name of the testifier (optional).
    * @param lastName the last name of the testifier (optional).
    * @param position (optional).
-   * @param testifying the owner of the item (optional).
+   * @param testifyingAs the owner of the item (optional).
    * @param testifyingMethod the condition of the item (optional).
    * @param testimony (optional).
    */
