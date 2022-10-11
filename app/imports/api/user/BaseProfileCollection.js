@@ -15,6 +15,8 @@ class BaseProfileCollection extends BaseCollection {
       email: String,
       firstName: String,
       lastName: String,
+      position: String,
+      office: String,
       role: String,
       userID: SimpleSchema.RegEx.Id,
     })));
