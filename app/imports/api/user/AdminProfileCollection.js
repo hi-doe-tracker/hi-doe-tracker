@@ -16,10 +16,12 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @param firstName The first name.
    * @param lastName The last name.
    */
-  define({ email, firstName, lastName, password, position, office }) {
+  define({ email, firstName, lastName, password }) {
     if (Meteor.isServer) {
       // console.log('define', email, firstName, lastName, password);
       const username = email;
+      const position = null;
+      const office = null;
       const user = this.findOne({ email, firstName, lastName, position, office });
       if (!user) {
         const role = ROLE.ADMIN;
