@@ -4,6 +4,7 @@ import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import { Bills } from '../../api/bill/BillCollection';
 // import { Testimonies } from  '../../api/testimony/TestimonyCollection';
 import { Notices } from '../../api/notice/NoticeCollection';
+import { Hearings } from '../../api/hearing/HearingCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -29,6 +30,12 @@ function addBill(bill) {
 function addNotice(notice) {
   console.log(`sending notice to: ${notice.to}`);
   Notices.define(notice);
+}
+
+// Adds a hearing to database.
+function addHearing(hearing) {
+  console.log(`Adding hearing: ${hearing.notice}`);
+  Hearings.define(hearing);
 }
 
 // Initialize the StuffsCollection if empty.
@@ -59,5 +66,15 @@ if (Notices.count() === 0) {
   if (Meteor.settings.defaultHearingNotice) {
     console.log('Creating default hearing notices.');
     Meteor.settings.defaultHearingNotice.map(notice => addNotice(notice));
+  }
+}
+
+if (Hearings.count() === 0) {
+  if (Meteor.settings.loadHearings) {
+    console.log('Creating default hearings.');
+    const assetsFileName = 'testHearings.json';
+    console.log(`Loading data from private/${assetsFileName}`);
+    const jsonData = JSON.parse(Assets.getText(assetsFileName));
+    jsonData.hearings.map(hearings => addHearing(hearings));
   }
 }
