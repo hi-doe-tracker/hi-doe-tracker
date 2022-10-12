@@ -24,11 +24,11 @@ const formSchema = new SimpleSchema({
   lastName: String,
   position: {
     type: String,
-    allowedValues: [' Support', ' Oppose', ' Comments Only'],
+    allowedValues: ['Support', 'Oppose', 'Comments Only'],
   },
-  testifyingAs: {
+  testifying: {
     type: String,
-    allowedValues: [' Individual', ' Organization'],
+    allowedValues: ['As an individual', 'On behalf of an organization'],
   },
   organization: {
     type: String,
@@ -36,7 +36,7 @@ const formSchema = new SimpleSchema({
   },
   testifyingMethod: {
     type: String,
-    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
+    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
   },
   testimony: String,
 });
@@ -54,6 +54,7 @@ const SubmitTestimony = () => {
       .then(() => {
         swal('Success', 'Testimony successfully submitted', 'success');
         formRef.reset();
+        // send to view testimony
       });
   };
 
@@ -67,21 +68,21 @@ const SubmitTestimony = () => {
   return (
     <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
-        <div className="mb-3 required">
-          <span style={menuStyle}>Relevant Bill</span>
-          <Select
-            options={billOptions}
-          />
-        </div>
         <Col xs={12}>
           <Col className="text-center"><h2>Submit Testimony</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
+                <div className="mb-3 required">
+                  <span style={menuStyle}>Relevant Bill</span>
+                  <Select
+                    options={billOptions}
+                  />
+                </div>
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes onClick={toggleHidden} />
                 <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
                 <h3>Type out testimony or upload pdf file</h3>

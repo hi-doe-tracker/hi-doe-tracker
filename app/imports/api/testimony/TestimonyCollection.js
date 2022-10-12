@@ -99,7 +99,7 @@ class TestimonyCollection extends BaseCollection {
   /**
    * Subscription method for stuff owned by the current user.
    */
-  subscribeStuff() {
+  subscribeTestimony() {
     if (Meteor.isClient) {
       return Meteor.subscribe(testimonyPublications.testimony);
     }
