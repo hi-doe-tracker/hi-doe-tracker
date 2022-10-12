@@ -1,8 +1,7 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP",
-      "position": "PIPE Approver", "assignedOffice": "DEPUTY"
-    },
+      "position": "Admin", "assignedOffice": "None" },
     { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe",
       "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
     { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
