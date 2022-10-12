@@ -8,8 +8,8 @@ import { BoxArrowRight, PersonFill, PersonPlusFill, Bell, Person, Alarm, FileTex
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
+// The NavBar appears at the top of every page. Rendered by the App Layout component.
 const NavBar = () => {
-  // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { currentUser } = useTracker(() => ({
     currentUser: Meteor.user() ? Meteor.user().username : '',
   }), []);
@@ -33,6 +33,7 @@ const NavBar = () => {
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND} key="send-hearings" as={NavLink} to="send">Send Hearing Notice</NavDropdown.Item>
               </NavDropdown>,
             ]) : ''}
+            {/* Admin only navbar options */}
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
               <NavDropdown id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN} style={menuStyle2} title="Admin" key="admin-dropdown">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>
@@ -44,19 +45,20 @@ const NavBar = () => {
           <Nav className="justify-content-end">
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
               [
-                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} title={<Bell size="20" />}>
+                <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="adminuser-dropdown" title={<Bell size="20" />}>
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/viewbill"><FileText /> Bill 1</NavDropdown.Item>
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
                 </NavDropdown>,
               ]
             ) : ''}
+            {/* Non-user only navbar options */}
             {currentUser === '' ? (
-              <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} title="Login">
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} key="nonuser-dropdown" title="Login">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} to="/signin"><PersonFill />Sign in</NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} as={NavLink} to="/signup"><PersonPlusFill />Sign up</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} title={currentUser}>
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_PROFILE} as={NavLink} to="/profile">
                   Profile
                   <Person />

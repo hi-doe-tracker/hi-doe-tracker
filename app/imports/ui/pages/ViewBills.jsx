@@ -43,11 +43,11 @@ const officeNames = [
   },
 ];
 
+/** Displays all bills that were assigned to a scraper bill by admin. */
 const ViewBills = () => {
   const mobileView = useMediaQuery('(max-width: 850px)');
-
   return (
-    <Container id={PAGE_IDS.VIEW_BILLS}>
+    <Container id={PAGE_IDS.VIEW_BILLS} key="viewbills-container">
       <Tab.Container defaultActiveKey="all-bills">
         {mobileView ? <br /> : <div />}
         <Row>
@@ -56,7 +56,7 @@ const ViewBills = () => {
             <h2>Offices</h2>
             <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
               {officeNames.map((office) => (
-                <Nav.Item><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
+                <Nav.Item key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
               ))}
             </Nav>
             {mobileView ? <br /> : <div />}

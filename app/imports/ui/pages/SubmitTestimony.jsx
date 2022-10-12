@@ -25,11 +25,11 @@ const formSchema = new SimpleSchema({
   lastName: String,
   position: {
     type: String,
-    allowedValues: ['Support', 'Oppose', 'Comments Only'],
+    allowedValues: [' Support', ' Oppose', ' Comments Only'],
   },
-  testifying: {
+  testifyingAs: {
     type: String,
-    allowedValues: ['As an individual', 'On behalf of an organization'],
+    allowedValues: [' Individual', ' Organization'],
   },
   organization: {
     type: String,
@@ -37,7 +37,7 @@ const formSchema = new SimpleSchema({
   },
   testifyingMethod: {
     type: String,
-    allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
+    allowedValues: [' Remotely via Zoom during the hearing & submitting written testimony', ' Written testimony only'],
   },
   testimony: String,
 });
@@ -53,7 +53,7 @@ const SubmitTestimony = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', 'Item added successfully', 'success');
+        swal('Success', 'Testimony successfully submitted', 'success');
         formRef.reset();
       });
   };
@@ -64,12 +64,13 @@ const SubmitTestimony = () => {
   };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
+  const menuStyle = { fontWeight: 'bold' };
   return (
     <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
       <ViewDocument />
       <Row className="justify-content-center">
         <div className="mb-3 required">
-          <span>Relevant Bill</span>
+          <span style={menuStyle}>Relevant Bill</span>
           <Select
             options={billOptions}
           />
@@ -82,13 +83,13 @@ const SubmitTestimony = () => {
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                 <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifying" multiple checkboxes onClick={toggleHidden} />
+                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
                 <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
                 <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
                 <h3>Type out testimony or upload pdf file</h3>
                 <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
                 <h5>OR</h5>
-                <Row controlId="formFile" className="mb-3">
+                <Row className="mb-3">
                   <Col className="col-sm-1 col-form-label bold-text">Upload file: </Col>
                   <Col className="col-sm-9">
                     <Form.Control type="file" accept="application/pdf" />
