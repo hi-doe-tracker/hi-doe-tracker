@@ -54,7 +54,7 @@ const SubmitTestimony = () => {
       .then(() => {
         swal('Success', 'Testimony successfully submitted', 'success');
         formRef.reset();
-        // send to view testimony
+        // send to view testimony of that testimony
       });
   };
 
