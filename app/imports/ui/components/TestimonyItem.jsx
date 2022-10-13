@@ -20,7 +20,7 @@ TestimonyItem.propTypes = {
     lastName: PropTypes.string,
     position: PropTypes.string,
     testifying: PropTypes.string,
-    organization: PropTypes.string,
+    // organization: PropTypes.string,
     testifyingMethod: PropTypes.string,
     testimony: PropTypes.string,
     _id: PropTypes.string,
