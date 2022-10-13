@@ -14,6 +14,11 @@
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
+  "defaultTestimony": [
+    { "firstName": "David", "lastName": "Ige", "position": "Support", "testifying": "As an individual",
+      "testifyingMethod": "Remotely via Zoom during the hearing & submitting written testimony",
+      "testimony": "I am the governor, David Ige." }
+  ],
 
   "defaultScraperBills": [
     {

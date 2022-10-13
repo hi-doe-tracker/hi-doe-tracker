@@ -52,9 +52,11 @@ const SubmitTestimony = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', 'Testimony successfully submitted', 'success');
+        swal('Success', 'Testimony successfully submitted', 'success')
+          .then(function () {
+            window.location = '/viewtestimony/${data._id}';
+          });
         formRef.reset();
-        // send to view testimony of that testimony
       });
   };
 
