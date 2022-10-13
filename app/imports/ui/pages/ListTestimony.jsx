@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Col, Row, Table, Nav } from 'react-bootstrap';
+import { Container, Col, Row, Table } from 'react-bootstrap';
+// import { useReactToPrint } from 'react-to-print';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import TestimonyItem from '../components/TestimonyItem';
@@ -17,6 +18,11 @@ const ListTestimony = () => {
       ready: rdy,
     };
   }, []);
+  // const componentRef = useRef();
+  // const handlePrint = useReactToPrint({
+    // content: () => componentRef.current,
+  // });
+  // TO DO make it so that you can only edit testimony you made
   return ready ? (
     <Container id={PAGE_IDS.VIEW_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
@@ -30,11 +36,11 @@ const ListTestimony = () => {
                 <th>Testifying</th>
                 <th>Testifying Method</th>
                 <th>Testimony</th>
-                <th>Options</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
-              {testimonies.map((testimony) => <TestimonyItem key={testimony.id} testimony={testimony} />)}
+              {testimonies.map((testimony) => (<TestimonyItem key={testimony.id} testimony={testimony} />))}
             </tbody>
           </Table>
         </Col>
