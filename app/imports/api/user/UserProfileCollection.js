@@ -17,14 +17,16 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param firstName The first name.
    * @param lastName The last name.
    */
-  define({ email, firstName, lastName, password, position, office }) {
+  define({ email, firstName, lastName, password }) {
     // if (Meteor.isServer) {
     const username = email;
+    const position = null;
+    const office = null;
     const user = this.findOne({ email, firstName, lastName, position, office });
     if (!user) {
       const role = ROLE.USER;
-      const userID = Users.define({ username, role, password, position, office});
-      const profileID = this._collection.insert({ email, firstName, lastName, userID, role, position, office});
+      const userID = Users.define({ username, role, password, position, office });
+      const profileID = this._collection.insert({ email, firstName, lastName, userID, role, position, office });
       // this._collection.update(profileID, { $set: { userID } });
       return profileID;
     }
@@ -39,7 +41,7 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param firstName new first name (optional).
    * @param lastName new last name (optional).
    */
-  update(docID, { firstName, lastName, position, office}) {
+  update(docID, { firstName, lastName, position, office }) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) {
@@ -107,8 +109,8 @@ class UserProfileCollection extends BaseProfileCollection {
     const email = doc.email;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
-    const position = doc.position
-    const office = doc.office
+    const position = doc.position;
+    const office = doc.office;
     return { email, firstName, lastName, position, office };
   }
 

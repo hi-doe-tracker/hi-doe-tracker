@@ -544,5 +544,6 @@
       "Testimony 3"
     ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-  }]
+  }],
+  "loadHearings": true
 }
