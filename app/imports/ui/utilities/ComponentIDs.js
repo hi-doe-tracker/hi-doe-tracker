@@ -43,4 +43,9 @@ export const COMPONENT_IDS = {
   SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD: 'submit-testimony-form-testifying-method',
   SUBMIT_TESTIMONY_FORM_TESTIMONY: 'submit-testimony-form-testimony',
   SUBMIT_TESTIMONY_FORM_SUBMIT: 'submit-testimony-form-submit',
+  EDIT_ACCOUNT_FORM_FIRST_NAME: 'edit-account-form-first-name',
+  EDIT_ACCOUNT_FORM_LAST_NAME: 'edit-account-form-last-name',
+  EDIT_ACCOUNT_FORM_EMAIL: 'edit-account-form-email',
+  EDIT_ACCOUNT_FORM_PASSWORD: 'edit-account-form-password',
+  EDIT_ACCOUNT_FORM_SUBMIT: 'edit-account-form-submit',
 };

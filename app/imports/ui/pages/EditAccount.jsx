@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
@@ -12,7 +11,7 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 /**
- * EditAccount component is similar to SignUp component, but we create edit an existing account instead.
+ * EditAccount component is similar to SignUp component, but we edit an existing account instead.
  */
 const EditAccount = () => {
   const [error, setError] = useState('');
@@ -53,27 +52,22 @@ const EditAccount = () => {
     return <Navigate to="/add" />;
   }
   return (
-    <Container id={PAGE_IDS.SIGN_UP} className="py-3">
+    <Container id={PAGE_IDS.EDIT_ACCOUNT} className="py-3">
       <Row className="justify-content-center">
-        <Col xs={5}>
-          <Col className="text-center">
-            <h2>Register your account</h2>
-          </Col>
+        <Col>
+          <h2>Edit Account</h2>
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body>
-                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_FIRST_NAME} name="firstName" placeholder="First name" />
-                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME} name="lastName" placeholder="Last name" />
-                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL} name="email" placeholder="E-mail address" />
-                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD} name="password" placeholder="Password" type="password" />
+                <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_FIRST_NAME} name="firstName" placeholder="First name" />
+                <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_LAST_NAME} name="lastName" placeholder="Last name" />
+                <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_EMAIL} name="email" placeholder="E-mail address" />
+                <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_PASSWORD} name="password" placeholder="Password" type="password" />
                 <ErrorsField />
-                <SubmitField id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} />
+                <SubmitField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_SUBMIT} />
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert variant="secondary">
-            Already have an account? Login <Link to="/signin">here</Link>
-          </Alert>
           {error === '' ? (
             ''
           ) : (
