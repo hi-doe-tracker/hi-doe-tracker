@@ -64,7 +64,7 @@ const ViewBills = () => {
             {mobileView ? <br /> : <div />}
           </Col>
           <Col sm="8">
-            <DropdownButton id="dropdown-basic-button" title="Sort bills">
+            <DropdownButton id="dropdown-basic-button" title="Sort bills" style={{ float: 'right' }}>
               <Dropdown.Item href="#/hearing-date">Hearing date</Dropdown.Item>
               <Dropdown.Item href="#/progress">Progress (most to least)</Dropdown.Item>
               <Dropdown.Item href="#/date-updated">Date updated (most recent)</Dropdown.Item>
