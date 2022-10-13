@@ -1,5 +1,7 @@
-import React from 'react';
-import { Container, Col, Row, Table } from 'react-bootstrap';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
+import { Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import TestimonyItem from '../components/TestimonyItem';
@@ -7,39 +9,29 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const ViewTestimony = () => {
+  // directly from react-to-print documentation
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   // code structure taken from list stuff file
-  const { ready, testimonies } = useTracker(() => {
+  const { ready, testimony } = useTracker(() => {
     const subscription = Testimonies.subscribeTestimony();
     const rdy = subscription.ready();
-    const testimonyItems = Testimonies.find({}, { sort: { lastName: 1 } }).fetch();
+    const currTestimony = Testimonies.findOne({}, {}).fetch();
     return {
-      testimonies: testimonyItems,
+      testimony: currTestimony,
       ready: rdy,
     };
   }, []);
   return ready ? (
-    <Container id={PAGE_IDS.VIEW_TESTIMONY} className="py-3">
-      <Row className="justify-content-center">
-        <Col md={7}>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Position</th>
-                <th>Testifying</th>
-                <th>Organization</th>
-                <th>Testifying Method</th>
-                <th>Testimony</th>
-              </tr>
-            </thead>
-            <tbody>
-              {testimonies.map((testimony) => <TestimonyItem testimony={testimony} />)}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-    </Container>
+    <div id={PAGE_IDS.VIEW_TESTIMONY}>
+      <TestimonyItem ref={componentRef} key={testimony._id} testimony={testimony} />
+      <Button onClick={handlePrint}> Print or Save as PDF </Button>
+      <td>
+        <Link className={PAGE_IDS.VIEW_TESTIMONY_EDIT} to={`/edit/${testimony._id}`}>Edit</Link>
+      </td>
+    </div>
   ) : <LoadingSpinner message="Loading Testimony" />;
 };
 

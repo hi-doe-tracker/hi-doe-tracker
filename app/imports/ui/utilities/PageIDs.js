@@ -22,5 +22,5 @@ export const PAGE_IDS = {
   MANAGE_ACCOUNTS: 'manage-accounts',
   VIEW_HEARINGS: 'view-hearings',
   VIEW_TESTIMONY: 'view-testimony',
-  VIEW_TESTIMONY_EDIT: 'view-testimony-edit',
+  EDIT_TESTIMONY: 'edit-testimony',
 };

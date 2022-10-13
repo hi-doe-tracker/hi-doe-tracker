@@ -49,12 +49,13 @@ const SubmitTestimony = () => {
     const owner = Meteor.user().username;
     const collectionName = Testimonies.getCollectionName();
     const definitionData = { ...data, owner };
+    console.log(data);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
         swal('Success', 'Testimony successfully submitted', 'success')
           .then(function () {
-            window.location = '/viewtestimony/${data._id}';
+            window.location = ('/listtestimony');
           });
         formRef.reset();
       });
