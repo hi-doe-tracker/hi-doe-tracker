@@ -49,7 +49,7 @@ const Profile = () => {
         </div>
       </div>
       <div className="text-center mt-4">
-        <button type="button" id="ChangeProfile" onClick={toggleShow} className="btn btn-light mt-2">Change profile</button>
+        <button type="button" onClick={toggleShow} className="btn btn-light mt-2">Edit profile</button>
         <Modal show={modalShow} setShow={setModalShow} centered>
           <ModalDialog>
             <ModalHeader>

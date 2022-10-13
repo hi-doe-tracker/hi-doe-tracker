@@ -71,6 +71,7 @@ test('Test that Edit info pops up on Profile page', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoProfilePage();
   await profilePage.pressChangeProfileButton();
+  await profilePage.isChangeProfileDisplayed();
 });
 
 /*

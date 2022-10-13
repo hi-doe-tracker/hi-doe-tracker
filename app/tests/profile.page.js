@@ -13,8 +13,13 @@ class ProfilePage {
   }
 
   async pressChangeProfileButton() {
-    await t.click('ChangeProfile');
+    await t.click(Selector('button').withText('Edit profile'));
   }
+
+  async isChangeProfileDisplayed() {
+    await Selector('button').withText('Save Changes').exists;
+  }
+
 }
 
 export const profilePage = new ProfilePage();
