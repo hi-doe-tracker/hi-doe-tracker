@@ -11,6 +11,10 @@ class ProfilePage {
   async isDisplayed() {
     await t.expect(this.pageSelector.exists).ok();
   }
+
+  async pressChangeProfileButton() {
+    await t.click('ChangeProfile');
+  }
 }
 
 export const profilePage = new ProfilePage();

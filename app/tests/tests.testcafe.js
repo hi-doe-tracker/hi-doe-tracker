@@ -65,6 +65,14 @@ test('Test that Profile page shows up', async () => {
   await profilePage.isDisplayed();
 });
 
+test('Test that Edit info pops up on Profile page', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoProfilePage();
+  await profilePage.pressChangeProfileButton();
+});
+
 /*
 test('Test that admin pages show up', async () => {
   await navBar.gotoSignInPage();
