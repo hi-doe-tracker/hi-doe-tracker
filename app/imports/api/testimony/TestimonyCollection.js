@@ -10,7 +10,8 @@ export const testimonyPublications = {
 class TestimonyCollection extends BaseCollection {
   constructor() {
     super('Testimonies', new SimpleSchema({
-      bill: String,
+      billNo: String,
+      // testimonyFileID: String,
       firstName: String,
       lastName: String,
       position: {
@@ -44,9 +45,10 @@ class TestimonyCollection extends BaseCollection {
    * @param testimony .
    * @return {String} the docID of the new document.
    */
-  define({ bill,firstName, lastName, position, testifyingAs, testifyingMethod, testimony }) {
+  define({ bill, firstName, lastName, position, testifyingAs, testifyingMethod, testimony, billNo }) {
     const docID = this._collection.insert({
       bill,
+      billNo,
       firstName,
       lastName,
       position,
@@ -102,7 +104,7 @@ class TestimonyCollection extends BaseCollection {
   /**
    * Subscription method for stuff owned by the current user.
    */
-  subscribeStuff() {
+  subscribeTestimony() {
     if (Meteor.isClient) {
       return Meteor.subscribe(testimonyPublications.testimony);
     }
@@ -118,6 +120,7 @@ class TestimonyCollection extends BaseCollection {
   assertValidRoleForMethod(userId) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
   }
+
 }
 
 /**

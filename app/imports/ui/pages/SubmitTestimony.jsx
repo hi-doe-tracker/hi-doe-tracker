@@ -6,23 +6,16 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import Select from 'react-select';
 import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Bills } from '../../api/bill/BillCollection';
-
-// Test data for bills
-// const billOptions = [
-//   { value: 'hb-150', label: 'HB150' },
-//   { value: 'sb-234', label: 'SB234' },
-//   { value: 'hb-563', label: 'HB563' },
-// ];
+import TestimonyFileCollection from '../../api/testimony/TestimonyFileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
-  // bill: String,
+  // billNo: is added but not included in the schema
   firstName: String,
   lastName: String,
   position: {
@@ -49,16 +42,21 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 /* Renders the Submit Testimony page for adding a document. */
 const SubmitTestimony = () => {
 
-  let billOptions = [];
+  const [billNo, setBillNo] = useState('');
+  const [uploadFile, setUploadFile] = useState({});
+  const [hidden, setHidden] = useState(true);
+
   const { billName, ready } = useTracker(() => {
     const subscription = Bills.subscribeBill();
+    const subscription2 = Testimonies.subscribeTestimony();
     // Determine if the subscription is ready
-    const rdy = subscription.ready();
+    const rdy = subscription.ready() && subscription2.ready();
+
     // Get the scraper bill data from DB.
     const billItems = Bills.find({}, { sort: { name: 1 } }).fetch();
-    const billName = billItems.map((bill) => bill.billNo);
+    const billname = billItems.map((bill) => bill.billNo);
     return {
-      billName,
+      billName: billname,
       ready: rdy,
     };
   }, []);
@@ -66,105 +64,132 @@ const SubmitTestimony = () => {
   const submit = (data, formRef) => {
     const owner = Meteor.user().username;
     const collectionName = Testimonies.getCollectionName();
-    const bill = document.getElementById('bill').value;
-    if (!bill){
-      swal('Error', "Select a bill!!!", 'error');
-    }
-    else{
-      const definitionData = { ...data, owner, bill };
-      console.table(definitionData);
+    const isPresent = Testimonies.findOne({ billNo });
+    const hasUploadFile = !!uploadFile;
+
+    // if billNo is empty or if the selected bill has already been testified, throw an error. Else, write to the database
+    if (!billNo) {
+      swal('Error', 'Select a bill!!!', 'error');
+    } else if (isPresent) {
+      swal('Error', 'Already Testified for this Bill!!!', 'error');
+    } else if (hasUploadFile) {
+      console.log(uploadFile);
+      const uploadInstance = TestimonyFileCollection.insert({
+        file: uploadFile,
+        meta: {
+          billNo,
+          // userId: Meteor.userId() // Optional, used to check on server for file tampering
+        },
+        // streams: 'dynamic',
+        // chunkSize: 'dynamic',
+        // allowWebWorkers: true // If you see issues with uploads, change this to false
+      }, false);
+
+      // These are the event functions, don't need most of them, it shows where we are in the process
+      uploadInstance.on('start', function () {
+        console.log('Starting');
+      });
+
+      uploadInstance.on('end', function (error, fileObj) {
+        if (error) {
+          console.log(error);
+        }
+        console.log('On end File Object: ', fileObj);
+      });
+
+      uploadInstance.on('uploaded', function (error, fileObj) {
+        if (error) {
+          console.log(error);
+        }
+        console.log('uploaded: ', fileObj);
+      });
+
+      uploadInstance.on('error', function (error) {
+        console.log(`Error during upload: ${error}`);
+      });
+
+      uploadInstance.on('progress', function (progress) {
+        console.log(`Upload Percentage: ${progress}`);
+      });
+
+      uploadInstance.start(); // Must manually start the upload
+      const definitionData = { ...data, owner, billNo };
       defineMethod.callPromise({ collectionName, definitionData })
         .catch(error => swal('Error', error.message, 'error'))
         .then(() => {
           swal('Success', 'Testimony successfully submitted', 'success');
           formRef.reset();
         });
+      setBillNo('');
+    } else {
+      const definitionData = { ...data, owner, billNo };
+      defineMethod.callPromise({ collectionName, definitionData })
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', 'Testimony successfully submitted', 'success');
+          formRef.reset();
+        });
+      setBillNo('');
     }
   };
- 
-  // if(ready){
-  //   billOptions = billName.map(bill => ({value: bill, label: bill}));
-  //  }
 
-  //  if(ready){
-  //   console.log(billOptions) 
-  //  }
-//  const changed = () => {
-//   let val = document.getElementById('bill');
-//   console.log(val.value)
-//  }
+  const billSelected = (e) => {
+    setBillNo(e.target.value);
+  };
 
-  const [hidden, setHidden] = useState(true);
+  const changed = (e) => {
+    const file = e.target.files[0];
+    setUploadFile(file);
+  };
+
   const toggleHidden = () => {
     if (hidden) setHidden(false);
   };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   const menuStyle = { fontWeight: 'bold' };
+  const checkboxStyle = { margin: '5px' };
   return (
-    ready ? 
-    <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
-      <Row className="justify-content-center">
-      {/* <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}> */}
-        {/* <div className="mb-3 required">
-          <span style={menuStyle}>Relevant Bill</span>
-          <Select
-            name="bill"
-            // id ="bill"
-            onChange={changed}
-            options={billOptions}
-          />
-        </div> */}
-        <Form.Group >
-        {/* {/* <Form.Label>Select the Bill</Form.Label> */}
-        <span style={menuStyle}>Relevant Bill</span>
-        <Form.Select
-          // as="select"
-          id="bill"
-          // onChange={changed}
-        >
-          {/* <option value="DICTUM">RamSaili</option>
-          <option value="CONSTANCY">Ujj</option>
-          <option value="COMPLEMENT">CIDK</option> */}
-          <option></option> 
-          {billName.map(bill => <option key={bill} value={bill}>{bill}</option> )}
-        </Form.Select>
-      </Form.Group>
-        <Col xs={12}>
-          <Col className="text-center"><h2>Submit Testimony</h2></Col>
-          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-          {/* <Form.Select aria-label="Default select example">
-                  <option>Open this select menu</option>
-                  <option name="bill"  value="1">One</option>
-                  <option  name="bill" value="2">Two</option>
-                  <option name="bill" value="3">Three</option>
-          </Form.Select> */}
-            <Card>
-              <Card.Body>
-                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
-                <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
-                <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
-                <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
-                <h3>Type out testimony or upload pdf file</h3>
-                <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
-                <h5>OR</h5>
-                <Row className="mb-3">
-                  <Col className="col-sm-1 col-form-label bold-text">Upload file: </Col>
-                  <Col className="col-sm-9">
-                    <Form.Control type="file" accept="application/pdf" />
-                  </Col>
-                </Row>
-                <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
-                <ErrorsField />
-              </Card.Body>
-            </Card>
-          </AutoForm>
-        </Col>
-        {/* </AutoForm> */}
-      </Row>
-    </Container> : <Spinner>Loading.....</Spinner>
+    ready ? (
+      <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
+        <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <Row className="justify-content-center">
+            <span style={menuStyle}>Relevant Bill</span>
+            <Form.Select
+              onChange={(e) => billSelected(e)}
+            >
+              <option aria-label="Blank Space" />
+              {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
+            </Form.Select>
+
+            <Col xs={12}>
+              <Col className="text-center"><h2>Submit Testimony</h2></Col>
+              <Card>
+                <Card.Body>
+                  <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
+                  <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
+                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
+                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
+                  <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
+                  <SelectField style={checkboxStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                  <h3>Type out testimony or upload pdf file</h3>
+                  <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
+                  <h5>OR</h5>
+                  <Row className="mb-3">
+                    <Col className="col-sm-1 col-form-label bold-text">Upload file: </Col>
+                    <Col className="col-sm-9">
+                      <Form.Control id="testimonyfiles" type="file" onChange={changed} accept="application/pdf" />
+                    </Col>
+                  </Row>
+                  <SubmitField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} value="Submit" />
+                  <ErrorsField />
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </AutoForm>
+      </Container>
+    ) : <Spinner>Loading.....</Spinner>
   );
 };
 
