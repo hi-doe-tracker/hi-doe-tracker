@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+// export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => (
   <tr>
     <td>{testimony.firstName}</td>
@@ -10,7 +11,7 @@ const TestimonyItem = ({ testimony }) => (
     <td>{testimony.testifying}</td>
     <td>{testimony.testifyingMethod}</td>
     <td>{testimony.testimony}</td>
-    <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit or Save</Link></td>
+    <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
   </tr>
 );
 
