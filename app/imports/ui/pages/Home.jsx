@@ -45,7 +45,7 @@ const objects = [
 const darkTheme = false;
 
 const HomeContent = () => (
-  <Container id={PAGE_IDS.HOME} fluid className="px-5">
+  <Container id={PAGE_IDS.HOME} fluid className="px-5" style={{ overflow: 'hidden', height: '100%' }}>
     <Row>
       <Col xs={3}>
         <BillQuickReference darkTheme={darkTheme} />
@@ -56,7 +56,15 @@ const HomeContent = () => (
             <Col key={info.link}>
               <OverlayTrigger
                 placement="bottom"
-                overlay={(<Tooltip key={info.title} id={info.title} style={{ position: 'absolute' }}>{info.description}</Tooltip>)}
+                overlay={(
+                  <Tooltip
+                    key={info.title}
+                    id={info.title}
+                    style={{ position: 'absolute', top: '50%', left: '50%' }}
+                  >
+                    {info.description}
+                  </Tooltip>
+                )}
               >
                 <Card
                   bg={darkTheme ? 'dark' : ''}
