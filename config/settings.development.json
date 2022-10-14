@@ -15,9 +15,9 @@
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
   "defaultTestimony": [
-    { "firstName": "David", "lastName": "Ige", "position": "Support", "testifying": "As an individual",
+    { "firstName": "David", "lastName": "Ige", "position": "Support", "testifyingAs": "Individual",
       "testifyingMethod": "Remotely via Zoom during the hearing & submitting written testimony",
-      "testimony": "I am the governor, David Ige." }
+      "testimony": "I am the governor, David Ige.", "billNo": "ABC 123", "organization" : "test organizatiob" }
   ],
 
   "defaultScraperBills": [
@@ -550,5 +550,9 @@
     ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
   }],
+  
+  "defaultHearingNotice":[
+    {"to": "john@foo.com",  "from": "admin@foo.com", "cc": "", "bcc": "", "dateOfHearing": "Wed Sep 21 2022", "subject": "Hearing notice for HB-12BHSH", "message": "Hearing notice for HB-12BHSH is sent"}
+    ],
   "loadHearings": true
 }
