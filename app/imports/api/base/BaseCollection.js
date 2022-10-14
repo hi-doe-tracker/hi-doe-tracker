@@ -102,7 +102,22 @@ class BaseCollection {
    */
   findOne(selector, options) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    // console.log(selector);
     return this._collection.findOne(theSelector, options);
+  }
+
+  /**
+   * Runs findOnlyOne on this collection.
+   * @see {@link http://docs.meteor.com/#/full/findOne|Meteor Docs on Mongo Find}
+   * @param { Object } selector A MongoDB selector.
+   * @param { Object } options MongoDB options.
+   * @returns {Mongo.Cursor}
+   */
+  findOnlyOne(selector) {
+    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    // console.log(selector);
+    console.log(this._collection.findOne(theSelector));
+    return this._collection.findOne(theSelector);
   }
 
   /**
