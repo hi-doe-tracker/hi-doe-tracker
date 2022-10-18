@@ -42,7 +42,6 @@ const TestimonyFileCollection = new FilesCollection({
   },
 });
 
-
 if (Meteor.isServer) {
   Meteor.publish('testimony_files', function () {
     return TestimonyFileCollection.find().cursor;
