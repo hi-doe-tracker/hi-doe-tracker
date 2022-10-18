@@ -1,8 +1,11 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
 import { Row, Col, Tab, Nav, Container } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import BillViewTab from '../components/BillViewTab';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 const officeNames = [
   {
@@ -45,10 +48,25 @@ const officeNames = [
 
 /** Displays all bills that were assigned to a scraper bill by admin. */
 const ViewBills = () => {
+  const { ready, userProfile } = useTracker(() => {
+    const subscription = UserProfiles.subscribeUserProfiles();
+    const currentUser = Meteor.user() ? Meteor.user().username : '';
+    const rdy = subscription.ready();
+    const users = UserProfiles.find({}).fetch();
+    console.log(users);
+    const user = users.filter((profile) => profile.email === currentUser);
+    return {
+      ready: rdy,
+      userProfile: user,
+    };
+  }, []);
+
+  const assignedOffice = ready ? userProfile.assignedOffice : 'all-bills';
   const mobileView = useMediaQuery('(max-width: 850px)');
   return (
     <Container id={PAGE_IDS.VIEW_BILLS} key="viewbills-container">
-      <Tab.Container defaultActiveKey="all-bills">
+      {ready ? (console.log(userProfile)) : (console.log('Nothing'))}
+      <Tab.Container defaultActiveKey={assignedOffice}>
         {mobileView ? <br /> : <div />}
         <Row>
           <Col sm="1" />
