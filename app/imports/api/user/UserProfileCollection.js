@@ -16,17 +16,17 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param password The password for this user.
    * @param firstName The first name.
    * @param lastName The last name.
+   * @param position The position.
+   * @param assignedOffice The assigned office.
    */
-  define({ email, firstName, lastName, password }) {
+  define({ email, firstName, lastName, password, position, assignedOffice }) {
     // if (Meteor.isServer) {
     const username = email;
-    const position = null;
-    const office = null;
-    const user = this.findOne({ email, firstName, lastName, position, office });
+    const user = this.findOne({ email, firstName, lastName });
     if (!user) {
       const role = ROLE.USER;
-      const userID = Users.define({ username, role, password, position, office });
-      const profileID = this._collection.insert({ email, firstName, lastName, userID, role, position, office });
+      const userID = Users.define({ username, role, password });
+      const profileID = this._collection.insert({ email, firstName, lastName, position, assignedOffice, userID, role });
       // this._collection.update(profileID, { $set: { userID } });
       return profileID;
     }
@@ -41,7 +41,7 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param firstName new first name (optional).
    * @param lastName new last name (optional).
    */
-  update(docID, { firstName, lastName, position, office }) {
+  update(docID, { firstName, lastName, position, assignedOffice }) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) {
@@ -53,8 +53,8 @@ class UserProfileCollection extends BaseProfileCollection {
     if (position) {
       updateData.position = position;
     }
-    if (lastName) {
-      updateData.office = office;
+    if (assignedOffice) {
+      updateData.assignedOffice = assignedOffice;
     }
     this._collection.update(docID, { $set: updateData });
   }
@@ -110,8 +110,8 @@ class UserProfileCollection extends BaseProfileCollection {
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const position = doc.position;
-    const office = doc.office;
-    return { email, firstName, lastName, position, office };
+    const assignedOffice = doc.assignedOffice;
+    return { email, firstName, lastName, position, assignedOffice };
   }
 
   /**
@@ -125,6 +125,9 @@ class UserProfileCollection extends BaseProfileCollection {
       Meteor.publish('UserProfile', function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
+        }
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
+          return instance._collection.find({ userID: this.userId });
         }
         return this.ready();
       });

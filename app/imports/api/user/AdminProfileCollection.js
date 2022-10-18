@@ -16,17 +16,15 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @param firstName The first name.
    * @param lastName The last name.
    */
-  define({ email, firstName, lastName, password }) {
+  define({ email, firstName, lastName, password, position, assignedOffice }) {
     if (Meteor.isServer) {
       // console.log('define', email, firstName, lastName, password);
       const username = email;
-      const position = null;
-      const office = null;
-      const user = this.findOne({ email, firstName, lastName, position, office });
+      const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.ADMIN;
-        const profileID = this._collection.insert({ email, firstName, lastName, position, office, userID: this.getFakeUserId(), role });
-        const userID = Users.define({ username, role, password, position, office });
+        const profileID = this._collection.insert({ email, firstName, lastName, userID: this.getFakeUserId(), role, position, assignedOffice });
+        const userID = Users.define({ username, role, password });
         this._collection.update(profileID, { $set: { userID } });
         return profileID;
       }
@@ -41,7 +39,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @param firstName new first name (optional).
    * @param lastName new last name (optional).
    */
-  update(docID, { firstName, lastName, position, office }) {
+  update(docID, { firstName, lastName }) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) {
@@ -49,12 +47,6 @@ class AdminProfileCollection extends BaseProfileCollection {
     }
     if (lastName) {
       updateData.lastName = lastName;
-    }
-    if (position) {
-      updateData.position = position;
-    }
-    if (office) {
-      updateData.office = office;
     }
     this._collection.update(docID, { $set: updateData });
   }
@@ -107,9 +99,7 @@ class AdminProfileCollection extends BaseProfileCollection {
     const email = doc.email;
     const firstName = doc.firstName;
     const lastName = doc.lastName;
-    const position = doc.position;
-    const office = doc.office;
-    return { email, firstName, lastName, position, office };
+    return { email, firstName, lastName };
   }
 }
 

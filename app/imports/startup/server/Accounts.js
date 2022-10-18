@@ -5,12 +5,12 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 /* eslint-disable no-console */
 
-function createUser(email, role, firstName, lastName, password) {
+function createUser(email, role, firstName, lastName, password, position, assignedOffice) {
   console.log(`  Creating user ${email} with role ${role}.`);
   if (role === ROLE.ADMIN) {
-    AdminProfiles.define({ email, firstName, lastName, password });
+    AdminProfiles.define({ email, firstName, lastName, password, position, assignedOffice });
   } else { // everyone else is just a user.
-    UserProfiles.define({ email, firstName, lastName, password });
+    UserProfiles.define({ email, firstName, lastName, password, position, assignedOffice });
   }
 }
 
@@ -18,7 +18,7 @@ function createUser(email, role, firstName, lastName, password) {
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultAccounts) {
     console.log('Creating the default user(s)');
-    Meteor.settings.defaultAccounts.map(({ email, password, role, firstName, lastName }) => createUser(email, role, firstName, lastName, password));
+    Meteor.settings.defaultAccounts.map(({ email, password, role, firstName, lastName, position, assignedOffice }) => createUser(email, role, firstName, lastName, password, position, assignedOffice));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

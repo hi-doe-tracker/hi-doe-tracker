@@ -1,11 +1,15 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP", "position": "Admin", "office": "Admin"
-    },
-    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe", "position": "Secretary", "office": "Deputy" },
-    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does", "position": "Writer", "office": "OCID" },
-    { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode", "position": "Office Approver", "office": "OFO" },
-    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea", "position": "PIPE Approver", "office": "OFS" }
+    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP",
+      "position": "Admin", "assignedOffice": "None" },
+    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" }
   ],
 
   "defaultData": [
@@ -13,11 +17,6 @@
     { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
-  ],
-  "defaultTestimony": [
-    { "firstName": "David", "lastName": "Ige", "position": "Support", "testifyingAs": "Individual",
-      "testifyingMethod": "Remotely via Zoom during the hearing & submitting written testimony",
-      "testimony": "I am the governor, David Ige.", "billNo": "ABC 123", "organization" : "test organizatiob" }
   ],
 
   "defaultScraperBills": [
@@ -549,10 +548,5 @@
       "Testimony 3"
     ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-  }],
-  
-  "defaultHearingNotice":[
-    {"to": "john@foo.com",  "from": "admin@foo.com", "cc": "", "bcc": "", "dateOfHearing": "Wed Sep 21 2022", "subject": "Hearing notice for HB-12BHSH", "message": "Hearing notice for HB-12BHSH is sent"}
-    ],
-  "loadHearings": true
+  }]
 }
