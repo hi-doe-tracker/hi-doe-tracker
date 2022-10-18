@@ -126,6 +126,9 @@ class UserProfileCollection extends BaseProfileCollection {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
         }
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
+          return instance._collection.find({ userID: this.userId });
+        }
         return this.ready();
       });
     }
