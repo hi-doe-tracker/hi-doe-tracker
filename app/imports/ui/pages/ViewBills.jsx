@@ -92,7 +92,7 @@ const ViewBills = () => {
         </Row>
       </Tab.Container>
     </Container>
-    ) : (<LoadingSpinner />)
+  ) : (<LoadingSpinner />)
   );
 };
 
