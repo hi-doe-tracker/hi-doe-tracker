@@ -61,6 +61,8 @@ const ManageAccounts = () => {
             <th>Last Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Position</th>
+            <th>Assigned Position</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -74,6 +76,8 @@ const ManageAccounts = () => {
                   <td>{user.lastName}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
+                  <td>{user.position}</td>
+                  <td>{user.assignedOffice}</td>
                   <td><Button variant="primary" onClick={() => handleEdit(user._id)}>Edit</Button></td>
                   <td><Button variant="danger" onClick={() => handleDelete(user._id)}>Delete</Button></td>
                 </tr>
