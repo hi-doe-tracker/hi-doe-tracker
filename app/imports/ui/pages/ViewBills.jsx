@@ -1,4 +1,6 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
 import { Row, Col, Tab, Nav, Container, Table } from 'react-bootstrap';
@@ -8,6 +10,7 @@ import BillViewTab from '../components/BillViewTab';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import ScraperBillViewDisplay from '../components/ScraperBillViewDisplay';
+import { ROLE } from '../../api/role/Role';
 
 const officeNames = [
   {
@@ -58,7 +61,6 @@ const ViewBills = () => {
     const users = UserProfiles.find({}).fetch();
     const user = users[0];
     const bills = ScraperBills.find({}).fetch();
-    console.log(bills);
     return {
       ready: rdy,
       userProfile: user,
@@ -78,7 +80,7 @@ const ViewBills = () => {
           <Col sm="2">
             <h2>Offices</h2>
             <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
-              <Nav.Item><Nav.Link eventKey="unassigned-bills">UNASSIGNED BILLS</Nav.Link></Nav.Item>
+              {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (<Nav.Item><Nav.Link eventKey="unassigned-bills">UNASSIGNED BILLS</Nav.Link></Nav.Item>) : <div />}
               {officeNames.map((office) => (
                 <Nav.Item key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
               ))}
@@ -87,21 +89,23 @@ const ViewBills = () => {
           </Col>
           <Col sm="8">
             <Tab.Content>
-              <Tab.Pane eventKey="unassigned-bills">
-                <h2>Unassigned Bills</h2>
-                <Table striped bordered responsive="sm">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Hearing Date</th>
-                      <th>Progress</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {scraperBills.map(scraperBill => <ScraperBillViewDisplay key={scraperBill._id} scraperBillData={scraperBill} />)}
-                  </tbody>
-                </Table>
-              </Tab.Pane>
+              {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
+                <Tab.Pane eventKey="unassigned-bills">
+                  <h2>Unassigned Bills</h2>
+                  <Table striped bordered responsive="sm">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Hearing Date</th>
+                        <th>Progress</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {scraperBills.map(scraperBill => <ScraperBillViewDisplay key={scraperBill._id} scraperBillData={scraperBill} />)}
+                    </tbody>
+                  </Table>
+                </Tab.Pane>
+              ) : <div />}
               {officeNames.map((officeName) => (
                 <BillViewTab
                   key={officeName.name}
