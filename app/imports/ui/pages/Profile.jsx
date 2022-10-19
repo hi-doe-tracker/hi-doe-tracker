@@ -1,9 +1,15 @@
 import React from 'react';
-
+import { Roles } from 'meteor/alanning:roles';
 import '/client/style.css';
 import { Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { ROLE } from '../../api/role/Role';
 import swal from 'sweetalert';
+// import { Users } from '../../api/user/UserCollection';
+// import { AdminProfiles } from '../../api/user/AdminProfileCollection';
+// import { UserProfiles } from '../../api/user/UserProfileCollection';
+import { updatePasswordMethod } from "../../api/base/BaseCollection.methods";
+
 
 const Profile = () => {
   const user = {
@@ -42,12 +48,18 @@ const Profile = () => {
     // TODO: fix non updating values
     const handleSubmitPassword = (evt) => {
       evt.preventDefault();
-      const name = Meteor.user().username;
+      const userID = Meteor.userId();
       const newPassword = evt.target[0].value;
       const confirmPassword = evt.target[1].value;
-      if (name){
-        if (newPassword === confirmPassword){
-          console.log("equal")
+
+      if (userID){
+        const isAdmin = verifyRole(userID); 
+        if (newPassword === confirmPassword){  
+          // const a = Users.update(userID, newPassword);
+          // console.log(a)
+          console.log(userID)
+          console.log(newPassword)
+          updatePasswordMethod.callPromise({userID, newPassword});
         }else{
           swal("Invalid Password", "Password Do Not Match!!", "error");
         }
@@ -57,6 +69,11 @@ const Profile = () => {
       handleClosePassword();
     };
 
+
+    function verifyRole(id){
+      return Roles.userIsInRole(id, [ROLE.ADMIN])
+
+    }
   return (
     <Container id={PAGE_IDS.PROFILE} className="py-3">
       <div className="card-body text-center">
