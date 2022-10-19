@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { Stuffs } from '../stuff/StuffCollection';
+// import { Stuffs } from '../stuff/StuffCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -69,6 +69,17 @@ class UserCollection {
     // return undefined;
   }
 
+  update(userID, newPassword){
+    console.log('update')
+      // console.log(userID)
+      // console.log(newPassword)
+     console.log(typeof userID)
+     console.log(typeof newPassword)
+    const id = Accounts.setPassword(userID, newPassword);
+      console.log(Meteor.isServer)
+      return id;
+    
+  }
   /**
    * Asserts that the passed user has the specified role.
    * @param user The user (username or userID).
