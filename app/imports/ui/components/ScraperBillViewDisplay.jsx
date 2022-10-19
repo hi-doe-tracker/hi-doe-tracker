@@ -11,7 +11,7 @@ const ScraperBillViewDisplay = ({ scraperBillData }) => {
       <td>{`${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`}</td>
       <td>Progress<ProgressBar now="25" /><br /></td>
     </tr>
-  )
+  );
 };
 
 ScraperBillViewDisplay.propTypes = {
