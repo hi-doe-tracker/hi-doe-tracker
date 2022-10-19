@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { ProgressBar } from 'react-bootstrap';
 
 /** Returns the table display for a given billData. */
-const ScraperBillViewDisplay = ({ scraperBillData }) => (
-  <tr>
-    <td>{`#${scraperBillData.measureNumber}: ${scraperBillData.measureTitle}`}</td>
-    <td>{scraperBillData.lastUpdated}</td>
-    <td>Progress<ProgressBar now="25" /><br /></td>
-  </tr>
-);
+const ScraperBillViewDisplay = ({ scraperBillData }) => {
+  const date = new Date(scraperBillData.lastUpdated * 1000);
+  return (
+    <tr>
+      <td>{`#${scraperBillData.measureNumber}: ${scraperBillData.measureTitle}`}</td>
+      <td>{`${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`}</td>
+      <td>Progress<ProgressBar now="25" /><br /></td>
+    </tr>
+  )
+};
 
 ScraperBillViewDisplay.propTypes = {
   scraperBillData: PropTypes.shape({
@@ -19,7 +22,7 @@ ScraperBillViewDisplay.propTypes = {
     currentReferral: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     introducer: PropTypes.string.isRequired,
-    lastUpdated: PropTypes.string.isRequired,
+    lastUpdated: PropTypes.number.isRequired,
     measureArchiveUrl: PropTypes.string.isRequired,
     measureNumber: PropTypes.number.isRequired,
     measurePdfUrl: PropTypes.string.isRequired,
