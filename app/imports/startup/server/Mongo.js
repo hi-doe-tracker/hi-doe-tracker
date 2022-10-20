@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import { Bills } from '../../api/bill/BillCollection';
-// import { Testimonies } from  '../../api/testimony/TestimonyCollection';
+import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { Hearings } from '../../api/hearing/HearingCollection';
 /* eslint-disable no-console */
@@ -17,7 +17,12 @@ function addData(data) {
 function addScraperBill(scraperBill) {
   console.log(`Adding scraper bill: ${scraperBill.measureTitle}`);
   ScraperBills.define(scraperBill);
+}
 
+// Adds a testimony to database.
+function addTestimony(testimony) {
+  console.log(`Adding testimony: ${testimony.testimony}`);
+  Testimonies.define(testimony);
 }
 
 // Adds a bill to database.
@@ -59,6 +64,14 @@ if (Bills.count() === 0) {
   if (Meteor.settings.defaultBills) {
     console.log('Creating default bills.');
     Meteor.settings.defaultBills.map(bill => addBill(bill));
+  }
+}
+
+// Initialize the StuffsCollection if empty.
+if (Testimonies.count() === 0) {
+  if (Meteor.settings.defaultTestimony) {
+    console.log('Creating default testimony.');
+    Meteor.settings.defaultTestimony.map(testimony => addTestimony(testimony));
   }
 }
 

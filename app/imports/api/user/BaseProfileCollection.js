@@ -24,6 +24,7 @@ class BaseProfileCollection extends BaseCollection {
         optional: true,
       },
       role: String,
+      assignedOffice: String,
       userID: SimpleSchema.RegEx.Id,
     })));
   }

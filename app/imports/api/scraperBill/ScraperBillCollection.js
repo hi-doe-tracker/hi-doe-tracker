@@ -18,7 +18,7 @@ class ScraperBillCollection extends BaseCollection {
       currentReferral: String,
       description: String,
       introducer: String,
-      lastUpdated: 1663711472,
+      lastUpdated: Date,
       measureArchiveUrl: String,
       measureNumber: Number,
       measurePdfUrl: String,

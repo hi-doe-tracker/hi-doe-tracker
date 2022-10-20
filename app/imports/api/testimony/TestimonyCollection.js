@@ -10,15 +10,17 @@ export const testimonyPublications = {
 class TestimonyCollection extends BaseCollection {
   constructor() {
     super('Testimonies', new SimpleSchema({
+      billNo: String,
+      // testimonyFileID: String,
       firstName: String,
       lastName: String,
       position: {
         type: String,
         allowedValues: ['Support', 'Oppose', 'Comments Only'],
       },
-      testifying: {
+      testifyingAs: {
         type: String,
-        allowedValues: ['As an individual', 'On behalf of an organization'],
+        allowedValues: ['Individual', 'Organization'],
       },
       organization: {
         type: String,
@@ -28,28 +30,39 @@ class TestimonyCollection extends BaseCollection {
         type: String,
         allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
       },
-      testimony: String,
+      testimony: {
+        type: String,
+        optional: true,
+      },
+      hasPdf: {
+        type: Boolean,
+        defaultValue: false,
+      },
     }));
   }
 
   /**
    * Defines a new Stuff item.
+   * @param bill the name of the testified bill
    * @param firstName the first name of the testifier.
    * @param lastName the last name of the testifier.
    * @param position .
-   * @param testifying the owner of the item.
+   * @param testifyingAs the owner of the item.
    * @param testifyingMethod the condition of the item.
    * @param testimony .
    * @return {String} the docID of the new document.
    */
-  define({ firstName, lastName, position, testifying, testifyingMethod, testimony }) {
+  define({ firstName, lastName, position, organization, testifyingAs, testifyingMethod, testimony, billNo, hasPdf }) {
     const docID = this._collection.insert({
+      billNo,
       firstName,
       lastName,
       position,
-      testifying,
+      organization,
+      testifyingAs,
       testifyingMethod,
       testimony,
+      hasPdf,
     });
     return docID;
   }
@@ -60,7 +73,7 @@ class TestimonyCollection extends BaseCollection {
    * @param firstName the first name of the testifier (optional).
    * @param lastName the last name of the testifier (optional).
    * @param position (optional).
-   * @param testifying the owner of the item (optional).
+   * @param testifyingAs the owner of the item (optional).
    * @param testifyingMethod the condition of the item (optional).
    * @param testimony (optional).
    */
@@ -99,7 +112,7 @@ class TestimonyCollection extends BaseCollection {
   /**
    * Subscription method for stuff owned by the current user.
    */
-  subscribeStuff() {
+  subscribeTestimony() {
     if (Meteor.isClient) {
       return Meteor.subscribe(testimonyPublications.testimony);
     }
@@ -115,6 +128,7 @@ class TestimonyCollection extends BaseCollection {
   assertValidRoleForMethod(userId) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
   }
+
 }
 
 /**
