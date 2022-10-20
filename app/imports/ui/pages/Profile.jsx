@@ -1,7 +1,9 @@
 import React from 'react';
 import '/client/style.css';
+import { useTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 const Profile = () => {
   const user = {
@@ -11,6 +13,17 @@ const Profile = () => {
     image: '/images/profile-image.png',
   };
 
+  const { ready, userProfile } = useTracker(() => {
+    const subscription = UserProfiles.subscribeUserProfiles();
+    const rdy = subscription.ready();
+    const users = UserProfiles.find({}).fetch();
+    const user2 = users[0];
+    return {
+      ready: rdy,
+      userProfile: user2,
+    };
+  }, []);
+
   const [info] = React.useState({
     username: 'Jane Doe',
     useremail: 'Jane.doe@hidoe.com',
@@ -18,6 +31,8 @@ const Profile = () => {
 
   const [modalShow, setModalShow] = React.useState(false);
   const toggleShow = () => setModalShow(!modalShow);
+
+  const assignedOffice = ready ? userProfile.assignedOffice : 'NULL';
 
   const handleClose = () => {
     setModalShow(false);
@@ -45,6 +60,7 @@ const Profile = () => {
           <button type="button" className="btn btn-light mt-2">Change profile photo</button>
           <h4 className="mt-4">{info.username}</h4>
           <p className="card-text">{user.title}</p>
+          <p><b className="text-muted">Office: </b>{assignedOffice && assignedOffice.length > 0 ? assignedOffice.toString() : 'Not Applicable'}</p>
           <p className="card-text">{info.useremail}</p>
         </div>
       </div>
