@@ -78,7 +78,7 @@ const Profile = () => {
                 <Form.Control id="username" name="InputName" type="name" defaultValue={info.username} />
                 <br />
                 <Form.Label>Position: </Form.Label>
-                <Form.Control name="title" type="text" value={user.title} />
+                <Form.Control name="title" type="text" value={user.title} readOnly />
                 <br />
                 <Form.Label>Email: </Form.Label>
                 <Form.Control id="useremail" name="InputEmail" type="email" defaultValue={info.useremail} />
