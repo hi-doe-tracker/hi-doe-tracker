@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -33,6 +34,7 @@ const SignUp = () => {
     },
   });
   const bridge = new SimpleSchema2Bridge(schema);
+  const navigate = useNavigate();
 
   /* Handle SignUp submission. Create user account and a profile entry. */
   const submit = (doc) => {
@@ -43,6 +45,7 @@ const SignUp = () => {
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
         swal('Success', 'User added successfully', 'success');
+        navigate('/admin/manageaccounts');
       });
     // return <Navigate to="/admin/createaccount" />;
   };
