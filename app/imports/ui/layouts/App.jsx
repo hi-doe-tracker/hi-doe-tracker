@@ -24,6 +24,8 @@ import SearchBarButton from '../components/SearchBarButton';
 import SendHearingNotice from '../pages/SendHearingNotice';
 import Profile from '../pages/Profile';
 import SubmitTestimony from '../pages/SubmitTestimony';
+import ListTestimony from '../pages/ListTestimony';
+import EditTestimony from '../pages/EditTestimony';
 import Landing from '../pages/Landing';
 import Calendar from '../pages/Calendar';
 import AssignBill from '../pages/AssignBill';
@@ -57,6 +59,16 @@ const App = () => {
               exact
               path="/viewbill/:_id"
               element={(<ProtectedRoute><ViewBill /></ProtectedRoute>)}
+            />
+            <Route
+              exact
+              path="/listtestimony"
+              element={(<ProtectedRoute><ListTestimony /></ProtectedRoute>)}
+            />
+            <Route
+              exact
+              path="/edittestimony/:_id"
+              element={(<ProtectedRoute><EditTestimony /></ProtectedRoute>)}
             />
             <Route
               exact
