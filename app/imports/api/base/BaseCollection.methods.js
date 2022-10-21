@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { MATP } from '../matp/MATP';
 import { ROLE } from '../role/Role';
 import { loadCollectionNewDataOnly } from '../utilities/load-fixtures';
+import { Users } from '../../api/user/UserCollection';
 
 /**
  * Meteor method used to define new instances of the given collection name.
@@ -19,12 +20,28 @@ export const defineMethod = new ValidatedMethod({
   validate: null,
   run({ collectionName, definitionData }) {
     if (Meteor.isServer) {
-      // console.log(collectionName, this.userId, definitionData);
       const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.define(definitionData);
     }
     return '';
+  },
+});
+
+/**
+ * Meteor method used to change user passwords.
+ * @param userID ID of the user.
+ * @param newPassword new password of the user.
+ * @memberOf api/base
+ */
+export const updatePasswordMethod = new ValidatedMethod({
+  name: 'BaseCollection.updatePassword',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run({userID, newPassword}) {
+     if (Meteor.isServer) {
+      const id = Users.update(userID, newPassword)  
+    }
   },
 });
 
