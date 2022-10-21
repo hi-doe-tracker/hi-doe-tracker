@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
-import { useEffect } from 'react';
+
 import { Row, Col, Tab, Nav, Container, Table } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -12,7 +12,6 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import ScraperBillViewDisplay from '../components/ScraperBillViewDisplay';
 import { ROLE } from '../../api/role/Role';
-import { useState } from 'react';
 
 const officeNames = [
   {
@@ -71,11 +70,11 @@ const ViewBills = () => {
   }, []);
 
   const [eventKey, setEventKey] = useState('');
-  useEffect(()=>{
+  useEffect(() => {
     const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
     const officeEventKey = officeNames.filter(office => office.name === assignedOffice)[0].eventKey;
     setEventKey(officeEventKey);
-  }, [])
+  }, []);
   // console.log(eventKey)
   const mobileView = useMediaQuery('(max-width: 850px)');
   return (ready ? (
