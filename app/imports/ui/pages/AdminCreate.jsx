@@ -12,7 +12,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
 /**
  * SignUp component is similar to signin component, but we create a new user instead.
  */
-const SignUp = () => {
+const AdminCreate = () => {
   const [error, setError] = useState('');
   // const [redirectToReferer, setRedirectToRef] = useState(false);
 
@@ -84,4 +84,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default AdminCreate;
