@@ -20,7 +20,6 @@ export const defineMethod = new ValidatedMethod({
   validate: null,
   run({ collectionName, definitionData }) {
     if (Meteor.isServer) {
-      // console.log(collectionName, this.userId, definitionData);
       const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.define(definitionData);
@@ -29,23 +28,19 @@ export const defineMethod = new ValidatedMethod({
   },
 });
 
+/**
+ * Meteor method used to change user passwords.
+ * @param userID ID of the user.
+ * @param newPassword new password of the user.
+ * @memberOf api/base
+ */
 export const updatePasswordMethod = new ValidatedMethod({
   name: 'BaseCollection.updatePassword',
   mixins: [CallPromiseMixin],
   validate: null,
   run({userID, newPassword}) {
-
-    if (Meteor.isServer) {
-      // console.log('updateMethod(%o, %o)', collectionName, updateData);
-      // const collection = MATP.getCollection(collectionName);
-      // collection.assertValidRoleForMethod(this.userId);
-      // collection.update(updateData.id, updateData);
-      console.log(userID);
-      const id = Users.update(userID, newPassword)
-      console.log(id)
-      // console.log(docID)
-      // console.log(newPassword)
-      // console.log(Meteor.isServer);
+     if (Meteor.isServer) {
+      const id = Users.update(userID, newPassword)  
     }
   },
 });

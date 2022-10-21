@@ -133,7 +133,12 @@ const App = () => {
               }
             />
             <Route path="/notauthorized" element={<NotAuthorized />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={
+            (
+              <ProtectedRoute>
+            <Profile />
+            </ProtectedRoute>
+  )} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
