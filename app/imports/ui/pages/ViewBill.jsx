@@ -33,7 +33,7 @@ const ViewBill = () => {
   }, [_id]);
   // returns a single container containing information about the bill
   return (ready ? (
-    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
+    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={viewBill.billNo}>
       <Row>
         <center>
           <Col>
