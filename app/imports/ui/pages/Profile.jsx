@@ -1,9 +1,11 @@
 import React from 'react';
 import '/client/style.css';
+import { useTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle } from 'react-bootstrap';
 import swal from 'sweetalert';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { updatePasswordMethod } from '../../api/base/BaseCollection.methods';
 
 const Profile = () => {
@@ -14,6 +16,17 @@ const Profile = () => {
     image: '/images/profile-image.png',
   };
 
+  const { ready, userProfile } = useTracker(() => {
+    const subscription = UserProfiles.subscribeUserProfiles();
+    const rdy = subscription.ready();
+    const users = UserProfiles.find({}).fetch();
+    const user2 = users[0];
+    return {
+      ready: rdy,
+      userProfile: user2,
+    };
+  }, []);
+
   const [info] = React.useState({
     username: 'Jane Doe',
     useremail: 'Jane.doe@hidoe.com',
@@ -23,6 +36,8 @@ const Profile = () => {
   const [modalShowPassword, setModalShowPassword] = React.useState(false);
   const toggleShow = () => setModalShow(!modalShow);
   const toggleShowPassword = () => setModalShowPassword(!modalShowPassword);
+
+  const assignedOffice = ready ? userProfile.assignedOffice : 'NULL';
 
   const handleClose = () => {
     setModalShow(false);
@@ -77,12 +92,13 @@ const Profile = () => {
           <button type="button" className="btn btn-light mt-2">Change profile photo</button>
           <h4 className="mt-4">{info.username}</h4>
           <p className="card-text">{user.title}</p>
+          <p><b className="text-muted">Office: </b>{assignedOffice && assignedOffice.length > 0 ? assignedOffice.toString() : 'Not Applicable'}</p>
           <p className="card-text">{info.useremail}</p>
         </div>
       </div>
       <div className="text-center mt-4">
         <button type="button" onClick={toggleShow} className="btn btn-light mt-2">Change profile</button>
-        <Modal show={modalShow} setShow={setModalShow} centered>
+        <Modal show={modalShow} centered>
           <ModalDialog>
             <ModalHeader>
               <ModalTitle> Change profile </ModalTitle>
@@ -94,7 +110,7 @@ const Profile = () => {
                 <Form.Control id="username" name="InputName" type="name" defaultValue={info.username} />
                 <br />
                 <Form.Label>Position: </Form.Label>
-                <Form.Control name="title" type="text" value={user.title} />
+                <Form.Control name="title" type="text" value={user.title} readOnly />
                 <br />
                 <Form.Label>Email: </Form.Label>
                 <Form.Control id="useremail" name="InputEmail" type="email" defaultValue={info.useremail} />
