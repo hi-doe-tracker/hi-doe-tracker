@@ -55,7 +55,6 @@ const NavBar = () => {
             {currentUser === '' ? (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} key="nonuser-dropdown" title="Login">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} to="/signin"><PersonFill />Sign in</NavDropdown.Item>
-                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} as={NavLink} to="/signup"><PersonPlusFill />Sign up</NavDropdown.Item>
               </NavDropdown>
             ) : (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
