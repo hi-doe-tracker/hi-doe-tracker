@@ -5,7 +5,7 @@ import '/imports/startup/server/Mongo';
 import '../imports/api/base/BaseCollection.methods';
 import '../imports/api/user/UserProfileCollection.methods';
 import '../imports/api/testimony/TestimonyFileCollection';
-import '../imports/api/user/UserCollection'
+// import '../imports/api/user/UserCollection'
 
 
 
