@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PlusCircle, DashCircle, Sliders2 } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
-import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
+import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from './LoadingSpinner';
 
 const officeNames = [
@@ -43,13 +43,20 @@ const officeNames = [
 
 const BillQuickReference = ({ darkTheme }) => {
   const [show, setShow] = useState(false);
-  const [filter, setFilter] = useState([true, true, true, true, true, true, true, true]);
+  let initialFilter;
+  if (localStorage.getItem('filter') == null) {
+    initialFilter = [true, true, true, true, true, true, true, true];
+  } else {
+    initialFilter = JSON.parse(localStorage.getItem('filter'));
+  }
+  const [filter, setFilter] = useState(initialFilter);
   const { ready, bills } = useTracker(() => {
-    const subscription = ScraperBills.subscribeScraperBill();
+    const subscription = Bills.subscribeBill();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the scraper bill data from DB.
-    const billItems = ScraperBills.find({}, { sort: { lastUpdated: -1 } }).fetch();
+    const billItems = Bills.find({}, { sort: { hearingDate: -1 } }).fetch();
+    console.log(billItems.length);
     return {
       bills: billItems,
       ready: rdy,
@@ -72,7 +79,21 @@ const BillQuickReference = ({ darkTheme }) => {
   const updateFilter = (value) => {
     const temp = filter.concat();
     temp[value] = !temp[value];
+    localStorage.setItem('filter', JSON.stringify(temp));
     setFilter(temp);
+  };
+
+  const filteredBills = () => {
+    const filterBills = [];
+    for (let i = 0; i < bills.length; i++) {
+      for (let j = 0; j < officeNames.length; j++) {
+        if (bills[i].office.includes(officeNames[j].name) && filter[j]) {
+          filterBills.push(bills[i]);
+          break;
+        }
+      }
+    }
+    return filterBills;
   };
 
   const selectFilters = (
@@ -105,7 +126,7 @@ const BillQuickReference = ({ darkTheme }) => {
           <tfoot>
             <tr>
               <td className={`w-75 p-0 m-0 ${darkTheme ? 'text-white' : null}`}>
-                Recently Updated
+                Bills Due
               </td>
               <td className="p-0 m-0">
                 <div className="text-center d-grid p-0 m-0">
@@ -121,10 +142,10 @@ const BillQuickReference = ({ darkTheme }) => {
         </Table>
       </Card.Header>
       <ListGroup variant="flush">
-        {ready ? bills.slice(0, (show ? 10 : 5)).map((measure) => (
-          <ListGroup.Item key={measure.measureNumber} variant={color}>
-            <h6>{measure.measureNumber}: {measure.measureTitle}</h6>
-            {measure.lastUpdated.toDateString()}
+        {ready ? filteredBills().slice(0, (show ? 10 : 5)).map((measure) => (
+          <ListGroup.Item key={measure.billNo} variant={color}>
+            <h6>{measure.billNo}: {measure.measureTitle}</h6>
+            {measure.hearingDate.toDateString()}
           </ListGroup.Item>
         )) : <LoadingSpinner message="Loading Data" />}
       </ListGroup>
