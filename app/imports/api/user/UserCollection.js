@@ -69,12 +69,12 @@ class UserCollection {
     // return undefined;
   }
 
-  update(userID, newPassword){
-    
+  update(userID, newPassword) {
+
     Accounts.setPassword(userID, newPassword);
-      
-    
+
   }
+
   /**
    * Asserts that the passed user has the specified role.
    * @param user The user (username or userID).

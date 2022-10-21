@@ -14,7 +14,6 @@ export const signUpNewUserMethod = new ValidatedMethod({
   },
 });
 
-
 // export const updateExistingUser =  new ValidatedMethod({
 //   name: 'UserProfiles.UpdateExistingUser',
 //   mixins: [CallPromiseMixin],
