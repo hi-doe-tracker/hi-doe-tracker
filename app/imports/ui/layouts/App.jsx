@@ -103,7 +103,7 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/assignbills"
+              path="/admin/assignbills/:_id"
               element={
                 (
                   <AdminProtectedRoute>
@@ -133,7 +133,16 @@ const App = () => {
               }
             />
             <Route path="/notauthorized" element={<NotAuthorized />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                (
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                )
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
