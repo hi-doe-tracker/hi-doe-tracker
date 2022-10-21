@@ -69,6 +69,12 @@ class UserCollection {
     // return undefined;
   }
 
+  /**
+   * update the user password
+   * @param userID ID of the user.
+  * @param newPassword new password of the user.
+    */
+
   update(userID, newPassword) {
 
     Accounts.setPassword(userID, newPassword);
@@ -94,15 +100,15 @@ class UserCollection {
     }
   }
 
-  /**
-   * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
-   * Used to determine if user can be deleted.
-   * @param user
-   * @return {boolean}
-   */
-  isReferenced(user) {
-    return Stuffs.find({ owner: user }).fetch().length > 0;
-  }
+  // /**
+  //  * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
+  //  * Used to determine if user can be deleted.
+  //  * @param user
+  //  * @return {boolean}
+  //  */
+  // isReferenced(user) {
+  //   return Stuffs.find({ owner: user }).fetch().length > 0;
+  // }
 
   /**
    * Returns true if user is a defined userID or username.
