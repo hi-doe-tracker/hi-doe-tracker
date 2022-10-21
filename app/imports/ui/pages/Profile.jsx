@@ -4,6 +4,8 @@ import '/client/style.css';
 import { Button, Card, Container, Form, Modal, ModalBody, ModalDialog, ModalFooter, ModalHeader, ModalTitle } from 'react-bootstrap';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { ROLE } from '../../api/role/Role';
+import { Navigate } from 'react-router';
+// import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 // import { Users } from '../../api/user/UserCollection';
 // import { AdminProfiles } from '../../api/user/AdminProfileCollection';
@@ -39,10 +41,6 @@ const Profile = () => {
 
   // TODO: fix non updating values
   const handleSubmit = () => {
-    // setInfo((state) => ({
-    //   username: state.username,
-    //   textInput: state.useremail,
-    // }));
     handleClose();
   };
     // TODO: fix non updating values
@@ -53,27 +51,27 @@ const Profile = () => {
       const confirmPassword = evt.target[1].value;
 
       if (userID){
-        const isAdmin = verifyRole(userID); 
+        // const isAdmin = verifyRole(userID); 
         if (newPassword === confirmPassword){  
-          // const a = Users.update(userID, newPassword);
-          // console.log(a)
-          console.log(userID)
-          console.log(newPassword)
-          updatePasswordMethod.callPromise({userID, newPassword});
+          updatePasswordMethod.callPromise({userID, newPassword}) 
+          .then(() => {
+            swal('Success', 'Password successfully changed', 'success');
+          })
         }else{
           swal("Invalid Password", "Password Do Not Match!!", "error");
         }
       }else{
         swal("Invalid User", "User does not exist!!", "error");
       }
-      handleClosePassword();
+      handleClosePassword()
+      // return shouldRedirect ? <Navigate to="/signin" /> : "";
     };
 
 
-    function verifyRole(id){
-      return Roles.userIsInRole(id, [ROLE.ADMIN])
+    // function verifyRole(id){
+    //   return Roles.userIsInRole(id, [ROLE.ADMIN])
 
-    }
+    // }
   return (
     <Container id={PAGE_IDS.PROFILE} className="py-3">
       <div className="card-body text-center">

@@ -70,14 +70,9 @@ class UserCollection {
   }
 
   update(userID, newPassword){
-    console.log('update')
-      // console.log(userID)
-      // console.log(newPassword)
-     console.log(typeof userID)
-     console.log(typeof newPassword)
-    const id = Accounts.setPassword(userID, newPassword);
-      console.log(Meteor.isServer)
-      return id;
+    
+    Accounts.setPassword(userID, newPassword);
+      
     
   }
   /**
