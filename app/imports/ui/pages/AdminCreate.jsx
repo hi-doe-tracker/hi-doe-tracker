@@ -11,9 +11,10 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 /**
- * SignUp component is similar to signin component, but we create a new user instead.
+ * AdminCreate component is similar to signin component, but we create a new user instead.
  */
-const SignUp = () => {
+
+const AdminCreate = () => {
   const schema = new SimpleSchema({
     firstName: String,
     lastName: String,
@@ -73,4 +74,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default AdminCreate;

@@ -54,16 +54,6 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP}`);
   }
 
-  /* Go to the add stuff page. */
-  async gotoAddStuffPage() {
-    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
-    if (!visible) {
-      await t.click('button.navbar-toggler');
-    }
-    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_ADD_STUFF}`);
-  }
-
   /* Go to the view bills page. */
   async gotoViewBillsPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
@@ -106,35 +96,48 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND}`);
   }
 
-  /* Go to the list stuff page. */
-  async gotoListStuffPage() {
+  /* Go to the view hearings page. */
+  async gotoViewHearingsPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_STUFF}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_VIEW}`);
   }
 
   /* Go to the list stuff admin page. */
-  async gotoListStuffAdminPage() {
+  async gotoCreateAccountPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_CREATE}`);
+  }
+
+  /* Go to the list stuff admin page. */
+  async gotoAssignBillPage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_ASSIGN}`);
   }
 
   /* Go to the manage database page. Must be adimin. */
-  async gotoManageDatabasePage() {
+  async gotoManageAccountsPage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN}`);
-    await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADMIN_MANAGE}`);
   }
 
   /* Go to the submit testimony page. */
