@@ -103,7 +103,7 @@ const App = () => {
               }
             />
             <Route
-              path="/admin/assignbills"
+              path="/admin/assignbills/:_id"
               element={
                 (
                   <AdminProtectedRoute>
