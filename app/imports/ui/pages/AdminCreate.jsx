@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router';
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
+import swal from 'sweetalert';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 /**
- * SignUp component is similar to signin component, but we create a new user instead.
+ * AdminCreate component is similar to signin component, but we create a new user instead.
  */
 const AdminCreate = () => {
-  const [error, setError] = useState('');
-  // const [redirectToReferer, setRedirectToRef] = useState(false);
-
   const schema = new SimpleSchema({
     firstName: String,
     lastName: String,
@@ -33,6 +31,7 @@ const AdminCreate = () => {
     },
   });
   const bridge = new SimpleSchema2Bridge(schema);
+  const navigate = useNavigate();
 
   /* Handle SignUp submission. Create user account and a profile entry. */
   const submit = (doc) => {
@@ -40,15 +39,13 @@ const AdminCreate = () => {
     const definitionData = doc;
     // create the new UserProfile
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((err) => setError(err.reason));
-    return <Navigate to="/admin/createaccount" />;
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', 'User added successfully', 'success');
+        // Navigates to manage accounts page.
+        navigate('/admin/manageaccounts');
+      });
   };
-
-  /* Display the signup form. Redirect to add page after successful registration and login. */
-  // if correct authentication, redirect to from: page instead of signup screen
-  // if (redirectToReferer) {
-  //   return <Navigate to="/add" />;
-  // }
   return (
     <Container id={PAGE_IDS.SIGN_UP} className="py-3">
       <Row className="justify-content-center">
@@ -70,14 +67,6 @@ const AdminCreate = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          {error === '' ? (
-            ''
-          ) : (
-            <Alert variant="danger">
-              <Alert.Heading>Registration was not successful</Alert.Heading>
-              {error}
-            </Alert>
-          )}
         </Col>
       </Row>
     </Container>
