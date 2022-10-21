@@ -3,7 +3,7 @@ export const PAGE_IDS = {
   HOME: 'home',
   VIEW_BILLS: 'view-bills',
   VIEW_BILL: 'view-bill',
-  ASSIGN_BILLS: 'assign-bills',
+  ASSIGN_BILL: 'assign-bill',
   ADD_STUFF: 'add-stuff',
   EDIT_STUFF: 'edit-stuff',
   LANDING: 'landing',
@@ -23,4 +23,5 @@ export const PAGE_IDS = {
   VIEW_HEARINGS: 'view-hearings',
   VIEW_TESTIMONY: 'view-testimony',
   EDIT_TESTIMONY: 'edit-testimony',
+  ADMIN_CREATE: 'admin-create',
 };

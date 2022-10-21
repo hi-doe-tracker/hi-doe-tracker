@@ -13,3 +13,14 @@ export const signUpNewUserMethod = new ValidatedMethod({
     }
   },
 });
+
+// export const updateExistingUser =  new ValidatedMethod({
+//   name: 'UserProfiles.UpdateExistingUser',
+//   mixins: [CallPromiseMixin],
+//   validate: null,
+//   run({ id, newPassword }) {
+//     if (Meteor.isServer) {
+//       UserProfiles.update({ id, password });
+//     }
+//   },
+// });
