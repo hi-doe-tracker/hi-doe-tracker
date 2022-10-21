@@ -138,6 +138,12 @@ const getChosenBillData = (billChosen, scraperBills) => {
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
 const AssignBill = ({ measureNumber, measureName }) => {
+  // Assigns a new default value to the assignedBill field if a measure number and name were given.
+  const checkDefault = () => {
+    if (measureNumber !== -1 && measureName !== '') {
+      formSchema.assignedBill.defaultValue = `#${measureNumber}: ${measureName}`;
+    }
+  };
   const { ready, scraperBills } = useTracker(() => {
     const subscription = ScraperBills.subscribeScraperBillAdmin();
     // Determine if the subscription is ready
@@ -153,13 +159,6 @@ const AssignBill = ({ measureNumber, measureName }) => {
 
   // Creates the bridge based on the data given.
   const bridge = new SimpleSchema2Bridge(createFormSchema(ready, scraperBills));
-
-  // Assigns a new default value to the assignedBill field if a measure number and name were given.
-  const checkDefault = () => {
-    if (measureNumber !== -1 && measureName !== "") {
-      formSchema.assignedBill.defaultValue = `#${bill.measureNumber}: ${bill.measureTitle}`;
-    }
-  }
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
