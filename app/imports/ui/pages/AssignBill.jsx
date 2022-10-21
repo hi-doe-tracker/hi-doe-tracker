@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Card, Col, Row } from 'react-bootstrap';
 import { GrFormAdd } from 'react-icons/gr';
@@ -136,13 +137,14 @@ const getChosenBillData = (billChosen, scraperBills) => {
 };
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
-const AssignBill = () => {
+const AssignBill = ({ measureNumber, measureName }) => {
   const { ready, scraperBills } = useTracker(() => {
     const subscription = ScraperBills.subscribeScraperBillAdmin();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the scraper bill data from DB.
     const scraperBillItems = ScraperBills.find({}, { sort: { name: 1 } }).fetch();
+    checkDefault();
     return {
       scraperBills: scraperBillItems,
       ready: rdy,
@@ -151,6 +153,13 @@ const AssignBill = () => {
 
   // Creates the bridge based on the data given.
   const bridge = new SimpleSchema2Bridge(createFormSchema(ready, scraperBills));
+
+  // Assigns a new default value to the assignedBill field if a measure number and name were given.
+  const checkDefault = () => {
+    if (measureNumber !== -1 && measureName !== "") {
+      formSchema.assignedBill.defaultValue = `#${bill.measureNumber}: ${bill.measureTitle}`;
+    }
+  }
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
@@ -255,7 +264,6 @@ const AssignBill = () => {
 
   // Makes all office form fields capitalized.
   const officeFormStyle = { textTransform: 'uppercase' };
-
   return (ready ? (
     <Container id={PAGE_IDS.ASSIGN_BILLS}>
       <Row className="justify-content-center">
@@ -404,6 +412,11 @@ const AssignBill = () => {
       </Row>
     </Container>
   ) : <LoadingSpinner message="Loading Data" />);
+};
+
+AssignBill.propTypes = {
+  measureNumber: PropTypes.number.isRequired,
+  measureName: PropTypes.string.isRequired,
 };
 
 export default AssignBill;
