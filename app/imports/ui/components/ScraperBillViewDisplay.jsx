@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ProgressBar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 /** Returns the table display for a given billData. */
 const ScraperBillViewDisplay = ({ scraperBillData }) => {
   const date = new Date(scraperBillData.lastUpdated * 1000);
   return (
     <tr>
-      <td>{`#${scraperBillData.measureNumber}: ${scraperBillData.measureTitle}`}</td>
+      <td><Link id="bill-view" to={`/admin/assignbills/${scraperBillData._id}`}>{`#${scraperBillData.measureNumber}: ${scraperBillData.measureTitle}`}</Link></td>
       <td>{`${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`}</td>
       <td>Progress<ProgressBar now="25" /><br /></td>
     </tr>
