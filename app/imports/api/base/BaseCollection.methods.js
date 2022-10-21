@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { MATP } from '../matp/MATP';
 import { ROLE } from '../role/Role';
 import { loadCollectionNewDataOnly } from '../utilities/load-fixtures';
-import { Users } from '../../api/user/UserCollection';
+import { Users } from '../user/UserCollection';
 
 /**
  * Meteor method used to define new instances of the given collection name.
@@ -38,9 +38,9 @@ export const updatePasswordMethod = new ValidatedMethod({
   name: 'BaseCollection.updatePassword',
   mixins: [CallPromiseMixin],
   validate: null,
-  run({userID, newPassword}) {
-     if (Meteor.isServer) {
-      const id = Users.update(userID, newPassword)  
+  run({ userID, newPassword }) {
+    if (Meteor.isServer) {
+      Users.update(userID, newPassword);
     }
   },
 });
