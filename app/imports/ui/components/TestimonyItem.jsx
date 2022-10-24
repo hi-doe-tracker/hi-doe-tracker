@@ -8,7 +8,7 @@ const TestimonyItem = ({ testimony }) => (
     <td>{testimony.firstName}</td>
     <td>{testimony.lastName}</td>
     <td>{testimony.position}</td>
-    <td>{testimony.testifying}</td>
+    <td>{testimony.testifyingAs}</td>
     <td>{testimony.testifyingMethod}</td>
     <td>{testimony.testimony}</td>
     <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
@@ -21,7 +21,7 @@ TestimonyItem.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     position: PropTypes.string,
-    testifying: PropTypes.string,
+    testifyingAs: PropTypes.string,
     // organization: PropTypes.string,
     testifyingMethod: PropTypes.string,
     testimony: PropTypes.string,
