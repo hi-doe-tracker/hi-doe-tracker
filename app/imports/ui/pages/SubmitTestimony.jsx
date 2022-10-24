@@ -178,7 +178,6 @@ const SubmitTestimony = () => {
               <option aria-label="Blank Space" />
               {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
             </Form.Select>
-
             <Col xs={12}>
               <Col className="text-center"><h2>Submit Testimony</h2></Col>
               <Card>
