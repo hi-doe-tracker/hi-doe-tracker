@@ -115,8 +115,6 @@ class BaseCollection {
    */
   findOnlyOne(selector) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    // console.log(selector);
-    console.log(this._collection.findOne(theSelector));
     return this._collection.findOne(theSelector);
   }
 
