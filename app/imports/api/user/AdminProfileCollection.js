@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { Roles } from 'meteor/alanning:roles';
 import BaseProfileCollection from './BaseProfileCollection';
 import { ROLE } from '../role/Role';
 import { Users } from './UserCollection';
@@ -18,7 +19,6 @@ class AdminProfileCollection extends BaseProfileCollection {
    */
   define({ email, firstName, lastName, password, position, assignedOffice }) {
     if (Meteor.isServer) {
-      // console.log('define', email, firstName, lastName, password);
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {
@@ -100,6 +100,33 @@ class AdminProfileCollection extends BaseProfileCollection {
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     return { email, firstName, lastName };
+  }
+
+  /**
+   * Default publication method for entities.
+   * It publishes the entire AdminProfileCollection collection
+   */
+  publish() {
+    if (Meteor.isServer) {
+      // get the AdminProfileCollection instance.
+      const instance = this;
+      Meteor.publish('AdminProfile', function publish() {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
+          return instance._collection.find();
+        }
+        return this.ready();
+      });
+    }
+  }
+
+  /**
+   * Subscription method for AdminProfileCollection
+   */
+  subscribeAdminProfiles() {
+    if (Meteor.isClient) {
+      return Meteor.subscribe('AdminProfile');
+    }
+    return null;
   }
 }
 

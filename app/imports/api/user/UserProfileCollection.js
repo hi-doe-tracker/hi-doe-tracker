@@ -20,19 +20,19 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param assignedOffice The assigned office.
    */
   define({ email, firstName, lastName, password, position, assignedOffice }) {
-    // if (Meteor.isServer) {
-    const username = email;
-    const user = this.findOne({ email, firstName, lastName });
-    if (!user) {
-      const role = ROLE.USER;
-      const userID = Users.define({ username, role, password });
-      const profileID = this._collection.insert({ email, firstName, lastName, position, assignedOffice, userID, role });
-      // this._collection.update(profileID, { $set: { userID } });
-      return profileID;
+    if (Meteor.isServer) {
+      const username = email;
+      const user = this.findOne({ email, firstName, lastName });
+      if (!user) {
+        const role = ROLE.USER;
+        const profileID = this._collection.insert({ email, firstName, lastName, userID: this.getFakeUserId(), role, position, assignedOffice });
+        const userID = Users.define({ username, role, password });
+        this._collection.update(profileID, { $set: { userID } });
+        return profileID;
+      }
+      return user._id;
     }
-    return user._id;
-    // }
-    // return undefined;
+    return undefined;
   }
 
   /**
@@ -68,7 +68,6 @@ class UserProfileCollection extends BaseProfileCollection {
     if (this.isDefined(profileID)) {
       return super.removeIt(profileID);
     }
-    console.log(profileID);
     return null;
   }
 

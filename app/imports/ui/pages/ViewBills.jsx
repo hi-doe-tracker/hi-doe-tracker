@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
+
 import { Row, Col, Tab, Nav, Container, Table } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -68,12 +69,17 @@ const ViewBills = () => {
     };
   }, []);
 
-  const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
-  const officeEventKey = officeNames.filter(office => office.name === assignedOffice);
+  const [eventKey, setEventKey] = useState('');
+  useEffect(() => {
+    const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
+    const officeEventKey = officeNames.filter(office => office.name === assignedOffice)[0].eventKey;
+    setEventKey(officeEventKey);
+  }, []);
+  // console.log(eventKey)
   const mobileView = useMediaQuery('(max-width: 850px)');
   return (ready ? (
     <Container id={PAGE_IDS.VIEW_BILLS} key="viewbills-container">
-      <Tab.Container defaultActiveKey={officeEventKey[0].eventKey}>
+      <Tab.Container defaultActiveKey={eventKey}>
         {mobileView ? <br /> : <div />}
         <Row>
           <Col sm="1" />

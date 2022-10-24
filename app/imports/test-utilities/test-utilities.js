@@ -13,9 +13,9 @@ import { UserProfiles } from '../api/user/UserProfileCollection';
 export function withSubscriptions() {
   return new Promise((resolve => {
     // Add the collections to subscribe to.
-    AdminProfiles.subscribe();
+    AdminProfiles.subscribeAdminProfiles();
     Stuffs.subscribeStuff();
-    UserProfiles.subscribe();
+    UserProfiles.subscribeUserProfiles();
     const poll = Meteor.setInterval(() => {
       if (DDP._allSubscriptionsReady()) {
         Meteor.clearInterval(poll);
@@ -88,7 +88,6 @@ export function withLoggedInUser({ username = 'admin@foo.com', password = 'chang
   return new Promise((resolve, reject) => {
     Meteor.loginWithPassword(username, password, (error) => {
       if (error) {
-        console.log('Error: withLoggedInUser', error);
         reject();
       } else {
         resolve();
@@ -106,7 +105,6 @@ export function logOutUser() {
   return new Promise((resolve, reject) => {
     Meteor.logout((error) => {
       if (error) {
-        console.log('Error: logOutUser', error);
         reject();
       } else {
         resolve();

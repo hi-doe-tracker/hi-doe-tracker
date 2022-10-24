@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { Stuffs } from '../stuff/StuffCollection';
+// import { Stuffs } from '../stuff/StuffCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -57,16 +57,28 @@ class UserCollection {
     if (_.get(Meteor, 'settings.public.development', false)) {
       const userID = Accounts.createUser({ username, email: username, password: credential });
       Roles.addUsersToRoles(userID, [role]);
-      console.log(`Defining ${role} ${username} with password ${credential}`);
+      // console.log(`Defining ${role} ${username} with password ${credential}`);
       return userID;
     }
     // Otherwise define this user with a Meteor login and randomly generated password.
-    console.log(`Defining ${role} ${username} with password ${credential}`);
+    // console.log(`Defining ${role} ${username} with password ${credential}`);
     const userID = Accounts.createUser({ username, email: username, password: credential });
     Roles.addUsersToRoles(userID, [role]);
     return userID;
     // }
     // return undefined;
+  }
+
+  /**
+   * update the user password
+   * @param userID ID of the user.
+  * @param newPassword new password of the user.
+    */
+
+  update(userID, newPassword) {
+
+    Accounts.setPassword(userID, newPassword);
+
   }
 
   /**
@@ -88,15 +100,15 @@ class UserCollection {
     }
   }
 
-  /**
-   * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
-   * Used to determine if user can be deleted.
-   * @param user
-   * @return {boolean}
-   */
-  isReferenced(user) {
-    return Stuffs.find({ owner: user }).fetch().length > 0;
-  }
+  // /**
+  //  * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
+  //  * Used to determine if user can be deleted.
+  //  * @param user
+  //  * @return {boolean}
+  //  */
+  // isReferenced(user) {
+  //   return Stuffs.find({ owner: user }).fetch().length > 0;
+  // }
 
   /**
    * Returns true if user is a defined userID or username.

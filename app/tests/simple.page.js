@@ -16,14 +16,13 @@ class SimplePage {
   }
 }
 
-export const homePage = new SimplePage(PAGE_IDS.HOME);
 export const viewBillsPage = new SimplePage(PAGE_IDS.VIEW_BILLS);
 export const viewBillPage = new SimplePage(PAGE_IDS.VIEW_BILL);
-export const addStuffPage = new SimplePage(PAGE_IDS.ADD_STUFF);
-export const editStuffPage = new SimplePage(PAGE_IDS.EDIT_STUFF);
-export const listStuffPage = new SimplePage(PAGE_IDS.LIST_STUFF);
-export const listStuffAdminPage = new SimplePage(PAGE_IDS.LIST_STUFF_ADMIN);
-export const manageDatabasePage = new SimplePage(PAGE_IDS.MANAGE_DATABASE);
 export const sendHearingNoticePage = new SimplePage(PAGE_IDS.SEND_HEARING_NOTICE);
+export const homePage = new SimplePage(PAGE_IDS.HOME);
+export const viewHearingsPage = new SimplePage(PAGE_IDS.VIEW_HEARINGS);
 export const submitTestimonyPage = new SimplePage(PAGE_IDS.SUBMIT_TESTIMONY);
+export const createAccountPage = new SimplePage(PAGE_IDS.ADMIN_CREATE);
+export const assignBillPage = new SimplePage(PAGE_IDS.ASSIGN_BILL);
+export const manageAccountsPage = new SimplePage(PAGE_IDS.MANAGE_ACCOUNTS);
 export const signOutPage = new SimplePage(PAGE_IDS.SIGN_OUT);

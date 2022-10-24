@@ -51,7 +51,7 @@ const EditTestimony = () => {
                 <TextField name="firstName" />
                 <TextField name="lastName" />
                 <SelectField name="position" multiple checkboxes />
-                <SelectField name="testifying" multiple checkboxes />
+                <SelectField name="testifyingAs" multiple checkboxes />
                 <SelectField name="testifyingMethod" multiple checkboxes />
                 <TextField name="testimony" />
                 <SubmitField value="Submit" />
