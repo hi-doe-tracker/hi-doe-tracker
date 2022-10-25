@@ -18,6 +18,8 @@ const SearchSuggestions = ({ searchWord }) => {
       ready: rdy,
     };
   }, []);
+
+  /* Gets all bill suggestions given a search term. */
   const getSuggestions = (searchTerm) => {
     if (searchTerm === '') {
       return [];
@@ -27,31 +29,30 @@ const SearchSuggestions = ({ searchWord }) => {
       const lengthOfTerm = searchTerm.length;
       // Searches through each bill.
       for (let i = 0; i < bills.length; i++) {
+        // Holds all property values.
+        const properties = [];
         // Searches through each property of a bill.
         for (const property in bills[i]) {
+          // Checks if property is type string.
           if (typeof bills[i][property] === 'string') {
-            // Loops through each character of the property.
-            for (let j = 0; j < bills[i][property].length; j++) {
-              // Checks if the the search word matches a substring in the property.
-              if (bills[i][property].substring(j, j + lengthOfTerm) === searchTerm) {
-                if (!searchResults.includes(bills[i])) {
-                  searchResults.push(bills[i]);
-                }
-              }
-            }
+            properties.push(`${bills[i][property].toLowerCase()} `);
             // Checks if the property is an array.
           } else if (Array.isArray(bills[i][property])) {
-            // Joins all elements in the array into one string.
-            const joinedElements = bills[i][property].join('').toLowerCase();
-            // Loops through each character of the property.
-            for (let j = 0; j < joinedElements.length; j++) {
-              // Checks if the the search word matches a substring in the property.
-              if (joinedElements.substring(j, j + lengthOfTerm) === searchTerm) {
-                if (!searchResults.includes(bills[i])) {
-                  searchResults.push(bills[i]);
-                }
-              }
-            }
+            properties.push(`${bills[i][property].join('').toLowerCase()} `);
+          } else {
+            properties.push(`${bills[i][property].toString().toLowerCase()} `);
+          }
+        }
+        // Joins all elements in the array into one string.
+        const joinedElements = properties.join('').toLowerCase();
+
+        // Loops through each character of the property.
+        for (let j = 0; j < joinedElements.length; j++) {
+          // Checks if the the search word matches a substring in the property.
+          if (joinedElements.substring(j, j + lengthOfTerm) === searchTerm.toLowerCase()) {
+            // Adds search result to list.
+            searchResults.push(bills[i]);
+            break;
           }
         }
       }
