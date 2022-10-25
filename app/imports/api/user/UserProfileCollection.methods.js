@@ -7,9 +7,20 @@ export const signUpNewUserMethod = new ValidatedMethod({
   name: 'UserProfiles.SignupNewUser',
   mixins: [CallPromiseMixin],
   validate: null,
-  run({ email, firstName, lastName, password }) {
+  run({ email, firstName, lastName, password, assignedOffice }) {
     if (Meteor.isServer) {
-      UserProfiles.define({ email, firstName, lastName, password });
+      UserProfiles.define({ email, firstName, lastName, password, assignedOffice });
     }
   },
 });
+
+// export const updateExistingUser =  new ValidatedMethod({
+//   name: 'UserProfiles.UpdateExistingUser',
+//   mixins: [CallPromiseMixin],
+//   validate: null,
+//   run({ id, newPassword }) {
+//     if (Meteor.isServer) {
+//       UserProfiles.update({ id, password });
+//     }
+//   },
+// });

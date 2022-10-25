@@ -58,10 +58,10 @@ class MATPClass {
    * @throws { Meteor.Error } If collectionName does not name a collection.
    */
   getCollection(collectionName) {
-    // console.log('MATP', collectionName, this.collectionAssociation);
+    // console.log('MATP', collectionName, this.collectionAssociation[collectionName]);
     const collection = this.collectionAssociation[collectionName];
     if (!collection) {
-      throw new Meteor.Error(`Called MARTP.getCollection with unknown collection name: ${collectionName}`);
+      throw new Meteor.Error(`Called MATP.getCollection with unknown collection name: ${collectionName}`);
     }
     return collection;
   }
