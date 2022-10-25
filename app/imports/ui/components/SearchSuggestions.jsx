@@ -32,17 +32,17 @@ const SearchSuggestions = ({ searchWord }) => {
         // Holds all property values.
         const properties = [];
         // Searches through each property of a bill.
-        for (const property in bills[i]) {
+        Object.values(bills[i]).forEach(value => {
           // Checks if property is type string.
-          if (typeof bills[i][property] === 'string') {
-            properties.push(`${bills[i][property].toLowerCase()} `);
+          if (typeof value === 'string') {
+            properties.push(`${value.toLowerCase()} `);
             // Checks if the property is an array.
-          } else if (Array.isArray(bills[i][property])) {
-            properties.push(`${bills[i][property].join('').toLowerCase()} `);
+          } else if (Array.isArray(value)) {
+            properties.push(`${value.join('').toLowerCase()} `);
           } else {
-            properties.push(`${bills[i][property].toString().toLowerCase()} `);
+            properties.push(`${value.toString().toLowerCase()} `);
           }
-        }
+        });
         // Joins all elements in the array into one string.
         const joinedElements = properties.join('').toLowerCase();
 
