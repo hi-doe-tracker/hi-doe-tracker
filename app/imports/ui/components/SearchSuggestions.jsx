@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'usehooks-ts';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Bills } from '../../api/bill/BillCollection';
@@ -63,20 +64,6 @@ const SearchSuggestions = ({ searchWord }) => {
   const searchSuggestionsStyle = { margin: 'auto', top: '100px', right: '-17px', width: '79%' };
   const searchSuggestionsStyleMobile = { margin: 'auto', top: '100px', right: '0px', width: '69%' };
   const linkStyle = { color: 'black', textDecoration: 'none' };
-  const testSearchSuggestions = [
-    {
-      name: `Suggestion 1 for ${searchWord}`,
-      link: 'Suggestion 1 Link',
-    },
-    {
-      name: `Suggestion 2 for ${searchWord}`,
-      link: 'Suggestion 2 Link',
-    },
-    {
-      name: `Suggestion 3 for ${searchWord}`,
-      link: 'Suggestion 3 Link',
-    },
-  ];
 
   // Displays no suggestions is searchWord is nothing.
   if (searchWord === '') {
@@ -86,7 +73,7 @@ const SearchSuggestions = ({ searchWord }) => {
     return (
       <Row>
         <ListGroup>
-          {testSearchSuggestions.map((suggestion) => <ListGroup.Item key={suggestion.name} style={searchSuggestionsStyleMobile}><a href={suggestion.link} style={linkStyle}>{suggestion.name}</a></ListGroup.Item>)}
+          {getSuggestions(searchWord).map((suggestion) => <ListGroup.Item key={suggestion.billNo} style={searchSuggestionsStyleMobile}><a href="random" style={linkStyle}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</a></ListGroup.Item>)}
         </ListGroup>
       </Row>
     );
@@ -96,7 +83,11 @@ const SearchSuggestions = ({ searchWord }) => {
   return (
     <Row>
       <ListGroup>
-        {getSuggestions(searchWord).map((suggestion) => <ListGroup.Item key={suggestion.billNo} style={searchSuggestionsStyle}><a href="random" style={linkStyle}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</a></ListGroup.Item>)}
+        {getSuggestions(searchWord).map((suggestion) => (
+          <ListGroup.Item key={suggestion.billNo} style={searchSuggestionsStyle}>
+            <Link id="bill-view" to={`/viewbill/${suggestion._id}`}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</Link>
+          </ListGroup.Item>
+        ))}
       </ListGroup>
     </Row>
   );
