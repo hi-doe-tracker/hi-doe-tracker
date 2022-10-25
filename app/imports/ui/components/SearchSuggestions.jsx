@@ -25,14 +25,31 @@ const SearchSuggestions = ({ searchWord }) => {
     if (ready) {
       const searchResults = [];
       const lengthOfTerm = searchTerm.length;
+      // Searches through each bill.
       for (let i = 0; i < bills.length; i++) {
+        // Searches through each property of a bill.
         for (const property in bills[i]) {
           if (typeof bills[i][property] === 'string') {
-            console.log(bills[i][property].substring(0, lengthOfTerm));
-            console.log(searchTerm);
+            // Loops through each character of the property.
             for (let j = 0; j < bills[i][property].length; j++) {
+              // Checks if the the search word matches a substring in the property.
               if (bills[i][property].substring(j, j + lengthOfTerm) === searchTerm) {
-                searchResults.push(bills[i]);
+                if (!searchResults.includes(bills[i])) {
+                  searchResults.push(bills[i]);
+                }
+              }
+            }
+            // Checks if the property is an array.
+          } else if (Array.isArray(bills[i][property])) {
+            // Joins all elements in the array into one string.
+            const joinedElements = bills[i][property].join('').toLowerCase();
+            // Loops through each character of the property.
+            for (let j = 0; j < joinedElements.length; j++) {
+              // Checks if the the search word matches a substring in the property.
+              if (joinedElements.substring(j, j + lengthOfTerm) === searchTerm) {
+                if (!searchResults.includes(bills[i])) {
+                  searchResults.push(bills[i]);
+                }
               }
             }
           }
@@ -77,9 +94,8 @@ const SearchSuggestions = ({ searchWord }) => {
   // Displays suggestions for search word.
   return (
     <Row>
-      {getSuggestions(searchWord)}
       <ListGroup>
-        {testSearchSuggestions.map((suggestion) => <ListGroup.Item key={suggestion.name} style={searchSuggestionsStyle}><a href={suggestion.link} style={linkStyle}>{suggestion.name}</a></ListGroup.Item>)}
+        {getSuggestions(searchWord).map((suggestion) => <ListGroup.Item key={suggestion.billNo} style={searchSuggestionsStyle}><a href="random" style={linkStyle}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</a></ListGroup.Item>)}
       </ListGroup>
     </Row>
   );
