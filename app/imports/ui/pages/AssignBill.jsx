@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Card, Col, Row } from 'react-bootstrap';
 import { GrFormAdd } from 'react-icons/gr';
@@ -137,12 +138,20 @@ const getChosenBillData = (billChosen, scraperBills) => {
 
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
 const AssignBill = () => {
+  const { _id } = useParams();
   const { ready, scraperBills } = useTracker(() => {
     const subscription = ScraperBills.subscribeScraperBillAdmin();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the scraper bill data from DB.
     const scraperBillItems = ScraperBills.find({}, { sort: { name: 1 } }).fetch();
+    if (_id !== 'all') {
+      const scraperBillDefault = ScraperBills.find({ _id: _id }, { sort: { name: 1 } }).fetch();
+      // Assigns a new default value to the assignedBill field if a measure number and name were given.
+      formSchema.assignedBill.defaultValue = `#${scraperBillDefault[0].measureNumber}: ${scraperBillDefault[0].measureTitle}`;
+    } else {
+      formSchema.assignedBill.defaultValue = 'Pick a bill';
+    }
     return {
       scraperBills: scraperBillItems,
       ready: rdy,
@@ -255,7 +264,6 @@ const AssignBill = () => {
 
   // Makes all office form fields capitalized.
   const officeFormStyle = { textTransform: 'uppercase' };
-
   return (ready ? (
     <Container id={PAGE_IDS.ASSIGN_BILLS}>
       <Row className="justify-content-center">

@@ -31,9 +31,10 @@ const ViewBill = () => {
       ready: rdy,
     };
   }, [_id]);
+
   // returns a single container containing information about the bill
   return (ready ? (
-    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container">
+    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={`${viewBill.billN}`}>
       <Row>
         <center>
           <Col>
@@ -368,7 +369,7 @@ const ViewBill = () => {
                   <Accordion.Body className="full-body-testimony">
                     <ListGroup>
                       {viewBill.testimony.map((item) => (
-                        <ListGroup.Item as="li" className="full-body-testimony">
+                        <ListGroup.Item className="full-body-testimony" key={item}>
                           <div className="ms-2 me-auto viewbill-div viewbill-font ">
                             <span className="fw-bold viewbill-spandiv">
                               {item}
