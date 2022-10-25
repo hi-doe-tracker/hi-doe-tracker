@@ -11,7 +11,7 @@ const SearchBarButton = ({ setStyle }) => {
   const searchStyle = { opacity: '0.1', pointerEvents: 'none' };
   // Holds the state of a button click.
   const [click, setClick] = useState(false);
-  // Golds the state for a searchWord.
+  // Holds the state for a searchWord.
   const [searchWord, setSearchWord] = useState('');
 
   // Updates CSS and searchWord in App.jsx whenever click is changed by calling setStyle with different styles.
