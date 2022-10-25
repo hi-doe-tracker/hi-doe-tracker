@@ -100,16 +100,6 @@ class UserCollection {
     }
   }
 
-  // /**
-  //  * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
-  //  * Used to determine if user can be deleted.
-  //  * @param user
-  //  * @return {boolean}
-  //  */
-  // isReferenced(user) {
-  //   return Stuffs.find({ owner: user }).fetch().length > 0;
-  // }
-
   /**
    * Returns true if user is a defined userID or username.
    * @param user The user.
