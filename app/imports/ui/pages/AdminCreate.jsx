@@ -48,7 +48,7 @@ const AdminCreate = () => {
       });
   };
   return (
-    <Container id={PAGE_IDS.SIGN_UP} className="py-3">
+    <Container id={PAGE_IDS.ADMIN_CREATE} className="py-3">
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center">
