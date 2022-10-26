@@ -11,7 +11,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Bills } from '../../api/bill/BillCollection';
-import TestimonyFileCollection from '../../api/testimony/TestimonyFileCollection';
+import { TestimonyFileCollection } from '../../api/testimony/TestimonyFileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -73,12 +73,17 @@ const SubmitTestimony = () => {
     const collectionName = Testimonies.getCollectionName();
     // const hasFile = Object.keys(uploadFile).length;
     const hasDescription = Object.prototype.hasOwnProperty.call(data, 'testimony') && (data.testimony.length !== 0);
+    console.log(hasFile)
+    console.log(hasDescription)
+    console.log(uploadFile)
     // console.log(hasFile)
-    if ((hasFile === 0) && !hasDescription) {
+    if ((!hasFile) && !hasDescription) {
       swal('Error', 'Provide testimony details or upload a testimony pdf!!!', 'error');
     } else if (!billNo) {
       swal('Error', 'Select a bill!!!', 'error');
     } else if (hasFile) {
+      console.log("here")
+      console.log(billNo)
       const uploadInstance = TestimonyFileCollection.insert({
         file: uploadFile,
         meta: {
@@ -113,12 +118,12 @@ const SubmitTestimony = () => {
         console.log(`Error during upload: ${error}`);
       });
 
-      uploadInstance.on('progress', function (progress) {
-        console.log(`Upload Percentage: ${progress}`);
-      });
+      // uploadInstance.on('progress', function (progress) {
+      //   console.log(`Upload Percentage: ${progress}`);
+      // });
 
       uploadInstance.start(); // Must manually start the upload
-      console.log(uploadInstance);
+      // console.log(uploadInstance);
       const hasPdf = true;
       const definitionData = { ...data, owner, billNo, hasPdf };
       defineMethod.callPromise({ collectionName, definitionData })
