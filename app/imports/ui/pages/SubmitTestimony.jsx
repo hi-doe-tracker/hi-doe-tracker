@@ -166,12 +166,13 @@ const SubmitTestimony = () => {
   let fRef = null;
   const menuStyle = { fontWeight: 'bold' };
   const checkboxStyle = { margin: '5px' };
+  const transform = (label) => ` ${label}`;
   return (
     ready ? (
       <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
         <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
           <Row className="justify-content-center">
-            <span style={menuStyle}>Relevant Bill</span>
+            <span style={menuStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_RELEVANT_BILL}>Relevant Bill</span>
             <Form.Select
               onChange={(e) => billSelected(e)}
             >
@@ -184,10 +185,10 @@ const SubmitTestimony = () => {
                 <Card.Body>
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
+                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes transform={transform} />
+                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} transform={transform} />
                   <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
-                  <SelectField style={checkboxStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                  <SelectField style={checkboxStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes transform={transform} />
                   <h3>Type out testimony or upload pdf file</h3>
                   <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
                   <h5>OR</h5>
