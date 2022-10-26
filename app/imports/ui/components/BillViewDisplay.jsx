@@ -7,6 +7,19 @@ import { Link } from 'react-router-dom';
 /** Returns the table display for a given billData. */
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 850px)');
+
+  /* Checks status of the bill. */
+  const checkStatus = () => {
+    const searchWord = '(Gov.';
+    let progress = 0;
+    for (let i = 0; i < billData.status.length; i++) {
+      if (billData.status.substring(i, searchWord.length + i) === searchWord) {
+        progress = 100;
+        break;
+      }
+    }
+    return progress;
+  };
   return (
     <tr>
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
@@ -14,7 +27,7 @@ const BillViewDisplay = ({ billData }) => {
       <td>
         {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (billData.office.toString())}
       </td>
-      <td>Progress<ProgressBar now="25" /><br /></td>
+      <td>Progress<ProgressBar now={checkStatus()} /><br /></td>
     </tr>
   );
 };
@@ -53,7 +66,6 @@ BillViewDisplay.propTypes = {
     hearingComments: PropTypes.arrayOf(PropTypes.string),
     testimony: PropTypes.arrayOf(PropTypes.string),
     rationale: PropTypes.string,
-    statusText: PropTypes.arrayOf(PropTypes.string),
     _id: PropTypes.string.isRequired,
   }).isRequired,
 };
