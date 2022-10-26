@@ -136,11 +136,11 @@ const Profile = () => {
               <Form onSubmit={(data) => handleSubmitPassword(data)}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>New Password</Form.Label>
-                  <Form.Control type="password" name="newpassword" placeholder="New Password" />
+                  <Form.Control id="newpassword" type="password" name="newpassword" placeholder="New Password" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                   <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control type="password" name="submitpassword" placeholder="Confirm Password" />
+                  <Form.Control id="confirmpassword" type="password" name="submitpassword" placeholder="Confirm Password" />
                 </Form.Group>
                 <Button type="submit">
                   Save Changes
