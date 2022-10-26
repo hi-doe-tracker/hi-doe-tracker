@@ -6,7 +6,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Bills } from '../../api/bill/BillCollection';
 
-const SearchSuggestions = ({ searchWord, setClick}) => {
+const SearchSuggestions = ({ searchWord }) => {
   const mobileView = useMediaQuery('(max-width: 800px)');
   const { ready, bills } = useTracker(() => {
     const subscription = Bills.subscribeBill();
@@ -79,18 +79,13 @@ const SearchSuggestions = ({ searchWord, setClick}) => {
     );
   }
 
-  //hide the search bar onClick
-  const clicked = () => {
-    setClick(false)
-  }
-
   // Displays suggestions for search word.
   return (
     <Row>
       <ListGroup>
         {getSuggestions(searchWord).map((suggestion) => (
           <ListGroup.Item key={suggestion.billNo} style={searchSuggestionsStyle}>
-            <Link id="bill-view" onClick={clicked} to={`/viewbill/${suggestion._id}`}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</Link>
+            <Link id="bill-view" to={`/viewbill/${suggestion._id}`}>{`${suggestion.billNo}: ${suggestion.measureTitle}`}</Link>
           </ListGroup.Item>
         ))}
       </ListGroup>
