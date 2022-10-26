@@ -1,11 +1,12 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, submitTestimonyPage, assignBillPage, manageAccountsPage, viewHearingsPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
 import { admincreatePage } from './admincreate.page';
+import { submitTestimonyPage } from './submittestimony.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -70,4 +71,13 @@ test('Test that admin pages show up', async () => {
   await navBar.logout();
   await signOutPage.isDisplayed();
 
+});
+
+test('Test that submit testimony page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoSubmitTestimonyPage();
+  await submitTestimonyPage.isDisplayed();
+  await submitTestimonyPage.addProject();
 });

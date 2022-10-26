@@ -21,7 +21,6 @@ export const viewBillPage = new SimplePage(PAGE_IDS.VIEW_BILL);
 export const sendHearingNoticePage = new SimplePage(PAGE_IDS.SEND_HEARING_NOTICE);
 export const homePage = new SimplePage(PAGE_IDS.HOME);
 export const viewHearingsPage = new SimplePage(PAGE_IDS.VIEW_HEARINGS);
-export const submitTestimonyPage = new SimplePage(PAGE_IDS.SUBMIT_TESTIMONY);
 export const createAccountPage = new SimplePage(PAGE_IDS.ADMIN_CREATE);
 export const assignBillPage = new SimplePage(PAGE_IDS.ASSIGN_BILL);
 export const manageAccountsPage = new SimplePage(PAGE_IDS.MANAGE_ACCOUNTS);

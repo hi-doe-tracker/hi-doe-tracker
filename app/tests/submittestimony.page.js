@@ -26,7 +26,7 @@ class SubmitTestimonyPage {
     const positionSelector = Selector(`#${ComponentIDs.SUBMIT_TESTIMONY_FORM_POSITION} div.form-check`);
     const testifyingSelector = Selector(`#${ComponentIDs.SUBMIT_TESTIMONY_FORM_TESTIFYING} div.form-check`);
     const testifyingMethodSelector = Selector(`#${ComponentIDs.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} div.form-check`);
-    const testimony = 'We should increase school funding by 1 trillion dollars.';
+    const testimony = 'We should increase school funding by 1 trillion dollars and eliminate all enemies of the state.';
 
     await this.isDisplayed(testController);
     // Define the new project
