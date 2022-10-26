@@ -35,7 +35,7 @@ const SearchBarButton = ({ setStyle }) => {
         </Col>
       </Row>
       {click ? <SearchBar setSearchWord={setSearchWord} /> : <div />}
-      {click ? <SearchSuggestions searchWord={searchWord} setClick={setClick}/> : <div />}
+      {click ? <SearchSuggestions searchWord={searchWord} setClick={setClick} /> : <div />}
     </Container>
   );
 };
