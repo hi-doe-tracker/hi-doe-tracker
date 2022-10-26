@@ -6,7 +6,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Bills } from '../../api/bill/BillCollection';
 
-const SearchSuggestions = ({ searchWord, setClick}) => {
+const SearchSuggestions = ({ searchWord, setClick }) => {
   const mobileView = useMediaQuery('(max-width: 800px)');
   const { ready, bills } = useTracker(() => {
     const subscription = Bills.subscribeBill();
@@ -79,10 +79,10 @@ const SearchSuggestions = ({ searchWord, setClick}) => {
     );
   }
 
-  //hide the search bar onClick
+  // hide the search bar onClick
   const clicked = () => {
-    setClick(false)
-  }
+    setClick(false);
+  };
 
   // Displays suggestions for search word.
   return (
@@ -101,6 +101,7 @@ const SearchSuggestions = ({ searchWord, setClick}) => {
 /* Takes in a searchWord as a prop. */
 SearchSuggestions.propTypes = {
   searchWord: PropTypes.string.isRequired,
+  setClick: PropTypes.func.isRequired,
 };
 
 export default SearchSuggestions;
