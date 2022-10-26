@@ -11,6 +11,7 @@ import {
   Accordion,
 } from 'react-bootstrap';
 import TestimonyProgressBar from '../components/TestimonyProgressBar';
+// import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -20,6 +21,8 @@ const ViewBill = () => {
   const { _id } = useParams();
   const { ready, viewBill } = useTracker(() => {
     const subscription = Bills.subscribeBill();
+    // const subscriptionTestimony = Testimonies.subscribeTestimony();
+    // const rdyTest = subscriptionTestimony.ready();    
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the bill data from DB.
@@ -32,7 +35,6 @@ const ViewBill = () => {
     };
   }, [_id]);
 
-  // returns a single container containing information about the bill
   return (ready ? (
     <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={`${viewBill.billN}`}>
       <Row>

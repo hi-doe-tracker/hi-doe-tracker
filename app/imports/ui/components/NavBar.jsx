@@ -16,6 +16,7 @@ const NavBar = () => {
   const menuStyle = { marginBottom: '10px' };
   const menuStyle1 = { marginLeft: '20px' };
   const menuStyle2 = { marginRight: '10px', marginLeft: '10px' };
+  const iconStyle = {marginLeft: '30px',fontSize:'1.2em'}
   return (
     <Navbar bg="light" expand="lg" style={menuStyle}>
       <Container>
@@ -59,8 +60,8 @@ const NavBar = () => {
             ) : (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_PROFILE} as={NavLink} to="/profile">
-                  Profile
-                  <Person />
+                  Profile  
+                  <Person style={iconStyle}/>
                 </NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} as={NavLink} to="/signout"><BoxArrowRight /> Sign out</NavDropdown.Item>
               </NavDropdown>

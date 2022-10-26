@@ -59,9 +59,9 @@ const SignIn = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert variant="secondary">
+          {/* <Alert variant="secondary">
             <Link to="/signup">Click here to Register</Link>
-          </Alert>
+          </Alert> */}
           {error === '' ? (
             ''
           ) : (
