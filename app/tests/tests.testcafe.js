@@ -56,6 +56,19 @@ test('Test that Profile page shows up', async () => {
   await profilePage.isDisplayed();
 });
 
+test('Test that Password is changed correctly', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoProfilePage();
+  await profilePage.changePassword('TotallyNewPassword');
+  await signInPage.signin(credentials.username, 'TotallyNewPassword');
+  await navBar.isLoggedIn(credentials.username);
+  // reset password
+  await navBar.gotoProfilePage();
+  await profilePage.changePassword(credentials.password);
+});
+
 /*
 test('Test that admin pages show up', async () => {
   await navBar.gotoSignInPage();
