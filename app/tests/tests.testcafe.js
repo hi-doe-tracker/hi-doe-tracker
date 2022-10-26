@@ -1,6 +1,6 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -41,7 +41,7 @@ test('Test that user pages show up', async () => {
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
-  await submitTestimonyPage.isDisplayed();
+  await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
   await viewHearingsPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
@@ -73,11 +73,12 @@ test('Test that admin pages show up', async () => {
 
 });
 
-test('Test that submit testimony page works', async () => {
+test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoSubmitTestimonyPage();
-  await submitTestimonyPage.isDisplayed();
-  await submitTestimonyPage.addProject();
+  await submitTestimonyPage.isDisplayed(testController);
+  await submitTestimonyPage.hasDefaultFields(testController);
+  // await submitTestimonyPage.addProject(testController);
 });
