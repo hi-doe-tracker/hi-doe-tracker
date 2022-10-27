@@ -72,8 +72,6 @@ test('Test that Password is changed correctly', async () => {
   await profilePage.changePassword(credentials.password);
 });
 
-/*
-
 test('Test that admin pages show up', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
