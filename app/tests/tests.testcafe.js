@@ -6,6 +6,7 @@ import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
 import { admincreatePage } from './admincreate.page';
+import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
@@ -14,6 +15,7 @@ import { submitTestimonyPage } from './submittestimony.page';
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
+const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
@@ -21,7 +23,6 @@ fixture('meteor-application-template-production localhost test with default db')
 test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
-
 test('Test that signin and signout work', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
@@ -83,7 +84,6 @@ test('Test that admin pages show up', async () => {
   await manageAccountsPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
-
 });
 
 test('Test that submit testimony page works', async (testController) => {
@@ -94,4 +94,41 @@ test('Test that submit testimony page works', async (testController) => {
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
   await submitTestimonyPage.addProject(testController);
+});
+
+test('Test that admin create page works', async (testController) => {
+  //sign in as admin
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  //create bat man user
+  await navBar.gotoAdminCreatePage();
+  await admincreatePage.signupUser(testController);
+  //log out and sign in as bat man user, then sign back out for next test
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+  await navBar.gotoSignInPage();
+  await signInPage.signin(newCredentials.username, newCredentials.password);
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+});
+
+
+test('Test that admin manage accounts page works', async (testController) => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  //double checks and creates the bat man user
+  await navBar.gotoAdminCreatePage();
+  await admincreatePage.signupUser(testController);
+  //deletes the latest entry which should be batman
+  await navBar.gotoManageAccountsPage();
+  await adminManageAccountsPage.deleteUser();
+  //log out then try to log in as the deleted bat man user
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+  await navBar.gotoSignInPage();
+  //attempt to log in but it should fail, check to see if we're still on the sign in page
+  await signInPage.attemptsignin(newCredentials.username, newCredentials.password);
+  await signInPage.isDisplayed();
 });
