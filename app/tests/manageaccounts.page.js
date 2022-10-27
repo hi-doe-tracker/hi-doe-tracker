@@ -1,6 +1,6 @@
 import { Selector, t } from 'testcafe';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
-import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
+// import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 class AdminManageAccountsPage {
   constructor() {
@@ -14,12 +14,13 @@ class AdminManageAccountsPage {
   }
 
   /** Signs up a new user, then checks to see if it is created by logging out then into that new account. */
+  /*
   async deleteUser(testController) {
     const lastButton = Selector('Button').nth(-1);
     await t.click(lastButton);
     await t.click(Selector('.swal-button--confirm'));
     await t.click(Selector('.swal-button--confirm'));
-  }
+  } */
 }
 
 export const adminManageAccountsPage = new AdminManageAccountsPage();
