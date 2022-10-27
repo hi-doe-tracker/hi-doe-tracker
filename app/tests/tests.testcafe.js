@@ -58,7 +58,6 @@ test('Test that Profile page shows up', async () => {
   await profilePage.isDisplayed();
 });
 
-
 test('Test that Password is changed correctly', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
