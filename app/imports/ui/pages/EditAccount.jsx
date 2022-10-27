@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -13,17 +12,20 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
 /**
  * EditAccount component is similar to SignUp component, but we edit an existing account instead.
  */
+
+const bridge = new SimpleSchema2Bridge(Profile.schema);
+
 const EditAccount = () => {
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToRef] = useState(false);
-
+  /*
   const schema = new SimpleSchema({
     firstName: String,
     lastName: String,
     email: String,
     password: String,
   });
-  const bridge = new SimpleSchema2Bridge(schema);
+  /* const bridge = new SimpleSchema2Bridge(schema);
 
   /* Handle EditAccount submission. Edit user account, then redirect to the Profile page */
   const submit = (doc) => {
@@ -59,12 +61,13 @@ const EditAccount = () => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body>
+                <Card.Img src={user.image} className="rounded-circle img-thumbnail" style={{ width: '20rem' }} />
                 <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_FIRST_NAME} name="firstName" placeholder="First name" />
                 <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_LAST_NAME} name="lastName" placeholder="Last name" />
                 <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_EMAIL} name="email" placeholder="E-mail address" />
                 <TextField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_PASSWORD} name="password" placeholder="Password" type="password" />
                 <ErrorsField />
-                <SubmitField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_SUBMIT} />
+                <SubmitField id={COMPONENT_IDS.EDIT_ACCOUNT_FORM_SUBMIT} value="Update Profile" />
               </Card.Body>
             </Card>
           </AutoForm>
