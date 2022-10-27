@@ -11,17 +11,42 @@ const BillViewDisplay = ({ billData }) => {
   /* Checks status of the bill. */
   const checkStatus = () => {
     const searchWord = '(Gov.';
-    let progress = 0;
+    let progress = 50;
+    // Checks if the bill was passed.
     for (let i = 0; i < billData.status.length; i++) {
       if (billData.status.substring(i, searchWord.length + i) === searchWord) {
         progress = 100;
         break;
       }
     }
+
+    if (progress !== 100) {
+      const searchDateArray = [];
+      let i = 0;
+      while (billData.status[i] !== '-') {
+        if (billData.status[i] !== '(' && billData.status[i] !== 'S' && billData.status[i] !== ')' && billData.status[i] !== 'H') {
+          searchDateArray.push(billData.status[i]);
+        }
+        i++;
+      }
+      const searchDate = new Date(searchDateArray.join(''));
+      const todayDate = new Date();
+
+      if (searchDate.getFullYear() > todayDate.getFullYear()) {
+        return 0;
+      }
+      if (searchDate.getMonth() > todayDate.getMonth()) {
+        return 0;
+      }
+      if (searchDate.getDay() > todayDate.getDay()) {
+        return 0;
+      }
+    }
     return progress;
   };
   return (
     <tr>
+      {}
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
       <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
       <td>
