@@ -36,6 +36,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_EMAIL: 'sign-up-form-email',
   SIGN_UP_FORM_PASSWORD: 'sign-up-form-password',
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
+  SUBMIT_TESTIMONY_FORM_RELEVANT_BILL: 'submit-testimony-form-relevant-bill',
   SUBMIT_TESTIMONY_FORM_FIRST_NAME: 'submit-testimony-form-first-name',
   SUBMIT_TESTIMONY_FORM_LAST_NAME: 'submit-testimony-form-last-name',
   SUBMIT_TESTIMONY_FORM_POSITION: 'submit-testimony-form-position',
