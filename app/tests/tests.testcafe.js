@@ -80,5 +80,5 @@ test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSubmitTestimonyPage();
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
-  // await submitTestimonyPage.addProject(testController);
+  await submitTestimonyPage.addProject(testController);
 });
