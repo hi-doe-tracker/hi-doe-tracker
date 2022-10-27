@@ -2,18 +2,18 @@ import React from 'react';
 import { Container, Col, Row, Table } from 'react-bootstrap';
 // import { useReactToPrint } from 'react-to-print';
 import { useTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import { Testimonies } from '../../api/testimony/TestimonyCollection';
-import TestimonyItem from '../components/TestimonyItem';
-import LoadingSpinner from '../components/LoadingSpinner';
+import TestimonyItem from './TestimonyItem';
+import LoadingSpinner from './LoadingSpinner';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-const ListOneBillTestimony = ({billNo}) => {
+const ListOneBillTestimony = ({ billNo }) => {
   // code structure taken from list stuff file
   const { ready, testimonies } = useTracker(() => {
     const subscription = Testimonies.subscribeTestimony();
     const rdy = subscription.ready();
-    console.log(billNo)
-    const testimonyItems = Testimonies.find({billNo}).fetch();
+    const testimonyItems = Testimonies.find({ billNo }).fetch();
     return {
       testimonies: testimonyItems,
       ready: rdy,
@@ -25,12 +25,9 @@ const ListOneBillTestimony = ({billNo}) => {
   // });
 
   const style = { width: '100%', margin: 0 };
-  if(ready){
-    console.log(testimonies)
-  }
   // TO DO make it so that you can only edit testimony you made
   return ready ? (
-    <Container id={PAGE_IDS.VIEW_TESTIMONY} className="py-3" key="myke">
+    <Container id={PAGE_IDS.VIEW_TESTIMONY} className="py-3" key="myke" style={style}>
       <Row className="justify-content-center" style={style}>
         <Col md={7} style={style}>
           <Table striped bordered hover style={style}>
@@ -55,5 +52,9 @@ const ListOneBillTestimony = ({billNo}) => {
     </Container>
   ) : <LoadingSpinner message="Loading Testimony" />;
 };
+
+ListOneBillTestimony.propTypes = PropTypes.shape({
+  billNo: PropTypes.string.isRequired,
+}).isRequired;
 
 export default ListOneBillTestimony;

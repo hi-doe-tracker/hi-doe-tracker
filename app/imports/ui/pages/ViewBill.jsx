@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 // import PropTypes from 'prop-types';
 import {
@@ -17,46 +16,28 @@ import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ListOneBillTestimony from '../components/ListOneBillTestimony';
 
-
-
 // ViewBill component displays information about the specific bill
 const ViewBill = () => {
   const { _id } = useParams();
-  const { ready, viewBill, readyTestimony} = useTracker(() => {
+  const style = { width: '100%', margin: 0 };
+  const { ready, viewBill, readyTestimony } = useTracker(() => {
     const subscription = Bills.subscribeBill();
     const subscriptionTestimony = Testimonies.subscribeTestimony();
     const rdyTest = subscriptionTestimony.ready();
-
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the bill data from DB.
     // const billDoc = Bills.findDoc(_id);
     const allBills = Bills.find({ _id: _id }, { sort: { name: 1 } }).fetch();
     const billDoc = allBills[0];
-    // // if (rdy){
-    //   console.log(billDoc);
-    //   const testimonies = Testimonies.find({billNo: billDoc.billNo}).fetch();
-    // // }
     return {
       viewBill: billDoc,
       ready: rdy,
       readyTestimony: rdyTest,
       // testimonies: testimonies,
     };
-  }, [] );
-   
-    // useEffect(()=> {
-    //   if (ready && readyTestimony){
-    //     const testimonies = Testimonies.find({billNo: viewBill.billNo}).fetch();
-    //     setAllTestimonies(...testimonies);
-    //     console.log(allTestimonies)
-    //   }
-    //   }, []);
-    // if (ready && readyTestimony){
-    //   // const testimonies = Testimonies.find({billNo: viewBill.billNo}).fetch();
-    //   console.log(viewBill)
-    //   // console.log(testimonies)
-    // }
+  }, []);
+
   // returns a single container containing information about the bill
   return (ready && readyTestimony ? (
     <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={`${viewBill.billNo}`}>
@@ -371,62 +352,22 @@ const ViewBill = () => {
                     ))}
                   </Accordion.Body>
                 </Accordion.Item>
-                {/* <Accordion.Item eventKey="6" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Approved Testimony
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="viewbill-accbody">
-                    {viewBill.approvedTestimony.map((item) => (
-                      <p className="description-font" key={item}>
-                        {item}
-                      </p>
-                    ))}
-                  </Accordion.Body>
-                </Accordion.Item> */}
-                {/* <Accordion.Item eventKey="7" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Testimony
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="full-body-testimony">
-                      {/* {testimonies.length ? <p>Has testomony</p> : <p>No testimony</p>} */}
-                    {/* <ListGroup>
-                      {viewBill.testimony.map((item) => (
-                        <ListGroup.Item className="full-body-testimony" key={item}>
-                          <div className="ms-2 me-auto viewbill-div viewbill-font ">
-                            <span className="fw-bold viewbill-spandiv">
-                              {item}
-                            </span>
-                            <span className="description-font viewbill-spandiv">
-                              09/06/2022
-                            </span>
-                          </div>
-                          <TestimonyProgressBar percent={75} />
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup> */}
-
-                  {/* </Accordion.Body>
-                </Accordion.Item> */} 
               </Accordion>
             </ListGroup.Item>
           </ListGroup>
         </Col>
       </Row>
       <Row>
-        <Accordion style={{marginBottom: '10px'}}>
+        <Accordion style={{ marginBottom: '10px' }}>
           <Accordion.Item eventKey="7" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Testimony
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="full-body-testimony">
-                    <ListOneBillTestimony  billNo={viewBill.billNo}/>
-                  </Accordion.Body>
+            <Accordion.Header className="viewbill-acchead">
+              <div className="fw-bold divcolor viewbill-font acc-header">
+                Testimony
+              </div>
+            </Accordion.Header>
+            <Accordion.Body className="full-body-testimony" style={style}>
+              <ListOneBillTestimony billNo={viewBill.billNo} />
+            </Accordion.Body>
           </Accordion.Item>
         </Accordion>
       </Row>
