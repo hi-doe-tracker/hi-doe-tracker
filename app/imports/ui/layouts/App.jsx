@@ -33,7 +33,7 @@ import ManageAccounts from '../pages/ManageAccounts';
 import AdminManagement from '../pages/AdminManagement';
 import ViewHearings from '../pages/ViewHearings';
 import AdminCreate from '../pages/AdminCreate';
-import EditAccount from '../pages/EditAccount';
+import EditProfile from '../pages/EditProfile';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -54,7 +54,11 @@ const App = () => {
             <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
             <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
             <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
-            <Route exact path="/edit-account" element={<ProtectedRoute><EditAccount /></ProtectedRoute>} />
+            <Route
+              exact
+              path="/edit-profile"
+              element={(<ProtectedRoute><EditProfile /></ProtectedRoute>)}
+            />
             <Route
               exact
               path="/viewbill/:_id"
