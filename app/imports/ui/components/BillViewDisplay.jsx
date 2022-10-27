@@ -19,10 +19,11 @@ const BillViewDisplay = ({ billData }) => {
         break;
       }
     }
-
+    // Checks if the bill was not passed.
     if (progress !== 100) {
       const searchDateArray = [];
       let i = 0;
+      // Finds the date of the next deadline for the bill.
       while (billData.status[i] !== '-') {
         if (billData.status[i] !== '(' && billData.status[i] !== 'S' && billData.status[i] !== ')' && billData.status[i] !== 'H') {
           searchDateArray.push(billData.status[i]);
@@ -32,13 +33,14 @@ const BillViewDisplay = ({ billData }) => {
       const searchDate = new Date(searchDateArray.join(''));
       const todayDate = new Date();
 
-      if (searchDate.getFullYear() > todayDate.getFullYear()) {
+      // Checks year, month and day if the bill has already passed its deadline and the status didn't change.
+      if (searchDate.getFullYear() < todayDate.getFullYear()) {
         return 0;
       }
-      if (searchDate.getMonth() > todayDate.getMonth()) {
+      if (searchDate.getMonth() < todayDate.getMonth()) {
         return 0;
       }
-      if (searchDate.getDay() > todayDate.getDay()) {
+      if (searchDate.getDay() < todayDate.getDay()) {
         return 0;
       }
     }
