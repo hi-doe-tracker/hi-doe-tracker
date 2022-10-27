@@ -67,8 +67,8 @@ const BillViewTab = ({ eventKey, officeName }) => {
               </tr>
             </thead>
             <tbody>
-              {officeName === 'ALL BILLS' ? (bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
-                (bills.filter(bill => bill.office.includes(officeName)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
+              {officeName === 'ALL BILLS' ? bills.filter(bill => checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />) :
+                (bills.filter(bill => bill.office.includes(officeName) && checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
             </tbody>
           </Table>
         </Tab>
@@ -83,8 +83,8 @@ const BillViewTab = ({ eventKey, officeName }) => {
               </tr>
             </thead>
             <tbody>
-              {officeName === 'ALL BILLS' ? (bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
-                (bills.filter(bill => bill.office.includes(officeName)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
+              {officeName === 'ALL BILLS' ? (bills.filter(bill => !checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
+                (bills.filter(bill => bill.office.includes(officeName) && !checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
             </tbody>
           </Table>
         </Tab>
