@@ -54,11 +54,7 @@ const App = () => {
             <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
             <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
             <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
-            <Route
-              exact
-              path="/edit-profile"
-              element={(<ProtectedRoute><EditProfile /></ProtectedRoute>)}
-            />
+            <Route exact path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
             <Route
               exact
               path="/viewbill/:_id"

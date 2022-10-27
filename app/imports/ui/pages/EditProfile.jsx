@@ -1,7 +1,7 @@
 import React from 'react';
 import swal from 'sweetalert';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, HiddenField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { useTracker } from 'meteor/react-meteor-data';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { useParams } from 'react-router';
@@ -14,6 +14,17 @@ const bridge = new SimpleSchema2Bridge(UserProfiles._schema);
 
 /* Renders the EditProfile page for editing a single document. */
 const EditProfile = () => {
+  const officeOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'deputy', label: 'DEPUTY' },
+    { value: 'ocid', label: 'OCID' },
+    { value: 'ofo', label: 'OFO' },
+    { value: 'ofs', label: 'OFS' },
+    { value: 'oits', label: 'OITS' },
+    { value: 'osip', label: 'OSIP' },
+    { value: 'osss', label: 'OSSS' },
+    { value: 'otm', label: 'OTM' },
+  ];
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
   const { _id } = useParams();
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
@@ -43,8 +54,8 @@ const EditProfile = () => {
   return ready ? (
     <Container id={PAGE_IDS.EDIT_PROFILE} className="py-3">
       <Row className="justify-content-center">
-        <Col xs={5}>
-          <Col className="text-center"><h2>Edit Profile</h2></Col>
+        <Col xs={10}>
+          <Col><h2>Edit Profile</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
@@ -52,7 +63,7 @@ const EditProfile = () => {
                 <TextField name="firstName" />
                 <TextField name="lastName" />
                 <TextField name="position" />
-                <TextField name="assignedOffice" />
+                <SelectField name="assignedOffice" placeholder="--" options={officeOptions} />
                 <SubmitField value="Update Profile" />
                 <ErrorsField />
               </Card.Body>
