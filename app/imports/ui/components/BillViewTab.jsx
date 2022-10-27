@@ -31,6 +31,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
     }
     const searchDateArray = [];
     let i = 0;
+    // Finds the date of the next deadline for the bill.
     while (bill.status[i] !== '-') {
       if (bill.status[i] !== '(' && bill.status[i] !== 'S' && bill.status[i] !== ')' && bill.status[i] !== 'H') {
         searchDateArray.push(bill.status[i]);
@@ -40,13 +41,14 @@ const BillViewTab = ({ eventKey, officeName }) => {
     const searchDate = new Date(searchDateArray.join(''));
     const todayDate = new Date();
 
-    if (searchDate.getFullYear() > todayDate.getFullYear()) {
+    // Checks year, month and day if the bill has already passed its deadline and the status didn't change.
+    if (searchDate.getFullYear() < todayDate.getFullYear()) {
       return false;
     }
-    if (searchDate.getMonth() > todayDate.getMonth()) {
+    if (searchDate.getMonth() < todayDate.getMonth()) {
       return false;
     }
-    if (searchDate.getDay() > todayDate.getDay()) {
+    if (searchDate.getDay() < todayDate.getDay()) {
       return false;
     }
     return true;
