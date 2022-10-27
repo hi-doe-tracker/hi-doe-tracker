@@ -22,6 +22,14 @@ class SignInPage {
     await t.click(`#${COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} input.btn.btn-primary`);
     await navBar.isLoggedIn(username);
   }
-}
 
+
+  /** Attempts to sign in but does not check if account is logged in, for manageaccounts test to check if deletion worked */
+  async attemptsignin(username, password) {
+    await this.isDisplayed();
+    await t.typeText(`#${COMPONENT_IDS.SIGN_IN_FORM_EMAIL}`, username);
+    await t.typeText(`#${COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}`, password);
+    await t.click(`#${COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} input.btn.btn-primary`);
+  }
+}
 export const signInPage = new SignInPage();
