@@ -166,28 +166,43 @@ const SubmitTestimony = () => {
   let fRef = null;
   const menuStyle = { fontWeight: 'bold' };
   const checkboxStyle = { margin: '5px' };
+  const transform = (label) => ` ${label}`;
   return (
     ready ? (
       <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
         <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
           <Row className="justify-content-center">
-            <span style={menuStyle}>Relevant Bill</span>
-            <Form.Select
-              onChange={(e) => billSelected(e)}
-            >
-              <option aria-label="Blank Space" />
-              {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
-            </Form.Select>
             <Col xs={12}>
               <Col className="text-center"><h2>Submit Testimony</h2></Col>
               <Card>
                 <Card.Body>
+                  <Row>
+                    <span style={menuStyle}>Relevant Bill</span>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_RELEVANT_BILL} style={checkboxStyle}>
+                      <Form.Select onChange={(e) => billSelected(e)}>
+                        <option aria-label="Blank Space" />
+                        {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
+                      </Form.Select>
+                    </Col>
+                  </Row>
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION}>
+                      <SelectField name="position" multiple checkboxes transform={transform} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING}>
+                      <SelectField name="testifyingAs" multiple checkboxes onClick={toggleHidden} transform={transform} />
+                    </Col>
+                  </Row>
                   <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
-                  <SelectField style={checkboxStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD}>
+                      <SelectField style={checkboxStyle} name="testifyingMethod" multiple checkboxes transform={transform} />
+                    </Col>
+                  </Row>
                   <h3>Type out testimony or upload pdf file</h3>
                   <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
                   <h5>OR</h5>
