@@ -1,17 +1,19 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, submitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
+import { admincreatePage } from './admincreate.page';
+import { submitTestimonyPage } from './submittestimony.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
-// const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
+const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
@@ -38,12 +40,12 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
+  await navBar.gotoSubmitTestimonyPage();
+  await simpleSubmitTestimonyPage.isDisplayed();
+  await navBar.gotoViewHearingsPage();
+  await viewHearingsPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage.isDisplayed();
-  // await navBar.gotoViewHearingsPage();
-  // await viewHearingsPage.isDisplayed();
-  await navBar.gotoSubmitTestimonyPage();
-  await submitTestimonyPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
@@ -56,13 +58,25 @@ test('Test that Profile page shows up', async () => {
   await profilePage.isDisplayed();
 });
 
-/*
+test('Test that Password is changed correctly', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoProfilePage();
+  await profilePage.changePassword('TotallyNewPassword');
+  await signInPage.signin(credentials.username, 'TotallyNewPassword');
+  await navBar.isLoggedIn(credentials.username);
+  // reset password
+  await navBar.gotoProfilePage();
+  await profilePage.changePassword(credentials.password);
+});
+
 test('Test that admin pages show up', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
-  await navBar.gotoCreateAccountPage();
-  await createAccountPage.isDisplayed();
+  await navBar.gotoAdminCreatePage();
+  await admincreatePage.isDisplayed();
   await navBar.gotoAssignBillPage();
   await assignBillPage.isDisplayed();
   await navBar.gotoManageAccountsPage();
@@ -70,4 +84,14 @@ test('Test that admin pages show up', async () => {
   await navBar.logout();
   await signOutPage.isDisplayed();
 
-}); */
+});
+
+test('Test that submit testimony page works', async (testController) => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoSubmitTestimonyPage();
+  await submitTestimonyPage.isDisplayed(testController);
+  await submitTestimonyPage.hasDefaultFields(testController);
+  await submitTestimonyPage.addProject(testController);
+});

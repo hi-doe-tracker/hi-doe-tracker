@@ -265,7 +265,7 @@ const AssignBill = () => {
   // Makes all office form fields capitalized.
   const officeFormStyle = { textTransform: 'uppercase' };
   return (ready ? (
-    <Container id={PAGE_IDS.ASSIGN_BILLS}>
+    <Container id={PAGE_IDS.ASSIGN_BILL}>
       <Row className="justify-content-center">
         <Col>
           <Col className="text-center"><h2>Assign Bill</h2></Col>
