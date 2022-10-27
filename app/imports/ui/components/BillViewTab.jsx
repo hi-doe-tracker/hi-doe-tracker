@@ -20,6 +20,38 @@ const BillViewTab = ({ eventKey, officeName }) => {
     };
   }, []);
 
+  /* Checks status of the bill. */
+  const checkIfActive = (bill) => {
+    const searchWord = '(Gov.';
+    // Checks if the bill was passed.
+    for (let i = 0; i < bill.status.length; i++) {
+      if (bill.status.substring(i, searchWord.length + i) === searchWord) {
+        return true;
+      }
+    }
+    const searchDateArray = [];
+    let i = 0;
+    while (bill.status[i] !== '-') {
+      if (bill.status[i] !== '(' && bill.status[i] !== 'S' && bill.status[i] !== ')' && bill.status[i] !== 'H') {
+        searchDateArray.push(bill.status[i]);
+      }
+      i++;
+    }
+    const searchDate = new Date(searchDateArray.join(''));
+    const todayDate = new Date();
+
+    if (searchDate.getFullYear() > todayDate.getFullYear()) {
+      return false;
+    }
+    if (searchDate.getMonth() > todayDate.getMonth()) {
+      return false;
+    }
+    if (searchDate.getDay() > todayDate.getDay()) {
+      return false;
+    }
+    return true;
+  };
+
   return (ready ? (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
