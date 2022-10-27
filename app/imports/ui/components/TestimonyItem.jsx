@@ -1,50 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
+
 import { useTracker } from 'meteor/react-meteor-data';
-import {TestimonyFileCollection, subscribeTestimonyFiles} from '../../api/testimony/TestimonyFileCollection';
+// import { TestimonyFilesCollection } from 'meteor/ostrio:files';
+import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
-  // const [testimonyFiles, setTestimonyFiles] = useState([]);
-  // useEffect(()=> {
-  //   console.log(testimony)
-  //   let link = TestimonyFileCollection.find({});
-  //   console.log(link) 
-  // }, [])
-  const { ready, testimonyFiles} = useTracker(() => {
+  const { ready, testimonyFiles } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
 
     // Determine if the subscription is ready
     const rdy = subscription.ready();
-    // Get the bill data from DB.
-    // const billDoc = Bills.findDoc(_id);
-    const testimonyFiles = TestimonyFileCollection.find({}).fetch();
-    // console.log(testimonyFiles)
-    // // if (rdy){
-    //   console.log(billDoc);
-    //   const testimonies = Testimonies.find({billNo: billDoc.billNo}).fetch();
-    // // }
+    const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
     return {
       ready: rdy,
-      testimonyFiles: testimonyFiles,
+      testimonyFiles: testimonyfiles,
       // testimonies: testimonies,
     };
-  }, [] );
-  return(
-  <tr>
-    <td>{testimony.firstName}</td>
-    <td>{testimony.lastName}</td>
-    <td>{testimony.position}</td>
-    <td>{testimony.testifyingAs}</td>
-    <td>{testimony.testifyingMethod}</td>
-    <td>{testimony.testimony}</td>
-    <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
-  </tr>
-  );
-}
+  }, []);
+
+  // get link of pdfs
+  let links;
+  if (ready) {
+    links = testimonyFiles.map((file) => [TestimonyFileCollection.findOne({ _id: file._id }).link(), file.name]);
+  }
+  // let getPdf = () => testimonyFiles.map(file =><a href={file.link()} target="_blank">View</a> )
+
+  // display pdfs
+  const getPdf = () => {
+    if (links.length === 0) {
+      return 'No PDFs';
+    }
+    return ready ? links.map(link => <p key={link[0]}><a href={link[0]} target="_blank" rel="noreferrer">{link[1]}</a><br /></p>) : 'Empty';
+  };
+  return ready ? (
+    <tr>
+      <td>{testimony.firstName}</td>
+      <td>{testimony.lastName}</td>
+      <td>{testimony.position}</td>
+      <td>{testimony.testifyingAs}</td>
+      <td>{testimony.testifyingMethod}</td>
+      <td>{testimony.testimony}</td>
+      <td>{getPdf()}</td>
+      <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
+    </tr>
+  ) : <tr><td>Loading</td></tr>;
+};
 
 // Require a document to be passed to this component.
 TestimonyItem.propTypes = {
@@ -53,6 +56,7 @@ TestimonyItem.propTypes = {
     lastName: PropTypes.string,
     position: PropTypes.string,
     testifyingAs: PropTypes.string,
+    billNo: PropTypes.string,
     // organization: PropTypes.string,
     testifyingMethod: PropTypes.string,
     testimony: PropTypes.string,

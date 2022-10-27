@@ -73,17 +73,17 @@ const SubmitTestimony = () => {
     const collectionName = Testimonies.getCollectionName();
     // const hasFile = Object.keys(uploadFile).length;
     const hasDescription = Object.prototype.hasOwnProperty.call(data, 'testimony') && (data.testimony.length !== 0);
-    console.log(hasFile)
-    console.log(hasDescription)
-    console.log(uploadFile)
+    console.log(hasFile);
+    console.log(hasDescription);
+    console.log(uploadFile);
     // console.log(hasFile)
     if ((!hasFile) && !hasDescription) {
       swal('Error', 'Provide testimony details or upload a testimony pdf!!!', 'error');
     } else if (!billNo) {
       swal('Error', 'Select a bill!!!', 'error');
     } else if (hasFile) {
-      console.log("here")
-      console.log(billNo)
+      console.log('here');
+      console.log(billNo);
       const uploadInstance = TestimonyFileCollection.insert({
         file: uploadFile,
         meta: {
