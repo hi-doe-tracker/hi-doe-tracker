@@ -12,8 +12,10 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 const bridge = new SimpleSchema2Bridge(UserProfiles._schema);
 
-/* Renders the EditProfile page for editing a single document. */
-const EditProfile = () => {
+/* Renders the EditAccount page for editing a single document. */
+const EditAccount = () => {
+
+  // DOE office types
   const officeOptions = [
     { value: 'all', label: 'All' },
     { value: 'deputy', label: 'DEPUTY' },
@@ -52,10 +54,10 @@ const EditProfile = () => {
   };
 
   return ready ? (
-    <Container id={PAGE_IDS.EDIT_PROFILE} className="py-3">
+    <Container id={PAGE_IDS.EDIT_ACCOUNT} className="py-3">
       <Row className="justify-content-center">
         <Col xs={10}>
-          <Col><h2>Edit Profile</h2></Col>
+          <Col><h2>Edit Account</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
@@ -75,4 +77,4 @@ const EditProfile = () => {
   ) : <LoadingSpinner />;
 };
 
-export default EditProfile;
+export default EditAccount;
