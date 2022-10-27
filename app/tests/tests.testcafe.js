@@ -14,6 +14,7 @@ import { submitTestimonyPage } from './submittestimony.page';
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
+const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
@@ -83,7 +84,6 @@ test('Test that admin pages show up', async () => {
   await manageAccountsPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
-
 });
 
 test('Test that submit testimony page works', async (testController) => {
@@ -94,4 +94,16 @@ test('Test that submit testimony page works', async (testController) => {
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
   await submitTestimonyPage.addProject(testController);
+});
+
+test('Test that admin create page works', async (testController) => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  await navBar.gotoAdminCreatePage();
+  await admincreatePage.signupUser(testController);
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+  await navBar.gotoSignInPage();
+  await signInPage.signin(newCredentials.username, newCredentials.password);
 });
