@@ -9,8 +9,6 @@ const ScraperBillViewDisplay = ({ scraperBillData }) => {
   return (
     <tr>
       <td><Link id="bill-view" to={`/admin/assignbills/${scraperBillData._id}`}>{`#${scraperBillData.measureNumber}: ${scraperBillData.measureTitle}`}</Link></td>
-      <td>{`${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`}</td>
-      <td>Progress<ProgressBar now="25" /><br /></td>
     </tr>
   );
 };
