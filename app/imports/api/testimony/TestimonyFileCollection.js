@@ -48,5 +48,15 @@ if (Meteor.isServer) {
   });
 }
 
+/**
+   * Subscription method for stuff owned by the current user.
+   */
+const subscribeTestimonyFiles = () => {
+  if (Meteor.isClient) {
+    return Meteor.subscribe('testimony_files');
+  }
+  return null;
+};
+
 TestimonyFileCollection.collection.attachSchema(new SimpleSchema(mySchema));
-export default TestimonyFileCollection;
+export { TestimonyFileCollection, subscribeTestimonyFiles };
