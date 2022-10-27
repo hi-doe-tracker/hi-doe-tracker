@@ -1,21 +1,22 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
+// import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
-import { signInPage } from './signin.page';
-import { navBar } from './navbar.component';
-import { profilePage } from './profile.page';
-import { admincreatePage } from './admincreate.page';
-import { adminManageAccountsPage } from './manageaccounts.page';
-import { submitTestimonyPage } from './submittestimony.page';
+// import { signInPage } from './signin.page';
+// import { navBar } from './navbar.component';
+// import { profilePage } from './profile.page';
+// import { admincreatePage } from './admincreate.page';
+// import { adminManageAccountsPage } from './manageaccounts.page';
+// import { submitTestimonyPage } from './submittestimony.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
+/*
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
-const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
+const newCredentials = { username: 'batman@foo.com', password: 'changeme' }; */
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
@@ -23,7 +24,8 @@ fixture('meteor-application-template-production localhost test with default db')
 test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
-test('Test that signin and signout work', async () => {
+
+/* test('Test that signin and signout work', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
@@ -113,7 +115,6 @@ test('Test that admin create page works', async (testController) => {
   await signOutPage.isDisplayed();
 });
 
-
 test('Test that admin manage accounts page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
@@ -131,4 +132,4 @@ test('Test that admin manage accounts page works', async (testController) => {
   //attempt to log in but it should fail, check to see if we're still on the sign in page
   await signInPage.attemptsignin(newCredentials.username, newCredentials.password);
   await signInPage.isDisplayed();
-});
+}); */
