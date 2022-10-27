@@ -10,16 +10,20 @@ import {
   ListGroup,
   Accordion,
 } from 'react-bootstrap';
-import TestimonyProgressBar from '../components/TestimonyProgressBar';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Bills } from '../../api/bill/BillCollection';
+import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ListOneBillTestimony from '../components/ListOneBillTestimony';
 
 // ViewBill component displays information about the specific bill
 const ViewBill = () => {
   const { _id } = useParams();
-  const { ready, viewBill } = useTracker(() => {
+  const style = { width: '100%', margin: 0 };
+  const { ready, viewBill, readyTestimony } = useTracker(() => {
     const subscription = Bills.subscribeBill();
+    const subscriptionTestimony = Testimonies.subscribeTestimony();
+    const rdyTest = subscriptionTestimony.ready();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the bill data from DB.
@@ -29,12 +33,14 @@ const ViewBill = () => {
     return {
       viewBill: billDoc,
       ready: rdy,
+      readyTestimony: rdyTest,
+      // testimonies: testimonies,
     };
-  }, [_id]);
+  }, []);
 
   // returns a single container containing information about the bill
-  return (ready ? (
-    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={`${viewBill.billN}`}>
+  return (ready && readyTestimony ? (
+    <Container id={PAGE_IDS.VIEW_BILL} className="viewbill-container" key={`${viewBill.billNo}`}>
       <Row>
         <center>
           <Col>
@@ -346,48 +352,24 @@ const ViewBill = () => {
                     ))}
                   </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item eventKey="6" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Approved Testimony
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="viewbill-accbody">
-                    {viewBill.approvedTestimony.map((item) => (
-                      <p className="description-font" key={item}>
-                        {item}
-                      </p>
-                    ))}
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="7" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Testimony
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="full-body-testimony">
-                    <ListGroup>
-                      {viewBill.testimony.map((item) => (
-                        <ListGroup.Item className="full-body-testimony" key={item}>
-                          <div className="ms-2 me-auto viewbill-div viewbill-font ">
-                            <span className="fw-bold viewbill-spandiv">
-                              {item}
-                            </span>
-                            <span className="description-font viewbill-spandiv">
-                              09/06/2022
-                            </span>
-                          </div>
-                          <TestimonyProgressBar percent={75} />
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </Accordion.Body>
-                </Accordion.Item>
               </Accordion>
             </ListGroup.Item>
           </ListGroup>
         </Col>
+      </Row>
+      <Row>
+        <Accordion style={{ marginBottom: '10px' }}>
+          <Accordion.Item eventKey="7" className="flexcenter">
+            <Accordion.Header className="viewbill-acchead">
+              <div className="fw-bold divcolor viewbill-font acc-header">
+                Testimony
+              </div>
+            </Accordion.Header>
+            <Accordion.Body className="full-body-testimony" style={style}>
+              <ListOneBillTestimony billNo={viewBill.billNo} />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </Row>
     </Container>
   ) : <LoadingSpinner message="Loading Data" />);
