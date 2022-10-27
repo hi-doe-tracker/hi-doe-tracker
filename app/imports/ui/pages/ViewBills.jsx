@@ -102,8 +102,6 @@ const ViewBills = () => {
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Hearing Date</th>
-                        <th>Progress</th>
                       </tr>
                     </thead>
                     <tbody>
