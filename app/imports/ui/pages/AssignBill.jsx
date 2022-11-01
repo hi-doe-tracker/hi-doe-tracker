@@ -21,6 +21,11 @@ const formSchema = {
     allowedValues: ['Pick a bill'],
     defaultValue: 'Pick a bill',
   },
+  mainOffice: {
+    type: String,
+    allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
+    defaultValue: 'DEPUTY',
+  },
   deputy: {
     type: Boolean,
     optional: true,
@@ -165,6 +170,7 @@ const AssignBill = () => {
   const submit = (data, formRef) => {
     const {
       assignedBill,
+      mainOffice,
       deputy,
       ocid,
       ofo,
@@ -219,6 +225,7 @@ const AssignBill = () => {
     const definitionData = {
       billLink,
       billNo,
+      mainOffice,
       office,
       action,
       status,
@@ -273,6 +280,7 @@ const AssignBill = () => {
             <Card>
               <Card.Body>
                 <Row><Col><SelectField name="assignedBill" /></Col></Row>
+                <Row><Col><SelectField name="mainOffice" /></Col></Row>
                 <Row style={officeFormStyle}>
                   <p>Offices</p>
                   <Col>
