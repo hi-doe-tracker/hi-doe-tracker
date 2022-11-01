@@ -15,6 +15,7 @@ class BillCollection extends BaseCollection {
       billLink: String,
       billNo: String,
       office: [String],
+      mainOffice: String,
       action: String,
       status: String,
       actionNumber: Number,
@@ -55,7 +56,7 @@ class BillCollection extends BaseCollection {
    * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
-  define({ billLink, billNo, office, action, status, actionNumber, companion,
+  define({ billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
     reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
     introducedByDate, description, allVersions, committeeReports, hearingNotices,
     lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
@@ -65,6 +66,7 @@ class BillCollection extends BaseCollection {
       billLink,
       billNo,
       office,
+      mainOffice,
       action,
       status,
       actionNumber,
@@ -164,6 +166,7 @@ class BillCollection extends BaseCollection {
     const billLink = docID.billLink;
     const billNo = docID.billNo;
     const office = docID.office;
+    const mainOffice = docID.mainOffice;
     const action = docID.action;
     const status = docID.status;
     const actionNumber = docID.actionNumber;
@@ -193,7 +196,7 @@ class BillCollection extends BaseCollection {
     const hearingComments = docID.hearingComments;
     const testimony = docID.testimony;
     const rationale = docID.rationale;
-    return { billLink, billNo, office, action, status, actionNumber, companion,
+    return { billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
       reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
       introducedByDate, description, allVersions, committeeReports, hearingNotices,
       lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
