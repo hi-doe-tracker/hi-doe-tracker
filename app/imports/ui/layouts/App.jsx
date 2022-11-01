@@ -34,6 +34,7 @@ import AdminManagement from '../pages/AdminManagement';
 import ViewHearings from '../pages/ViewHearings';
 import AdminCreate from '../pages/AdminCreate';
 import EditAccount from '../pages/EditAccount';
+import ViewTestimony from '../pages/ViewTestimony';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
@@ -141,6 +142,16 @@ const App = () => {
                 (
                   <ProtectedRoute>
                     <Profile />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="/viewtestimony"
+              element={
+                (
+                  <ProtectedRoute>
+                    <ViewTestimony />
                   </ProtectedRoute>
                 )
               }
