@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Container, Card, Col, Row } from 'react-bootstrap';
@@ -144,6 +144,7 @@ const getChosenBillData = (billChosen, scraperBills) => {
 /* Assigns an existing scraper bill to a bill with more data provided through a form which the user fills out. */
 const AssignBill = () => {
   const { _id } = useParams();
+  const [mainOfficeValue, setMainOfficeValue] = useState('DEPUTY');
   const { ready, scraperBills } = useTracker(() => {
     const subscription = ScraperBills.subscribeScraperBillAdmin();
     // Determine if the subscription is ready
@@ -280,24 +281,24 @@ const AssignBill = () => {
             <Card>
               <Card.Body>
                 <Row><Col><SelectField name="assignedBill" /></Col></Row>
-                <Row><Col><SelectField name="mainOffice" /></Col></Row>
+                <Row><Col><SelectField name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
                 <Row style={officeFormStyle}>
                   <p>Offices</p>
                   <Col>
-                    <BoolField name="deputy" />
-                    <BoolField name="ocid" />
+                    {mainOfficeValue !== 'DEPUTY' ? <BoolField name="deputy" /> : <div />}
+                    {mainOfficeValue !== 'OCID' ? <BoolField name="ocid" /> : <div />}
                   </Col>
                   <Col>
-                    <BoolField name="ofo" />
-                    <BoolField name="ofs" />
+                    {mainOfficeValue !== 'OFO' ? <BoolField name="ofo" /> : <div />}
+                    {mainOfficeValue !== 'OFS' ? <BoolField name="ofs" /> : <div />}
                   </Col>
                   <Col>
-                    <BoolField name="oits" />
-                    <BoolField name="osip" />
+                    {mainOfficeValue !== 'OITS' ? <BoolField name="oits" /> : <div />}
+                    {mainOfficeValue !== 'OSIP' ? <BoolField name="osip" /> : <div />}
                   </Col>
                   <Col>
-                    <BoolField name="osss" />
-                    <BoolField name="otm" />
+                    {mainOfficeValue !== 'OSSS' ? <BoolField name="osss" /> : <div />}
+                    {mainOfficeValue !== 'OTM' ? <BoolField name="otm" /> : <div />}
                   </Col>
                 </Row>
                 <Row>
