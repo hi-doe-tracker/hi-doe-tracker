@@ -86,8 +86,6 @@ const formSchema = {
   'monitoringReports.$': String,
   hearingComments: { type: Array, minCount: 1 },
   'hearingComments.$': String,
-  testimony: { type: Array, minCount: 1 },
-  'testimony.$': String,
   rationale: String,
 };
 
@@ -199,7 +197,6 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     } = data;
 
@@ -255,7 +252,6 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     };
 
@@ -401,15 +397,6 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <ListField
-                      name="testimony"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                  </Col>
                   <Col><TextField name="rationale" /></Col>
                 </Row>
                 <SubmitField value="Submit" />
