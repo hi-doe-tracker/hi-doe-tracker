@@ -51,6 +51,7 @@ const BillViewDisplay = ({ billData }) => {
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
       <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
       <td>
+        <h6>{`Main Office: ${billData.mainOffice}`}</h6>
         {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (billData.office.toString())}
       </td>
       <td>Progress<ProgressBar now={checkStatus()} /><br /></td>
@@ -62,6 +63,7 @@ BillViewDisplay.propTypes = {
   billData: PropTypes.shape({
     billLink: PropTypes.string.isRequired,
     billNo: PropTypes.string.isRequired,
+    mainOffice: PropTypes.string,
     office: PropTypes.arrayOf(PropTypes.string).isRequired,
     action: PropTypes.string,
     status: PropTypes.string,

@@ -75,7 +75,15 @@ const ViewBill = () => {
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
-                <span className="fw-bold viewbill-spandiv">Office</span>
+                <span className="fw-bold viewbill-spandiv">Main Office</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.mainOffice}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Offices</span>
                 <span className="description-font viewbill-spandiv">
                   {viewBill.office.join(', ')}
                 </span>
