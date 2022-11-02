@@ -43,7 +43,6 @@ class BillCollection extends BaseCollection {
       approvedTestimony: [String],
       monitoringReports: [String],
       hearingComments: [String],
-      testimony: [String],
       rationale: String,
     }));
   }
@@ -61,7 +60,7 @@ class BillCollection extends BaseCollection {
     introducedByDate, description, allVersions, committeeReports, hearingNotices,
     lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
     testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
-    monitoringReports, hearingComments, testimony, rationale }) {
+    monitoringReports, hearingComments, rationale }) {
     const docID = this._collection.insert({
       billLink,
       billNo,
@@ -94,7 +93,6 @@ class BillCollection extends BaseCollection {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     });
     return docID;
@@ -194,14 +192,13 @@ class BillCollection extends BaseCollection {
     const approvedTestimony = docID.approvedTestimony;
     const monitoringReports = docID.monitoringReports;
     const hearingComments = docID.hearingComments;
-    const testimony = docID.testimony;
     const rationale = docID.rationale;
     return { billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
       reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
       introducedByDate, description, allVersions, committeeReports, hearingNotices,
       lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
       testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
-      monitoringReports, hearingComments, testimony, rationale };
+      monitoringReports, hearingComments, rationale };
   }
 }
 
