@@ -2,6 +2,7 @@ import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import swal from 'sweetalert';
 import { Button, Table, Spinner, Container } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { removeItMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -48,9 +49,9 @@ const ManageAccounts = () => {
    * Also edits this user from Meteor Accounts.
    * @param profileID The ID for this profile object.
    */
-  function handleEdit(profileID) {
+  /* function handleEdit(profileID) {
     window.alert(`You clicked edit on ${profileID}`);
-  }
+  } */
 
   return (
     <Container>
@@ -78,7 +79,7 @@ const ManageAccounts = () => {
                   <td>{user.role}</td>
                   <td>{user.position}</td>
                   <td>{user.assignedOffice}</td>
-                  <td><Button variant="primary" onClick={() => handleEdit(user._id)}>Edit</Button></td>
+                  <td><Button variant="primary" as={NavLink} to="/edit-account">Edit</Button></td>
                   <td><Button variant="danger" onClick={() => handleDelete(user._id)}>Delete</Button></td>
                 </tr>
               ))}
