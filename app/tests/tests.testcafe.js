@@ -5,6 +5,7 @@ import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
+// import { homePage } from './home.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -54,6 +55,17 @@ test('Test that Profile page shows up', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoProfilePage();
   await profilePage.isDisplayed();
+  await navBar.logout();
+});
+
+test('Test that Home page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  // await homePage.measureButtonWorks();
+  await navBar.logout();
 });
 
 /*
