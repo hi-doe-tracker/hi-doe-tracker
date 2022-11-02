@@ -282,8 +282,8 @@ const AssignBill = () => {
               <Card.Body>
                 <Row><Col><SelectField name="assignedBill" /></Col></Row>
                 <Row><Col><SelectField name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
+                <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
-                  <p>Offices</p>
                   <Col>
                     {mainOfficeValue !== 'DEPUTY' ? <BoolField name="deputy" /> : <div />}
                     {mainOfficeValue !== 'OCID' ? <BoolField name="ocid" /> : <div />}
