@@ -79,7 +79,7 @@ const ManageAccounts = () => {
                   <td>{user.role}</td>
                   <td>{user.position}</td>
                   <td>{user.assignedOffice}</td>
-                  <td><Button variant="primary" as={NavLink} to="/edit-account">Edit</Button></td>
+                  <td><Button variant="primary" as={NavLink} to="/admin/editaccount">Edit</Button></td>
                   <td><Button variant="danger" onClick={() => handleDelete(user._id)}>Delete</Button></td>
                 </tr>
               ))}
