@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
+import { FileEarmarkPdf, CalendarMonth, Archive, Megaphone } from 'react-bootstrap-icons';
 import { useMediaQuery } from 'usehooks-ts';
 import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
@@ -29,12 +29,6 @@ const objects = [
     description: 'Fill out a form to sumbit your testimony here',
   },
   {
-    title: 'Reports',
-    icon: (<JournalText size={100} />),
-    link: '',
-    description: 'description of where this will take you',
-  },
-  {
     title: 'Calendar',
     icon: (<CalendarMonth size={100} />),
     link: '/calendar',
@@ -59,7 +53,6 @@ const HomeContent = () => (
                 overlay={(
                   <Tooltip
                     key={info.title}
-                    id={info.title}
                     style={{ position: 'absolute', top: '50%', left: '50%' }}
                   >
                     {info.description}
@@ -67,10 +60,14 @@ const HomeContent = () => (
                 )}
               >
                 <Card
+                  id={info.title}
                   bg={darkTheme ? 'dark' : ''}
                   text={darkTheme ? 'light' : 'dark'}
+                  as={NavLink}
+                  to={info.link}
+                  style={{ textDecoration: 'none' }}
                 >
-                  <Card.Body as={NavLink} to={info.link}>
+                  <Card.Body>
                     <div className="d-flex justify-content-center">
                       {info.icon}
                     </div>
