@@ -29,6 +29,7 @@ class BillCollection extends BaseCollection {
       description: String,
       allVersions: [String],
       committeeReports: [String],
+      hearingNotices: [String],
       lastStatus: [String],
       notifiedHearing: String,
       hearingDate: Date,
@@ -56,7 +57,7 @@ class BillCollection extends BaseCollection {
    */
   define({ billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
     reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
-    introducedByDate, description, allVersions, committeeReports,
+    introducedByDate, description, allVersions, committeeReports, hearingNotices,
     lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
     testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
     monitoringReports, hearingComments, rationale }) {
@@ -78,6 +79,7 @@ class BillCollection extends BaseCollection {
       description,
       allVersions,
       committeeReports,
+      hearingNotices,
       lastStatus,
       notifiedHearing,
       hearingDate,
@@ -176,6 +178,7 @@ class BillCollection extends BaseCollection {
     const description = docID.description;
     const allVersions = docID.allVersions;
     const committeeReports = docID.committeeReports;
+    const hearingNotices = docID.hearingNotices;
     const lastStatus = docID.lastStatus;
     const notifiedHearing = docID.notifiedHearing;
     const hearingDate = docID.hearingDate;
@@ -192,7 +195,7 @@ class BillCollection extends BaseCollection {
     const rationale = docID.rationale;
     return { billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
       reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
-      introducedByDate, description, allVersions, committeeReports,
+      introducedByDate, description, allVersions, committeeReports, hearingNotices,
       lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
       testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
       monitoringReports, hearingComments, rationale };
