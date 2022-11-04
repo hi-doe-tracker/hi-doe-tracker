@@ -1,6 +1,6 @@
 import { Selector, t } from 'testcafe';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
-// import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
+import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 class AdminCreatePage {
   constructor() {
@@ -14,8 +14,8 @@ class AdminCreatePage {
   }
 
   /** Signs up a new user, then checks to see if it is created by logging out then into that new account. */
-  /*
-  async signupUser(testController) {
+
+  async signupUser() {
     const firstName = 'Bat';
     const lastName = 'Man';
     const email = 'batman@foo.com';
@@ -34,7 +34,7 @@ class AdminCreatePage {
     await t.click(officeOption.withText('OCID'));
     await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} input.btn.btn-primary`);
     await t.click(Selector('.swal-button--confirm'));
-  } */
+  }
 }
 
-export const admincreatePage = new AdminCreatePage();
+export const adminCreatePage = new AdminCreatePage();

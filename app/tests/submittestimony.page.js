@@ -30,13 +30,13 @@ class SubmitTestimonyPage {
     const testimony = 'We should increase school funding by 1 trillion dollars and eliminate all enemies of the state.';
     await this.isDisplayed(testController);
     // Define the new project
-    await testController.click(relevantBillSelector).click(relevantBillSelector.find('option').nth(1));
+    await testController.click(relevantBillSelector).click(relevantBillSelector.find('option').nth(0));
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME}`, firstName);
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME}`, lastName);
     const positionSelector = Selector(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} div.form-check input`);
-    await testController.click(positionSelector.nth(1));
-    await testController.click(testifyingSelector.nth(1));
-    await testController.click(testifyingMethodSelector.nth(1));
+    await testController.click(positionSelector.nth(0));
+    await testController.click(testifyingSelector.nth(0));
+    await testController.click(testifyingMethodSelector.nth(0));
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY}`, testimony);
     await testController.click(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} input.btn.btn-primary`);
     await testController.click(Selector('.swal-button--confirm'));
