@@ -24,7 +24,7 @@ const ManageAccounts = () => {
    * Also removes this user from Meteor Accounts.
    * @param profileID The ID for this profile object.
    */
-  function handleDelete(profileID) {
+  function handleDelete(instance) {
     const collectionName = UserProfiles.getCollectionName();
     swal({
       title: 'Are you sure?',
@@ -35,7 +35,7 @@ const ManageAccounts = () => {
     })
       .then((willDelete) => {
         if (willDelete) {
-          removeItMethod.callPromise({ collectionName, profileID })
+          removeItMethod.callPromise({ collectionName, instance })
             .catch(error => swal('Error', error.message, 'error'))
             .then(() => swal('Success', 'User Removed Successfully', 'success'));
         } else {
