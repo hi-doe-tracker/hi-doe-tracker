@@ -83,7 +83,7 @@ if (Notices.count() === 0) {
 }
 
 if (Hearings.count() === 0) {
-  if (Meteor.settings.loadHearings) {
+  if (!Meteor.settings.loadHearings) {
     console.log('Creating default hearings.');
     const assetsFileName = 'testHearings.json';
     console.log(`Loading data from private/${assetsFileName}`);

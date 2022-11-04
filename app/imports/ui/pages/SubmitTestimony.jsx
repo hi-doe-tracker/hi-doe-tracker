@@ -11,7 +11,7 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Bills } from '../../api/bill/BillCollection';
-import TestimonyFileCollection from '../../api/testimony/TestimonyFileCollection';
+import { TestimonyFileCollection } from '../../api/testimony/TestimonyFileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -73,12 +73,17 @@ const SubmitTestimony = () => {
     const collectionName = Testimonies.getCollectionName();
     // const hasFile = Object.keys(uploadFile).length;
     const hasDescription = Object.prototype.hasOwnProperty.call(data, 'testimony') && (data.testimony.length !== 0);
+    console.log(hasFile);
+    console.log(hasDescription);
+    console.log(uploadFile);
     // console.log(hasFile)
-    if ((hasFile === 0) && !hasDescription) {
+    if ((!hasFile) && !hasDescription) {
       swal('Error', 'Provide testimony details or upload a testimony pdf!!!', 'error');
     } else if (!billNo) {
       swal('Error', 'Select a bill!!!', 'error');
     } else if (hasFile) {
+      console.log('here');
+      console.log(billNo);
       const uploadInstance = TestimonyFileCollection.insert({
         file: uploadFile,
         meta: {
@@ -113,12 +118,12 @@ const SubmitTestimony = () => {
         console.log(`Error during upload: ${error}`);
       });
 
-      uploadInstance.on('progress', function (progress) {
-        console.log(`Upload Percentage: ${progress}`);
-      });
+      // uploadInstance.on('progress', function (progress) {
+      //   console.log(`Upload Percentage: ${progress}`);
+      // });
 
       uploadInstance.start(); // Must manually start the upload
-      console.log(uploadInstance);
+      // console.log(uploadInstance);
       const hasPdf = true;
       const definitionData = { ...data, owner, billNo, hasPdf };
       defineMethod.callPromise({ collectionName, definitionData })
@@ -166,28 +171,43 @@ const SubmitTestimony = () => {
   let fRef = null;
   const menuStyle = { fontWeight: 'bold' };
   const checkboxStyle = { margin: '5px' };
+  const transform = (label) => ` ${label}`;
   return (
     ready ? (
       <Container id={PAGE_IDS.SUBMIT_TESTIMONY} className="py-3">
         <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
           <Row className="justify-content-center">
-            <span style={menuStyle}>Relevant Bill</span>
-            <Form.Select
-              onChange={(e) => billSelected(e)}
-            >
-              <option aria-label="Blank Space" />
-              {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
-            </Form.Select>
             <Col xs={12}>
               <Col className="text-center"><h2>Submit Testimony</h2></Col>
               <Card>
                 <Card.Body>
+                  <Row>
+                    <span style={menuStyle}>Relevant Bill</span>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_RELEVANT_BILL} style={checkboxStyle}>
+                      <Form.Select onChange={(e) => billSelected(e)}>
+                        <option aria-label="Blank Space" />
+                        {billName.map(bill => <option key={bill} value={bill}>{bill}</option>)}
+                      </Form.Select>
+                    </Col>
+                  </Row>
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME} name="firstName" placeholder="Type first name here" />
                   <TextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME} name="lastName" placeholder="Type last name here" />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} name="position" multiple checkboxes />
-                  <SelectField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING} name="testifyingAs" multiple checkboxes onClick={toggleHidden} />
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION}>
+                      <SelectField name="position" multiple checkboxes transform={transform} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING}>
+                      <SelectField name="testifyingAs" multiple checkboxes onClick={toggleHidden} transform={transform} />
+                    </Col>
+                  </Row>
                   <TextField name="organization" placeholder="Type organization name here" className={hidden ? 'hidden' : ''} />
-                  <SelectField style={checkboxStyle} id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD} name="testifyingMethod" multiple checkboxes />
+                  <Row>
+                    <Col id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD}>
+                      <SelectField style={checkboxStyle} name="testifyingMethod" multiple checkboxes transform={transform} />
+                    </Col>
+                  </Row>
                   <h3>Type out testimony or upload pdf file</h3>
                   <LongTextField id={COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY} name="testimony" placeholder="Type testimony here..." />
                   <h5>OR</h5>

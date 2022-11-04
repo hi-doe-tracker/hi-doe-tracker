@@ -6,6 +6,9 @@ import { ROLE } from '../role/Role';
 export const testimonyPublications = {
   testimony: 'Testimony',
 };
+export const testimonyPositions = ['Support', 'Oppose', 'Comments Only'];
+export const testimonyTestifyingAs = ['Individual', 'Organization'];
+export const testimonyTestifyingMethod = ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'];
 
 class TestimonyCollection extends BaseCollection {
   constructor() {
