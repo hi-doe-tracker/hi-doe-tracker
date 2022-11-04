@@ -1,10 +1,11 @@
 import { Selector, t } from 'testcafe';
 import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, manageDatabasePage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
+import { homePage } from './home.page';
 import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
@@ -58,6 +59,20 @@ test('Test that Profile page shows up', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoProfilePage();
   await profilePage.isDisplayed();
+  await navBar.logout();
+});
+
+test('Test that Home page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await homePage.hearingsButtonWorks();
+  await homePage.measuresButtonWorks();
+  await homePage.submitTestimonyButtonWorks();
+  await homePage.calendarButtonWorks();
+  await navBar.logout();
 });
 
 test('Test that Password is changed correctly', async () => {
