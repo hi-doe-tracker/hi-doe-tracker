@@ -48,7 +48,7 @@ const AdminCreate = () => {
       });
   };
   return (
-    <Container id={PAGE_IDS.SIGN_UP} className="py-3">
+    <Container id={PAGE_IDS.ADMIN_CREATE} className="py-3">
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center">
@@ -61,8 +61,8 @@ const AdminCreate = () => {
                 <TextField id={COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME} name="lastName" placeholder="Last name" />
                 <TextField id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL} name="email" placeholder="E-mail address" />
                 <TextField id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD} name="password" placeholder="Password" type="password" />
-                <SelectField name="position" />
-                <SelectField name="assignedOffice" />
+                <SelectField id="position" name="position" />
+                <SelectField id="office" name="assignedOffice" />
                 <ErrorsField />
                 <SubmitField id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} />
               </Card.Body>

@@ -27,7 +27,10 @@ const NavBar = () => {
             {currentUser ? ([
               <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/home" key="home" style={menuStyle2}>Home</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE} as={NavLink} to="/bills" key="bills" style={menuStyle2}>View Bills</Nav.Link>,
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuStyle2}>Submit Testimony</Nav.Link>,
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_TESTIMONY_DROPDOWN} title="Testimony" key="testimony-dropdown" style={menuStyle2}>
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit">Submit Testimony</NavDropdown.Item>
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_TESTIMONY_PAGE} as={NavLink} to="/listtestimony" key="list-testimony">List Testimony</NavDropdown.Item>
+              </NavDropdown>,
               <NavDropdown id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN} title="Hearings" key="hearing-dropdown" style={menuStyle2}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_VIEW} key="view-hearings" as={NavLink} to="view-hearings">View Hearings</NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND} key="send-hearings" as={NavLink} to="send">Send Hearing Notice</NavDropdown.Item>

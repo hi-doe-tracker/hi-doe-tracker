@@ -108,7 +108,7 @@ class NavBar {
   }
 
   /* Go to the list stuff admin page. */
-  async gotoCreateAccountPage() {
+  async gotoAdminCreatePage() {
     const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
