@@ -40,6 +40,7 @@ const EditTestimony = () => {
         window.location = ('/listtestimony');
       }));
   };
+  const transform = (label) => ` ${label}`;
   return ready ? (
     <Container id={PAGE_IDS.EDIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
@@ -50,9 +51,10 @@ const EditTestimony = () => {
               <Card.Body>
                 <TextField name="firstName" />
                 <TextField name="lastName" />
-                <SelectField name="position" multiple checkboxes />
-                <SelectField name="testifyingAs" multiple checkboxes />
-                <SelectField name="testifyingMethod" multiple checkboxes />
+                <SelectField name="position" multiple checkboxes transform={transform} />
+                <SelectField name="testifyingAs" multiple checkboxes transform={transform} />
+                <TextField name="organization" />
+                <SelectField name="testifyingMethod" multiple checkboxes transform={transform} />
                 <TextField name="testimony" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
