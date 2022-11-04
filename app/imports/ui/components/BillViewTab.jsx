@@ -57,7 +57,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
   return (ready ? (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
-      <Tabs defaultActiveKey="active-bills" className="active-bills">
+      <Tabs defaultActiveKey="active-bills">
         <Tab eventKey="active-bills" title="ACTIVE BILLS">
           <Table striped bordered responsive="sm">
             <thead>
@@ -74,7 +74,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
             </tbody>
           </Table>
         </Tab>
-        <Tab eventKey="in-active-bills" title="INACTIVE BILLS" className="inactive-bills">
+        <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
           <Table striped bordered>
             <thead>
               <tr>
