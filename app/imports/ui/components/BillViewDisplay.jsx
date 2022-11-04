@@ -48,7 +48,7 @@ const BillViewDisplay = ({ billData }) => {
   };
   return (
     <tr>
-      <td><Link id="bill-view" to={`/viewbill/${billData._id}`} className="view-bill-link">{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
+      <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
       <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
       <td>
         <h6>{`Main Office: ${billData.mainOffice}`}</h6>
