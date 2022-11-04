@@ -1,11 +1,11 @@
 // import { Selector, t } from 'testcafe';
 // import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, /* manageDatabasePage, */ signOutPage } from './simple.page';
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, submitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, submitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
-// import { homePage } from './home.page';
+import { homePage } from './home.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -64,7 +64,10 @@ test('Test that Home page works', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
-  // await homePage.measureButtonWorks();
+  await homePage.hearingsButtonWorks();
+  await homePage.measuresButtonWorks();
+  await homePage.submitTestimonyButtonWorks();
+  await homePage.calendarButtonWorks();
   await navBar.logout();
 });
 
