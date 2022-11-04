@@ -8,28 +8,33 @@ import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
 import HomeMobile from './HomeMobile';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { HOMEPAGE_IDS } from '../utilities/HomePageIDs';
 
 const objects = [
   {
     title: 'Hearings',
+    id: HOMEPAGE_IDS.HEARINGS_BUTTON,
     icon: (<Megaphone size={100} />),
     link: '/view-hearings',
     description: 'View all hearings here',
   },
   {
     title: 'Measures',
+    id: HOMEPAGE_IDS.MEASURES_BUTTON,
     icon: (<Archive size={100} />),
     link: '/bills',
     description: 'View all measures here',
   },
   {
     title: 'Submit Testimony',
+    id: HOMEPAGE_IDS.SUBMIT_TESTIMONY_BUTTON,
     icon: (<FileEarmarkPdf size={100} />),
     link: '/submit',
     description: 'Fill out a form to sumbit your testimony here',
   },
   {
     title: 'Calendar',
+    id: HOMEPAGE_IDS.CALENDAR_BUTTON,
     icon: (<CalendarMonth size={100} />),
     link: '/calendar',
     description: 'Manage your calendar here',
@@ -60,7 +65,7 @@ const HomeContent = () => (
                 )}
               >
                 <Card
-                  id={info.title}
+                  id={info.id}
                   bg={darkTheme ? 'dark' : ''}
                   text={darkTheme ? 'light' : 'dark'}
                   as={NavLink}
