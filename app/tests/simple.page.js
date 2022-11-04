@@ -19,7 +19,6 @@ class SimplePage {
 export const viewBillsPage = new SimplePage(PAGE_IDS.VIEW_BILLS);
 export const viewBillPage = new SimplePage(PAGE_IDS.VIEW_BILL);
 export const sendHearingNoticePage = new SimplePage(PAGE_IDS.SEND_HEARING_NOTICE);
-export const homePage = new SimplePage(PAGE_IDS.HOME);
 export const viewHearingsPage = new SimplePage(PAGE_IDS.VIEW_HEARINGS);
 export const simpleSubmitTestimonyPage = new SimplePage(PAGE_IDS.SUBMIT_TESTIMONY);
 export const createAccountPage = new SimplePage(PAGE_IDS.ADMIN_CREATE);
