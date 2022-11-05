@@ -119,15 +119,15 @@ class UserProfileCollection extends BaseProfileCollection {
    * @returns { Object } An object representing the definition of docID.
    */
   dumpAll() {
-    var zip = new ZipZap();
+    const zip = new ZipZap();
     const db = [];
     this.find().forEach((doc) => {
       if (doc.role == ROLE.USER) {
-        db.push({ "email": `${doc.email}`, "password": "changeme", "firstName": `${doc.firstName}`, "lastName": `${doc.lastName}`, "position": `${doc.position}`, "assignedOffice": `${doc.assignedOffice}`});
+        db.push({ email: `${doc.email}`, password: 'changeme', firstName: `${doc.firstName}`, lastName: `${doc.lastName}`, position: `${doc.position}`, assignedOffice: `${doc.assignedOffice}` });
       }
     });
     zip.file('test.json', JSON.stringify(db));
-    zip.saveAs("test.json");
+    zip.saveAs('test.json');
     return db;
   }
 
