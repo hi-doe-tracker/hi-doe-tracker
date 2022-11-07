@@ -91,7 +91,7 @@ class TestimonyCollection extends BaseCollection {
     if (position) {
       updateData.position = position;
     }
-    if(testifyingAs) {
+    if (testifyingAs) {
       updateData.testifyingAs = testifyingAs;
     }
     if (organization) {

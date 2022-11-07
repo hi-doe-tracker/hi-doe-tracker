@@ -474,6 +474,7 @@
     "billNo": "HB 012E",
     "mainOffice" : "OSIP",
     "office": [
+
       "OSIP",
       "OPS",
       "OCID",
@@ -632,5 +633,9 @@
         "Testimony 3"
       ],
       "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-    }]
+    }],
+
+  "defaultTestimony": [
+    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
+  ]
 }
