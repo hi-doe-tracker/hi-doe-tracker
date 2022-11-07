@@ -32,8 +32,9 @@ const EditTestimony = () => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
+    const { firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony } = data;
     const collectionName = Testimonies.getCollectionName();
-    const updateData = { id: _id, ...data };
+    const updateData = { id: _id, firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Testimony updated successfully', 'success').then(function () {
