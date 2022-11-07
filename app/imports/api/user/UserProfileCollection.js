@@ -122,7 +122,7 @@ class UserProfileCollection extends BaseProfileCollection {
     const zip = new ZipZap();
     const db = [];
     this.find().forEach((doc) => {
-      if (doc.role == ROLE.USER) {
+      if (doc.role === ROLE.USER) {
         db.push({ email: `${doc.email}`, password: 'changeme', firstName: `${doc.firstName}`, lastName: `${doc.lastName}`, position: `${doc.position}`, assignedOffice: `${doc.assignedOffice}` });
       }
     });
