@@ -26,7 +26,7 @@ const ListTestimony = () => {
   const style = { width: '100%', margin: 0 };
   // TO DO make it so that you can only edit testimony you made
   return ready ? (
-    <Container id={PAGE_IDS.VIEW_TESTIMONY} className="py-3">
+    <Container id={PAGE_IDS.LIST_TESTIMONY} className="py-3">
       <Row className="justify-content-center" style={style}>
         <Col md={7} style={style}>
           <Table striped bordered hover style={style}>

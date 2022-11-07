@@ -6,6 +6,7 @@ export const COMPONENT_IDS = {
   NAVBAR_SEND_HEARING_NOTICE_PAGE: 'navbar-send-hearing-notice-page',
   NAVBAR_VIEW_HEARINGS_PAGE: 'navbar-view-hearings-page',
   NAVBAR_SUBMIT_TESTIMONY_PAGE: 'navbar-submit-testimony-page',
+  NAVBAR_LIST_TESTIMONY_PAGE: 'navbar-list-testimony-page',
   NAVBAR_TESTIMONY_DROPDOWN: 'navbar-testimony-dropdown',
   NAVBAR_ADD_STUFF: 'navbar-add-stuff',
   NAVBAR_VIEW_BILLS: 'navbar-view-bills',
