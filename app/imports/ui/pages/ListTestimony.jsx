@@ -38,6 +38,7 @@ const ListTestimony = () => {
                 <th>Testifying</th>
                 <th>Testifying Method</th>
                 <th>Testimony</th>
+                <th>PDF</th>
                 <th>Edit</th>
               </tr>
             </thead>
