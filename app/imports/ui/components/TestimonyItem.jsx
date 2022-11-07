@@ -37,6 +37,7 @@ const TestimonyItem = ({ testimony }) => {
   };
   return ready ? (
     <tr>
+      <td>{testimony.billNo}</td>
       <td>{testimony.firstName}</td>
       <td>{testimony.lastName}</td>
       <td>{testimony.position}</td>

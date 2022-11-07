@@ -1,10 +1,9 @@
-import { Selector, t } from 'testcafe';
+import { Selector } from 'testcafe';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
-import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 class EditTestimonyPage {
   constructor() {
-    this.pageId = `#${PAGE_IDS.SUBMIT_TESTIMONY}`;
+    this.pageId = `#${PAGE_IDS.EDIT_TESTIMONY}`;
     this.pageSelector = Selector(this.pageId);
   }
 
@@ -21,7 +20,7 @@ class EditTestimonyPage {
 
   /** Checks that you can edit testimony  */
   async editTestimony(testController) {
-    await testController.click(Selector('th').withText('Edit'));
+    await testController.click(Selector('a').withText('Edit'));
   }
 }
 

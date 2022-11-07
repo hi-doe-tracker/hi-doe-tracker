@@ -32,6 +32,7 @@ const ListTestimony = () => {
           <Table striped bordered hover style={style}>
             <thead>
               <tr>
+                <th>Bill No.</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Position</th>

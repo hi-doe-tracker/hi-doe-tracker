@@ -61,7 +61,7 @@ const NavBar = () => {
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} to="/signin"><PersonFill />Sign in</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser.split('@')[0]}>
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_PROFILE} as={NavLink} to="/profile">
                   <Person style={iconStyle} />
                   Profile

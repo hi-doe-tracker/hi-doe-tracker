@@ -43,6 +43,7 @@ test('Test that user pages show up', async () => {
   await viewBillPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
+  await navBar.gotoListTestimonyPage();
   await listTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
   await viewHearingsPage.isDisplayed();
@@ -116,9 +117,9 @@ test('Test that edit testimony page works', async (testController) => {
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoListTestimonyPage();
+  await editTestimonyPage.editTestimony(testController);
   await editTestimonyPage.isDisplayed(testController);
   await editTestimonyPage.hasDefaultFields(testController);
-  await editTestimonyPage.editTestimony(testController);
 });
 
 test('Test that admin create page works', async (testController) => {
