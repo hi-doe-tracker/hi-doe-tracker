@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -7,6 +7,7 @@ import { homePage } from './home.page';
 import { adminCreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
+import { editTestimonyPage } from './edittestimony.page';
 
 /* global fixture:false, test:false */
 
@@ -42,6 +43,7 @@ test('Test that user pages show up', async () => {
   await viewBillPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
+  await listTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
   await viewHearingsPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
@@ -106,7 +108,17 @@ test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSubmitTestimonyPage();
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
-  await submitTestimonyPage.addProject(testController);
+  await submitTestimonyPage.addTestimony(testController);
+});
+
+test('Test that edit testimony page works', async (testController) => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoListTestimonyPage();
+  await editTestimonyPage.isDisplayed(testController);
+  await editTestimonyPage.hasDefaultFields(testController);
+  await editTestimonyPage.editTestimony(testController);
 });
 
 test('Test that admin create page works', async (testController) => {

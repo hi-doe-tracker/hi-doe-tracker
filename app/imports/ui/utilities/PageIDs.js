@@ -22,7 +22,7 @@ export const PAGE_IDS = {
   CALENDAR: 'calendar',
   MANAGE_ACCOUNTS: 'manage-accounts',
   VIEW_HEARINGS: 'view-hearings',
-  VIEW_TESTIMONY: 'view-testimony',
   EDIT_TESTIMONY: 'edit-testimony',
+  LIST_TESTIMONY: 'list-testimony',
   ADMIN_CREATE: 'admin-create',
 };

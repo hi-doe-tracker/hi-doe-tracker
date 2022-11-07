@@ -32,9 +32,8 @@ const EditTestimony = () => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony } = data;
     const collectionName = Testimonies.getCollectionName();
-    const updateData = { id: _id, firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony };
+    const updateData = { id: _id, ...data };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Testimony updated successfully', 'success').then(function () {
@@ -50,13 +49,13 @@ const EditTestimony = () => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
-                <TextField name="firstName" />
-                <TextField name="lastName" />
-                <SelectField name="position" multiple checkboxes transform={transform} />
-                <SelectField name="testifyingAs" multiple checkboxes transform={transform} />
-                <TextField name="organization" />
-                <SelectField name="testifyingMethod" multiple checkboxes transform={transform} />
-                <TextField name="testimony" />
+                <TextField id="firstName" name="firstName" />
+                <TextField id="lastName" name="lastName" />
+                <SelectField id="position" name="position" multiple checkboxes transform={transform} />
+                <SelectField id="testifyingAs" name="testifyingAs" multiple checkboxes transform={transform} />
+                <TextField id="organization" name="organization" />
+                <SelectField id="testifyingMethod" name="testifyingMethod" multiple checkboxes transform={transform} />
+                <TextField id="testimony" name="testimony" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>
