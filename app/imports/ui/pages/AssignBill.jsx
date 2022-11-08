@@ -280,8 +280,8 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <Row><Col><SelectField name="assignedBill" /></Col></Row>
-                <Row><Col><SelectField name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
+                <Row><Col><SelectField id="assignedBill" name="assignedBill" /></Col></Row>
+                <Row><Col><SelectField id="mainOffice" name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
                 <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
                   <Col>
