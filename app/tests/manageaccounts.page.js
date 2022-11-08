@@ -14,13 +14,12 @@ class AdminManageAccountsPage {
   }
 
   /** Signs up a new user, then checks to see if it is created by logging out then into that new account. */
-  /*
-  async deleteUser(testController) {
+  async deleteUser() {
     const lastButton = Selector('Button').nth(-1);
     await t.click(lastButton);
     await t.click(Selector('.swal-button--confirm'));
     await t.click(Selector('.swal-button--confirm'));
-  } */
+  }
 }
 
 export const adminManageAccountsPage = new AdminManageAccountsPage();
