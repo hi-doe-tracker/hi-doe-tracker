@@ -15,79 +15,6 @@ class AssignBillsPage {
 
   /** Assigns a scraper bill to new bill information. */
   async signupUser() {
-    assignedBill: {
-      type: String,
-        allowedValues: ['Pick a bill'],
-        defaultValue: 'Pick a bill',
-    },
-    mainOffice: {
-      type: String,
-        allowedValues: ['DEPUTY', 'OCID', 'OFO', 'OFS', 'OITS', 'OSIP', 'OSSS', 'OTM'],
-        defaultValue: 'DEPUTY',
-    },
-    deputy: {
-      type: Boolean,
-        optional: true,
-    },
-    ocid: {
-      type: Boolean,
-        optional: true,
-    },
-    ofo: {
-      type: Boolean,
-        optional: true,
-    },
-    ofs: {
-      type: Boolean,
-        optional: true,
-    },
-    oits: {
-      type: Boolean,
-        optional: true,
-    },
-    osip: {
-      type: Boolean,
-        optional: true,
-    },
-    osss: {
-      type: Boolean,
-        optional: true,
-    },
-    otm: {
-      type: Boolean,
-        optional: true,
-    },
-    action: String,
-      actionNumber: String,
-      legalType: String,
-      committeeReferral: { type: Array, minCount: 1 },
-    'committeeReferral.$': String,
-      allVersions: { type: Array, minCount: 1 },
-    'allVersions.$': String,
-      committeeReports: { type: Array, minCount: 1 },
-    'committeeReports.$': String,
-      hearingNotices: { type: Array, minCount: 1 },
-    'hearingNotices.$': String,
-      notifiedHearing: String,
-      hearingDate: { type: Date, defaultValue: new Date() },
-    hearingLocation: String,
-      committee: String,
-      type: String,
-      testifierContact: { type: Array, minCount: 1 },
-    'testifierContact.$': String,
-      similar: { type: Array, minCount: 1 },
-    'similar.$': String,
-      leadOfficePosition: String,
-      testifier: String,
-      approvedTestimony: { type: Array, minCount: 1 },
-    'approvedTestimony.$': String,
-      monitoringReports: { type: Array, minCount: 1 },
-    'monitoringReports.$': String,
-      hearingComments: { type: Array, minCount: 1 },
-    'hearingComments.$': String,
-      testimony: { type: Array, minCount: 1 },
-    'testimony.$': String,
-      rationale: String,
     const action = 'Elections';
     const actionNumber = '55';
     const legalType = 'Type 1';
@@ -108,10 +35,8 @@ class AssignBillsPage {
     const hearingComments = 'Great hearing today!';
     const testimony = 'Testimony 1';
     const rationale = 'Rationale 1';
-    const positionSelect = Selector('#position');
-    const positionOption = positionSelect.find('option');
-    const officeSelect = Selector('#office');
-    const officeOption = officeSelect.find('option');
+    const assignedBillSelect = Selector('#assignedBill');
+    const mainOfficeSelect = Selector('#mainOffice');
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_FIRST_NAME}`, action);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME}`, actionNumber);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_EMAIL}`, legalType);
@@ -132,10 +57,10 @@ class AssignBillsPage {
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}`, hearingComments);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_FIRST_NAME}`, testimony);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME}`, rationale);
-    await t.click(positionSelect);
-    await t.click(positionOption.withText('Secretary'));
-    await t.click(officeSelect);
-    await t.click(officeOption.withText('OCID'));
+    await t.click(assignedBillSelect);
+    await t.click(assignedBillSelect.withText('#137: RELATING TO LIQUOR.'));
+    await t.click(mainOfficeSelect);
+    await t.click(mainOfficeSelect.withText('OCID'));
     await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} input.btn.btn-primary`);
     await t.click(Selector('.swal-button--confirm'));
   }
