@@ -37,6 +37,9 @@ class AssignBillsPage {
     const rationale = 'Rationale 1';
     const assignedBillSelect = Selector('#assignedBill');
     const mainOfficeSelect = Selector('#mainOffice');
+    const deputy = Selector('#deputy');
+    const ocid = Selector('#ocid');
+    const osss = Selector('#osss');
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_FIRST_NAME}`, action);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME}`, actionNumber);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_EMAIL}`, legalType);
@@ -61,6 +64,9 @@ class AssignBillsPage {
     await t.click(assignedBillSelect.withText('#137: RELATING TO LIQUOR.'));
     await t.click(mainOfficeSelect);
     await t.click(mainOfficeSelect.withText('OCID'));
+    await t.click(deputy);
+    await t.click(ocid);
+    await t.click(osss);
     await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} input.btn.btn-primary`);
     await t.click(Selector('.swal-button--confirm'));
   }

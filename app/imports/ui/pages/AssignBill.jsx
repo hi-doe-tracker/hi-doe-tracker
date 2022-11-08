@@ -285,20 +285,20 @@ const AssignBill = () => {
                 <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
                   <Col>
-                    {mainOfficeValue !== 'DEPUTY' ? <BoolField name="deputy" /> : <div />}
-                    {mainOfficeValue !== 'OCID' ? <BoolField name="ocid" /> : <div />}
+                    {mainOfficeValue !== 'DEPUTY' ? <BoolField id="deputy" name="deputy" /> : <div />}
+                    {mainOfficeValue !== 'OCID' ? <BoolField id="ocid" name="ocid" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OFO' ? <BoolField name="ofo" /> : <div />}
-                    {mainOfficeValue !== 'OFS' ? <BoolField name="ofs" /> : <div />}
+                    {mainOfficeValue !== 'OFO' ? <BoolField id="ofo" name="ofo" /> : <div />}
+                    {mainOfficeValue !== 'OFS' ? <BoolField id="ofs" name="ofs" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OITS' ? <BoolField name="oits" /> : <div />}
-                    {mainOfficeValue !== 'OSIP' ? <BoolField name="osip" /> : <div />}
+                    {mainOfficeValue !== 'OITS' ? <BoolField id="oits" name="oits" /> : <div />}
+                    {mainOfficeValue !== 'OSIP' ? <BoolField id="osip" name="osip" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OSSS' ? <BoolField name="osss" /> : <div />}
-                    {mainOfficeValue !== 'OTM' ? <BoolField name="otm" /> : <div />}
+                    {mainOfficeValue !== 'OSSS' ? <BoolField id="osss" name="osss" /> : <div />}
+                    {mainOfficeValue !== 'OTM' ? <BoolField id="otm" name="otm" /> : <div />}
                   </Col>
                 </Row>
                 <Row>
