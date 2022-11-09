@@ -68,8 +68,6 @@ const formSchema = {
   'allVersions.$': String,
   committeeReports: { type: Array, minCount: 1 },
   'committeeReports.$': String,
-  hearingNotices: { type: Array, minCount: 1 },
-  'hearingNotices.$': String,
   notifiedHearing: String,
   hearingDate: { type: Date, defaultValue: new Date() },
   hearingLocation: String,
@@ -87,8 +85,6 @@ const formSchema = {
   'monitoringReports.$': String,
   hearingComments: { type: Array, minCount: 1 },
   'hearingComments.$': String,
-  testimony: { type: Array, minCount: 1 },
-  'testimony.$': String,
   rationale: String,
 };
 
@@ -187,7 +183,6 @@ const AssignBill = () => {
       committeeReferral,
       allVersions,
       committeeReports,
-      hearingNotices,
       notifiedHearing,
       hearingDate,
       hearingLocation,
@@ -200,7 +195,6 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     } = data;
 
@@ -242,7 +236,6 @@ const AssignBill = () => {
       description,
       allVersions,
       committeeReports,
-      hearingNotices,
       lastStatus,
       notifiedHearing,
       hearingDate,
@@ -256,7 +249,6 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     };
 
@@ -340,14 +332,6 @@ const AssignBill = () => {
                       showInlineError
                     />
                     <ListField
-                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_NOTICES}
-                      name="hearingNotices"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                    <ListField
                       id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER_CONTACT}
                       name="testifierContact"
                       addIcon={<GrFormAdd />}
@@ -411,15 +395,6 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <ListField
-                      name="testimony"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                  </Col>
                   <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE} name="rationale" /></Col>
                 </Row>
                 <SubmitField id={COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} value="Submit" />
