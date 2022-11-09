@@ -14,7 +14,6 @@ class AdminCreatePage {
   }
 
   /** Signs up a new user, then checks to see if it is created by logging out then into that new account. */
-
   async signupUser() {
     const firstName = 'Bat';
     const lastName = 'Man';
@@ -37,4 +36,4 @@ class AdminCreatePage {
   }
 }
 
-export const adminCreatePage = new AdminCreatePage();
+export const admincreatePage = new AdminCreatePage();
