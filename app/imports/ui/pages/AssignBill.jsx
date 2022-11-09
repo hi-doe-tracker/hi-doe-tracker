@@ -339,6 +339,16 @@ const AssignBill = () => {
                       removeIcon={<CgRemove />}
                       showInlineError
                     />
+                    <Col>
+                      <ListField
+                        id={COMPONENT_IDS.ASSIGN_BILL_FORM_SIMILAR}
+                        name="similar"
+                        addIcon={<GrFormAdd />}
+                        initialCount="1"
+                        removeIcon={<CgRemove />}
+                        showInlineError
+                      />
+                    </Col>
                   </Col>
                   <Col>
                     <DateField name="hearingDate" />
@@ -353,30 +363,8 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
-                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_SIMILAR}
-                      name="similar"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                  </Col>
-                  <Col>
-                    <ListField
                       id={COMPONENT_IDS.ASSIGN_BILL_FORM_APPROVED_TESTIMONY}
                       name="approvedTestimony"
-                      addIcon={<GrFormAdd />}
-                      initialCount="1"
-                      removeIcon={<CgRemove />}
-                      showInlineError
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <ListField
-                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}
-                      name="monitoringReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
                       removeIcon={<CgRemove />}
@@ -395,6 +383,16 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
+                  <Col>
+                    <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}
+                      name="monitoringReports"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
                   <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE} name="rationale" /></Col>
                 </Row>
                 <SubmitField id={COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} value="Submit" />
