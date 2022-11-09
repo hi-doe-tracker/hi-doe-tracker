@@ -286,20 +286,20 @@ const AssignBill = () => {
                 <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
                   <Col>
-                    {mainOfficeValue !== 'DEPUTY' ? <BoolField id="deputy" name="deputy" /> : <div />}
-                    {mainOfficeValue !== 'OCID' ? <BoolField id="ocid" name="ocid" /> : <div />}
+                    {mainOfficeValue !== 'DEPUTY' ? <BoolField id="deputy-checkbox" name="deputy" /> : <div />}
+                    {mainOfficeValue !== 'OCID' ? <BoolField id="ocid-checkbox-checkbox" name="ocid" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OFO' ? <BoolField id="ofo" name="ofo" /> : <div />}
-                    {mainOfficeValue !== 'OFS' ? <BoolField id="ofs" name="ofs" /> : <div />}
+                    {mainOfficeValue !== 'OFO' ? <BoolField id="ofo-checkbox" name="ofo" /> : <div />}
+                    {mainOfficeValue !== 'OFS' ? <BoolField id="ofs-checkbox" name="ofs" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OITS' ? <BoolField id="oits" name="oits" /> : <div />}
-                    {mainOfficeValue !== 'OSIP' ? <BoolField id="osip" name="osip" /> : <div />}
+                    {mainOfficeValue !== 'OITS' ? <BoolField id="oits-checkbox" name="oits" /> : <div />}
+                    {mainOfficeValue !== 'OSIP' ? <BoolField id="osip-checkbox" name="osip" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OSSS' ? <BoolField id="osss" name="osss" /> : <div />}
-                    {mainOfficeValue !== 'OTM' ? <BoolField id="otm" name="otm" /> : <div />}
+                    {mainOfficeValue !== 'OSSS' ? <BoolField id="osss-checkbox" name="osss" /> : <div />}
+                    {mainOfficeValue !== 'OTM' ? <BoolField id="otm-checkbox" name="otm" /> : <div />}
                   </Col>
                 </Row>
                 <Row>

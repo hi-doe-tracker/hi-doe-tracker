@@ -36,10 +36,11 @@ class AssignBillsPage {
     const testimony = 'Testimony 1';
     const rationale = 'Rationale 1';
     const assignedBillSelect = Selector('#assignedBill');
+    const assignedBillOption = assignedBillSelect.find('option');
     const mainOfficeSelect = Selector('#mainOffice');
-    const deputy = Selector('#deputy');
-    const ocid = Selector('#ocid');
-    const osss = Selector('#osss');
+    const mainOfficeOption = mainOfficeSelect.find('option');
+    const deputy = Selector('#deputy-checkbox');
+    const osss = Selector('#osss-checkbox');
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION}`, action);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION_NUMBER}`, actionNumber);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_LEGAL_TYPE}`, legalType);
@@ -61,11 +62,10 @@ class AssignBillsPage {
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIMONY}`, testimony);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE}`, rationale);
     await t.click(assignedBillSelect);
-    await t.click(assignedBillSelect.withText('#137: RELATING TO LIQUOR.'));
+    await t.click(assignedBillOption.withText('#137: RELATING TO LIQUOR.'));
     await t.click(mainOfficeSelect);
-    await t.click(mainOfficeSelect.withText('OCID'));
+    await t.click(mainOfficeOption.withText('OCID'));
     await t.click(deputy);
-    await t.click(ocid);
     await t.click(osss);
     await t.click(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} input.btn.btn-primary`);
     await t.click(Selector('.swal-button--confirm'));
