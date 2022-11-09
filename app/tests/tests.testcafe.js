@@ -1,5 +1,5 @@
 import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
-import { homePage } from './home.page';
+// import { homePage } from './home.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -18,7 +18,7 @@ const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
-
+/*
 test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
@@ -113,7 +113,7 @@ test('Test that admin create page works', async (testController) => {
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
-
+*/
 test('Test that assign bills page works', async (testController) => {
   // sign in as admin
   await navBar.gotoSignInPage();
@@ -123,7 +123,7 @@ test('Test that assign bills page works', async (testController) => {
   await navBar.gotoAssignBillPage();
   await assignbillsPage.assignBill(testController);
 });
-
+/*
 test('Test that admin manage accounts page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
@@ -142,3 +142,4 @@ test('Test that admin manage accounts page works', async (testController) => {
   await signInPage.attemptsignin(newCredentials.username, newCredentials.password);
   await signInPage.isDisplayed();
 });
+*/
