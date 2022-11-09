@@ -6,6 +6,7 @@ import { profilePage } from './profile.page';
 import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
+import { assignbillsPage } from './assignbills.page';
 
 /* global fixture:false, test:false */
 
@@ -39,6 +40,7 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
+  await assignbillsPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
@@ -109,6 +111,16 @@ test('Test that admin create page works', async (testController) => {
   await signInPage.signin(newCredentials.username, newCredentials.password);
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
+
+test('Test that assign bills page works', async (testController) => {
+  // sign in as admin
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  // create bat man user
+  await navBar.gotoAssignBillPage();
+  await assignbillsPage.assignBill(testController);
 });
 
 test('Test that admin manage accounts page works', async (testController) => {
