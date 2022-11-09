@@ -13,6 +13,7 @@ import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // A schema for a form.
 const formSchema = {
@@ -302,13 +303,14 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="action" /></Col>
-                  <Col><TextField name="actionNumber" /></Col>
-                  <Col><TextField name="legalType" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION} name="action" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION_NUMBER} name="actionNumber" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_LEGAL_TYPE} name="legalType" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REFERRAL}
                       name="committeeReferral"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -318,6 +320,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REPORTS}
                       name="committeeReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -329,6 +332,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_ALL_VERSIONS}
                       name="allVersions"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -336,6 +340,7 @@ const AssignBill = () => {
                       showInlineError
                     />
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_NOTICES}
                       name="hearingNotices"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -343,6 +348,7 @@ const AssignBill = () => {
                       showInlineError
                     />
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER_CONTACT}
                       name="testifierContact"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -352,17 +358,18 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <DateField name="hearingDate" />
-                    <TextField name="notifiedHearing" />
-                    <TextField name="hearingLocation" />
-                    <TextField name="committee" />
-                    <TextField name="type" />
-                    <TextField name="leadOfficePosition" />
-                    <TextField name="testifier" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_NOTIFIED_HEARING} name="notifiedHearing" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_LOCATION} name="hearingLocation" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE} name="committee" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_TYPE} name="type" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_LEAD_OFFICE_POSITION} name="leadOfficePosition" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER} name="testifier" />
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_SIMILAR}
                       name="similar"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -372,6 +379,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_APPROVED_TESTIMONY}
                       name="approvedTestimony"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -383,6 +391,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}
                       name="monitoringReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -392,6 +401,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_COMMENTS}
                       name="hearingComments"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -403,6 +413,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIMONY}
                       name="testimony"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -410,9 +421,9 @@ const AssignBill = () => {
                       showInlineError
                     />
                   </Col>
-                  <Col><TextField name="rationale" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE} name="rationale" /></Col>
                 </Row>
-                <SubmitField value="Submit" />
+                <SubmitField id={COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>

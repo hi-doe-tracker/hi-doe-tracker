@@ -44,7 +44,7 @@ export const COMPONENT_IDS = {
   SUBMIT_TESTIMONY_FORM_TESTIFYING_METHOD: 'submit-testimony-form-testifying-method',
   SUBMIT_TESTIMONY_FORM_TESTIMONY: 'submit-testimony-form-testimony',
   SUBMIT_TESTIMONY_FORM_SUBMIT: 'submit-testimony-form-submit',
-  ASSIGN_BILL_FORM_FIRST_ACTION: 'assign-bill-form-first-action',
+  ASSIGN_BILL_FORM_ACTION: 'assign-bill-form-first-action',
   ASSIGN_BILL_FORM_ACTION_NUMBER: 'assign-bill-form-action-number',
   ASSIGN_BILL_FORM_LEGAL_TYPE: 'assign-bill-form-legal-type',
   ASSIGN_BILL_FORM_COMMITTEE_REFERRAL: 'assign-bill-form-first-action',
