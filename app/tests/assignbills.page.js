@@ -14,7 +14,7 @@ class AssignBillsPage {
   }
 
   /** Assigns a scraper bill to new bill information. */
-  async signupUser() {
+  async assignBill() {
     const action = 'Elections';
     const actionNumber = '55';
     const legalType = 'Type 1';
