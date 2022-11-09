@@ -13,6 +13,7 @@ import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // A schema for a form.
 const formSchema = {
@@ -86,6 +87,8 @@ const formSchema = {
   'monitoringReports.$': String,
   hearingComments: { type: Array, minCount: 1 },
   'hearingComments.$': String,
+  testimony: { type: Array, minCount: 1 },
+  'testimony.$': String,
   rationale: String,
 };
 
@@ -197,6 +200,7 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
+      testimony,
       rationale,
     } = data;
 
@@ -252,6 +256,7 @@ const AssignBill = () => {
       approvedTestimony,
       monitoringReports,
       hearingComments,
+      testimony,
       rationale,
     };
 
@@ -276,35 +281,36 @@ const AssignBill = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <Row><Col><SelectField name="assignedBill" /></Col></Row>
-                <Row><Col><SelectField name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
+                <Row><Col><SelectField id="assignedBill" name="assignedBill" /></Col></Row>
+                <Row><Col><SelectField id="mainOffice" name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
                 <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
                   <Col>
-                    {mainOfficeValue !== 'DEPUTY' ? <BoolField name="deputy" /> : <div />}
-                    {mainOfficeValue !== 'OCID' ? <BoolField name="ocid" /> : <div />}
+                    {mainOfficeValue !== 'DEPUTY' ? <BoolField id="deputy-checkbox" name="deputy" /> : <div />}
+                    {mainOfficeValue !== 'OCID' ? <BoolField id="ocid-checkbox-checkbox" name="ocid" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OFO' ? <BoolField name="ofo" /> : <div />}
-                    {mainOfficeValue !== 'OFS' ? <BoolField name="ofs" /> : <div />}
+                    {mainOfficeValue !== 'OFO' ? <BoolField id="ofo-checkbox" name="ofo" /> : <div />}
+                    {mainOfficeValue !== 'OFS' ? <BoolField id="ofs-checkbox" name="ofs" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OITS' ? <BoolField name="oits" /> : <div />}
-                    {mainOfficeValue !== 'OSIP' ? <BoolField name="osip" /> : <div />}
+                    {mainOfficeValue !== 'OITS' ? <BoolField id="oits-checkbox" name="oits" /> : <div />}
+                    {mainOfficeValue !== 'OSIP' ? <BoolField id="osip-checkbox" name="osip" /> : <div />}
                   </Col>
                   <Col>
-                    {mainOfficeValue !== 'OSSS' ? <BoolField name="osss" /> : <div />}
-                    {mainOfficeValue !== 'OTM' ? <BoolField name="otm" /> : <div />}
+                    {mainOfficeValue !== 'OSSS' ? <BoolField id="osss-checkbox" name="osss" /> : <div />}
+                    {mainOfficeValue !== 'OTM' ? <BoolField id="otm-checkbox" name="otm" /> : <div />}
                   </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="action" /></Col>
-                  <Col><TextField name="actionNumber" /></Col>
-                  <Col><TextField name="legalType" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION} name="action" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_ACTION_NUMBER} name="actionNumber" /></Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_LEGAL_TYPE} name="legalType" /></Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REFERRAL}
                       name="committeeReferral"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -314,6 +320,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REPORTS}
                       name="committeeReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -325,6 +332,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_ALL_VERSIONS}
                       name="allVersions"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -332,6 +340,7 @@ const AssignBill = () => {
                       showInlineError
                     />
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_NOTICES}
                       name="hearingNotices"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -339,6 +348,7 @@ const AssignBill = () => {
                       showInlineError
                     />
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER_CONTACT}
                       name="testifierContact"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -348,17 +358,18 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <DateField name="hearingDate" />
-                    <TextField name="notifiedHearing" />
-                    <TextField name="hearingLocation" />
-                    <TextField name="committee" />
-                    <TextField name="type" />
-                    <TextField name="leadOfficePosition" />
-                    <TextField name="testifier" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_NOTIFIED_HEARING} name="notifiedHearing" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_LOCATION} name="hearingLocation" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE} name="committee" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_TYPE} name="type" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_LEAD_OFFICE_POSITION} name="leadOfficePosition" />
+                    <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER} name="testifier" />
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_SIMILAR}
                       name="similar"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -368,6 +379,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_APPROVED_TESTIMONY}
                       name="approvedTestimony"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -379,6 +391,7 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}
                       name="monitoringReports"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -388,6 +401,7 @@ const AssignBill = () => {
                   </Col>
                   <Col>
                     <ListField
+                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_COMMENTS}
                       name="hearingComments"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
@@ -397,9 +411,18 @@ const AssignBill = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col><TextField name="rationale" /></Col>
+                  <Col>
+                    <ListField
+                      name="testimony"
+                      addIcon={<GrFormAdd />}
+                      initialCount="1"
+                      removeIcon={<CgRemove />}
+                      showInlineError
+                    />
+                  </Col>
+                  <Col><TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE} name="rationale" /></Col>
                 </Row>
-                <SubmitField value="Submit" />
+                <SubmitField id={COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>
