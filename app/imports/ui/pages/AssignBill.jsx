@@ -413,7 +413,6 @@ const AssignBill = () => {
                 <Row>
                   <Col>
                     <ListField
-                      id={COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIMONY}
                       name="testimony"
                       addIcon={<GrFormAdd />}
                       initialCount="1"
