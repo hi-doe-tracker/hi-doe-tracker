@@ -21,7 +21,6 @@ class AssignBillsPage {
     const committeeReferral = 'Committee 1';
     const committeeReports = 'Report 1';
     const allVersions = 'Version 1';
-    const hearingNotices = 'Notice 1';
     const testifierContact = '(123)4567890';
     const notifiedHearing = 'Hearing';
     const hearingLocation = 'Hawaii State Capitol';
@@ -33,7 +32,6 @@ class AssignBillsPage {
     const approvedTestimony = 'Approved Testimony 1';
     const monitoringReports = 'Monitoring Report 1';
     const hearingComments = 'Great hearing today!';
-    const testimony = 'Testimony 1';
     const rationale = 'Rationale';
     const assignedBillSelect = Selector('#assignedBill');
     const assignedBillOption = assignedBillSelect.find('option');
@@ -47,7 +45,6 @@ class AssignBillsPage {
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REFERRAL}`, committeeReferral);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE_REPORTS}`, committeeReports);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_ALL_VERSIONS}`, allVersions);
-    await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_NOTICES}`, hearingNotices);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIFIER_CONTACT}`, testifierContact);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_NOTIFIED_HEARING}`, notifiedHearing);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_LOCATION}`, hearingLocation);
@@ -59,7 +56,6 @@ class AssignBillsPage {
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_APPROVED_TESTIMONY}`, approvedTestimony);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}`, monitoringReports);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_COMMENTS}`, hearingComments);
-    await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_TESTIMONY}`, testimony);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE}`, rationale);
     await t.click(assignedBillSelect);
     await t.click(assignedBillOption.withText('#137: RELATING TO LIQUOR.'));
