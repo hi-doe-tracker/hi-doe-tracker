@@ -1,12 +1,12 @@
-import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
-import { homePage } from './home.page';
-import { adminCreatePage } from './admincreate.page';
+import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
+import { assignbillsPage } from './assignbills.page';
 
 /* global fixture:false, test:false */
 
@@ -40,6 +40,7 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
+  await assignbillsPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
@@ -56,20 +57,6 @@ test('Test that Profile page shows up', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoProfilePage();
   await profilePage.isDisplayed();
-  await navBar.logout();
-});
-
-test('Test that Home page works', async () => {
-  await navBar.gotoSignInPage();
-  await signInPage.signin(credentials.username, credentials.password);
-  await navBar.isLoggedIn(credentials.username);
-  await navBar.gotoHomePage();
-  await homePage.isDisplayed();
-  await homePage.hearingsButtonWorks();
-  await homePage.measuresButtonWorks();
-  await homePage.submitTestimonyButtonWorks();
-  await homePage.calendarButtonWorks();
-  await navBar.logout();
 });
 
 test('Test that Password is changed correctly', async () => {
@@ -90,7 +77,7 @@ test('Test that admin pages show up', async () => {
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.isDisplayed();
+  await admincreatePage.isDisplayed();
   await navBar.gotoAssignBillPage();
   await assignBillPage.isDisplayed();
   await navBar.gotoManageAccountsPage();
@@ -116,7 +103,7 @@ test('Test that admin create page works', async (testController) => {
   await navBar.isLoggedIn(adminCredentials.username);
   // create bat man user
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.signupUser(testController);
+  await admincreatePage.signupUser(testController);
   // log out and sign in as bat man user, then sign back out for next test
   await navBar.logout();
   await signOutPage.isDisplayed();
@@ -126,13 +113,23 @@ test('Test that admin create page works', async (testController) => {
   await signOutPage.isDisplayed();
 });
 
+test('Test that assign bills page works', async (testController) => {
+  // sign in as admin
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  // create bat man user
+  await navBar.gotoAssignBillPage();
+  await assignbillsPage.assignBill(testController);
+});
+
 test('Test that admin manage accounts page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
   // double checks and creates the bat man user
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.signupUser(testController);
+  await admincreatePage.signupUser(testController);
   // deletes the latest entry which should be batman
   await navBar.gotoManageAccountsPage();
   await adminManageAccountsPage.deleteUser();
