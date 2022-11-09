@@ -34,7 +34,7 @@ class AssignBillsPage {
     const monitoringReports = 'Monitoring Report 1';
     const hearingComments = 'Great hearing today!';
     const testimony = 'Testimony 1';
-    const rationale = 'Rationale 1';
+    const rationale = 'Rationale';
     const assignedBillSelect = Selector('#assignedBill');
     const assignedBillOption = assignedBillSelect.find('option');
     const mainOfficeSelect = Selector('#mainOffice');
