@@ -40,6 +40,7 @@ const EditTestimony = () => {
         window.location = ('/listtestimony');
       }));
   };
+  const transform = (label) => ` ${label}`;
   return ready ? (
     <Container id={PAGE_IDS.EDIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
