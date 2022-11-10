@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, homePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
