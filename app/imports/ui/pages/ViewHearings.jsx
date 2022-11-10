@@ -25,7 +25,7 @@ const ViewHearings = () => {
         </Col>
       </Row>
       <Row xs={1} md={3} className="g-4">
-        {hearings.map((hearing) => (<HearingCard key={hearing._id} hearing={hearing} />))}
+        {hearings.filter((value, index, self) => (self.findIndex(v => v.notice === value.notice) === index)).map((hearing) => (<HearingCard key={hearing._id} hearing={hearing} />))}
       </Row>
     </Container>
   ) : <LoadingSpinner message="Loading Hearings" />);
