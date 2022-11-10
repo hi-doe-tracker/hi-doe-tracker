@@ -66,12 +66,16 @@ class NavBar {
 
   /* Go to the view bill page. */
   async gotoViewBillPage() {
-    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    let visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
     await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
+    visible = await Selector('#bill-view').visible;
+    if (!visible) {
+      await t.click(Selector('button').withText('INACTIVE BILLS'));
+    }
     await t.click('#bill-view');
   }
 
