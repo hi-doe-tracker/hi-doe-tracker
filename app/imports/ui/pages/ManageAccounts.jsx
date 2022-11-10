@@ -15,7 +15,7 @@ const ManageAccounts = () => {
     return {
       ready: rdy,
       userProfiles: users,
-    }; 
+    };
   }, []);
 
   /**
