@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, sendHearingNoticePage, viewBillPage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage, homePage } from './simple.page';
+import { signOutPage, viewBillsPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage, homePage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -20,7 +20,7 @@ const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
 
-/* test('Test that landing page shows up', async () => {
+test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
 
@@ -30,7 +30,7 @@ test('Test that signin and signout work', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.logout();
   await signOutPage.isDisplayed();
-}); */
+});
 
 test('Test that user pages show up', async () => {
   await navBar.gotoSignInPage();
@@ -40,8 +40,8 @@ test('Test that user pages show up', async () => {
   await homePage.isDisplayed();
   await navBar.gotoViewBillsPage();
   await viewBillsPage.isDisplayed();
-  await navBar.gotoViewBillPage();
-  await viewBillPage.isDisplayed();
+  // await navBar.gotoViewBillPage();
+  // await viewBillPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoListTestimonyPage();
@@ -54,7 +54,7 @@ test('Test that user pages show up', async () => {
   await signOutPage.isDisplayed();
 });
 
-/* test('Test that Profile page shows up', async () => {
+test('Test that Profile page shows up', async () => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
@@ -87,7 +87,7 @@ test('Test that admin pages show up', async () => {
   await manageAccountsPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
-}); */
+});
 
 test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSignInPage();
@@ -109,7 +109,7 @@ test('Test that edit testimony page works', async (testController) => {
   await editTestimonyPage.hasDefaultFields(testController);
 });
 
-/* test('Test that admin create page works', async (testController) => {
+test('Test that admin create page works', async (testController) => {
   // sign in as admin
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
@@ -161,4 +161,4 @@ test('Test that SendHearingNotice page works', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage1.errormessageIsDisplayed();
-}); */
+});
