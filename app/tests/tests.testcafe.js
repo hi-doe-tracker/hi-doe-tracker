@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage, homePage } from './simple.page';
+import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage, homePage } from './simple.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -40,8 +40,8 @@ test('Test that user pages show up', async () => {
   await homePage.isDisplayed();
   await navBar.gotoViewBillsPage();
   await viewBillsPage.isDisplayed();
-  // await navBar.gotoViewBillPage();
-  // await viewBillPage.isDisplayed();
+  await navBar.gotoViewBillPage();
+  await viewBillPage.isDisplayed();
   await navBar.gotoSubmitTestimonyPage();
   await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoListTestimonyPage();
