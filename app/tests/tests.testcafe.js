@@ -7,6 +7,7 @@ import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
 import { assignbillsPage } from './assignbills.page';
+import { sendHearingNoticePage1 } from './sendhearingnotice.page';
 
 /* global fixture:false, test:false */
 
@@ -141,4 +142,12 @@ test('Test that admin manage accounts page works', async (testController) => {
   // attempt to log in but it should fail, check to see if we're still on the sign in page
   await signInPage.attemptsignin(newCredentials.username, newCredentials.password);
   await signInPage.isDisplayed();
+});
+
+test('Test that SendHearingNotice page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoSendHearingNoticePage();
+  await sendHearingNoticePage1.errormessageIsDisplayed();
 });
