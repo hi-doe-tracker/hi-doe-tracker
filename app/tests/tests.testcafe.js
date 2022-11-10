@@ -5,7 +5,7 @@ import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
 import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
-import { submitTestimonyPage } from './submittestimony.page';
+// import { submitTestimonyPage } from './submittestimony.page';
 import { assignbillsPage } from './assignbills.page';
 
 /* global fixture:false, test:false */
@@ -40,8 +40,8 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
-  await navBar.gotoSubmitTestimonyPage();
-  await simpleSubmitTestimonyPage.isDisplayed();
+  // await navBar.gotoSubmitTestimonyPage();
+  // await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
   await viewHearingsPage.isDisplayed();
   await navBar.gotoSendHearingNoticePage();
@@ -85,6 +85,7 @@ test('Test that admin pages show up', async () => {
   await signOutPage.isDisplayed();
 });
 
+/*
 test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
@@ -93,7 +94,7 @@ test('Test that submit testimony page works', async (testController) => {
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
   await submitTestimonyPage.addProject(testController);
-});
+}); */
 
 test('Test that admin create page works', async (testController) => {
   // sign in as admin

@@ -504,11 +504,6 @@
       "www.youtube.com",
       "www.yahoo.com"
     ],
-    "hearingNotices": [
-      "www.google.com",
-      "www.youtube.com",
-      "www.yahoo.com"
-    ],
     "lastStatus": [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
       "Lorem ipsum dolsdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
@@ -541,11 +536,6 @@
       "Comment 1",
       "Comment 2",
       "Comment 3"
-    ],
-    "testimony": [
-      "Testimony 1",
-      "Testimony 2",
-      "Testimony 3"
     ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
   }]
