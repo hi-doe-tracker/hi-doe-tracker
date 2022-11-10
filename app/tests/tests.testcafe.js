@@ -3,11 +3,12 @@ import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
-import { homePage } from './home.page';
-import { adminCreatePage } from './admincreate.page';
+import { admincreatePage } from './admincreate.page';
 import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
 import { editTestimonyPage } from './edittestimony.page';
+import { assignbillsPage } from './assignbills.page';
+import { sendHearingNoticePage1 } from './sendhearingnotice.page';
 
 /* global fixture:false, test:false */
 
@@ -59,20 +60,6 @@ test('Test that Profile page shows up', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoProfilePage();
   await profilePage.isDisplayed();
-  await navBar.logout();
-});
-
-test('Test that Home page works', async () => {
-  await navBar.gotoSignInPage();
-  await signInPage.signin(credentials.username, credentials.password);
-  await navBar.isLoggedIn(credentials.username);
-  await navBar.gotoHomePage();
-  await homePage.isDisplayed();
-  await homePage.hearingsButtonWorks();
-  await homePage.measuresButtonWorks();
-  await homePage.submitTestimonyButtonWorks();
-  await homePage.calendarButtonWorks();
-  await navBar.logout();
 });
 
 test('Test that Password is changed correctly', async () => {
@@ -93,7 +80,7 @@ test('Test that admin pages show up', async () => {
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.isDisplayed();
+  await admincreatePage.isDisplayed();
   await navBar.gotoAssignBillPage();
   await assignBillPage.isDisplayed();
   await navBar.gotoManageAccountsPage();
@@ -129,7 +116,7 @@ test('Test that admin create page works', async (testController) => {
   await navBar.isLoggedIn(adminCredentials.username);
   // create bat man user
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.signupUser(testController);
+  await admincreatePage.signupUser(testController);
   // log out and sign in as bat man user, then sign back out for next test
   await navBar.logout();
   await signOutPage.isDisplayed();
@@ -139,13 +126,23 @@ test('Test that admin create page works', async (testController) => {
   await signOutPage.isDisplayed();
 });
 
+test('Test that assign bills page shows up and works', async (testController) => {
+  // sign in as admin
+  await navBar.gotoSignInPage();
+  await signInPage.signin(adminCredentials.username, adminCredentials.password);
+  await navBar.isLoggedIn(adminCredentials.username);
+  // create bat man user
+  await navBar.gotoAssignBillPage();
+  await assignbillsPage.assignBill(testController);
+});
+
 test('Test that admin manage accounts page works', async (testController) => {
   await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
   // double checks and creates the bat man user
   await navBar.gotoAdminCreatePage();
-  await adminCreatePage.signupUser(testController);
+  await admincreatePage.signupUser(testController);
   // deletes the latest entry which should be batman
   await navBar.gotoManageAccountsPage();
   await adminManageAccountsPage.deleteUser();
@@ -156,4 +153,12 @@ test('Test that admin manage accounts page works', async (testController) => {
   // attempt to log in but it should fail, check to see if we're still on the sign in page
   await signInPage.attemptsignin(newCredentials.username, newCredentials.password);
   await signInPage.isDisplayed();
+});
+
+test('Test that SendHearingNotice page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoSendHearingNoticePage();
+  await sendHearingNoticePage1.errormessageIsDisplayed();
 });

@@ -77,7 +77,6 @@ const ViewBills = () => {
   }, []);
   // console.log(eventKey)
   const mobileView = useMediaQuery('(max-width: 850px)');
-  const hStyle = { marginLeft: '20px' };
   return (ready ? (
     <Container id={PAGE_IDS.VIEW_BILLS} key="viewbills-container">
       <Tab.Container defaultActiveKey={eventKey}>
@@ -85,11 +84,11 @@ const ViewBills = () => {
         <Row>
           <Col sm="1" />
           <Col sm="2">
-            <h2 style={hStyle}>Offices</h2>
+            <h2>Offices</h2>
             <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (<Nav.Item><Nav.Link eventKey="unassigned-bills">UNASSIGNED BILLS</Nav.Link></Nav.Item>) : <div />}
               {officeNames.map((office) => (
-                <Nav.Item id="officeitem" key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
+                <Nav.Item key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
               ))}
             </Nav>
             {mobileView ? <br /> : <div />}

@@ -1,10 +1,9 @@
 import { Selector, t } from 'testcafe';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
-// import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 class AdminManageAccountsPage {
   constructor() {
-    this.pageId = `#${PAGE_IDS.ADMIN_MANAGE_ACCOUNTS}`;
+    this.pageId = `#${PAGE_IDS.MANAGE_ACCOUNTS}`;
     this.pageSelector = Selector(this.pageId);
   }
 

@@ -1,6 +1,5 @@
 /* Use Open Sans as the default sans serif font. */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700|Source+Code+Pro:300,400,500,700");
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
 
 /* Set up some CSS variables to theme the application. */
 :root {
@@ -8,15 +7,11 @@
   --matr-navbar-bg-rgb: 236, 236, 236;
 }
 
-html{
-    font-family: 'Roboto', sans-serif;
-  }
 /* Change bootstrap variable values.
  See https://getbootstrap.com/docs/5.2/customize/css-variables/
  */
 body {
   --bs-light-rgb: var(--matr-navbar-bg-rgb);
-  /* background-color: #B5B2A9 !important; */
 }
 
 /* Set the SignIn and SignUp alerts background. */
@@ -24,23 +19,6 @@ body {
 #signup-page .alert-light {
   --bs-alert-bg: var(--matr-navbar-bg);
 }
-
-.form-check label > input{
-   /* background-color: red; */
-    margin-right: 10px;
-  }
-
-  #officeitem:hover{
-    background-color:#0D6EFD;
-    /* opacity: 30%; */
-    font-size: 130%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 7%;
-  }
-  #officeitem a:hover{
-    color: white;
-  }
 
 /* Define custom styles */
 .gray-background {
@@ -60,13 +38,7 @@ body {
 
 .viewbill-container h2 {
   /* color: rebeccapurple; */
-  /* color: dodgerblue; */
-  color: darkslategray;
-}
-
-#viewBillTableRow{
-  text-align: center;
-  vertical-align: middle;
+  color: dodgerblue;
 }
 
 .viewbill-row {
@@ -108,9 +80,8 @@ body {
   margin: 0;
 }
 .viewbill-div span:first-of-type {
-  /* color: dodgerblue; */
-  color: darkslategray;
-  border-bottom: 2px solid darkslategrey;
+  color: dodgerblue;
+  border-bottom: 2px solid blue;
 }
 
 /* .flex2 {
@@ -129,9 +100,8 @@ body {
 
 .divcolor {
   /* color: rebeccapurple; */
-  /* color: dodgerblue; */
-  color: darkslategray;
-  border-bottom: 2px solid darkslategrey;
+  color: dodgerblue;
+  border-bottom: 2px solid blue;
 }
 .viewbill-accordion {
   width: 100%;
@@ -142,10 +112,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.dropdown-toggle::after {
-  margin-left: 0.5em !important;
 }
 
 .viewbill-acchead {

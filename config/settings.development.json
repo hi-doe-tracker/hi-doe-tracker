@@ -467,12 +467,11 @@
   "public": {
     "development": true
   },
-
   "defaultBills": [
     {
     "billLink": "www.google.com",
     "billNo": "HB 012E",
-    "mainOffice" : "OSIP",
+    "mainOffice": "DEPUTY",
     "office": [
 
       "OSIP",
@@ -503,11 +502,6 @@
       "www.yahoo.com"
     ],
     "committeeReports": [
-      "www.google.com",
-      "www.youtube.com",
-      "www.yahoo.com"
-    ],
-    "hearingNotices": [
       "www.google.com",
       "www.youtube.com",
       "www.yahoo.com"
@@ -545,97 +539,6 @@
       "Comment 2",
       "Comment 3"
     ],
-    "testimony": [
-      "Testimony 1",
-      "Testimony 2",
-      "Testimony 3"
-    ],
     "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-  },
-    {
-      "billLink": "www.google.com",
-      "billNo": "HB 012E",
-      "mainOffice" : "OSIP",
-      "office": [
-        "OSIP",
-        "OPS",
-        "OCID",
-        "ABCD",
-        "EFGH",
-        "HIJK"
-      ],
-      "action": "Testimony",
-      "status": "(S)4/26/2022-(Gov.) Received notice of discharge of all conferees (Hse. Com. No. 797).",
-      "actionNumber": 10,
-      "companion": "placeholder for companion",
-      "reportTitle": "Placeholder for report title",
-      "legalType": "Bill",
-      "committeeReferral": [
-        "com1",
-        "com2",
-        "com3"
-      ],
-      "measureTitle": "Test Active Bill",
-      "introducedBy": "ABCDEFGHI",
-      "introducedByDate": "Wed Sep 21 2022",
-      "description": "Lorem ipsum dolor sdsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "allVersions": [
-        "www.google.com",
-        "www.youtube.com",
-        "www.yahoo.com"
-      ],
-      "committeeReports": [
-        "www.google.com",
-        "www.youtube.com",
-        "www.yahoo.com"
-      ],
-      "hearingNotices": [
-        "www.google.com",
-        "www.youtube.com",
-        "www.yahoo.com"
-      ],
-      "lastStatus": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
-        "Lorem ipsum dolsdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
-        "Lorem ipsum dasolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"
-      ],
-      "notifiedHearingDate": "Wed Sep 21 2030",
-      "notifiedHearing": "www.google.com",
-      "hearingDate": "Wed Sep 21 2030",
-      "hearingTime": "02:30 PM",
-      "hearingLocation": "Cabinet Building",
-      "committee": "Senate",
-      "type": "Decision Making",
-      "testifierContact": [
-        "abc@gmail.com",
-        "def@gmail.com"
-      ],
-      "similar": [
-        "orasdasem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet",
-        "orem ipsdsdsum sddolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt arcu non sodales neque sodales ut etiam sit amet"
-      ],
-      "leadOfficePosition": "What goes here?",
-      "testifier": "Cara Tanimura",
-      "approvedTestimony": [
-        "abcdefghij.pdf",
-        "abcdefghi.pdf",
-        "abcdefghsi.pdf"
-      ],
-      "monitoringReports": "what goes here?",
-      "hearingComments": [
-        "Comment 1",
-        "Comment 2",
-        "Comment 3"
-      ],
-      "testimony": [
-        "Testimony 1",
-        "Testimony 2",
-        "Testimony 3"
-      ],
-      "rationale": "orem ipsusdm dolasdor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-    }],
-
-  "defaultTestimony": [
-    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
-  ]
+  }]
 }

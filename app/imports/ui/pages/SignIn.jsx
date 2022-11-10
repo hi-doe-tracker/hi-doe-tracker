@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
@@ -59,6 +59,9 @@ const SignIn = () => {
               </Card.Body>
             </Card>
           </AutoForm>
+          <Alert variant="secondary">
+            <Link to="/signup">Click here to Register</Link>
+          </Alert>
           {error === '' ? (
             ''
           ) : (
