@@ -8,7 +8,6 @@ export const COMPONENT_IDS = {
   NAVBAR_SUBMIT_TESTIMONY_PAGE: 'navbar-submit-testimony-page',
   NAVBAR_LIST_TESTIMONY_PAGE: 'navbar-list-testimony-page',
   NAVBAR_TESTIMONY_DROPDOWN: 'navbar-testimony-dropdown',
-  NAVBAR_LIST_TESTIMONY_PAGE: 'navbar-list-testimony-page',
   NAVBAR_ADD_STUFF: 'navbar-add-stuff',
   NAVBAR_VIEW_BILLS: 'navbar-view-bills',
   NAVBAR_LIST_STUFF: 'navbar-list-stuff',
