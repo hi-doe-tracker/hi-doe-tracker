@@ -15,7 +15,7 @@ const ManageAccounts = () => {
     return {
       ready: rdy,
       userProfiles: users,
-    };
+    }; 
   }, []);
 
   /**
@@ -115,6 +115,7 @@ const ManageAccounts = () => {
             </tbody>
           )}
       </Table>
+      <Button variant="danger" onClick={() => console.log(UserProfiles.dumpAll())}>Export as JSON</Button>
     </Container>
   );
 };
