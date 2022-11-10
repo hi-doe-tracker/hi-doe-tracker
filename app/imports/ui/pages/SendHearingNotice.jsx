@@ -99,12 +99,12 @@ const SendHearingNotice = () => {
               <Card.Body>
                 <Row>
                   <Row>
-                    <Col><TextField name="to" placeholder="Email address" /></Col>
-                    <Col><TextField name="from" placeholder="Email address" /></Col>
+                    <Col><TextField id="to" name="to" placeholder="Email address" /></Col>
+                    <Col><TextField id="from" name="from" placeholder="Email address" /></Col>
                   </Row>
                   <Row>
-                    <Col><TextField name="cc" placeholder="Email address" /></Col>
-                    <Col><TextField name="bcc" /></Col>
+                    <Col><TextField id="cc" name="cc" placeholder="Email address" /></Col>
+                    <Col><TextField id="bcc" name="bcc" /></Col>
                   </Row>
                   <Row>
                     <Col>
@@ -125,9 +125,9 @@ const SendHearingNotice = () => {
                     </Col>
                   </Row>
                   <DateField name="dateOfHearing" min={new Date(2022, 9, 12)} />
-                  <TextField name="subject" placeholder="Subject" />
+                  <TextField id="subject" name="subject" placeholder="Subject" />
                   <LongTextField name="message" placeholder="Type a message..." />
-                  <SubmitField value="Submit" />
+                  <SubmitField id="sub" value="Submit" />
                   <ErrorsField />
                 </Row>
               </Card.Body>

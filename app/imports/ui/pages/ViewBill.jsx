@@ -6,6 +6,7 @@ import {
   Row,
   Container,
   Col,
+  Breadcrumb,
   ListGroup,
   Accordion,
 } from 'react-bootstrap';
@@ -44,6 +45,18 @@ const ViewBill = () => {
         <center>
           <Col>
             <h2>Bill | Resolution Tracking</h2>
+            <Breadcrumb className="viewbill-breadcrumb">
+              <Breadcrumb.Item
+                href={viewBill.billLink}
+                target="_blank"
+                className="viewbill-breadcrumbItem"
+              >
+                Current Bill
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
+                Measure(Status)
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </Col>
         </center>
       </Row>
@@ -234,7 +247,6 @@ const ViewBill = () => {
                   href={`https://${viewBill.notifiedHearing}`}
                   target="_blank"
                   rel="noreferrer"
-                  style={{ color: 'black' }}
                 >
                   {viewBill.notifiedHearing}
                 </a>

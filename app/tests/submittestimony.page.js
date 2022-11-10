@@ -34,9 +34,9 @@ class SubmitTestimonyPage {
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_FIRST_NAME}`, firstName);
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_LAST_NAME}`, lastName);
     const positionSelector = Selector(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_POSITION} div.form-check input`);
-    await testController.click(positionSelector.nth(0));
-    await testController.click(testifyingSelector.nth(0));
-    await testController.click(testifyingMethodSelector.nth(0));
+    await testController.click(positionSelector.nth(1));
+    await testController.click(testifyingSelector.nth(1));
+    await testController.click(testifyingMethodSelector.nth(1));
     await testController.typeText(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_TESTIMONY}`, testimony);
     await testController.click(`#${COMPONENT_IDS.SUBMIT_TESTIMONY_FORM_SUBMIT} input.btn.btn-primary`);
     await testController.click(Selector('.swal-button--confirm'));

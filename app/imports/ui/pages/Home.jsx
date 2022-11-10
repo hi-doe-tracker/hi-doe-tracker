@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { FileEarmarkPdf, CalendarMonth, Archive, Megaphone } from 'react-bootstrap-icons';
+import { FileEarmarkPdf, CalendarMonth, Archive, JournalText, Megaphone } from 'react-bootstrap-icons';
 import { useMediaQuery } from 'usehooks-ts';
 import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
@@ -8,33 +8,34 @@ import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
 import HomeMobile from './HomeMobile';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { HOMEPAGE_IDS } from '../utilities/HomePageIDs';
 
 const objects = [
   {
     title: 'Hearings',
-    id: HOMEPAGE_IDS.HEARINGS_BUTTON,
     icon: (<Megaphone size={100} />),
     link: '/view-hearings',
     description: 'View all hearings here',
   },
   {
     title: 'Measures',
-    id: HOMEPAGE_IDS.MEASURES_BUTTON,
     icon: (<Archive size={100} />),
     link: '/bills',
     description: 'View all measures here',
   },
   {
     title: 'Submit Testimony',
-    id: HOMEPAGE_IDS.SUBMIT_TESTIMONY_BUTTON,
     icon: (<FileEarmarkPdf size={100} />),
     link: '/submit',
     description: 'Fill out a form to sumbit your testimony here',
   },
   {
+    title: 'Reports',
+    icon: (<JournalText size={100} />),
+    link: '',
+    description: 'description of where this will take you',
+  },
+  {
     title: 'Calendar',
-    id: HOMEPAGE_IDS.CALENDAR_BUTTON,
     icon: (<CalendarMonth size={100} />),
     link: '/calendar',
     description: 'Manage your calendar here',
@@ -44,7 +45,7 @@ const objects = [
 const darkTheme = false;
 
 const HomeContent = () => (
-  <Container id={PAGE_IDS.HOME} fluid className="px-5" style={{ overflow: 'hidden', height: '100%', marginTop: '20px' }}>
+  <Container id={PAGE_IDS.HOME} fluid className="px-5" style={{ overflow: 'hidden', height: '100%' }}>
     <Row>
       <Col xs={3}>
         <BillQuickReference darkTheme={darkTheme} />
@@ -58,6 +59,7 @@ const HomeContent = () => (
                 overlay={(
                   <Tooltip
                     key={info.title}
+                    id={info.title}
                     style={{ position: 'absolute', top: '50%', left: '50%' }}
                   >
                     {info.description}
@@ -65,14 +67,10 @@ const HomeContent = () => (
                 )}
               >
                 <Card
-                  id={info.id}
                   bg={darkTheme ? 'dark' : ''}
                   text={darkTheme ? 'light' : 'dark'}
-                  as={NavLink}
-                  to={info.link}
-                  style={{ textDecoration: 'none' }}
                 >
-                  <Card.Body>
+                  <Card.Body as={NavLink} to={info.link}>
                     <div className="d-flex justify-content-center">
                       {info.icon}
                     </div>
