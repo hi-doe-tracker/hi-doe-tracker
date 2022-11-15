@@ -206,7 +206,7 @@ const AssignBill = () => {
 
     // Fills new bill data with scraper bill data.
     const billLink = billData.measureArchiveUrl;
-    const billNo = billData.measureNumber;
+    const billNo = `${billData.measureType}-${billData.measureNumber}`.toUpperCase();
     const status = billData.status;
     const companion = billData.companion;
     const reportTitle = billData.reportTitle;

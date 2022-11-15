@@ -47,12 +47,12 @@ const BillViewDisplay = ({ billData }) => {
     return progress;
   };
   return (
-    <tr>
+    <tr id="viewBillTableRow">
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
       <td>{`${billData.hearingDate.getDay()}/${billData.hearingDate.getMonth()}/${billData.hearingDate.getFullYear()}`}</td>
       <td>
         <h6>{`Main Office: ${billData.mainOffice}`}</h6>
-        {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (billData.office.toString())}
+        {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (`${billData.office.join(', ')} `)}
       </td>
       <td>Progress<ProgressBar now={checkStatus()} /><br /></td>
     </tr>

@@ -45,7 +45,7 @@ const objects = [
 const darkTheme = false;
 
 const HomeContent = () => (
-  <Container id={PAGE_IDS.HOME} fluid className="px-5" style={{ overflow: 'hidden', height: '100%' }}>
+  <Container id={PAGE_IDS.HOME} fluid className="px-5" style={{ overflow: 'hidden', height: '100%', marginTop: '20px' }}>
     <Row>
       <Col xs={3}>
         <BillQuickReference darkTheme={darkTheme} />
