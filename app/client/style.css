@@ -1,5 +1,6 @@
 /* Use Open Sans as the default sans serif font. */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700|Source+Code+Pro:300,400,500,700");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
 
 /* Set up some CSS variables to theme the application. */
 :root {
@@ -14,11 +15,34 @@ body {
   --bs-light-rgb: var(--matr-navbar-bg-rgb);
 }
 
+html{
+  font-family: 'Roboto', sans-serif;
+}
+
 /* Set the SignIn and SignUp alerts background. */
 #signin-page .alert-light,
 #signup-page .alert-light {
   --bs-alert-bg: var(--matr-navbar-bg);
 }
+
+.form-check label > input{
+  /* background-color: red; */
+   margin-right: 10px;
+ }
+
+ #officeitem:hover{
+   background-color: rgb(13, 110, 253, 0.5);
+   /* opacity: 30%; */
+   font-size: 130%;
+   /* margin-top: 5px;
+   margin-bottom: 5px; */
+   border-radius: 7%;
+ }
+ #officeitem a:hover{
+   color: white;
+ }
+
+
 
 /* Define custom styles */
 .gray-background {
@@ -38,7 +62,12 @@ body {
 
 .viewbill-container h2 {
   /* color: rebeccapurple; */
-  color: dodgerblue;
+  color: darkslategray;
+}
+
+#viewBillTableRow{
+  text-align: center;
+  vertical-align: middle;
 }
 
 .viewbill-row {
@@ -80,8 +109,8 @@ body {
   margin: 0;
 }
 .viewbill-div span:first-of-type {
-  color: dodgerblue;
-  border-bottom: 2px solid blue;
+  color: darkslategray;
+  border-bottom: 2px solid darkslategrey;
 }
 
 /* .flex2 {
@@ -99,9 +128,8 @@ body {
 }
 
 .divcolor {
-  /* color: rebeccapurple; */
-  color: dodgerblue;
-  border-bottom: 2px solid blue;
+  color: darkslategray;
+  border-bottom: 2px solid darkslategrey;
 }
 .viewbill-accordion {
   width: 100%;
@@ -119,6 +147,10 @@ body {
   /* text-align: center; */
 }
 
+
+.dropdown-toggle::after {
+  margin-left: 0.5em !important;
+}
 .acc-header {
   width: 100%;
   border-bottom: 0 !important;

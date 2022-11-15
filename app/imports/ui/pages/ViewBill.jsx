@@ -53,9 +53,6 @@ const ViewBill = () => {
               >
                 Current Bill
               </Breadcrumb.Item>
-              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
-                Measure(Status)
-              </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </center>
@@ -246,6 +243,7 @@ const ViewBill = () => {
                   className="description-font"
                   href={`https://${viewBill.notifiedHearing}`}
                   target="_blank"
+                  style={{ color: 'black' }}
                   rel="noreferrer"
                 >
                   {viewBill.notifiedHearing}
