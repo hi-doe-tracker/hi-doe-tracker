@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
+import { ProgressBar } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
@@ -46,6 +46,23 @@ const TestimonyItem = ({ testimony }) => {
       <td>{testimony.testimony}</td>
       <td>{getPdf()}</td>
       <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
+      <td>
+        Progress<ProgressBar now={100} /><br />
+        <form>
+          <div>
+            <input type="checkbox" value="true" id="officeBox" />
+            <label htmlFor="officeBox">Office Approval Status</label>
+          </div>
+          <div>
+            <input type="checkbox" value="true" id="pipeBox" />
+            <label htmlFor="officeBox">PIPE Approval Status</label>
+          </div>
+          <div>
+            <input type="checkbox" value="true" id="finalBox" />
+            <label htmlFor="officeBox">Final Approval Status</label>
+          </div>
+        </form>
+      </td>
     </tr>
   ) : <tr><td>Loading</td></tr>;
 };

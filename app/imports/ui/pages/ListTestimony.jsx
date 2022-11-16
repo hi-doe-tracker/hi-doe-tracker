@@ -41,6 +41,7 @@ const ListTestimony = () => {
                 <th>Testimony</th>
                 <th>PDF</th>
                 <th>Edit</th>
+                <th>Progress of Testimony Approval</th>
               </tr>
             </thead>
             <tbody>
