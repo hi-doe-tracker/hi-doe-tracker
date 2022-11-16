@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { ProgressBar } from 'react-bootstrap';
@@ -8,6 +8,22 @@ import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/test
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
+  const [progress, setProgress] = useState(0);
+  const [checkbox1, setCheckBox1] = useState(false);
+  const [checkbox2, setCheckBox2] = useState(false);
+  const [checkbox3, setCheckBox3] = useState(false);
+  useEffect(() => {
+    if (checkbox1 && checkbox2 && checkbox3) {
+      setProgress(100);
+    } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
+      setProgress(75);
+    } else if (checkbox1 || checkbox2 || checkbox3){
+      setProgress(50);
+    } else {
+      setProgress(0);
+    }
+  }, [checkbox1, checkbox2, checkbox3]);
+
   const { ready, testimonyFiles } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
 
@@ -47,18 +63,18 @@ const TestimonyItem = ({ testimony }) => {
       <td>{getPdf()}</td>
       <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
       <td>
-        Progress<ProgressBar now={100} /><br />
+        Progress<ProgressBar now={progress} /><br />
         <form>
           <div>
-            <input type="checkbox" value="true" id="officeBox" />
+            <input type="checkbox" id="officeBox" onChange={() => setCheckBox1(!checkbox1)} />
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" value="true" id="pipeBox" />
+            <input type="checkbox" id="pipeBox" onChange={() => setCheckBox2(!checkbox2)} />
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" value="true" id="finalBox" />
+            <input type="checkbox" id="finalBox" onChange={() => setCheckBox3(!checkbox3)} />
             <label htmlFor="officeBox">Final Approval Status</label>
           </div>
         </form>
