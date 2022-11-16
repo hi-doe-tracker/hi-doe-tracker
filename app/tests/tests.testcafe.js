@@ -1,4 +1,5 @@
-import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage, homePage } from './simple.page';
+import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage } from './simple.page';
+import { homePage } from './home.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -52,6 +53,27 @@ test('Test that user pages show up', async () => {
   await sendHearingNoticePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
+
+test('Test that Home page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await homePage.hearingsButtonWorks();
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await homePage.measuresButtonWorks();
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await homePage.submitTestimonyButtonWorks();
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await homePage.calendarButtonWorks();
+  await navBar.gotoHomePage();
+  await homePage.isDisplayed();
+  await navBar.logout();
 });
 
 test('Test that Profile page shows up', async () => {
