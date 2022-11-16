@@ -52,7 +52,6 @@ class HomePage {
     await t.expect(Selector(`#${PAGE_IDS.CALENDAR}`).exists).ok();
     await t.click(`#${COMPONENT_IDS.NAVBAR_HOME_PAGE}`);
   }
-
 }
 
 export const homePage = new HomePage();
