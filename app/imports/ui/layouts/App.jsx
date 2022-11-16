@@ -12,7 +12,6 @@ import {
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
-import SignUp from '../pages/SignUp';
 import SignOut from '../pages/SignOut';
 import NavBar from '../components/NavBar';
 import SignIn from '../pages/SignIn';
@@ -30,7 +29,6 @@ import Landing from '../pages/Landing';
 import Calendar from '../pages/Calendar';
 import AssignBill from '../pages/AssignBill';
 import ManageAccounts from '../pages/ManageAccounts';
-import AdminManagement from '../pages/AdminManagement';
 import ViewHearings from '../pages/ViewHearings';
 import AdminCreate from '../pages/AdminCreate';
 import EditAccount from '../pages/EditAccount';
@@ -83,7 +81,6 @@ const App = () => {
               }
             />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
             <Route path="/signout" element={<SignOut />} />
             <Route
               path="/home"
@@ -92,16 +89,6 @@ const App = () => {
                   <ProtectedRoute>
                     <Home />
                   </ProtectedRoute>
-                )
-              }
-            />
-            <Route
-              path="/admin/manage"
-              element={
-                (
-                  <AdminProtectedRoute>
-                    <AdminManagement />
-                  </AdminProtectedRoute>
                 )
               }
             />
