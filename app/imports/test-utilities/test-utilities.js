@@ -14,7 +14,7 @@ export function withSubscriptions() {
   return new Promise((resolve => {
     // Add the collections to subscribe to.
     AdminProfiles.subscribeAdminProfiles();
-    Stuffs.subscribeStuff();
+    // Stuffs.subscribeStuff();
     UserProfiles.subscribeUserProfiles();
     const poll = Meteor.setInterval(() => {
       if (DDP._allSubscriptionsReady()) {
