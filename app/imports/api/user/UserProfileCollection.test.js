@@ -18,8 +18,8 @@ if (Meteor.isServer) {
       removeAllEntities();
     });
 
-    const position = 'somePosition';
-    const assignedOffice = 'someOffice';
+    const position = 'Writer';
+    const assignedOffice = 'DEPUTY';
 
     it('Can define and removeIt', function test1(done) {
       fc.assert(
