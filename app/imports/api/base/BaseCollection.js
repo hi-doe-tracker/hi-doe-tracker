@@ -76,6 +76,7 @@ class BaseCollection {
    * @throws { Meteor.Error } If the document cannot be found.
    */
   findDoc(name) {
+    console.log(name);
     if (_.isNull(name) || _.isUndefined(name)) {
       throw new Meteor.Error(`${name} is not a defined ${this.type}`);
     }
@@ -101,8 +102,10 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   findOne(selector, options) {
+    console.log(selector);
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    // console.log(selector);
+    console.log(this._collection.find({}));
+    console.log(this._type);
     return this._collection.findOne(theSelector, options);
   }
 
@@ -115,6 +118,7 @@ class BaseCollection {
    */
   findOnlyOne(selector) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    console.log(theSelector);
     return this._collection.findOne(theSelector);
   }
 

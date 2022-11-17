@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, simpleSubmitTestimonyPage, listTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, listTestimonyPage } from './simple.page';
 import { homePage } from './home.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
@@ -14,9 +14,10 @@ import { sendHearingNoticePage1 } from './sendhearingnotice.page';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'john@foo.com', password: 'changeme' };
+const credentials = { username: 'secretary@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
 const newCredentials = { username: 'batman@foo.com', password: 'changeme' };
+const writerCredentials = { username: 'writer@foo.com', password: 'changeme' };
 
 fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
@@ -43,8 +44,8 @@ test('Test that user pages show up', async () => {
   await viewBillsPage.isDisplayed();
   await navBar.gotoViewBillPage();
   await viewBillPage.isDisplayed();
-  await navBar.gotoSubmitTestimonyPage();
-  await simpleSubmitTestimonyPage.isDisplayed();
+  // await navBar.gotoSubmitTestimonyPage();
+  // await simpleSubmitTestimonyPage.isDisplayed();
   await navBar.gotoListTestimonyPage();
   await listTestimonyPage.isDisplayed();
   await navBar.gotoViewHearingsPage();
@@ -67,7 +68,7 @@ test('Test that Home page works', async () => {
   await homePage.measuresButtonWorks();
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
-  await homePage.submitTestimonyButtonWorks();
+  // await homePage.submitTestimonyButtonWorks();
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
   await homePage.calendarButtonWorks();
@@ -113,8 +114,8 @@ test('Test that admin pages show up', async () => {
 
 test('Test that submit testimony page works', async (testController) => {
   await navBar.gotoSignInPage();
-  await signInPage.signin(credentials.username, credentials.password);
-  await navBar.isLoggedIn(credentials.username);
+  await signInPage.signin(writerCredentials.username, writerCredentials.password);
+  await navBar.isLoggedIn(writerCredentials.username);
   await navBar.gotoSubmitTestimonyPage();
   await submitTestimonyPage.isDisplayed(testController);
   await submitTestimonyPage.hasDefaultFields(testController);
