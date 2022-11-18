@@ -110,10 +110,10 @@ const SendHearingNotice = () => {
                     <Col>
                       <div className="mb-3 required">
                         <span>Relevant offices</span>
-                              <label class="checkbox">
-                                <input type="checkbox">
-                                  options={officeOptions}
-                              </label>
+                          <label class="checkbox">
+                            <input type="checkbox">
+                              options={officeOptions}
+                            </label>
                       </div>
                     </Col>
                     <Col>
