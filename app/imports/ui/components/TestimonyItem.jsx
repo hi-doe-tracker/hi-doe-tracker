@@ -5,6 +5,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
+import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -24,16 +25,18 @@ const TestimonyItem = ({ testimony }) => {
     }
   }, [checkbox1, checkbox2, checkbox3]);
 
-  const { ready, testimonyFiles } = useTracker(() => {
+  const { ready, testimonyFiles, testimonyProgresses } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
+    const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
 
     // Determine if the subscription is ready
-    const rdy = subscription.ready();
+    const rdy = subscription.ready() && subscription2.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
+    const testimonyStates = TestimonyProgresses.find({}, { sort: { associatedTestimony: 1 } }).fetch();
     return {
       ready: rdy,
       testimonyFiles: testimonyfiles,
-      // testimonies: testimonies,
+      testimonyProgresses: testimonyStates,
     };
   }, []);
 
