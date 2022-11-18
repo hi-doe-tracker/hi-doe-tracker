@@ -1,5 +1,6 @@
 import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage,  listTestimonyPage } from './simple.page';
 import { homePage } from './home.page';
+import { calendarPage } from './calendar.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -74,6 +75,15 @@ test('Test that Home page works', async () => {
   await homePage.calendarButtonWorks();
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
+  await navBar.logout();
+});
+
+test('Test that Calendar page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoCalendarPage();
+  await calendarPage.isDisplayed();
   await navBar.logout();
 });
 
