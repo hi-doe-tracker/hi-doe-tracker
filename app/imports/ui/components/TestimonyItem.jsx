@@ -18,27 +18,38 @@ const TestimonyItem = ({ testimony }) => {
       setProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
       setProgress(75);
-    } else if (checkbox1 || checkbox2 || checkbox3){
+    } else if (checkbox1 || checkbox2 || checkbox3) {
       setProgress(50);
     } else {
-      setProgress(0);
+      setProgress(25);
     }
   }, [checkbox1, checkbox2, checkbox3]);
 
-  const { ready, testimonyFiles, testimonyProgresses } = useTracker(() => {
+  const { ready, testimonyFiles, testimonyProgress } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
-
     // Determine if the subscription is ready
     const rdy = subscription.ready() && subscription2.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
-    const testimonyStates = TestimonyProgresses.find({}, { sort: { associatedTestimony: 1 } }).fetch();
+    const testimonyStates = TestimonyProgresses.find({ testimonyAssociated: testimony._id }, { sort: { associatedTestimony: 1 } }).fetch();
+    const testimonyState = testimonyStates[0];
     return {
       ready: rdy,
       testimonyFiles: testimonyfiles,
-      testimonyProgresses: testimonyStates,
+      testimonyProgress: testimonyState,
     };
   }, []);
+
+  // Restores the state of the testimony's progress from the last session.
+  if (ready) {
+    if (testimonyProgress === undefined) {
+      console.log('Undefined');
+    } else {
+      setCheckBox1(testimonyProgress.officeApproval);
+      setCheckBox2(testimonyProgress.pipeApproval);
+      setCheckBox3(testimonyProgress.finalApproval);
+    }
+  }
 
   // get link of pdfs
   let links;

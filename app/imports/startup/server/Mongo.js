@@ -5,6 +5,7 @@ import { Bills } from '../../api/bill/BillCollection';
 import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { Hearings } from '../../api/hearing/HearingCollection';
+import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -23,6 +24,12 @@ function addScraperBill(scraperBill) {
 function addTestimony(testimony) {
   console.log(`Adding testimony: ${testimony.testimony}`);
   Testimonies.define(testimony);
+}
+
+// Adds a testimony progress to database.
+function addTestimonyProgress(testimonyProgress) {
+  console.log(`Adding testimony progress: ${testimonyProgress.associatedTestimony}`);
+  TestimonyProgresses.define(testimonyProgress);
 }
 
 // Adds a bill to database.
@@ -72,6 +79,13 @@ if (Testimonies.count() === 0) {
   if (Meteor.settings.defaultTestimony) {
     console.log('Creating default testimony.');
     Meteor.settings.defaultTestimony.map(testimony => addTestimony(testimony));
+  }
+}
+
+if (TestimonyProgresses.count() === 0) {
+  if (Meteor.settings.defaultTestimonyProgresses) {
+    console.log('Creating default testimony progresses.');
+    Meteor.settings.defaultTestimonyProgresses.map(testimonyProgress => addTestimonyProgress(testimonyProgress));
   }
 }
 

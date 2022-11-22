@@ -544,5 +544,9 @@
 
   "defaultTestimony": [
     { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
+  ],
+
+  "defaultTestimonyProgresses": [
+    { "associatedTestimony": "abc", "officeApproval": true, "pipeApproval": true, "finalApproval": true }
   ]
 }

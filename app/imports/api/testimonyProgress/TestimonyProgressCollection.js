@@ -11,7 +11,7 @@ export const testimonyProgressPublications = {
 
 class TestimonyProgressCollection extends BaseCollection {
   constructor() {
-    super('TestimonyProgress', new SimpleSchema({
+    super('TestimonyProgresses', new SimpleSchema({
       associatedTestimony: String,
       officeApproval: Boolean,
       pipeApproval: Boolean,
@@ -47,8 +47,7 @@ class TestimonyProgressCollection extends BaseCollection {
       /** This subscription publishes only the documents associated with the logged in user */
       Meteor.publish(testimonyProgressPublications.testimonyProgress, function publish() {
         if (this.userId) {
-          const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find({ owner: username });
+          return instance._collection.find();
         }
         return this.ready();
       });
