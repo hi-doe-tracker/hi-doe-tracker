@@ -64,18 +64,26 @@ test('Test that Home page works', async () => {
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
   await homePage.hearingsButtonWorks();
-  await navBar.gotoHomePage();
-  await homePage.isDisplayed();
   await homePage.measuresButtonWorks();
-  await navBar.gotoHomePage();
-  await homePage.isDisplayed();
   // await homePage.submitTestimonyButtonWorks();
-  await navBar.gotoHomePage();
-  await homePage.isDisplayed();
   await homePage.calendarButtonWorks();
+  await navBar.logout();
+});
+
+test('Test that mobile version of Home page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
   await navBar.gotoHomePage();
   await homePage.isDisplayed();
+  await homePage.switchToMobileView();
+  await homePage.hearingsButtonWorks();
+  await homePage.measuresButtonWorks();
+  // await homePage.submitTestimonyButtonWorks();
+  await homePage.calendarButtonWorks();
+  await homePage.resetToRegularView();
   await navBar.logout();
+
 });
 
 test('Test that Calendar page works', async () => {

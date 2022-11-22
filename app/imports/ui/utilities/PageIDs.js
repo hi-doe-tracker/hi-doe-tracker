@@ -1,6 +1,7 @@
 /** Define ids for each page. */
 export const PAGE_IDS = {
   HOME: 'home',
+  HOME_MOBILE: 'home-mobile',
   VIEW_BILLS: 'view-bills',
   VIEW_BILL: 'view-bill',
   ASSIGN_BILL: 'assign-bill',
