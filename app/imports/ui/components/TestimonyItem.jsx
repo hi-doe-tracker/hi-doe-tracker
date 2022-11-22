@@ -6,6 +6,9 @@ import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
+import { Stuffs } from '../../api/stuff/StuffCollection';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
+import swal from 'sweetalert';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -40,10 +43,22 @@ const TestimonyItem = ({ testimony }) => {
     };
   }, []);
 
+  // On submit, insert the data.
+  const submit = () => {
+    const collectionName = TestimonyProgresses.getCollectionName();
+    const definitionData = { associatedTestimony: testimony._id, officeApproval: false, pipeApproval: false, finalApproval: false };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
+
   // Restores the state of the testimony's progress from the last session.
   if (ready) {
     if (testimonyProgress === undefined) {
-      console.log('Undefined');
+      // Adds the testimony progress if the testimony does not have a progress associated with it.
+      submit();
     } else {
       setCheckBox1(testimonyProgress.officeApproval);
       setCheckBox2(testimonyProgress.pipeApproval);
