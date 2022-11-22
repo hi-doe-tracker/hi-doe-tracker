@@ -10,7 +10,7 @@ class HomePage {
   }
 
   async isDisplayed() {
-    await t.expect(this.pageSelector.exists).ok();
+    await t.expect(this.pageSelector.exists || Selector(`#${PAGE_IDS.HOME_MOBILE}`).exists).ok();
   }
 
   async hearingsButtonWorks() {
@@ -51,6 +51,27 @@ class HomePage {
     await t.click(`#${HOMEPAGE_IDS.CALENDAR_BUTTON}`);
     await t.expect(Selector(`#${PAGE_IDS.CALENDAR}`).exists).ok();
     await navBar.gotoHomePage();
+  }
+
+  async switchToMobileView() {
+    const visible = await Selector(`#${PAGE_IDS.HOME}`).visible;
+    if (!visible) {
+      await navBar.gotoHomePage();
+    }
+    await t.resizeWindow(700, 1000);
+    await t.expect(Selector(`#${PAGE_IDS.HOME_MOBILE}`).exists).ok();
+  }
+
+  async resetToRegularView() {
+    const visible = await Selector(`#${PAGE_IDS.HOME_MOBILE}`).visible;
+    const visible1 = await this.pageId.visible;
+    if (!(visible || visible1)) {
+      await navBar.gotoHomePage();
+    }
+    if (visible) {
+      await t.maximizeWindow();
+    }
+    await t.expect(this.pageSelector.exists).ok();
   }
 }
 
