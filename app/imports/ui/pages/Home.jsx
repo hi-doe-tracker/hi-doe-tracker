@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
 import MiniMeasureTracker from '../components/MiniMeasureTracker';
-import HomeMobile from './HomeMobile';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { HOMEPAGE_IDS } from '../utilities/HomePageIDs';
 
@@ -94,10 +93,69 @@ const HomeContent = () => (
   </Container>
 );
 
+const HomeMobile = () => (
+  <Container fluid id={PAGE_IDS.HOME_MOBILE}>
+    <Row>
+      <Col className="p-5">
+        <Row xs={2} className="g-4">
+          {objects.map((info) => (
+            <Col>
+              <Card
+                id={info.id}
+                bg={darkTheme ? 'dark' : ''}
+                text={darkTheme ? 'light' : 'dark'}
+                as={NavLink}
+                to={info.link}
+                style={{ textDecoration: 'none' }}
+              >
+                <Card.Body>
+                  <div className="d-flex justify-content-center">
+                    {info.icon}
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  {info.title}
+                </Card.Footer>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+    </Row>
+    <Row xs={1}>
+      <Col className="px-5 pb-5">
+        <div style={{ width: '100%', padding: '0 0 0 50%' }}>
+          <div style={{ width: '228px', left: '-114px', position: 'relative' }}>
+            <MiniCalendar darkTheme={darkTheme} />
+          </div>
+        </div>
+      </Col>
+    </Row>
+    <Row>
+      <Col className="px-5 pb-5">
+        <div style={{ width: '100%', padding: '0 0 0 50%' }}>
+          <div style={{ width: '228px', left: '-114px', position: 'relative' }}>
+            <MiniMeasureTracker darkTheme={darkTheme} />
+          </div>
+        </div>
+      </Col>
+    </Row>
+    <Row>
+      <Col className="px-5 pb-5">
+        <div style={{ width: '100%', padding: '0 0 0 50%' }}>
+          <div style={{ width: '228px', left: '-114px', position: 'relative' }}>
+            <BillQuickReference darkTheme={darkTheme} />
+          </div>
+        </div>
+      </Col>
+    </Row>
+  </Container>
+);
+
 const Home = () => {
   const mobileView = useMediaQuery('(max-width: 760px)');
   if (mobileView) {
-    return (<HomeMobile darkTheme={darkTheme} />);
+    return (<HomeMobile />);
   }
   return (<HomeContent />);
 };
