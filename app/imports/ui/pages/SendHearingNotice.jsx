@@ -9,6 +9,7 @@ import SimpleSchema from 'simpl-schema';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { SelectField } from 'uniforms-unstyled';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -110,10 +111,12 @@ const SendHearingNotice = () => {
                     <Col>
                       <div className="mb-3 required">
                         <span>Relevant offices</span>
-                          <label class="checkbox">
-                            <input type="checkbox">
-                              options={officeOptions}
-                            </label>
+                          <SelectField
+                            <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label">
+                                options={officeOptions}
+                              </label>
+                            </input>
                       </div>
                     </Col>
                     <Col>
