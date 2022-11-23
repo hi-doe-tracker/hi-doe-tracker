@@ -1,4 +1,4 @@
-import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage,  listTestimonyPage } from './simple.page';
+import { signOutPage, viewBillsPage, viewBillPage, sendHearingNoticePage, assignBillPage, manageAccountsPage, viewHearingsPage, listTestimonyPage } from './simple.page';
 import { homePage } from './home.page';
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
