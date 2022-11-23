@@ -7,7 +7,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { Stuffs } from '../../api/stuff/StuffCollection';
-import { defineMethod } from '../../api/base/BaseCollection.methods';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import swal from 'sweetalert';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
@@ -16,7 +16,29 @@ const TestimonyItem = ({ testimony }) => {
   const [checkbox1, setCheckBox1] = useState(false);
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
+
+  // On submit, insert the data.
+  const submit = () => {
+    const collectionName = TestimonyProgresses.getCollectionName();
+    const definitionData = { associatedTestimony: testimony._id, officeApproval: false, pipeApproval: false, finalApproval: false };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
+
+  const update = () => {
+    const collectionName = TestimonyProgresses.getCollectionName();
+    const updateData = { associatedTestimony: testimony._id, officeApproval: checkbox1, pipeApproval: checkbox2, finalApproval: checkbox3 };
+    console.log(updateData);
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+  };
+
   useEffect(() => {
+    update();
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
@@ -42,17 +64,6 @@ const TestimonyItem = ({ testimony }) => {
       testimonyProgress: testimonyState,
     };
   }, []);
-
-  // On submit, insert the data.
-  const submit = () => {
-    const collectionName = TestimonyProgresses.getCollectionName();
-    const definitionData = { associatedTestimony: testimony._id, officeApproval: false, pipeApproval: false, finalApproval: false };
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        console.log('Success!');
-      });
-  };
 
   // Restores the state of the testimony's progress from the last session.
   if (ready) {
