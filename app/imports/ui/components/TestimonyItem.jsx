@@ -16,6 +16,7 @@ const TestimonyItem = ({ testimony }) => {
   const [checkbox1, setCheckBox1] = useState(false);
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
+  const [initialState, setInitialState] = useState(true);
 
   // On submit, insert the data.
   const submit = () => {
@@ -31,14 +32,13 @@ const TestimonyItem = ({ testimony }) => {
   const update = () => {
     const collectionName = TestimonyProgresses.getCollectionName();
     const updateData = { associatedTestimony: testimony._id, officeApproval: checkbox1, pipeApproval: checkbox2, finalApproval: checkbox3 };
-    console.log(updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
   useEffect(() => {
-    update();
+    // update();
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
@@ -56,25 +56,27 @@ const TestimonyItem = ({ testimony }) => {
     // Determine if the subscription is ready
     const rdy = subscription.ready() && subscription2.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
-    const testimonyStates = TestimonyProgresses.find({ testimonyAssociated: testimony._id }, { sort: { associatedTestimony: 1 } }).fetch();
-    const testimonyState = testimonyStates[0];
+    const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
+    const testimonyState = testimonyStates;
+    console.log(testimonyStates);
     return {
       ready: rdy,
       testimonyFiles: testimonyfiles,
-      testimonyProgress: testimonyState,
+      testimonyProgress: testimonyStates,
     };
   }, []);
 
   // Restores the state of the testimony's progress from the last session.
-  if (ready) {
-    if (testimonyProgress === undefined) {
+  if (ready && initialState) {
+    if (testimonyProgress.length < 1) {
       // Adds the testimony progress if the testimony does not have a progress associated with it.
       submit();
     } else {
-      setCheckBox1(testimonyProgress.officeApproval);
-      setCheckBox2(testimonyProgress.pipeApproval);
-      setCheckBox3(testimonyProgress.finalApproval);
+      setCheckBox1(testimonyProgress[0].officeApproval);
+      setCheckBox2(testimonyProgress[0].pipeApproval);
+      setCheckBox3(testimonyProgress[0].finalApproval);
     }
+    setInitialState(false);
   }
 
   // get link of pdfs
