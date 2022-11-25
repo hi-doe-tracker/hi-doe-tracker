@@ -8,58 +8,81 @@ export const testimonyPublications = {
 };
 export const testimonyPositions = ['Support', 'Oppose', 'Comments Only'];
 export const testimonyTestifyingAs = ['Individual', 'Organization'];
-export const testimonyTestifyingMethod = ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'];
+export const testimonyTestifyingMethod = [
+  'Remotely via Zoom during the hearing & submitting written testimony',
+  'Written testimony only',
+];
 
 class TestimonyCollection extends BaseCollection {
   constructor() {
-    super('Testimonies', new SimpleSchema({
-      billNo: String,
-      // testimonyFileID: String,
-      firstName: String,
-      lastName: String,
-      position: {
-        type: String,
-        allowedValues: ['Support', 'Oppose', 'Comments Only'],
-      },
-      testifyingAs: {
-        type: String,
-        allowedValues: ['Individual', 'Organization'],
-      },
-      organization: {
-        type: String,
-        optional: true,
-      },
-      testifyingMethod: {
-        type: String,
-        allowedValues: ['Remotely via Zoom during the hearing & submitting written testimony', 'Written testimony only'],
-      },
-      testimony: {
-        type: String,
-        optional: true,
-      },
-      hasPdf: {
-        type: Boolean,
-        defaultValue: false,
-      },
-    }));
+    super(
+      'Testimonies',
+      new SimpleSchema({
+        billNo: String,
+        // testimonyFileID: String,
+        firstName: String,
+        lastName: String,
+        office: [String],
+        position: {
+          type: String,
+          allowedValues: ['Support', 'Oppose', 'Comments Only'],
+        },
+        testifyingAs: {
+          type: String,
+          allowedValues: ['Individual', 'Organization'],
+        },
+        organization: {
+          type: String,
+          optional: true,
+        },
+        testifyingMethod: {
+          type: String,
+          allowedValues: [
+            'Remotely via Zoom during the hearing & submitting written testimony',
+            'Written testimony only',
+          ],
+        },
+        testimony: {
+          type: String,
+          optional: true,
+        },
+        hasPdf: {
+          type: Boolean,
+          defaultValue: false,
+        },
+      }),
+    );
   }
 
   /**
    * Defines a new Stuff item.
    * @param bill the name of the testified bill
    * @param firstName the first name of the testifier.
-   * @param lastName the last name of the testifier.
+   * @param lastName the last name of the testifier
+   * @param office list of offices for this bill.
    * @param position .
    * @param testifyingAs the owner of the item.
    * @param testifyingMethod the condition of the item.
    * @param testimony .
    * @return {String} the docID of the new document.
    */
-  define({ firstName, lastName, position, organization, testifyingAs, testifyingMethod, testimony, billNo, hasPdf }) {
+  define({
+    firstName,
+    lastName,
+    office,
+    position,
+    organization,
+    testifyingAs,
+    testifyingMethod,
+    testimony,
+    billNo,
+    hasPdf,
+  }) {
     const docID = this._collection.insert({
       billNo,
       firstName,
       lastName,
+      office,
       position,
       organization,
       testifyingAs,
@@ -80,7 +103,18 @@ class TestimonyCollection extends BaseCollection {
    * @param testifyingMethod the condition of the item (optional).
    * @param testimony (optional).
    */
-  update(docID, { firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony }) {
+  update(
+    docID,
+    {
+      firstName,
+      lastName,
+      position,
+      testifyingAs,
+      organization,
+      testifyingMethod,
+      testimony,
+    },
+  ) {
     const updateData = {};
     if (firstName) {
       updateData.firstName = firstName;
@@ -143,7 +177,6 @@ class TestimonyCollection extends BaseCollection {
   assertValidRoleForMethod(userId) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
   }
-
 }
 
 /**

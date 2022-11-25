@@ -3,13 +3,21 @@
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP",
       "position": "Admin", "assignedOffice": "None" },
     { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe",
-      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
-    { "email": "johan@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
-      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+      "position": "Secretary", "assignedOffice": "DEPUTY" },
+      { "email": "secretary@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe",
+      "position": "Secretary", "assignedOffice": "DEPUTY" },
+    { "email": "writer@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
+      "position": "Writer", "assignedOffice": "DEPUTY" },
+    { "email": "officeapprover@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
+      "position": "Office Approver", "assignedOffice": "OSIP" },
+      { "email": "office2approver@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johan", "lastName": "Does",
+      "position": "Office Approver", "assignedOffice": "DEPUTY" },
     { "email": "johne@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johna", "lastName": "Dode",
       "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
-    { "email": "johna@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea",
-      "position": "PIPE Approver", "assignedOffice": "DEPUTY" }
+    { "email": "pipeapprover@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea",
+      "position": "PIPE Approver", "assignedOffice": "DEPUTY" },
+      { "email": "finalapprover@foo.com", "password": "changeme", "role": "USER" , "firstName": "Johns", "lastName": "Doea",
+      "position": "Final Approver", "assignedOffice": "DEPUTY" }
   ],
 
   "defaultData": [
@@ -543,6 +551,14 @@
   }],
 
   "defaultTestimony": [
-    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
+    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore",  "office": [
+
+      "OSIP",
+      "OPS",
+      "OCID",
+      "ABCD",
+      "EFGH",
+      "HIJK"
+    ],"position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
   ]
 }
