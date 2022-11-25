@@ -35,14 +35,18 @@ import EditAccount from '../pages/EditAccount';
 import ViewTestimony from '../pages/ViewTestimony';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { Testimonies } from '../../api/testimony/TestimonyCollection';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 
 const App = () => {
   const [style, setStyle] = useState({ opacity: '1' });
-  const { currentUser } = useTracker(() => ({
-    currentUser: Meteor.user() ? Meteor.user().username : '',
-  }), []);
+  const { currentUser } = useTracker(
+    () => ({
+      currentUser: Meteor.user() ? Meteor.user().username : '',
+    }),
+    [],
+  );
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
@@ -51,99 +55,137 @@ const App = () => {
         <div style={style}>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
-            <Route exact path="/bills" element={<ProtectedRoute><ViewBills /></ProtectedRoute>} />
-            <Route exact path="/send" element={<ProtectedRoute><SendHearingNotice /></ProtectedRoute>} />
-            <Route exact path="/view-hearings" element={<ProtectedRoute><ViewHearings /></ProtectedRoute>} />
-            <Route exact path="/edit-account" element={<ProtectedRoute><EditAccount /></ProtectedRoute>} />
+            <Route
+              exact
+              path="/calendar"
+              element={(
+                <ProtectedRoute>
+                  <Calendar />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              exact
+              path="/bills"
+              element={(
+                <ProtectedRoute>
+                  <ViewBills />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              exact
+              path="/send"
+              element={(
+                <ProtectedRoute>
+                  <SendHearingNotice />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              exact
+              path="/view-hearings"
+              element={(
+                <ProtectedRoute>
+                  <ViewHearings />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              exact
+              path="/edit-account"
+              element={(
+                <ProtectedRoute>
+                  <EditAccount />
+                </ProtectedRoute>
+              )}
+            />
             <Route
               exact
               path="/viewbill/:_id"
-              element={(<ProtectedRoute><ViewBill /></ProtectedRoute>)}
+              element={(
+                <ProtectedRoute>
+                  <ViewBill />
+                </ProtectedRoute>
+              )}
             />
             <Route
               exact
               path="/listtestimony"
-              element={(<ProtectedRoute><ListTestimony /></ProtectedRoute>)}
+              element={(
+                <ProtectedRoute>
+                  <ListTestimony />
+                </ProtectedRoute>
+              )}
             />
             <Route
               exact
               path="/edittestimony/:_id"
-              element={(<ProtectedRoute><EditTestimony /></ProtectedRoute>)}
+              element={(
+                <ProtectedRouteEditTestimony>
+                  <EditTestimony />
+                </ProtectedRouteEditTestimony>
+              )}
             />
             <Route
               exact
               path="/submit"
-              element={
-                (
-                  <ProtectedRouteWriter>
-                    <SubmitTestimony />
-                  </ProtectedRouteWriter>
-                )
-              }
+              element={(
+                <ProtectedRouteWriter>
+                  <SubmitTestimony />
+                </ProtectedRouteWriter>
+              )}
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signout" element={<SignOut />} />
             <Route
               path="/home"
-              element={
-                (
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                )
-              }
+              element={(
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              )}
             />
             <Route
               path="/admin/assignbills/:_id"
-              element={
-                (
-                  <AdminProtectedRoute>
-                    <AssignBill />
-                  </AdminProtectedRoute>
-                )
-              }
+              element={(
+                <AdminProtectedRoute>
+                  <AssignBill />
+                </AdminProtectedRoute>
+              )}
             />
             <Route
               path="/admin/manageaccounts"
-              element={
-                (
-                  <AdminProtectedRoute>
-                    <ManageAccounts />
-                  </AdminProtectedRoute>
-                )
-              }
+              element={(
+                <AdminProtectedRoute>
+                  <ManageAccounts />
+                </AdminProtectedRoute>
+              )}
             />
             <Route
               path="/admin/createaccount"
-              element={
-                (
-                  <AdminProtectedRoute>
-                    <AdminCreate />
-                  </AdminProtectedRoute>
-                )
-              }
+              element={(
+                <AdminProtectedRoute>
+                  <AdminCreate />
+                </AdminProtectedRoute>
+              )}
             />
             <Route path="/notauthorized" element={<NotAuthorized />} />
             <Route
               path="/profile"
-              element={
-                (
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                )
-              }
+              element={(
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              )}
             />
             <Route
               path="/viewtestimony"
-              element={
-                (
-                  <ProtectedRoute>
-                    <ViewTestimony />
-                  </ProtectedRoute>
-                )
-              }
+              element={(
+                <ProtectedRoute>
+                  <ViewTestimony />
+                </ProtectedRoute>
+              )}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -204,6 +246,53 @@ const ProtectedRouteWriter = ({ children }) => {
   // return ready && allowedPosition.includes(position) ? children : console.log(`${allowedPosition.includes(position)}, ${ready}}`) ;
 };
 
+/*
+ * ProtectedRoute (see React Router v6 sample)
+ * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
+ * @param {any} { component: Component, ...rest }
+ */
+const ProtectedRouteEditTestimony = ({ children }) => {
+  // const [position, setPosition] = useState('');
+  const allowedPosition = [
+    'Admin',
+    'Writer',
+    'PIPE Approver',
+    'Final Approver',
+  ];
+  const { currentUser, ready, readyTestimony } = useTracker(() => {
+    const subscription = UserProfiles.subscribeUserProfiles();
+    const testimonySubscription = Testimonies.subscribeTestimony();
+    const rdy1 = testimonySubscription.ready();
+    const rdy = subscription.ready();
+    const currUser = Meteor.user() ? Meteor.user().username : '';
+    return {
+      currentUser: currUser,
+      ready: rdy,
+      readyTestimony: rdy1,
+    };
+  }, []);
+
+  const isLogged = Meteor.userId() !== null;
+  const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
+  console.log('ProtectedRoute EditTestmony', isLogged);
+  if (!isLogged) {
+    return <Navigate to="/notauthorized" />;
+  }
+  if (ready && readyTestimony) {
+    let allowed = false;
+    if (!isAdmin) {
+      const position = UserProfiles.findByEmail(currentUser).position;
+      allowed = allowedPosition.includes(position);
+    } else {
+      allowed = true;
+    }
+    return allowed ? children : <Navigate to="/notauthorized" />;
+  }
+  return <LoadingSpinner />;
+
+  // return ready && allowedPosition.includes(position) ? children : console.log(`${allowedPosition.includes(position)}, ${ready}}`) ;
+};
+
 /**
  * AdminProtectedRoute (see React Router v6 sample)
  * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
@@ -239,6 +328,14 @@ AdminProtectedRoute.defaultProps = {
 
 ProtectedRouteWriter.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+};
+
+ProtectedRouteEditTestimony.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+};
+
+ProtectedRouteEditTestimony.defaultProps = {
+  children: <Home />,
 };
 
 ProtectedRouteWriter.defaultProps = {

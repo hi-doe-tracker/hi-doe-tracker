@@ -33,7 +33,9 @@ class BaseCollection {
    * @param {Object} obj the object defining the new document.
    */
   define(obj) {
-    throw new Meteor.Error(`The define(${obj}) method is not defined in BaseCollection.`);
+    throw new Meteor.Error(
+      `The define(${obj}) method is not defined in BaseCollection.`,
+    );
   }
 
   /**
@@ -43,7 +45,9 @@ class BaseCollection {
    * @param { Object } modifier A MongoDB modifier
    */
   update(selector, modifier) {
-    throw new Meteor.Error(`update(${selector}, ${modifier}) is not not defined in BaseCollection.`);
+    throw new Meteor.Error(
+      `update(${selector}, ${modifier}) is not not defined in BaseCollection.`,
+    );
   }
 
   /**
@@ -65,7 +69,7 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   find(selector, options) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    const theSelector = typeof selector === 'undefined' ? {} : selector;
     return this._collection.find(theSelector, options);
   }
 
@@ -79,15 +83,29 @@ class BaseCollection {
     if (_.isNull(name) || _.isUndefined(name)) {
       throw new Meteor.Error(`${name} is not a defined ${this.type}`);
     }
-    const doc = (
-      this._collection.findOne(name)
-      || this._collection.findOne({ name })
-      || this._collection.findOne({ _id: name }));
+
+    // console.log(`finddoc:  ${name}`);
+    // console.log(`finddoc:  ${_.isNull(name)}`);
+    // console.log(`finddoc:  ${_.isUndefined(name)}`);
+    const doc =
+      this._collection.findOne(name) ||
+      this._collection.findOne({ name }) ||
+      this._collection.findOne({ _id: name });
+
+    // console.log(name);
     if (!doc) {
       if (typeof name !== 'string') {
-        throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this._type}`, '', Error().stack);
+        throw new Meteor.Error(
+          `${JSON.stringify(name)} is not a defined ${this._type}`,
+          '',
+          Error().stack,
+        );
       } else {
-        throw new Meteor.Error(`${name} is not a defined ${this._type}`, '', Error().stack);
+        throw new Meteor.Error(
+          `${name} is not a defined ${this._type}`,
+          '',
+          Error().stack,
+        );
       }
     }
     return doc;
@@ -101,7 +119,7 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   findOne(selector, options) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    const theSelector = typeof selector === 'undefined' ? {} : selector;
     // console.log(selector);
     return this._collection.findOne(theSelector, options);
   }
@@ -114,7 +132,7 @@ class BaseCollection {
    * @returns {Mongo.Cursor}
    */
   findOnlyOne(selector) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    const theSelector = typeof selector === 'undefined' ? {} : selector;
     return this._collection.findOne(theSelector);
   }
 
@@ -169,9 +187,10 @@ class BaseCollection {
       return false;
     }
     return (
-      !!this._collection.findOne(name)
-      || !!this._collection.findOne({ name })
-      || !!this._collection.findOne({ _id: name }));
+      !!this._collection.findOne(name) ||
+      !!this._collection.findOne({ name }) ||
+      !!this._collection.findOne({ _id: name })
+    );
   }
 
   /**
@@ -200,7 +219,10 @@ class BaseCollection {
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else if (!Roles.userIsInRole(userId, roles)) {
-      throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
+      throw new Meteor.Error(
+        'unauthorized',
+        `You must be one of the following roles: ${roles}`,
+      );
     }
     return true;
   }
@@ -212,7 +234,9 @@ class BaseCollection {
    */
   assertDefined(name) {
     if (!this.isDefined(name)) {
-      throw new Meteor.Error(`${name} is not a valid instance of ${this._type}.`);
+      throw new Meteor.Error(
+        `${name} is not a valid instance of ${this._type}.`,
+      );
     }
   }
 
@@ -262,7 +286,9 @@ class BaseCollection {
    * @returns { Object } An object representing this document.
    */
   dumpOne(docID) {
-    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this._collectionName} on ${docID}`);
+    throw new Meteor.Error(
+      `Default dumpOne method invoked by collection ${this._collectionName} on ${docID}`,
+    );
   }
 
   /**
@@ -285,7 +311,6 @@ class BaseCollection {
   restoreAll(dumpObjects) {
     dumpObjects.forEach((dumpObject) => this.restoreOne(dumpObject));
   }
-
 }
 
 export default BaseCollection;
