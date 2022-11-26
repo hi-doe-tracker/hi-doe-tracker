@@ -6,7 +6,6 @@ import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
-import { Stuffs } from '../../api/stuff/StuffCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import swal from 'sweetalert';
 
@@ -38,7 +37,6 @@ const TestimonyItem = ({ testimony }) => {
   };
 
   useEffect(() => {
-    // update();
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
@@ -57,27 +55,40 @@ const TestimonyItem = ({ testimony }) => {
     const rdy = subscription.ready() && subscription2.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
     const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
-    const testimonyState = testimonyStates;
-    console.log(testimonyStates);
+    const testimonyState = testimonyStates[0];
     return {
       ready: rdy,
       testimonyFiles: testimonyfiles,
-      testimonyProgress: testimonyStates,
+      testimonyProgress: testimonyState,
     };
   }, []);
 
   // Restores the state of the testimony's progress from the last session.
   if (ready && initialState) {
-    if (testimonyProgress.length < 1) {
+    if (testimonyProgress === undefined) {
       // Adds the testimony progress if the testimony does not have a progress associated with it.
       submit();
     } else {
-      setCheckBox1(testimonyProgress[0].officeApproval);
-      setCheckBox2(testimonyProgress[0].pipeApproval);
-      setCheckBox3(testimonyProgress[0].finalApproval);
+      setCheckBox1(testimonyProgress.officeApproval);
+      setCheckBox2(testimonyProgress.pipeApproval);
+      setCheckBox3(testimonyProgress.finalApproval);
     }
     setInitialState(false);
   }
+
+  // Changes the state of the checkbox and also updates the testimony's progress.
+  const changeCheckbox = (checkboxNumber) => {
+    if (checkboxNumber === 1) {
+      setCheckBox1(!checkbox1);
+      update();
+    } else if (checkboxNumber === 2) {
+      setCheckBox2(!checkbox2);
+      update();
+    } else if (checkboxNumber === 3) {
+      (setCheckBox3(!checkbox3));
+      update();
+    }
+  };
 
   // get link of pdfs
   let links;
@@ -108,15 +119,15 @@ const TestimonyItem = ({ testimony }) => {
         Progress<ProgressBar now={progress} /><br />
         <form>
           <div>
-            <input type="checkbox" id="officeBox" onChange={() => setCheckBox1(!checkbox1)} />
+            <input type="checkbox" id="officeBox" onChange={() => changeCheckbox(1)} />
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="pipeBox" onChange={() => setCheckBox2(!checkbox2)} />
+            <input type="checkbox" id="pipeBox" onChange={() => changeCheckbox(2)} />
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="finalBox" onChange={() => setCheckBox3(!checkbox3)} />
+            <input type="checkbox" id="finalBox" onChange={() => changeCheckbox(3)} />
             <label htmlFor="officeBox">Final Approval Status</label>
           </div>
         </form>
