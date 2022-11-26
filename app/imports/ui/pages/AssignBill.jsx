@@ -202,7 +202,7 @@ const AssignBill = () => {
     const filteredBillData = getChosenBillData(assignedBill, scraperBills);
     const billData = filteredBillData[0];
     // Gets the offices from the office bool values selected.
-    const office = getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm);
+    const office = [...getOfficesSelected(deputy, ocid, ofo, ofs, oits, osip, osss, otm), mainOffice];
 
     // Fills new bill data with scraper bill data.
     const billLink = billData.measureArchiveUrl;
