@@ -28,26 +28,6 @@ const ListTestimony = () => {
       ready: rdy,
     };
   }, []);
-  // const componentRef = useRef();
-  // const handlePrint = useReactToPrint({
-  // content: () => componentRef.current,
-  // });
-  // useEffect(() => {
-  //   if (currentUser !== '' && currentUser !== undefined) {
-  //     if (ready) {
-  //       const email = currentUser;
-  //       const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
-  //       console.log(email);
-  //       if (!isAdmin) {
-  //         const pos = UserProfiles.findByEmail(email).position;
-  //         // console.log(pos)
-  //         setPosition(pos);
-  //       } else {
-  //         setPosition('Admin');
-  //       }
-  //     }
-  //   }
-  // });
 
   const style = { width: '100%', margin: 0 };
   // TO DO make it so that you can only edit testimony you made

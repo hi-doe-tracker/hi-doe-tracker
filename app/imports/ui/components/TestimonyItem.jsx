@@ -15,10 +15,16 @@ import {
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
-  const [position, setPosition] = useState('');
+  const [myState, setMyState] = useState(
+    { fields: {
+      position: '',
+      assignedOffice: '',
+    },
+    },
+  );
+
   const allowedPosition = [
     'Admin',
-    'Writer',
     'PIPE Approver',
     'Final Approver',
   ];
@@ -48,17 +54,24 @@ const TestimonyItem = ({ testimony }) => {
       if (readyUsr) {
         const email = currentUser;
         const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
-        console.log(email);
+        // console.log(email);
         if (!isAdmin) {
-          const pos = UserProfiles.findByEmail(email).position;
-          // console.log(pos)
-          setPosition(pos);
+          // const pos = UserProfiles.findByEmail(email).position;
+          const { assignedOffice, position } = UserProfiles.findByEmail(email);
+          setMyState({ ...myState, fields: {
+            position,
+            assignedOffice,
+          },
+          });
         } else {
-          setPosition('Admin');
+          setMyState({ ...myState, fields: {
+            position: 'Admin',
+          },
+          });
         }
       }
     }
-  });
+  }, [ready, readyUsr]);
 
   // get link of pdfs
   let links;
@@ -68,14 +81,13 @@ const TestimonyItem = ({ testimony }) => {
       file.name,
     ]);
   }
-  // let getPdf = () => testimonyFiles.map(file =><a href={file.link()} target="_blank">View</a> )
 
   // display pdfs
   const getPdf = () => {
     if (links.length === 0) {
       return 'No PDFs';
     }
-    return ready
+    return ready && readyUsr
       ? links.map((link) => (
         <p key={link[0]}>
           <a href={link[0]} target="_blank" rel="noreferrer">
@@ -86,7 +98,7 @@ const TestimonyItem = ({ testimony }) => {
       ))
       : 'Empty';
   };
-  return ready ? (
+  return ready && readyUsr ? (
     <tr>
       <td>{testimony.billNo}</td>
       <td>{testimony.firstName}</td>
@@ -98,7 +110,7 @@ const TestimonyItem = ({ testimony }) => {
       <td>{testimony.testimony}</td>
       <td>{getPdf()}</td>
       <td>
-        {allowedPosition.includes(position) ? (
+        {allowedPosition.includes(myState.fields.position) || (myState.fields.position === 'Writer' && testimony.office.includes(myState.fields.assignedOffice)) ? (
           <Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>
             Edit
           </Link>
