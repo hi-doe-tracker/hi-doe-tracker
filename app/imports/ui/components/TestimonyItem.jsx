@@ -8,11 +8,6 @@ import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/test
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import swal from 'sweetalert';
-import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, BoolField, ErrorsField, SubmitField } from 'uniforms-bootstrap5';
-import SimpleSchema from 'simpl-schema';
-
-const bridge = new SimpleSchema2Bridge(TestimonyProgresses.getSchema());
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -21,6 +16,7 @@ const TestimonyItem = ({ testimony }) => {
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
   const [initialState, setInitialState] = useState(true);
+  const [changeBoxes, setChangeBoxes] = useState(false);
 
   const { ready, testimonyFiles, testimonyProgress } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
@@ -50,13 +46,14 @@ const TestimonyItem = ({ testimony }) => {
 
   // On update, updates the testimony progress data.
   const updateProgress = (data) => {
+    console.log(data);
     const collectionName = TestimonyProgresses.getCollectionName();
     const updateData = { id: testimonyProgress._id, ...data };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
-
+  
   useEffect(() => {
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
@@ -67,7 +64,19 @@ const TestimonyItem = ({ testimony }) => {
     } else {
       setProgress(25);
     }
-  }, [checkbox1, checkbox2, checkbox3]);
+
+    // Checks if the progress of the testimony should be updated.
+    if (changeBoxes) {
+      const updateData = { _id: testimonyProgress._id, associatedTestimony: testimony._id, officeApproval: testimonyProgress.officeApproval,
+        pipeApproval: testimonyProgress.pipeApproval, finalApproval: testimonyProgress.finalApproval };
+      updateData.officeApproval = checkbox1;
+      updateData.pipeApproval = checkbox2;
+      updateData.finalApproval = checkbox3;
+
+      // Updates the data.
+      updateProgress(updateData);
+    }
+  }, [checkbox1, checkbox2, checkbox3, changeBoxes]);
 
   // Restores the state of the testimony's progress from the last session.
   if (ready && initialState) {
@@ -84,20 +93,15 @@ const TestimonyItem = ({ testimony }) => {
 
   // Changes the state of the checkbox and also updates the testimony's progress.
   const changeCheckbox = (checkboxNumber) => {
-    const updateData = { _id: testimonyProgress._id, associatedTestimony: testimony._id, officeApproval: testimonyProgress.officeApproval,
-      pipeApproval: testimonyProgress.pipeApproval, finalApproval: testimonyProgress.finalApproval };
     if (checkboxNumber === 1) {
       setCheckBox1(!checkbox1);
-      updateData.officeApproval = checkbox1;
-      updateProgress(updateData);
+      setChangeBoxes(true);
     } else if (checkboxNumber === 2) {
       setCheckBox2(!checkbox2);
-      updateData.pipeApproval = checkbox2;
-      updateProgress(updateData);
+      setChangeBoxes(true);
     } else if (checkboxNumber === 3) {
       (setCheckBox3(!checkbox3));
-      updateData.finalApproval = checkbox3;
-      updateProgress(updateData);
+      setChangeBoxes(true);
     }
   };
 
@@ -128,19 +132,20 @@ const TestimonyItem = ({ testimony }) => {
       <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
       <td>
         Progress<ProgressBar now={progress} /><br />
-        <AutoForm schema={bridge} onSubmit={data => updateProgress(data)} model={testimonyProgress}>
-          <Row>
-            <Col><BoolField name="officeApproval" /></Col>
-            <Col><SubmitField value="Submit" /></Col>
-            <ErrorsField />
-          </Row>
-          <Row>
-            <Col><BoolField name="pipeApproval" /></Col>
-          </Row>
-          <Row>
-            <Col><BoolField name="finalApproval" /></Col>
-          </Row>
-        </AutoForm>
+        <form>
+          <div>
+            <input type="checkbox" id="officeBox" onChange={() => changeCheckbox(1)} />
+            <label htmlFor="officeBox">Office Approval Status</label>
+          </div>
+          <div>
+            <input type="checkbox" id="pipeBox" onChange={() => changeCheckbox(2)} />
+            <label htmlFor="officeBox">PIPE Approval Status</label>
+          </div>
+          <div>
+            <input type="checkbox" id="finalBox" onChange={() => changeCheckbox(3)} />
+            <label htmlFor="officeBox">Final Approval Status</label>
+          </div>
+        </form>
       </td>
     </tr>
   ) : <tr><td>Loading</td></tr>;
