@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { ProgressBar, Row, Col } from 'react-bootstrap';
+import swal from 'sweetalert';
+import { ProgressBar } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import swal from 'sweetalert';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -46,12 +46,11 @@ const TestimonyItem = ({ testimony }) => {
 
   // On update, updates the testimony progress data.
   const updateProgress = (data) => {
-    console.log(data);
     const collectionName = TestimonyProgresses.getCollectionName();
     const updateData = { id: testimonyProgress._id, ...data };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
+      .then(() => swal('Success', 'Testimony Approval Status Changed!', 'success'));
   };
 
   useEffect(() => {
@@ -135,14 +134,17 @@ const TestimonyItem = ({ testimony }) => {
         <form>
           <div>
             <input type="checkbox" id="officeBox" defaultChecked={checkbox1} onChange={() => changeCheckbox(1)} />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
             <input type="checkbox" id="pipeBox" defaultChecked={checkbox2} onChange={() => changeCheckbox(2)} />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
             <input type="checkbox" id="finalBox" defaultChecked={checkbox3} onChange={() => changeCheckbox(3)} />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Final Approval Status</label>
           </div>
         </form>
