@@ -39,10 +39,10 @@ class TestimonyProgressCollection extends BaseCollection {
 
   /**
    * Updates the given document.
-   * @param docID the id of the document to update.
-   * @param name the new name (optional).
-   * @param quantity the new quantity (optional).
-   * @param condition the new condition (optional).
+   * @param associatedTestimony the associated testimony.
+   * @param officeApproval the state the office approver gave the testimony.
+   * @param pipeApproval the state the pipe approver gave the testimony.
+   * @param finalApproval the state the final approver gave the testimony.
    */
   update(docID, { associatedTestimony, officeApproval, pipeApproval, finalApproval }) {
     const updateData = {};

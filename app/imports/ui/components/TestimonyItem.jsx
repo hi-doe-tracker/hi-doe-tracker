@@ -8,6 +8,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -18,18 +19,22 @@ const TestimonyItem = ({ testimony }) => {
   const [initialState, setInitialState] = useState(true);
   const [changeBoxes, setChangeBoxes] = useState(false);
 
-  const { ready, testimonyFiles, testimonyProgress } = useTracker(() => {
+  const { ready, testimonyFiles, testimonyProgress, userProfile } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
+    const subscription3 = UserProfiles.subscribeUserProfiles();
     // Determine if the subscription is ready
-    const rdy = subscription.ready() && subscription2.ready();
+    const rdy = subscription.ready() && subscription2.ready() && subscription3.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
     const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
     const testimonyState = testimonyStates[0];
+    const users = UserProfiles.find({}).fetch();
+    const user = users[0];
     return {
       ready: rdy,
       testimonyFiles: testimonyfiles,
       testimonyProgress: testimonyState,
+      userProfile: user,
     };
   }, []);
 
@@ -133,17 +138,20 @@ const TestimonyItem = ({ testimony }) => {
         Progress<ProgressBar now={progress} /><br />
         <form>
           <div>
-            <input type="checkbox" id="officeBox" defaultChecked={checkbox1} onChange={() => changeCheckbox(1)} />
+            <input type="checkbox" id="officeBox" defaultChecked={checkbox1} disabled={userProfile.position !== 'Office Approver'} onChange={() => changeCheckbox(1)} />
+            &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="pipeBox" defaultChecked={checkbox2} onChange={() => changeCheckbox(2)} />
+            <input type="checkbox" id="pipeBox" defaultChecked={checkbox2} disabled={userProfile.position !== 'PIPE Approver'} onChange={() => changeCheckbox(2)} />
+            &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="finalBox" defaultChecked={checkbox3} onChange={() => changeCheckbox(3)} />
+            <input type="checkbox" id="finalBox" defaultChecked={checkbox3} disabled={userProfile.position !== 'Final Approver'} onChange={() => changeCheckbox(3)} />
+            &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Final Approval Status</label>
           </div>
