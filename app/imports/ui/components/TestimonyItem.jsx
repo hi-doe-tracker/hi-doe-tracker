@@ -134,15 +134,15 @@ const TestimonyItem = ({ testimony }) => {
         Progress<ProgressBar now={progress} /><br />
         <form>
           <div>
-            <input type="checkbox" id="officeBox" onChange={() => changeCheckbox(1)} />
+            <input type="checkbox" id="officeBox" defaultChecked={checkbox1} onChange={() => changeCheckbox(1)} />
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="pipeBox" onChange={() => changeCheckbox(2)} />
+            <input type="checkbox" id="pipeBox" defaultChecked={checkbox2} onChange={() => changeCheckbox(2)} />
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="finalBox" onChange={() => changeCheckbox(3)} />
+            <input type="checkbox" id="finalBox" defaultChecked={checkbox3} onChange={() => changeCheckbox(3)} />
             <label htmlFor="officeBox">Final Approval Status</label>
           </div>
         </form>
