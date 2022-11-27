@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, Row, Col } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 // import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import swal from 'sweetalert';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { AutoForm, BoolField, ErrorsField, SubmitField } from 'uniforms-bootstrap5';
+import SimpleSchema from 'simpl-schema';
+
+const bridge = new SimpleSchema2Bridge(TestimonyProgresses.getSchema());
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
@@ -16,6 +21,21 @@ const TestimonyItem = ({ testimony }) => {
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
   const [initialState, setInitialState] = useState(true);
+
+  const { ready, testimonyFiles, testimonyProgress } = useTracker(() => {
+    const subscription = subscribeTestimonyFiles();
+    const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
+    // Determine if the subscription is ready
+    const rdy = subscription.ready() && subscription2.ready();
+    const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
+    const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
+    const testimonyState = testimonyStates[0];
+    return {
+      ready: rdy,
+      testimonyFiles: testimonyfiles,
+      testimonyProgress: testimonyState,
+    };
+  }, []);
 
   // On submit, insert the data.
   const submit = () => {
@@ -28,9 +48,10 @@ const TestimonyItem = ({ testimony }) => {
       });
   };
 
-  const update = () => {
+  // On update, updates the testimony progress data.
+  const updateProgress = (data) => {
     const collectionName = TestimonyProgresses.getCollectionName();
-    const updateData = { associatedTestimony: testimony._id, officeApproval: checkbox1, pipeApproval: checkbox2, finalApproval: checkbox3 };
+    const updateData = { id: testimonyProgress._id, ...data };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
@@ -48,21 +69,6 @@ const TestimonyItem = ({ testimony }) => {
     }
   }, [checkbox1, checkbox2, checkbox3]);
 
-  const { ready, testimonyFiles, testimonyProgress } = useTracker(() => {
-    const subscription = subscribeTestimonyFiles();
-    const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
-    // Determine if the subscription is ready
-    const rdy = subscription.ready() && subscription2.ready();
-    const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
-    const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
-    const testimonyState = testimonyStates[0];
-    return {
-      ready: rdy,
-      testimonyFiles: testimonyfiles,
-      testimonyProgress: testimonyState,
-    };
-  }, []);
-
   // Restores the state of the testimony's progress from the last session.
   if (ready && initialState) {
     if (testimonyProgress === undefined) {
@@ -78,15 +84,20 @@ const TestimonyItem = ({ testimony }) => {
 
   // Changes the state of the checkbox and also updates the testimony's progress.
   const changeCheckbox = (checkboxNumber) => {
+    const updateData = { _id: testimonyProgress._id, associatedTestimony: testimony._id, officeApproval: testimonyProgress.officeApproval,
+      pipeApproval: testimonyProgress.pipeApproval, finalApproval: testimonyProgress.finalApproval };
     if (checkboxNumber === 1) {
       setCheckBox1(!checkbox1);
-      update();
+      updateData.officeApproval = checkbox1;
+      updateProgress(updateData);
     } else if (checkboxNumber === 2) {
       setCheckBox2(!checkbox2);
-      update();
+      updateData.pipeApproval = checkbox2;
+      updateProgress(updateData);
     } else if (checkboxNumber === 3) {
       (setCheckBox3(!checkbox3));
-      update();
+      updateData.finalApproval = checkbox3;
+      updateProgress(updateData);
     }
   };
 
@@ -117,20 +128,19 @@ const TestimonyItem = ({ testimony }) => {
       <td><Link id="testimony-view" to={`/edittestimony/${testimony._id}`}>Edit</Link></td>
       <td>
         Progress<ProgressBar now={progress} /><br />
-        <form>
-          <div>
-            <input type="checkbox" id="officeBox" onChange={() => changeCheckbox(1)} />
-            <label htmlFor="officeBox">Office Approval Status</label>
-          </div>
-          <div>
-            <input type="checkbox" id="pipeBox" onChange={() => changeCheckbox(2)} />
-            <label htmlFor="officeBox">PIPE Approval Status</label>
-          </div>
-          <div>
-            <input type="checkbox" id="finalBox" onChange={() => changeCheckbox(3)} />
-            <label htmlFor="officeBox">Final Approval Status</label>
-          </div>
-        </form>
+        <AutoForm schema={bridge} onSubmit={data => updateProgress(data)} model={testimonyProgress}>
+          <Row>
+            <Col><BoolField name="officeApproval" /></Col>
+            <Col><SubmitField value="Submit" /></Col>
+            <ErrorsField />
+          </Row>
+          <Row>
+            <Col><BoolField name="pipeApproval" /></Col>
+          </Row>
+          <Row>
+            <Col><BoolField name="finalApproval" /></Col>
+          </Row>
+        </AutoForm>
       </td>
     </tr>
   ) : <tr><td>Loading</td></tr>;

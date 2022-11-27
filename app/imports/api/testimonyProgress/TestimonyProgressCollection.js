@@ -12,10 +12,10 @@ export const testimonyProgressPublications = {
 class TestimonyProgressCollection extends BaseCollection {
   constructor() {
     super('TestimonyProgresses', new SimpleSchema({
-      associatedTestimony: String,
-      officeApproval: Boolean,
-      pipeApproval: Boolean,
-      finalApproval: Boolean,
+      associatedTestimony: { type: String, optional: true },
+      officeApproval: { type: Boolean, optional: true },
+      pipeApproval: { type: Boolean, optional: true },
+      finalApproval: { type: Boolean, optional: true },
     }));
   }
 
@@ -35,6 +35,30 @@ class TestimonyProgressCollection extends BaseCollection {
       finalApproval,
     });
     return docID;
+  }
+
+  /**
+   * Updates the given document.
+   * @param docID the id of the document to update.
+   * @param name the new name (optional).
+   * @param quantity the new quantity (optional).
+   * @param condition the new condition (optional).
+   */
+  update(docID, { associatedTestimony, officeApproval, pipeApproval, finalApproval }) {
+    const updateData = {};
+    if (associatedTestimony) {
+      updateData.associatedTestimony = associatedTestimony;
+    }
+    if (officeApproval) {
+      updateData.officeApproval = officeApproval;
+    }
+    if (pipeApproval) {
+      updateData.pipeApproval = pipeApproval;
+    }
+    if (finalApproval) {
+      updateData.finalApproval = finalApproval;
+    }
+    this._collection.update(docID, { $set: updateData });
   }
 
   /**
