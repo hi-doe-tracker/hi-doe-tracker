@@ -32,6 +32,7 @@ const EditTestimony = () => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
+    console.log('Data: %o', data);
     const collectionName = Testimonies.getCollectionName();
     const updateData = { id: _id, ...data };
     updateMethod.callPromise({ collectionName, updateData })
