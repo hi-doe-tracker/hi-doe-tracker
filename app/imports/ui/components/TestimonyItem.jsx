@@ -53,7 +53,7 @@ const TestimonyItem = ({ testimony }) => {
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
-  
+
   useEffect(() => {
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);

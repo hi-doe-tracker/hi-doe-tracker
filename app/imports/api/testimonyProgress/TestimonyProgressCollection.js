@@ -49,15 +49,9 @@ class TestimonyProgressCollection extends BaseCollection {
     if (associatedTestimony) {
       updateData.associatedTestimony = associatedTestimony;
     }
-    if (officeApproval) {
-      updateData.officeApproval = officeApproval;
-    }
-    if (pipeApproval) {
-      updateData.pipeApproval = pipeApproval;
-    }
-    if (finalApproval) {
-      updateData.finalApproval = finalApproval;
-    }
+    updateData.officeApproval = officeApproval;
+    updateData.pipeApproval = pipeApproval;
+    updateData.finalApproval = finalApproval;
     this._collection.update(docID, { $set: updateData });
   }
 
