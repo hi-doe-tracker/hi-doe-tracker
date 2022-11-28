@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Tab, Tabs, Table } from 'react-bootstrap';
+import { Tab, Table } from 'react-bootstrap';
 import BillViewDisplay from './BillViewDisplay';
 import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from './LoadingSpinner';
