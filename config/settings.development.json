@@ -565,5 +565,10 @@
 
   "defaultTestimonyProgresses": [
     { "associatedTestimony": "abc", "officeApproval": true, "pipeApproval": true, "finalApproval": true }
+  ],
+
+  "defaultNotifications": [
+    { "message":  "New Testimony Created!", "messageType":  "Testimony Creation", "recipient":  "Office Approver" },
+    { "message":  "New Bill Assigned!", "messageType":  "Bill Assignment", "recipient":  "All" }
   ]
 }
