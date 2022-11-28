@@ -15,6 +15,7 @@ class NotificationCollection extends BaseCollection {
       message: { type: String, optional: true },
       messageType: { type: String, optional: true },
       recipient: { type: String, optional: true },
+      link: { type: String, optional: true },
     }));
   }
 
@@ -23,13 +24,15 @@ class NotificationCollection extends BaseCollection {
    * @param message the message of the notification.
    * @param messageType the type of message.
    * @param recipient the recipient of the message.
+   * @param link the link to the appropriate area.
    * @return {String} the docID of the new document.
    */
-  define({ message, messageType, recipient }) {
+  define({ message, messageType, recipient, link }) {
     const docID = this._collection.insert({
       message,
       messageType,
       recipient,
+      link,
     });
     return docID;
   }
@@ -99,6 +102,7 @@ class NotificationCollection extends BaseCollection {
     const message = docID.message;
     const messageType = docID.messageType;
     const recipient = docID.recipient;
+    const link = docID.link;
     return { message, messageType, recipient };
   }
 }

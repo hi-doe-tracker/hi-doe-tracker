@@ -90,7 +90,7 @@ const NavBar = () => {
               [
                 <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="adminuser-dropdown" title={<Bell size="20" />}>
                   {notifications.map((notification) => (
-                    <NavDropdown.Item key={notification._id}>
+                    <NavDropdown.Item key={notification._id} as={NavLink} to={notification.link}>
                       {notification.messageType === 'Bill Assignment' || notification.messageType === 'Testimony Creation' ? <FileText /> : <Alarm />}
                       &nbsp; {notification.message}
                     </NavDropdown.Item>

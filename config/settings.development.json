@@ -568,8 +568,8 @@
   ],
 
   "defaultNotifications": [
-    { "message":  "New Testimony Created!", "messageType":  "Testimony Creation", "recipient":  "Office Approver" },
-    { "message":  "New Bill Assigned!", "messageType":  "Bill Assignment", "recipient":  "All" },
-    { "message":  "Hearing @ 10 AM, 9/19", "messageType":  "New Hearing", "recipient":  "All" }
+    { "message":  "New Testimony Created!", "messageType":  "Testimony Creation", "recipient":  "Office Approver", "link": "/listtestimony" },
+    { "message":  "New Bill Assigned!", "messageType":  "Bill Assignment", "recipient":  "All", "link": "/bills" },
+    { "message":  "Hearing @ 10 AM, 9/19", "messageType":  "New Hearing", "recipient":  "All", "link": "/view-hearings" }
   ]
 }
