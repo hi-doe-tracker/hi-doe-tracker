@@ -11,10 +11,13 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
+import { Bills } from '../../api/bill/BillCollection';
 
-// export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
+/* A component that holds all testimony information. */
 const TestimonyItem = ({ testimony }) => {
+  const [progressState, setProgressState] = useState('info');
   const [progress, setProgress] = useState(0);
+  const [hoursRemaining, setHoursRemaining] = useState(63);
   const [checkbox1, setCheckBox1] = useState(false);
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
@@ -34,25 +37,29 @@ const TestimonyItem = ({ testimony }) => {
     'Final Approver',
   ];
 
-  // Gets the testimony files, testimony progress, and the user profile.
-  const { ready, currentUser, testimonyFiles, testimonyProgress, userProfile } = useTracker(() => {
+  // Gets the testimony files, testimony progress, associated bill, and the user profile.
+  const { ready, currentUser, testimonyFiles, testimonyProgress, userProfile, associatedBill } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
     const subscription3 = UserProfiles.subscribeUserProfiles();
+    const subscription4 = Bills.subscribeBill();
     // Determine if the subscription is ready
     const currUser = Meteor.user() ? Meteor.user().username : '';
-    const rdy = subscription.ready() && subscription2.ready() && subscription3.ready();
+    const rdy = subscription.ready() && subscription2.ready() && subscription3.ready() && subscription4.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
     const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
     const testimonyState = testimonyStates[0];
     const users = UserProfiles.find({}).fetch();
     const user = users[0];
+    const bills = Bills.find({ billNo: testimony.billNo }).fetch();
+    const bill = bills[0];
     return {
       ready: rdy,
       currentUser: currUser,
       testimonyFiles: testimonyfiles,
       testimonyProgress: testimonyState,
       userProfile: user,
+      associatedBill: bill,
     };
   }, []);
 
@@ -76,6 +83,36 @@ const TestimonyItem = ({ testimony }) => {
       .then(() => swal('Success', 'Testimony Approval Status Changed!', 'success'));
   };
 
+  // Checks the progress of the testimony and sets progressState accordingly.
+  const checkProgress = (progVal) => {
+    if (ready) {
+      const hearingDate = associatedBill.hearingDate;
+      const currentDate = new Date();
+
+      // Calculates the hours left and sets hours remaining.
+      const hoursLeft = ((hearingDate.getTime() - currentDate.getTime()) / 3600000);
+      setHoursRemaining(Math.ceil(hoursLeft));
+
+      // If the testimony was passed or failed, it can no longer be modified.
+      if (progressState !== 'success' && progressState !== 'danger') {
+        // Checks if progress is 100% before 24 hours of the hearing date.
+        if (progVal === 100 && hoursLeft > 24) {
+          setProgressState('success');
+        } else if (progVal < 100 && hoursLeft > 24) {
+          // Checks if there is less than or equal to 48 hours left.
+          if (hoursLeft <= 48) {
+            setProgressState('warning');
+          } else {
+            setProgressState('info');
+          }
+        } else {
+          setProgressState('danger');
+        }
+      }
+    }
+  };
+
+  // Checks the user's role.
   useEffect(() => {
     if (currentUser !== '' && currentUser !== undefined) {
       if (ready) {
@@ -100,15 +137,20 @@ const TestimonyItem = ({ testimony }) => {
     }
   }, [ready]);
 
+  // Checks the state of the checkboxes and sets progress accordingly.
   useEffect(() => {
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
+      checkProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
       setProgress(75);
+      checkProgress(75);
     } else if (checkbox1 || checkbox2 || checkbox3) {
       setProgress(50);
+      checkProgress(50);
     } else {
       setProgress(25);
+      checkProgress(25);
     }
 
     // Checks if the progress of the testimony should be updated.
@@ -126,10 +168,12 @@ const TestimonyItem = ({ testimony }) => {
 
   // Restores the state of the testimony's progress from the last session.
   if (ready && initialState) {
+    // Checks if testimony does not have a testimony progress document in DB.
     if (testimonyProgress === undefined) {
       // Adds the testimony progress if the testimony does not have a progress associated with it.
       submit();
     } else {
+      // Sets checkboxes to previous testimony progress state.
       setCheckBox1(testimonyProgress.officeApproval);
       setCheckBox2(testimonyProgress.pipeApproval);
       setCheckBox3(testimonyProgress.finalApproval);
@@ -197,7 +241,10 @@ const TestimonyItem = ({ testimony }) => {
         )}
       </td>
       <td>
-        Progress<ProgressBar now={progress} /><br />
+        Progress<ProgressBar now={progress} variant={progressState} /><br />
+        {progressState === 'success' ? <h3>Approved!</h3> : <div />}
+        {progressState === 'warning' ? <h3>{`${hoursRemaining} hours left`}</h3> : <div />}
+        {progressState === 'danger' ? <h3>Failed!</h3> : <div />}
         <form>
           <div>
             <input type="checkbox" id="officeBox" defaultChecked={checkbox1} disabled={userProfile.position !== 'Office Approver'} onChange={() => changeCheckbox(1)} />
