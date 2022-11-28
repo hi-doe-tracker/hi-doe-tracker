@@ -11,9 +11,11 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
+import { Bills } from '../../api/bill/BillCollection';
 
 // export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
 const TestimonyItem = ({ testimony }) => {
+  const [progressState, setProgressState] = useState('info');
   const [progress, setProgress] = useState(0);
   const [checkbox1, setCheckBox1] = useState(false);
   const [checkbox2, setCheckBox2] = useState(false);
@@ -35,24 +37,28 @@ const TestimonyItem = ({ testimony }) => {
   ];
 
   // Gets the testimony files, testimony progress, and the user profile.
-  const { ready, currentUser, testimonyFiles, testimonyProgress, userProfile } = useTracker(() => {
+  const { ready, currentUser, testimonyFiles, testimonyProgress, userProfile, associatedBill } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
     const subscription3 = UserProfiles.subscribeUserProfiles();
+    const subscription4 = Bills.subscribeBill();
     // Determine if the subscription is ready
     const currUser = Meteor.user() ? Meteor.user().username : '';
-    const rdy = subscription.ready() && subscription2.ready() && subscription3.ready();
+    const rdy = subscription.ready() && subscription2.ready() && subscription3.ready() && subscription4.ready();
     const testimonyfiles = TestimonyFileCollection.find({ meta: { billNo: testimony.billNo } }).fetch();
     const testimonyStates = TestimonyProgresses.find({ associatedTestimony: testimony._id }).fetch();
     const testimonyState = testimonyStates[0];
     const users = UserProfiles.find({}).fetch();
     const user = users[0];
+    const bills = Bills.find({ billNo: testimony.billNo }).fetch();
+    const bill = bills[0];
     return {
       ready: rdy,
       currentUser: currUser,
       testimonyFiles: testimonyfiles,
       testimonyProgress: testimonyState,
       userProfile: user,
+      associatedBill: bill,
     };
   }, []);
 
@@ -74,6 +80,24 @@ const TestimonyItem = ({ testimony }) => {
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Testimony Approval Status Changed!', 'success'));
+  };
+
+  // Checks if the progress of the testimony was a success.
+  const checkProgress = () => {
+    if (progressState === 'info') {
+      const hearingDate = associatedBill.hearingDate;
+      const currentDate = new Date();
+      const limitDate = new Date();
+      limitDate.setHours(currentDate.getHours() + 24);
+
+      if (progress === 100 && limitDate < hearingDate) {
+        setProgressState('success');
+      } else if (progress < 100 && limitDate < hearingDate) {
+        setProgressState('info');
+      } else {
+        setProgressState('danger');
+      }
+    }
   };
 
   useEffect(() => {
@@ -110,6 +134,7 @@ const TestimonyItem = ({ testimony }) => {
     } else {
       setProgress(25);
     }
+    checkProgress();
 
     // Checks if the progress of the testimony should be updated.
     if (changeBoxes) {
@@ -197,7 +222,7 @@ const TestimonyItem = ({ testimony }) => {
         )}
       </td>
       <td>
-        Progress<ProgressBar now={progress} /><br />
+        Progress<ProgressBar now={progress} variant={progressState} /><br />
         <form>
           <div>
             <input type="checkbox" id="officeBox" defaultChecked={checkbox1} disabled={userProfile.position !== 'Office Approver'} onChange={() => changeCheckbox(1)} />
