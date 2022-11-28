@@ -59,4 +59,8 @@ export const COMPONENT_IDS = {
   ASSIGN_BILL_FORM_HEARING_COMMENTS: 'assign-bill-form-hearing-comments',
   ASSIGN_BILL_FORM_RATIONALE: 'assign-bill-form-rationale',
   ASSIGN_BILL_FORM_SUBMIT: 'assign-bill-form-submit',
+  HEARING_CARD_DETAILS:
+  'hearing-card-details',
+  HEARING_CARD_ACCORDION:
+  'hearing-card-accordion',
 };
