@@ -13,8 +13,8 @@ class NotificationCollection extends BaseCollection {
   constructor() {
     super('Notifications', new SimpleSchema({
       message: { type: String, optional: true },
-      messageType: { type: Boolean, optional: true },
-      recipient: { type: Boolean, optional: true },
+      messageType: { type: String, optional: true },
+      recipient: { type: String, optional: true },
     }));
   }
 

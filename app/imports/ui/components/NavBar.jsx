@@ -17,11 +17,14 @@ const NavBar = () => {
   const { currentUser, notifications, ready } = useTracker(() => {
     const subscription = UserProfiles.subscribeUserProfiles();
     const subscription2 = Notifications.subscribeNotification();
-    const rdy = subscription.ready() && subscription2;
+    const rdy = subscription.ready() && subscription2.ready();
     const currUser = Meteor.user() ? Meteor.user().username : '';
     const userProfile = UserProfiles.findByEmail(currUser);
     // Gets all notifications that are for all or for the user's position.
-    const allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] });
+    let allNotifications = [];
+    if (subscription.ready()) {
+      allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
+    }
     console.log(allNotifications);
     return {
       currentUser: currUser,
