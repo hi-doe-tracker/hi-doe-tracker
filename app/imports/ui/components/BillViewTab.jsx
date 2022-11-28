@@ -65,7 +65,6 @@ const BillViewTab = ({ eventKey, officeName }) => {
                 <th>Name</th>
                 <th>Hearing Date</th>
                 <th>Offices</th>
-                <th>Progress</th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +80,6 @@ const BillViewTab = ({ eventKey, officeName }) => {
                 <th>Name</th>
                 <th>Hearing Date</th>
                 <th>Offices</th>
-                <th>Progress</th>
               </tr>
             </thead>
             <tbody>
