@@ -111,6 +111,7 @@ test('Test that admin pages show up', async () => {
   await assignBillPage.isDisplayed();
   await navBar.gotoManageAccountsPage();
   await manageAccountsPage.isDisplayed();
+  await navBar.gotoViewHearingsPage();
   await viewHearingsPage.isDisplayed();
   // await navBar.logout();
   // await signOutPage.isDisplayed();
