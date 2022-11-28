@@ -20,75 +20,22 @@ const BillViewTab = ({ eventKey, officeName }) => {
     };
   }, []);
 
-  /* Checks status of the bill. */
-  const checkIfActive = (bill) => {
-    const searchWord = '(Gov.';
-    // Checks if the bill was passed.
-    for (let i = 0; i < bill.status.length; i++) {
-      if (bill.status.substring(i, searchWord.length + i) === searchWord) {
-        return true;
-      }
-    }
-    const searchDateArray = [];
-    let i = 0;
-    // Finds the date of the next deadline for the bill.
-    while (bill.status[i] !== '-') {
-      if (bill.status[i] !== '(' && bill.status[i] !== 'S' && bill.status[i] !== ')' && bill.status[i] !== 'H') {
-        searchDateArray.push(bill.status[i]);
-      }
-      i++;
-    }
-    const searchDate = new Date(searchDateArray.join(''));
-    const todayDate = new Date();
-
-    // Checks year, month and day if the bill has already passed its deadline and the status didn't change.
-    if (searchDate.getFullYear() < todayDate.getFullYear()) {
-      return false;
-    }
-    if (searchDate.getMonth() < todayDate.getMonth()) {
-      return false;
-    }
-    if (searchDate.getDay() < todayDate.getDay()) {
-      return false;
-    }
-    return true;
-  };
-
   return (ready ? (
     <Tab.Pane eventKey={eventKey}>
       <h2>{officeName}</h2>
-      <Tabs defaultActiveKey="active-bills">
-        <Tab eventKey="active-bills" title="ACTIVE BILLS">
-          <Table striped bordered responsive="sm">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Hearing Date</th>
-                <th>Offices</th>
-              </tr>
-            </thead>
-            <tbody>
-              {officeName === 'ALL BILLS' ? bills.filter(bill => checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />) :
-                (bills.filter(bill => bill.office.includes(officeName) && checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
-            </tbody>
-          </Table>
-        </Tab>
-        <Tab eventKey="in-active-bills" title="INACTIVE BILLS">
-          <Table striped bordered>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Hearing Date</th>
-                <th>Offices</th>
-              </tr>
-            </thead>
-            <tbody>
-              {officeName === 'ALL BILLS' ? (bills.filter(bill => !checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />)) :
-                (bills.filter(bill => bill.office.includes(officeName) && !checkIfActive(bill)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
-            </tbody>
-          </Table>
-        </Tab>
-      </Tabs>
+      <Table striped bordered responsive="sm">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Hearing Date</th>
+            <th>Offices</th>
+          </tr>
+        </thead>
+        <tbody>
+          {officeName === 'ALL BILLS' ? bills.map((bill) => <BillViewDisplay key={bill._id} billData={bill} />) :
+            (bills.filter(bill => bill.office.includes(officeName)).map((bill) => <BillViewDisplay key={bill._id} billData={bill} />))}
+        </tbody>
+      </Table>
     </Tab.Pane>
   ) : <LoadingSpinner message="Loading Data" />);
 };
