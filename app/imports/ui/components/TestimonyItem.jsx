@@ -13,7 +13,7 @@ import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/test
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { Bills } from '../../api/bill/BillCollection';
 
-// export const TestimonyItem = React.forwardRef(({ testimony }, ref) => (
+/* A component that holds all testimony information. */
 const TestimonyItem = ({ testimony }) => {
   const [progressState, setProgressState] = useState('info');
   const [progress, setProgress] = useState(0);
@@ -37,7 +37,7 @@ const TestimonyItem = ({ testimony }) => {
     'Final Approver',
   ];
 
-  // Gets the testimony files, testimony progress, and the user profile.
+  // Gets the testimony files, testimony progress, associated bill, and the user profile.
   const { ready, currentUser, testimonyFiles, testimonyProgress, userProfile, associatedBill } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
@@ -110,6 +110,7 @@ const TestimonyItem = ({ testimony }) => {
     }
   };
 
+  // Checks the user's role.
   useEffect(() => {
     if (currentUser !== '' && currentUser !== undefined) {
       if (ready) {
@@ -134,6 +135,7 @@ const TestimonyItem = ({ testimony }) => {
     }
   }, [ready]);
 
+  // Checks the state of the checkboxes and sets progress accordingly.
   useEffect(() => {
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
@@ -164,10 +166,12 @@ const TestimonyItem = ({ testimony }) => {
 
   // Restores the state of the testimony's progress from the last session.
   if (ready && initialState) {
+    // Checks if testimony does not have a testimony progress document in DB.
     if (testimonyProgress === undefined) {
       // Adds the testimony progress if the testimony does not have a progress associated with it.
       submit();
     } else {
+      // Sets checkboxes to previous testimony progress state.
       setCheckBox1(testimonyProgress.officeApproval);
       setCheckBox2(testimonyProgress.pipeApproval);
       setCheckBox3(testimonyProgress.finalApproval);
