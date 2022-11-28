@@ -1,51 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ProgressBar } from 'react-bootstrap';
 import { useMediaQuery } from 'usehooks-ts';
 import { Link } from 'react-router-dom';
 
 /** Returns the table display for a given billData. */
 const BillViewDisplay = ({ billData }) => {
   const mobileView = useMediaQuery('(max-width: 850px)');
-
-  /* Checks status of the bill. */
-  const checkStatus = () => {
-    const searchWord = '(Gov.';
-    let progress = 50;
-    // Checks if the bill was passed.
-    for (let i = 0; i < billData.status.length; i++) {
-      if (billData.status.substring(i, searchWord.length + i) === searchWord) {
-        progress = 100;
-        break;
-      }
-    }
-    // Checks if the bill was not passed.
-    if (progress !== 100) {
-      const searchDateArray = [];
-      let i = 0;
-      // Finds the date of the next deadline for the bill.
-      while (billData.status[i] !== '-') {
-        if (billData.status[i] !== '(' && billData.status[i] !== 'S' && billData.status[i] !== ')' && billData.status[i] !== 'H') {
-          searchDateArray.push(billData.status[i]);
-        }
-        i++;
-      }
-      const searchDate = new Date(searchDateArray.join(''));
-      const todayDate = new Date();
-
-      // Checks year, month and day if the bill has already passed its deadline and the status didn't change.
-      if (searchDate.getFullYear() < todayDate.getFullYear()) {
-        return 0;
-      }
-      if (searchDate.getMonth() < todayDate.getMonth()) {
-        return 0;
-      }
-      if (searchDate.getDay() < todayDate.getDay()) {
-        return 0;
-      }
-    }
-    return progress;
-  };
   return (
     <tr id="viewBillTableRow">
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
