@@ -17,6 +17,7 @@ import { Bills } from '../../api/bill/BillCollection';
 const TestimonyItem = ({ testimony }) => {
   const [progressState, setProgressState] = useState('info');
   const [progress, setProgress] = useState(0);
+  const [hoursRemaining, setHoursRemaining] = useState(63);
   const [checkbox1, setCheckBox1] = useState(false);
   const [checkbox2, setCheckBox2] = useState(false);
   const [checkbox3, setCheckBox3] = useState(false);
@@ -82,19 +83,30 @@ const TestimonyItem = ({ testimony }) => {
       .then(() => swal('Success', 'Testimony Approval Status Changed!', 'success'));
   };
 
-  // Checks if the progress of the testimony was a success.
+  // Checks the progress of the testimony and sets progressState accordingly.
   const checkProgress = (progVal) => {
     const hearingDate = associatedBill.hearingDate;
     const currentDate = new Date();
-    const limitDate = new Date();
-    limitDate.setHours(currentDate.getHours() + 24);
 
-    if (progVal === 100 && limitDate < hearingDate) {
-      setProgressState('success');
-    } else if (progVal < 100 && limitDate < hearingDate) {
-      setProgressState('info');
-    } else {
-      setProgressState('danger');
+    // Calculates the hours left and sets hours remaining.
+    const hoursLeft = ((hearingDate.getTime() - currentDate.getTime()) / 3600000);
+    setHoursRemaining(Math.ceil(hoursLeft));
+
+    // If the testimony was passed or failed, it can no longer be modified.
+    if (progressState !== 'success' && progressState !== 'danger') {
+      // Checks if progress is 100% before 24 hours of the hearing date.
+      if (progVal === 100 && hoursLeft > 24) {
+        setProgressState('success');
+      } else if (progVal < 100 && hoursLeft > 24) {
+        // Checks if there is less than or equal to 48 hours left.
+        if (hoursLeft <= 48) {
+          setProgressState('warning');
+        } else {
+          setProgressState('info');
+        }
+      } else {
+        setProgressState('danger');
+      }
     }
   };
 
@@ -225,6 +237,7 @@ const TestimonyItem = ({ testimony }) => {
       <td>
         Progress<ProgressBar now={progress} variant={progressState} /><br />
         {progressState === 'success' ? <h3>Approved!</h3> : <div />}
+        {progressState === 'warning' ? <h3>{`${hoursRemaining} hours left`}</h3> : <div />}
         {progressState === 'danger' ? <h3>Failed!</h3> : <div />}
         <form>
           <div>

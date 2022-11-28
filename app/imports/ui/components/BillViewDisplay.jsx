@@ -49,7 +49,7 @@ const BillViewDisplay = ({ billData }) => {
   return (
     <tr id="viewBillTableRow">
       <td><Link id="bill-view" to={`/viewbill/${billData._id}`}>{`#${billData.billNo}: ${billData.measureTitle}`}</Link></td>
-      <td>{billData.hearingDate.toDateString()}</td>
+      <td>{billData.hearingDate.toLocaleString()}</td>
       <td>
         <h6>{`Main Office: ${billData.mainOffice}`}</h6>
         {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (`${billData.office.join(', ')} `)}
