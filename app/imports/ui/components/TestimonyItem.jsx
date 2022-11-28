@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { ProgressBar } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
-// import { TestimonyFilesCollection } from 'meteor/ostrio:files';
 import { TestimonyFileCollection, subscribeTestimonyFiles } from '../../api/testimony/TestimonyFileCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -19,6 +18,7 @@ const TestimonyItem = ({ testimony }) => {
   const [initialState, setInitialState] = useState(true);
   const [changeBoxes, setChangeBoxes] = useState(false);
 
+  // Gets the testimony files, testimony progress, and the user profile.
   const { ready, testimonyFiles, testimonyProgress, userProfile } = useTracker(() => {
     const subscription = subscribeTestimonyFiles();
     const subscription2 = TestimonyProgresses.subscribeTestimonyProgress();
@@ -169,7 +169,6 @@ TestimonyItem.propTypes = {
     position: PropTypes.string,
     testifyingAs: PropTypes.string,
     billNo: PropTypes.string,
-    // organization: PropTypes.string,
     testifyingMethod: PropTypes.string,
     testimony: PropTypes.string,
     hasPdf: PropTypes.bool,
