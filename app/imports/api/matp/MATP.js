@@ -7,6 +7,7 @@ import { Notices } from '../notice/NoticeCollection';
 import { ScraperBills } from '../scraperBill/ScraperBillCollection';
 import { Bills } from '../bill/BillCollection';
 import { Hearings } from '../hearing/HearingCollection';
+import { TestimonyProgresses } from '../testimonyProgress/TestimonyProgressCollection';
 
 class MATPClass {
   collections;
@@ -22,6 +23,7 @@ class MATPClass {
       Stuffs,
       UserProfiles,
       Testimonies,
+      TestimonyProgresses,
       Notices,
       ScraperBills,
       Bills,
@@ -35,6 +37,7 @@ class MATPClass {
       UserProfiles,
       Stuffs,
       Testimonies,
+      TestimonyProgresses,
       Notices,
       ScraperBills,
       Bills,
