@@ -103,7 +103,7 @@ class NotificationCollection extends BaseCollection {
     const messageType = docID.messageType;
     const recipient = docID.recipient;
     const link = docID.link;
-    return { message, messageType, recipient };
+    return { message, messageType, recipient, link };
   }
 }
 
