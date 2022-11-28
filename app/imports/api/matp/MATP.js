@@ -8,6 +8,7 @@ import { ScraperBills } from '../scraperBill/ScraperBillCollection';
 import { Bills } from '../bill/BillCollection';
 import { Hearings } from '../hearing/HearingCollection';
 import { TestimonyProgresses } from '../testimonyProgress/TestimonyProgressCollection';
+import { Notifications } from '../notification/NotificationCollection';
 
 class MATPClass {
   collections;
@@ -28,6 +29,7 @@ class MATPClass {
       ScraperBills,
       Bills,
       Hearings,
+      Notifications,
     ];
     /*
      * A list of collection class instances in the order required for them to be sequentially loaded from a file.
@@ -42,6 +44,7 @@ class MATPClass {
       ScraperBills,
       Bills,
       Hearings,
+      Notifications,
     ];
 
     /*

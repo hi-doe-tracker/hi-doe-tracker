@@ -14,6 +14,7 @@ class NotificationCollection extends BaseCollection {
     super('Notifications', new SimpleSchema({
       message: { type: String, optional: true },
       messageType: { type: Boolean, optional: true },
+      recipient: { type: Boolean, optional: true },
     }));
   }
 
@@ -21,12 +22,14 @@ class NotificationCollection extends BaseCollection {
    * Defines a new Notification item.
    * @param message the message of the notification.
    * @param messageType the type of message.
+   * @param recipient the recipient of the message.
    * @return {String} the docID of the new document.
    */
-  define({ message, messageType }) {
+  define({ message, messageType, recipient }) {
     const docID = this._collection.insert({
       message,
       messageType,
+      recipient,
     });
     return docID;
   }
@@ -95,7 +98,8 @@ class NotificationCollection extends BaseCollection {
   dumpOne(docID) {
     const message = docID.message;
     const messageType = docID.messageType;
-    return { message, messageType };
+    const recipient = docID.recipient;
+    return { message, messageType, recipient };
   }
 }
 
