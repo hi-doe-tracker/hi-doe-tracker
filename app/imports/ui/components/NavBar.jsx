@@ -8,17 +8,23 @@ import { BoxArrowRight, PersonFill, Bell, Person, Alarm, FileText } from 'react-
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
+import { Notifications } from '../../api/notification/NotificationCollection';
 
 // The NavBar appears at the top of every page. Rendered by the App Layout component.
 const NavBar = () => {
   const [position, setPosition] = useState('');
   const allowedPosition = ['Admin', 'Writer'];
-  const { currentUser, ready } = useTracker(() => {
+  const { currentUser, notifications, ready } = useTracker(() => {
     const subscription = UserProfiles.subscribeUserProfiles();
-    const rdy = subscription.ready();
+    const subscription2 = Notifications.subscribeNotification();
+    const rdy = subscription.ready() && subscription2;
     const currUser = Meteor.user() ? Meteor.user().username : '';
+    const userProfile = UserProfiles.findByEmail(currUser);
+    // Gets all notifications that are for all or for the user's position.
+    const allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }]});
     return {
       currentUser: currUser,
+      notifications: allNotifications,
       ready: rdy,
     };
   }, []);
