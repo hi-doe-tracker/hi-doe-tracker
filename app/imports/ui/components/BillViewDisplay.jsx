@@ -54,7 +54,6 @@ const BillViewDisplay = ({ billData }) => {
         <h6>{`Main Office: ${billData.mainOffice}`}</h6>
         {mobileView ? (billData.office.map(office => <div>{office.toString()}<br /></div>)) : (`${billData.office.join(', ')} `)}
       </td>
-      <td>Progress<ProgressBar now={checkStatus()} /><br /></td>
     </tr>
   );
 };
