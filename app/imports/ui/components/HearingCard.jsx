@@ -4,6 +4,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Hearings } from '../../api/hearing/HearingCollection';
 import LoadingSpinner from './LoadingSpinner';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const HearingCard = ({ hearing }) => {
   const { ready, hearings } = useTracker(() => {
@@ -17,7 +18,6 @@ const HearingCard = ({ hearing }) => {
   }, []);
 
   const [show, setShow] = useState(false);
-  const dot = '...';
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -37,7 +37,7 @@ const HearingCard = ({ hearing }) => {
         <Card.Footer>
           <Row>
             <div className="d-grid gap-2">
-              <Button variant="outline-secondary" onClick={handleShow}>Details</Button>
+              <Button id={COMPONENT_IDS.HEARING_CARD_DETAILS} variant="outline-secondary" onClick={handleShow}>Details</Button>
               <Button variant="primary">Follow</Button>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -48,7 +48,7 @@ const HearingCard = ({ hearing }) => {
                 <Modal.Body>
                   <b>Bills to be heard:</b>
                   <Card>
-                    <Accordion alwaysOpen>
+                    <Accordion id={COMPONENT_IDS.HEARING_CARD_ACCORDION} alwaysOpen>
                       {getFilteredBills().map((bill, index) => (
                         <Accordion.Item eventKey={`${index}`}>
                           <Accordion.Header>

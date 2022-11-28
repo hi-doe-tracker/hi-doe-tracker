@@ -5,6 +5,7 @@ import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 import { profilePage } from './profile.page';
 import { admincreatePage } from './admincreate.page';
+import { viewhearingsPage } from './viewhearings.page';
 // import { adminManageAccountsPage } from './manageaccounts.page';
 import { submitTestimonyPage } from './submittestimony.page';
 import { editTestimonyPage } from './edittestimony.page';
@@ -110,6 +111,7 @@ test('Test that admin pages show up', async () => {
   await assignBillPage.isDisplayed();
   await navBar.gotoManageAccountsPage();
   await manageAccountsPage.isDisplayed();
+  await viewHearingsPage.isDisplayed();
   // await navBar.logout();
   // await signOutPage.isDisplayed();
 });
@@ -187,4 +189,13 @@ test('Test that SendHearingNotice page works', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoSendHearingNoticePage();
   await sendHearingNoticePage1.errormessageIsDisplayed();
+});
+
+test('Test that ViewHearings page works', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoViewHearingsPage();
+  await viewHearingsPage.isDisplayed();
+  await viewhearingsPage.hearingsDetailsButtonWorks();
 });
