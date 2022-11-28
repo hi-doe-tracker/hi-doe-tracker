@@ -19,19 +19,24 @@ const NavBar = () => {
     const subscription2 = Notifications.subscribeNotification();
     const rdy = subscription.ready() && subscription2.ready();
     const currUser = Meteor.user() ? Meteor.user().username : '';
-    const userProfile = UserProfiles.findByEmail(currUser);
+    // const userProfile = UserProfiles.findByEmail(currUser);
     let allNotifications = [];
     // Waits for user profile to load.
-    if (subscription.ready()) {
-      // Gets all notifications that are for all or for the user's position.
-      allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
+    if (subscription.ready() && currUser !== '') {
+      if (currUser !== 'admin@foo.com') {
+        const userProfile = UserProfiles.findByEmail(currUser);
+        // Gets all notifications that are for all or for the user's position.
+        allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
+      }
+      allNotifications = Notifications.find({ recipient: 'All' }).fetch();
+
     }
     return {
       currentUser: currUser,
       notifications: allNotifications,
       ready: rdy,
     };
-  }, []);
+  });
 
   useEffect(() => {
     if (currentUser !== '' && currentUser !== undefined) {
