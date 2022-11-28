@@ -6,6 +6,7 @@ import { Testimonies } from '../../api/testimony/TestimonyCollection';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { Hearings } from '../../api/hearing/HearingCollection';
 import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
+import { Notifications } from '../../api/notification/NotificationCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -48,6 +49,12 @@ function addNotice(notice) {
 function addHearing(hearing) {
   console.log(`Adding hearing: ${hearing.notice}`);
   Hearings.define(hearing);
+}
+
+// Adds a notification to database.
+function addNotification(notification) {
+  console.log(`Adding notification: ${notification.message}`);
+  Notifications.define(notification);
 }
 
 // Initialize the StuffsCollection if empty.
@@ -103,5 +110,12 @@ if (Hearings.count() === 0) {
     console.log(`Loading data from private/${assetsFileName}`);
     const jsonData = JSON.parse(Assets.getText(assetsFileName));
     jsonData.hearings.map(hearings => addHearing(hearings));
+  }
+}
+
+if (Notices.count() === 0) {
+  if (Meteor.settings.defaultNotifications) {
+    console.log('Creating default notifications.');
+    Meteor.settings.defaultNotifications.map(notification => addNotification(notification));
   }
 }

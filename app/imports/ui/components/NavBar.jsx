@@ -21,7 +21,8 @@ const NavBar = () => {
     const currUser = Meteor.user() ? Meteor.user().username : '';
     const userProfile = UserProfiles.findByEmail(currUser);
     // Gets all notifications that are for all or for the user's position.
-    const allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }]});
+    const allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] });
+    console.log(allNotifications);
     return {
       currentUser: currUser,
       notifications: allNotifications,
