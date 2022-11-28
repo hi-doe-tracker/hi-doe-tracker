@@ -83,20 +83,18 @@ const TestimonyItem = ({ testimony }) => {
   };
 
   // Checks if the progress of the testimony was a success.
-  const checkProgress = () => {
-    if (progressState === 'info') {
-      const hearingDate = associatedBill.hearingDate;
-      const currentDate = new Date();
-      const limitDate = new Date();
-      limitDate.setHours(currentDate.getHours() + 24);
+  const checkProgress = (progVal) => {
+    const hearingDate = associatedBill.hearingDate;
+    const currentDate = new Date();
+    const limitDate = new Date();
+    limitDate.setHours(currentDate.getHours() + 24);
 
-      if (progress === 100 && limitDate < hearingDate) {
-        setProgressState('success');
-      } else if (progress < 100 && limitDate < hearingDate) {
-        setProgressState('info');
-      } else {
-        setProgressState('danger');
-      }
+    if (progVal === 100 && limitDate < hearingDate) {
+      setProgressState('success');
+    } else if (progVal < 100 && limitDate < hearingDate) {
+      setProgressState('info');
+    } else {
+      setProgressState('danger');
     }
   };
 
@@ -127,14 +125,17 @@ const TestimonyItem = ({ testimony }) => {
   useEffect(() => {
     if (checkbox1 && checkbox2 && checkbox3) {
       setProgress(100);
+      checkProgress(100);
     } else if ((checkbox1 && checkbox2) || (checkbox1 && checkbox3) || (checkbox3 && checkbox2)) {
       setProgress(75);
+      checkProgress(75);
     } else if (checkbox1 || checkbox2 || checkbox3) {
       setProgress(50);
+      checkProgress(50);
     } else {
       setProgress(25);
+      checkProgress(25);
     }
-    checkProgress();
 
     // Checks if the progress of the testimony should be updated.
     if (changeBoxes) {
@@ -223,6 +224,8 @@ const TestimonyItem = ({ testimony }) => {
       </td>
       <td>
         Progress<ProgressBar now={progress} variant={progressState} /><br />
+        {progressState === 'success' ? <h3>Approved!</h3> : <div />}
+        {progressState === 'danger' ? <h3>Failed!</h3> : <div />}
         <form>
           <div>
             <input type="checkbox" id="officeBox" defaultChecked={checkbox1} disabled={userProfile.position !== 'Office Approver'} onChange={() => changeCheckbox(1)} />
