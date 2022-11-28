@@ -91,11 +91,10 @@ const NavBar = () => {
                 <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="adminuser-dropdown" title={<Bell size="20" />}>
                   {notifications.map((notification) => (
                     <NavDropdown.Item key={notification._id}>
-                      <FileText /> {notification.message}
+                      {notification.messageType === 'Bill Assignment' || notification.messageType === 'Testimony Creation' ? <FileText /> : <Alarm />}
+                      &nbsp; {notification.message}
                     </NavDropdown.Item>
                   ))}
-                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/viewbill"><FileText /> Bill 1</NavDropdown.Item>
-                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
                 </NavDropdown>,
               ]
             ) : ''}
