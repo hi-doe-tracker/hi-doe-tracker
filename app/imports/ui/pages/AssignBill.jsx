@@ -14,6 +14,8 @@ import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
+import { Notifications } from '../../api/notification/NotificationCollection';
 
 // A schema for a form.
 const formSchema = {
@@ -164,6 +166,18 @@ const AssignBill = () => {
   // Creates the bridge based on the data given.
   const bridge = new SimpleSchema2Bridge(createFormSchema(ready, scraperBills));
 
+  // On submit, create new notification.
+  const submitNotification = (billNo, billTitle) => {
+    const collectionName = Notifications.getCollectionName();
+    const definitionData = { message: `Bill: #${billNo}: ${billTitle} was assigned.`,
+      messageType: 'Bill Assignment', recipient: 'All', link: '/bills' };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
+
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const {
@@ -256,6 +270,7 @@ const AssignBill = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
+        submitNotification(billNo, measureTitle);
         swal('Success', 'Bill added successfully', 'success');
         formRef.reset();
       });
