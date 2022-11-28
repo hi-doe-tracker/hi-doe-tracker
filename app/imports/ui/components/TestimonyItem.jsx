@@ -85,27 +85,29 @@ const TestimonyItem = ({ testimony }) => {
 
   // Checks the progress of the testimony and sets progressState accordingly.
   const checkProgress = (progVal) => {
-    const hearingDate = associatedBill.hearingDate;
-    const currentDate = new Date();
+    if (ready) {
+      const hearingDate = associatedBill.hearingDate;
+      const currentDate = new Date();
 
-    // Calculates the hours left and sets hours remaining.
-    const hoursLeft = ((hearingDate.getTime() - currentDate.getTime()) / 3600000);
-    setHoursRemaining(Math.ceil(hoursLeft));
+      // Calculates the hours left and sets hours remaining.
+      const hoursLeft = ((hearingDate.getTime() - currentDate.getTime()) / 3600000);
+      setHoursRemaining(Math.ceil(hoursLeft));
 
-    // If the testimony was passed or failed, it can no longer be modified.
-    if (progressState !== 'success' && progressState !== 'danger') {
-      // Checks if progress is 100% before 24 hours of the hearing date.
-      if (progVal === 100 && hoursLeft > 24) {
-        setProgressState('success');
-      } else if (progVal < 100 && hoursLeft > 24) {
-        // Checks if there is less than or equal to 48 hours left.
-        if (hoursLeft <= 48) {
-          setProgressState('warning');
+      // If the testimony was passed or failed, it can no longer be modified.
+      if (progressState !== 'success' && progressState !== 'danger') {
+        // Checks if progress is 100% before 24 hours of the hearing date.
+        if (progVal === 100 && hoursLeft > 24) {
+          setProgressState('success');
+        } else if (progVal < 100 && hoursLeft > 24) {
+          // Checks if there is less than or equal to 48 hours left.
+          if (hoursLeft <= 48) {
+            setProgressState('warning');
+          } else {
+            setProgressState('info');
+          }
         } else {
-          setProgressState('info');
+          setProgressState('danger');
         }
-      } else {
-        setProgressState('danger');
       }
     }
   };
