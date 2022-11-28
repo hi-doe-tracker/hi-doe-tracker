@@ -20,12 +20,12 @@ const NavBar = () => {
     const rdy = subscription.ready() && subscription2.ready();
     const currUser = Meteor.user() ? Meteor.user().username : '';
     const userProfile = UserProfiles.findByEmail(currUser);
-    // Gets all notifications that are for all or for the user's position.
     let allNotifications = [];
+    // Waits for user profile to load.
     if (subscription.ready()) {
+      // Gets all notifications that are for all or for the user's position.
       allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
     }
-    console.log(allNotifications);
     return {
       currentUser: currUser,
       notifications: allNotifications,
@@ -89,6 +89,11 @@ const NavBar = () => {
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
               [
                 <NavDropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="adminuser-dropdown" title={<Bell size="20" />}>
+                  {notifications.map((notification) => (
+                    <NavDropdown.Item key={notification._id}>
+                      <FileText /> {notification.message}
+                    </NavDropdown.Item>
+                  ))}
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL} as={NavLink} to="/viewbill"><FileText /> Bill 1</NavDropdown.Item>
                   <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_NOTIFICATION_BELL}> <Alarm /> Hearing @ 10 AM, 9/19 </NavDropdown.Item>
                 </NavDropdown>,
