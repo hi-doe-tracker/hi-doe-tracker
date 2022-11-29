@@ -167,9 +167,9 @@ const AssignBill = () => {
   const bridge = new SimpleSchema2Bridge(createFormSchema(ready, scraperBills));
 
   // On submit, create new notification.
-  const submitNotification = (billNo, billTitle) => {
+  const submitNotification = (billNo) => {
     const collectionName = Notifications.getCollectionName();
-    const definitionData = { message: `Bill: #${billNo}: ${billTitle} was assigned.`,
+    const definitionData = { message: `Bill: #${billNo} was assigned.`,
       messageType: 'Bill Assignment', recipient: 'All', link: '/bills' };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -270,7 +270,8 @@ const AssignBill = () => {
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        submitNotification(billNo, measureTitle);
+        // Submits a notification.
+        submitNotification(billNo);
         swal('Success', 'Bill added successfully', 'success');
         formRef.reset();
       });
