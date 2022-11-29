@@ -19,6 +19,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Bills } from '../../api/bill/BillCollection';
 import { TestimonyFileCollection } from '../../api/testimony/TestimonyFileCollection';
+import { Notifications } from '../../api/notification/NotificationCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -77,6 +78,18 @@ const SubmitTestimony = () => {
       ready: rdy,
     };
   }, []);
+
+  // On submit, create new notification.
+  const submitNotification = (billNumber, person) => {
+    const collectionName = Notifications.getCollectionName();
+    const definitionData = { message: `Testimony for bill: #${billNumber} was created.`,
+      messageType: 'Testimony Creation', recipient: person, link: '/listtestimony' };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
 
   const submit = (data, formRef) => {
     const owner = Meteor.user().username;
@@ -146,13 +159,18 @@ const SubmitTestimony = () => {
       const hasPdf = true;
       const office = bills
         .filter((bill) => bill.billNo === billNo)
-        .map((bill) => bill.office)[0];
-      // console.log(office);
+        .map((bill) => bill.mainOffice)[0];
+
       const definitionData = { ...data, office, owner, billNo, hasPdf };
       defineMethod
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
+          submitNotification(billNo, `Office Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `PIPE Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `Final Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `Writer - ${office.toUpperCase()}`);
+          submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {
               window.location = '/listtestimony';
@@ -167,14 +185,18 @@ const SubmitTestimony = () => {
     } else {
       const office = bills
         .filter((bill) => bill.billNo === billNo)
-        .map((bill) => bill.office)[0];
+        .map((bill) => bill.mainOffice)[0];
       // console.log(`office: ${office}`);
-      // console.log(office);
       const definitionData = { ...data, office, owner, billNo };
       defineMethod
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
+          submitNotification(billNo, `Office Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `PIPE Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `Final Approver - ${office.toUpperCase()}`);
+          submitNotification(billNo, `Writer - ${office.toUpperCase()}`);
+          submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {
               window.location = '/listtestimony';

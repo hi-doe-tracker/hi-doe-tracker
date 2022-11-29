@@ -113,7 +113,7 @@ if (Hearings.count() === 0) {
   }
 }
 
-if (Notices.count() === 0) {
+if (Notifications.count() === 0) {
   if (Meteor.settings.defaultNotifications) {
     console.log('Creating default notifications.');
     Meteor.settings.defaultNotifications.map(notification => addNotification(notification));
