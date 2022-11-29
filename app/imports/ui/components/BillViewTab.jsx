@@ -7,13 +7,24 @@ import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from './LoadingSpinner';
 
 /** Returns the UI for a Tab given the office Name. */
-const BillViewTab = ({ eventKey, officeName }) => {
+const BillViewTab = ({ eventKey, officeName, sortedBills }) => {
   const { ready, bills } = useTracker(() => {
     const subscription = Bills.subscribeBill();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the scraper bill data from DB.
-    const billItems = Bills.find({}, { sort: { name: 1 } }).fetch();
+    let sortNum = 1;
+    switch (sortedBills) {
+    case 'firstDate':
+      sortNum = -1;
+      break;
+    case 'lastDate':
+      sortNum = 1;
+      break;
+    default:
+      break;
+    }
+    const billItems = Bills.find({}, { sort: { hearingDate: sortNum } }).fetch();
     return {
       bills: billItems,
       ready: rdy,
@@ -43,6 +54,7 @@ const BillViewTab = ({ eventKey, officeName }) => {
 BillViewTab.propTypes = {
   eventKey: PropTypes.string.isRequired,
   officeName: PropTypes.string.isRequired,
+  sortedBills: PropTypes.string.isRequired,
 };
 
 export default BillViewTab;
