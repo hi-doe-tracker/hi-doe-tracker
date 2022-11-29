@@ -162,14 +162,15 @@ const SubmitTestimony = () => {
         .map((bill) => bill.office)[0];
       // console.log(office);
       const definitionData = { ...data, office, owner, billNo, hasPdf };
+      console.log(office);
       defineMethod
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
-          submitNotification(billNo, 'Office Approver');
+          submitNotification(billNo, `Office Approver - ${office}`);
           submitNotification(billNo, 'PIPE Approver');
           submitNotification(billNo, 'Final Approver');
-          submitNotification(billNo, 'Writer');
+          submitNotification(billNo, `Writer - ${office}`);
           submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {
@@ -193,10 +194,10 @@ const SubmitTestimony = () => {
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
-          submitNotification(billNo, 'Office Approver');
+          submitNotification(billNo, `Office Approver - ${office}`);
           submitNotification(billNo, 'PIPE Approver');
           submitNotification(billNo, 'Final Approver');
-          submitNotification(billNo, 'Writer');
+          submitNotification(billNo, `Writer - ${office}`);
           submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {

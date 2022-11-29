@@ -24,7 +24,7 @@ const NavBar = () => {
     // Waits for user profile to load.
     if (subscription.ready()) {
       // Gets all notifications that are for all or for the user's position.
-      allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
+      allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }, { recipient: `${userProfile.position} - ${userProfile.assignedOffice}` }, { recipient: currUser }] }).fetch();
     }
     console.log(allNotifications);
     return {
