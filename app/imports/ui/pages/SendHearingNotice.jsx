@@ -69,10 +69,10 @@ const SendHearingNotice = () => {
   }
 
   // On submit, create new notification.
-  const submitNotification = (hearingDate) => {
+  const submitNotification = (hearingDate, person) => {
     const collectionName = Notifications.getCollectionName();
     const definitionData = { message: `Hearing @ ${hearingDate.toLocaleString()}`,
-      messageType: 'New Hearing', recipient: 'All', link: '/view-hearings' };
+      messageType: 'New Hearing', recipient: person, link: '/view-hearings' };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -92,8 +92,14 @@ const SendHearingNotice = () => {
       defineMethod.callPromise({ collectionName, definitionData })
         .catch(error => swal('Error', error.message, 'error'))
         .then(() => {
-          // Submits a notification.
-          submitNotification(dateOfHearing);
+          // Submits a notification to people emailed.
+          submitNotification(dateOfHearing, to);
+          if (cc !== undefined) {
+            submitNotification(dateOfHearing, cc);
+          }
+          if (bcc !== undefined) {
+            submitNotification(dateOfHearing, bcc);
+          }
           swal('Success', 'Notice successfully sent', 'success');
           formRef.reset();
         });

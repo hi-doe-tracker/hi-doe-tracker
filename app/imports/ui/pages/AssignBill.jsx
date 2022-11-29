@@ -14,7 +14,6 @@ import { Bills } from '../../api/bill/BillCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { TestimonyProgresses } from '../../api/testimonyProgress/TestimonyProgressCollection';
 import { Notifications } from '../../api/notification/NotificationCollection';
 
 // A schema for a form.
