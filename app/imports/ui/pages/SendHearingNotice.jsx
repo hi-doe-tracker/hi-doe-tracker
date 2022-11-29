@@ -9,6 +9,7 @@ import SimpleSchema from 'simpl-schema';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { Notifications } from '../../api/notification/NotificationCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -67,6 +68,18 @@ const SendHearingNotice = () => {
 
   }
 
+  // On submit, create new notification.
+  const submitNotification = (hearingDate, person) => {
+    const collectionName = Notifications.getCollectionName();
+    const definitionData = { message: `Hearing @ ${hearingDate.toLocaleString()}`,
+      messageType: 'New Hearing', recipient: person, link: '/view-hearings' };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
+
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { to, cc, bcc, from, dateOfHearing, subject, message } = data;
@@ -79,6 +92,14 @@ const SendHearingNotice = () => {
       defineMethod.callPromise({ collectionName, definitionData })
         .catch(error => swal('Error', error.message, 'error'))
         .then(() => {
+          // Submits a notification to people emailed.
+          submitNotification(dateOfHearing, to);
+          if (cc !== undefined) {
+            submitNotification(dateOfHearing, cc);
+          }
+          if (bcc !== undefined) {
+            submitNotification(dateOfHearing, bcc);
+          }
           swal('Success', 'Notice successfully sent', 'success');
           formRef.reset();
         });

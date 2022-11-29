@@ -26,11 +26,12 @@ const NavBar = () => {
       if (currUser !== 'admin@foo.com') {
         const userProfile = UserProfiles.findByEmail(currUser);
         // Gets all notifications that are for all or for the user's position.
-        allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }] }).fetch();
+        allNotifications = Notifications.find({ $or: [{ recipient: 'All' }, { recipient: userProfile.position }, { recipient: `${userProfile.position} - ${userProfile.assignedOffice}` }, { recipient: currUser }] }).fetch();
+      } else {
+        allNotifications = Notifications.find({ recipient: 'All' }).fetch();
       }
-      allNotifications = Notifications.find({ recipient: 'All' }).fetch();
-
     }
+    console.log(allNotifications);
     return {
       currentUser: currUser,
       notifications: allNotifications,
