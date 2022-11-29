@@ -19,6 +19,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Bills } from '../../api/bill/BillCollection';
 import { TestimonyFileCollection } from '../../api/testimony/TestimonyFileCollection';
+import { Notifications } from '../../api/notification/NotificationCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -77,6 +78,18 @@ const SubmitTestimony = () => {
       ready: rdy,
     };
   }, []);
+
+  // On submit, create new notification.
+  const submitNotification = (billNumber, person) => {
+    const collectionName = Notifications.getCollectionName();
+    const definitionData = { message: `Testimony for bill: #${billNumber} was created.`,
+      messageType: 'Testimony Creation', recipient: person, link: '/listtestimony' };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        console.log('Success!');
+      });
+  };
 
   const submit = (data, formRef) => {
     const owner = Meteor.user().username;
@@ -153,6 +166,11 @@ const SubmitTestimony = () => {
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
+          submitNotification(billNo, 'Office Approver');
+          submitNotification(billNo, 'PIPE Approver');
+          submitNotification(billNo, 'Final Approver');
+          submitNotification(billNo, 'Writer');
+          submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {
               window.location = '/listtestimony';
@@ -175,6 +193,11 @@ const SubmitTestimony = () => {
         .callPromise({ collectionName, definitionData })
         .catch((error) => swal('Error', error.message, 'error'))
         .then(() => {
+          submitNotification(billNo, 'Office Approver');
+          submitNotification(billNo, 'PIPE Approver');
+          submitNotification(billNo, 'Final Approver');
+          submitNotification(billNo, 'Writer');
+          submitNotification(billNo, 'Admin');
           swal('Success', 'Testimony successfully submitted', 'success').then(
             function () {
               window.location = '/listtestimony';
