@@ -15,10 +15,10 @@ const BillViewTab = ({ eventKey, officeName, sortedBills }) => {
     // Get the scraper bill data from DB.
     let sortNum = 1;
     switch (sortedBills) {
-    case 'firstDate':
+    case 'newest':
       sortNum = -1;
       break;
-    case 'lastDate':
+    case 'oldest':
       sortNum = 1;
       break;
     default:

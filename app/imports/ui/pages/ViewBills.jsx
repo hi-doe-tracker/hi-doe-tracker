@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import { Row, Col, Tab, Nav, Container, Table } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -12,8 +14,6 @@ import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { ScraperBills } from '../../api/scraperBill/ScraperBillCollection';
 import ScraperBillViewDisplay from '../components/ScraperBillViewDisplay';
 import { ROLE } from '../../api/role/Role';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 const officeNames = [
   {
@@ -53,10 +53,11 @@ const officeNames = [
     eventKey: 'otm-bills',
   },
 ];
-
+let sortedBills;
 /** Displays all bills that were assigned to a scraper bill by admin. */
 const ViewBills = () => {
   const { ready, userProfile, scraperBills } = useTracker(() => {
+    
     const subscription = UserProfiles.subscribeUserProfiles();
     const subscription2 = ScraperBills.subscribeScraperBillAdmin();
     const rdy = subscription.ready() && subscription2.ready();
@@ -71,6 +72,8 @@ const ViewBills = () => {
     };
   }, []);
 
+
+
   const [eventKey, setEventKey] = useState('');
   useEffect(() => {
     const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
@@ -78,6 +81,17 @@ const ViewBills = () => {
     setEventKey(officeEventKey);
   }, []);
   // console.log(eventKey)
+  const [sorting, setSorting] = useState('oldest');
+  switch (sorting) {
+  case 'oldest':
+    sortedBills = 'oldest';
+    break;
+  case 'newest':
+    sortedBills = 'newest';
+    break;
+  default:
+    break;
+  }
   const mobileView = useMediaQuery('(max-width: 850px)');
   const hStyle = { marginLeft: '20px' };
   return (ready ? (
@@ -98,9 +112,8 @@ const ViewBills = () => {
           </Col>
           <Col sm="8">
             <DropdownButton id="dropdown-basic-button" title="Sort bills" style={{ float: 'right' }}>
-              <Dropdown.Item href="#/hearing-date">Hearing date</Dropdown.Item>
-              <Dropdown.Item href="#/progress">Progress (most to least)</Dropdown.Item>
-              <Dropdown.Item href="#/date-updated">Date updated (most recent)</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSorting('oldest')}>Hearing date (oldest)</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSorting('newest')}>Hearing date (newest)</Dropdown.Item>
             </DropdownButton>
             <Tab.Content>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
@@ -123,6 +136,7 @@ const ViewBills = () => {
                   key={officeName.name}
                   eventKey={officeName.eventKey}
                   officeName={officeName.name}
+                  sortedBills={sortedBills}
                 />
               ))}
             </Tab.Content>
