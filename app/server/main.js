@@ -5,8 +5,40 @@ import '/imports/startup/server/Mongo';
 import '../imports/api/base/BaseCollection.methods';
 import '../imports/api/user/UserProfileCollection.methods';
 import '../imports/api/testimony/TestimonyFileCollection';
-// import '../imports/api/user/UserCollection'
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv'
+dotenv.config( {
+ path: Assets.absoluteFilePath('.env'),
+} )
 
+const nodeMailer = nodemailer.createTransport({
+    host: 'smtp.fastmail.com',
+    port: 465,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    }
+ }
+);
+Meteor.methods({
+  sendEmail(subject, html, recepient) {
+    console.log(recepient)
+    nodeMailer.sendMail(
+        { 
+            from: '"HI DOE TRACKER" <hidoetracker@fastmail.com>',
+            to: recepient === '' ? `ugautam@hawaii.edu` : recepient,
+            subject: subject,
+            html : html,
+        }
+          , (err) => {
+      if (err) {
+        // throw new Meteor.Error('invalid')
+        return err
+        console.log(err)
+      }
+    });
+  }
+}, );
 
 
 // console.log(Meteor.isServer)
