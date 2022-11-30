@@ -364,7 +364,7 @@ const AssignBill = () => {
                     </Col>
                   </Col>
                   <Col>
-                    <DateField name="hearingDate" />
+                    <DateField id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_DATE} name="hearingDate" />
                     <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_NOTIFIED_HEARING} name="notifiedHearing" />
                     <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_LOCATION} name="hearingLocation" />
                     <TextField id={COMPONENT_IDS.ASSIGN_BILL_FORM_COMMITTEE} name="committee" />
