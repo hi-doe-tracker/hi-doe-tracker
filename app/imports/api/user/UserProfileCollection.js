@@ -137,13 +137,13 @@ class UserProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a UserProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  //checkRole(role) {
+  // checkRole(role) {
   //  this.find().forEach((doc) => {
   //    if (doc.assignedOffice === role) {
   //      return true;
   //    }
   //  });
-  //}
+  // }
 
   /**
    * Default publication method for entities.

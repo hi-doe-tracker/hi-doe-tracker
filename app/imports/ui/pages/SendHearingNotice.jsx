@@ -10,7 +10,6 @@ import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Notifications } from '../../api/notification/NotificationCollection';
-import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -133,18 +132,13 @@ const SendHearingNotice = () => {
                     <Col>
                       <div className="mb-3 required">
                         <span>Main Office</span>
-                        <Select id ="mainOffice" name="mainOffice"
-                          options={officeOptions}
-                        />
+                        <Select id="mainOffice" name="mainOffice" options={officeOptions} />
                       </div>
                     </Col>
                     <Col>
                       <div className="mb-3 required">
                         <span>Sub Offices</span>
-                        <Select id ="subOffice" name="subOffice"
-                          isMulti
-                          options={officeOptions}
-                        />
+                        <Select id="subOffice" name="subOffice" isMulti options={officeOptions} />
                       </div>
                     </Col>
                   </Row>
