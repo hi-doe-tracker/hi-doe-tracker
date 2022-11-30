@@ -33,14 +33,17 @@ const ListOneBillTestimony = ({ billNo }) => {
           <Table striped bordered hover style={style}>
             <thead>
               <tr>
+                <th>Bill No.</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Offices</th>
                 <th>Position</th>
                 <th>Testifying</th>
                 <th>Testifying Method</th>
                 <th>Testimony</th>
                 <th>Files</th>
                 <th>Edit</th>
+                <th>Progress of Testimony Approval</th>
               </tr>
             </thead>
             <tbody>

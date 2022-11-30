@@ -76,19 +76,31 @@ which may be accessed here. </li>
         </li>
       </ul>
     </fieldset>`
-}</div><center><h2>Measures</h2></center>`;
+}`;
 
   // console.log(headerPortion)
   // }
+
+  const info = `<p>The following measure(s) listed below are being tracked by the Government Relations Office. Please click on the NOTICE OF HEARING above to view the complete
+hearing notice.</p>
+<p>For each measure where your unit/department is lead (in Bold), please read the appropriate instructions below.</p>
+<ul><li>A live stream of this Committee meeting will be available on the <a href="https://www.youtube.com/channel/UCekvvdL_uyq2DUyj1GjlrOA" target=_blank>Senate YouTube channel</a>.</li>
+<li>A live stream of this Committee meeting will be available on the <a href="https://www.youtube.com/channel/UCekvvdL_uyq2DUyj1GjlrOA" target=_blank>House YouTube channel.</a></li>
+<li>A live stream link of all Conference Committee meetings will be available online.</li>
+<li>Click <a href="https://www.youtube.com/channel/UCekvvdL_uyq2DUyj1GjlrOA" target=_blank>here</a> for the live stream of House & Senate meetings via YouTube.</li></ul>
+ </div><center><h2>Measures</h2></center>
+`;
 
   const bills = filteredBills.map(bill => (`<fieldset>
   <center><h3>${bill.measureType.toUpperCase()}_${bill.measureNumber}</h3></center>
    <p>
   ${bill.description}
   </p>
-  </fieldset>`)).join('').concat('<b><i>Best Regards,<i><b></div>');
+  </fieldset>`)).join('');
+
+  const signature = `<hr /><p><b><i>Best Regards,<i><b></p><p>${sender}</p></div>`;
 
   /* eslint-enable no-nested-ternary */
 
-  return headerPortion.concat(bills);
+  return headerPortion.concat(info).concat(bills).concat(signature);
 }
