@@ -57,7 +57,6 @@ let sortedBills;
 /** Displays all bills that were assigned to a scraper bill by admin. */
 const ViewBills = () => {
   const { ready, userProfile, scraperBills } = useTracker(() => {
-    
     const subscription = UserProfiles.subscribeUserProfiles();
     const subscription2 = ScraperBills.subscribeScraperBillAdmin();
     const rdy = subscription.ready() && subscription2.ready();
@@ -72,8 +71,6 @@ const ViewBills = () => {
     };
   }, []);
 
-
-
   const [eventKey, setEventKey] = useState('');
   useEffect(() => {
     const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
@@ -81,7 +78,9 @@ const ViewBills = () => {
     setEventKey(officeEventKey);
   }, []);
   // console.log(eventKey)
-  const [sorting, setSorting] = useState('oldest');
+
+  const [sorting, setSorting] = useState('');
+
   switch (sorting) {
   case 'oldest':
     sortedBills = 'oldest';
@@ -105,15 +104,18 @@ const ViewBills = () => {
             <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (<Nav.Item><Nav.Link eventKey="unassigned-bills">UNASSIGNED BILLS</Nav.Link></Nav.Item>) : <div />}
               {officeNames.map((office) => (
-                <Nav.Item id="officeitem" key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
+                <Nav.Item id="officeitem" key={office.name} onClick={() => (setEventKey(office.eventKey))}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
               ))}
             </Nav>
             {mobileView ? <br /> : <div />}
           </Col>
           <Col sm="8">
             <DropdownButton id="dropdown-basic-button" title="Sort bills" style={{ float: 'right' }}>
-              <Dropdown.Item onClick={() => setSorting('oldest')}>Hearing date (oldest)</Dropdown.Item>
-              <Dropdown.Item onClick={() => setSorting('newest')}>Hearing date (newest)</Dropdown.Item>
+              {/* <Dropdown.Item onClick={() => setSorting('oldest')}> Hearing date (oldest)</Dropdown.Item> */}
+              <Dropdown.Item eventKey={eventKey} onClick={() => (setSorting('oldest'))}>
+                Hearing date (oldest)
+              </Dropdown.Item>
+              <Dropdown.Item eventKey={eventKey} onClick={() => setSorting('newest')}>Hearing date (newest)</Dropdown.Item>
             </DropdownButton>
             <Tab.Content>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
