@@ -9,11 +9,10 @@ import '../imports/api/testimony/TestimonyFileCollection';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv'
 
-if(!Meteor.isTest){
+if(!Meteor.settings.test){
   dotenv.config( {
   path: Assets.absoluteFilePath('.env'),
 } )
-}
 const nodeMailer = nodemailer.createTransport({
     host: 'smtp.fastmail.com',
     port: 465,
@@ -42,6 +41,8 @@ Meteor.methods({
     });
   }
 }, );
+
+}
 
 
 // console.log(Meteor.isServer)

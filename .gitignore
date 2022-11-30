@@ -7,3 +7,4 @@ app/.deploy/mup.js
 app/.deploy/settings.json
 .env
 app/private/.env 
+app/private/*.env
