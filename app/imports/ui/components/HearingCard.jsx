@@ -150,7 +150,7 @@ const HearingCard = ({ hearing }) => {
                       <Form.Check type="checkbox" label="FOR UH Manoa Only" name="manoa" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Recepient @</Form.Label>
+                      <Form.Label>Recipient @</Form.Label>
                       <Form.Control name="email" type="email" placeholder="Enter email" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
