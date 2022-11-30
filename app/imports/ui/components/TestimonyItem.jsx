@@ -245,7 +245,7 @@ const TestimonyItem = ({ testimony }) => {
         Progress<ProgressBar now={progress} variant={progressState} /><br />
         <h6>Hearing Date: {associatedBill.hearingDate.toLocaleString()}</h6>
         {progressState === 'success' ? <h3>Approved!</h3> : <div />}
-        {progressState === 'warning' ? <h3>{`${hoursRemaining} hours left`}</h3> : <div />}
+        {progressState === 'warning' ? <h3>{`${hoursRemaining - 24} hours left`}</h3> : <div />}
         {progressState === 'danger' ? <h3>Failed!</h3> : <div />}
         <form>
           <div>
