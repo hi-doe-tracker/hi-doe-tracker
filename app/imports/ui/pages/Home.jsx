@@ -5,7 +5,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
-import MiniMeasureTracker from '../components/MiniMeasureTracker';
+import MiniMeasureTracker from '../components/HearingQuickReference';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { HOMEPAGE_IDS } from '../utilities/HomePageIDs';
 
