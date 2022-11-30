@@ -64,7 +64,7 @@ class AssignBillsPage {
     await t.click(deputy);
     await t.click(osss);
     await t.click(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_SUBMIT} input.btn.btn-primary`);
-    await t.click(Selector('.swal-button--confirm'));
+    // await t.click(Selector('.swal-button--confirm'));
   }
 }
 
