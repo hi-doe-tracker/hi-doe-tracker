@@ -87,7 +87,7 @@ const HearingCard = ({ hearing }) => {
       <Card>
         <Card.Body>
           <Card.Title>
-            {hearing.notice}
+            {hearing.notice.split('_').join(' ')}
           </Card.Title>
           <Card.Subtitle>
             {hearing.datetime}
@@ -112,7 +112,7 @@ const HearingCard = ({ hearing }) => {
                       {getFilteredBills().map((bill, index) => (
                         <Accordion.Item eventKey={`${index}`}>
                           <Accordion.Header>
-                            {bill.measureType.toUpperCase()}_{bill.measureNumber}
+                            {bill.measureType.toUpperCase()} {bill.measureNumber}
                           </Accordion.Header>
                           <Accordion.Body>
                             {bill.description}
