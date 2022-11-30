@@ -10,6 +10,7 @@ import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Notifications } from '../../api/notification/NotificationCollection';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -31,15 +32,15 @@ const formSchema = new SimpleSchema({
 });
 
 const officeOptions = [
-  { value: 'all', label: 'All' },
-  { value: 'deputy', label: 'DEPUTY' },
-  { value: 'ocid', label: 'OCID' },
-  { value: 'ofo', label: 'OFO' },
-  { value: 'ofs', label: 'OFS' },
-  { value: 'oits', label: 'OITS' },
-  { value: 'osip', label: 'OSIP' },
-  { value: 'osss', label: 'OSSS' },
-  { value: 'otm', label: 'OTM' },
+  { value: 'ALL', label: 'All' },
+  { value: 'DEPUTY', label: 'DEPUTY' },
+  { value: 'OCID', label: 'OCID' },
+  { value: 'OFO', label: 'OFO' },
+  { value: 'OFS', label: 'OFS' },
+  { value: 'OITS', label: 'OITS' },
+  { value: 'OSIP', label: 'OSIP' },
+  { value: 'OSSS', label: 'OSSS' },
+  { value: 'OTM', label: 'OTM' },
 ];
 
 const billOptions = [
@@ -82,13 +83,13 @@ const SendHearingNotice = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { to, cc, bcc, from, dateOfHearing, subject, message } = data;
+    const { to, cc, bcc, from, mainOffice, dateOfHearing, subject, message } = data;
     const owner = Meteor.user().username;
     const collectionName = Notices.getCollectionName();
     const validation = validateEmail(cc, bcc, from, to);
     console.log(validation);
     if (validation) {
-      const definitionData = { to, cc, bcc, from, dateOfHearing, subject, message, owner };
+      const definitionData = { to, cc, bcc, from, mainOffice, dateOfHearing, subject, message, owner };
       defineMethod.callPromise({ collectionName, definitionData })
         .catch(error => swal('Error', error.message, 'error'))
         .then(() => {
@@ -100,6 +101,7 @@ const SendHearingNotice = () => {
           if (bcc !== undefined) {
             submitNotification(dateOfHearing, bcc);
           }
+          console.log(mainOffice);
           swal('Success', 'Notice successfully sent', 'success');
           formRef.reset();
         });
@@ -114,7 +116,7 @@ const SendHearingNotice = () => {
     <Container id={PAGE_IDS.SEND_HEARING_NOTICE} className="py-3">
       <Row className="justify-content-center">
         <Col>
-          <Col className="text-center"><h2>Send Hearing Notice</h2></Col>
+          <Col className="text-center"><h2>Send Hearing Notification</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
@@ -130,24 +132,42 @@ const SendHearingNotice = () => {
                   <Row>
                     <Col>
                       <div className="mb-3 required">
-                        <span>Relevant offices</span>
-                        <Select
+                        <span>Main Office</span>
+                        <Select id ="mainOffice" name="mainOffice"
                           options={officeOptions}
                         />
                       </div>
                     </Col>
                     <Col>
                       <div className="mb-3 required">
-                        <span>Bills to be heard</span>
-                        <Select
-                          options={billOptions}
+                        <span>Sub Offices</span>
+                        <Select id ="subOffice" name="subOffice"
+                          isMulti
+                          options={officeOptions}
                         />
                       </div>
                     </Col>
                   </Row>
-                  <DateField name="dateOfHearing" min={new Date(2022, 9, 12)} />
-                  <TextField id="subject" name="subject" placeholder="Subject" />
-                  <LongTextField name="message" placeholder="Type a message..." />
+                  <Row>
+                    <Col>
+                      <div className="mb-3 required">
+                        <span>Bills to be heard</span>
+                        <Select
+                          isMulti
+                          options={billOptions}
+                        />
+                      </div>
+                    </Col>
+                    <Col>
+                      <DateField name="dateOfHearing" min={new Date(2022, 9, 12)} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <TextField id="subject" name="subject" placeholder="Subject" />
+                  </Row>
+                  <Row>
+                    <LongTextField name="message" placeholder="Type a message..." />
+                  </Row>
                   <SubmitField id="sub" value="Submit" />
                   <ErrorsField />
                 </Row>

@@ -77,7 +77,7 @@ const NavBar = () => {
               </NavDropdown>,
               <NavDropdown id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN} title="Hearings" key="hearing-dropdown" style={menuStyle2}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_VIEW} key="view-hearings" as={NavLink} to="view-hearings">View Hearings</NavDropdown.Item>
-                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND} key="send-hearings" as={NavLink} to="send">Send Hearing Notice</NavDropdown.Item>
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND} key="send-hearings" as={NavLink} to="send">Send Hearing Notification</NavDropdown.Item>
               </NavDropdown>,
             ]) : ''}
             {/* Admin only navbar options */}

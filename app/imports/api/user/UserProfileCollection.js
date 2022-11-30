@@ -133,6 +133,19 @@ class UserProfileCollection extends BaseProfileCollection {
   }
 
   /**
+   * Exports all user information in a JSON file as backup. Password set to changeme.
+   * @param docID The docID of a UserProfile
+   * @returns { Object } An object representing the definition of docID.
+   */
+  //checkRole(role) {
+  //  this.find().forEach((doc) => {
+  //    if (doc.assignedOffice === role) {
+  //      return true;
+  //    }
+  //  });
+  //}
+
+  /**
    * Default publication method for entities.
    * It publishes the entire UserProfileCollection collection for admi.
    */
