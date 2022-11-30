@@ -553,14 +553,7 @@
   }],
 
   "defaultTestimony": [
-    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "office": [
-      "OSIP",
-      "OPS",
-      "OCID",
-      "ABCD",
-      "EFGH",
-      "HIJK"
-    ], "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
+    { "billNo": "HB 012E", "firstName": "Cam", "lastName": "Moore", "office": [ "OSIP", "OPS", "OCID"], "position": "Support", "testifyingAs": "Individual", "testifyingMethod": "Written testimony only", "testimony": "Team 3 is the best team ever.", "hasPDF": false }
   ],
 
   "defaultTestimonyProgresses": [
@@ -571,5 +564,7 @@
     { "message":  "New Testimony Created!", "messageType":  "Testimony Creation", "recipient":  "Office Approver", "link": "/listtestimony" },
     { "message":  "New Bill Assigned!", "messageType":  "Bill Assignment", "recipient":  "All", "link": "/bills" },
     { "message":  "Hearing @ 10 AM, 9/19", "messageType":  "New Hearing", "recipient":  "All", "link": "/view-hearings" }
-  ]
+  ],
+
+  "test": true
 }

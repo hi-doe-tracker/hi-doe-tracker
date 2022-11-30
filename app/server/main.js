@@ -7,11 +7,13 @@ import '../imports/api/user/UserProfileCollection.methods';
 import '../imports/api/testimony/TestimonyFileCollection';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv'
-dotenv.config( {
- path: Assets.absoluteFilePath('.env'),
-} )
+import { Meteor } from 'meteor/meteor';
+if(!Meteor.settings.test){
+  dotenv.config( {
+  path: Assets.absoluteFilePath('.env'),
+  } )
 
-const nodeMailer = nodemailer.createTransport({
+  const nodeMailer = nodemailer.createTransport({
     host: 'smtp.fastmail.com',
     port: 465,
     auth: {
@@ -33,12 +35,15 @@ Meteor.methods({
           , (err) => {
       if (err) {
         // throw new Meteor.Error('invalid')
-        return err
         console.log(err)
+        return err
+        
       }
     });
   }
 }, );
+
+}
 
 
 // console.log(Meteor.isServer)
