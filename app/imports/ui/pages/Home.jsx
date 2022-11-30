@@ -5,7 +5,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { NavLink } from 'react-router-dom';
 import MiniCalendar from '../components/MiniCalendar';
 import BillQuickReference from '../components/BillQuickReference';
-import MiniMeasureTracker from '../components/MiniMeasureTracker';
+import HearingsQuickReference from '../components/HearingsQuickReference';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { HOMEPAGE_IDS } from '../utilities/HomePageIDs';
 
@@ -87,7 +87,7 @@ const HomeContent = () => (
       </Col>
       <Col xs={3}>
         <MiniCalendar darkTheme={darkTheme} />
-        <MiniMeasureTracker darkTheme={darkTheme} />
+        <HearingsQuickReference darkTheme={darkTheme} />
       </Col>
     </Row>
   </Container>
@@ -135,7 +135,7 @@ const HomeMobile = () => (
       <Col className="px-5 pb-5">
         <div style={{ width: '100%', padding: '0 0 0 50%' }}>
           <div style={{ width: '228px', left: '-114px', position: 'relative' }}>
-            <MiniMeasureTracker darkTheme={darkTheme} />
+            <HearingsQuickReference darkTheme={darkTheme} />
           </div>
         </div>
       </Col>
