@@ -31,7 +31,6 @@ const NavBar = () => {
         allNotifications = Notifications.find({ recipient: 'All' }).fetch();
       }
     }
-    console.log(allNotifications);
     return {
       currentUser: currUser,
       notifications: allNotifications,
