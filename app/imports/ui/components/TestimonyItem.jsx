@@ -172,6 +172,7 @@ const TestimonyItem = ({ testimony }) => {
     if (testimonyProgress === undefined) {
       // Adds the testimony progress if the testimony does not have a progress associated with it.
       submit();
+      checkProgress(0);
     } else {
       // Sets checkboxes to previous testimony progress state.
       setCheckBox1(testimonyProgress.officeApproval);
@@ -248,19 +249,37 @@ const TestimonyItem = ({ testimony }) => {
         {progressState === 'danger' ? <h3>Failed!</h3> : <div />}
         <form>
           <div>
-            <input type="checkbox" id="officeBox" defaultChecked={checkbox1} disabled={userProfile.position !== 'Office Approver' || userProfile.assignedOffice !== associatedBill.mainOffice} onChange={() => changeCheckbox(1)} />
+            <input
+              type="checkbox"
+              id="officeBox"
+              defaultChecked={checkbox1}
+              disabled={userProfile.position !== 'Office Approver' || userProfile.assignedOffice !== associatedBill.mainOffice || progressState === 'danger'}
+              onChange={() => changeCheckbox(1)}
+            />
             &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Office Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="pipeBox" defaultChecked={checkbox2} disabled={userProfile.position !== 'PIPE Approver' || userProfile.assignedOffice !== associatedBill.mainOffice} onChange={() => changeCheckbox(2)} />
+            <input
+              type="checkbox"
+              id="pipeBox"
+              defaultChecked={checkbox2}
+              disabled={userProfile.position !== 'PIPE Approver' || userProfile.assignedOffice !== associatedBill.mainOffice || progressState === 'danger'}
+              onChange={() => changeCheckbox(2)}
+            />
             &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">PIPE Approval Status</label>
           </div>
           <div>
-            <input type="checkbox" id="finalBox" defaultChecked={checkbox3} disabled={userProfile.position !== 'Final Approver' || userProfile.assignedOffice !== associatedBill.mainOffice} onChange={() => changeCheckbox(3)} />
+            <input
+              type="checkbox"
+              id="finalBox"
+              defaultChecked={checkbox3}
+              disabled={userProfile.position !== 'Final Approver' || userProfile.assignedOffice !== associatedBill.mainOffice || progressState === 'danger'}
+              onChange={() => changeCheckbox(3)}
+            />
             &nbsp;&nbsp;
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="officeBox">Final Approval Status</label>
