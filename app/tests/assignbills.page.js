@@ -33,6 +33,7 @@ class AssignBillsPage {
     const monitoringReports = 'Monitoring Report 1';
     const hearingComments = 'Great hearing today!';
     const rationale = 'Rationale';
+    const hearingDate = '2017-11-03T05:00';
     const assignedBillSelect = Selector('#assignedBill');
     const assignedBillOption = assignedBillSelect.find('option');
     const mainOfficeSelect = Selector('#mainOffice');
@@ -57,6 +58,7 @@ class AssignBillsPage {
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_MONITORING_REPORTS}`, monitoringReports);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_COMMENTS}`, hearingComments);
     await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_RATIONALE}`, rationale);
+    await t.typeText(`#${COMPONENT_IDS.ASSIGN_BILL_FORM_HEARING_DATE}`, hearingDate);
     await t.click(assignedBillSelect);
     await t.click(assignedBillOption.withText('#137: RELATING TO LIQUOR.'));
     await t.click(mainOfficeSelect);

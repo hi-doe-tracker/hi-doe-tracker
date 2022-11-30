@@ -49,6 +49,7 @@ export const COMPONENT_IDS = {
   ASSIGN_BILL_FORM_TESTIFIER_CONTACT: 'assign-bill-form-testifier-contact',
   ASSIGN_BILL_FORM_NOTIFIED_HEARING: 'assign-bill-form-notified-hearing',
   ASSIGN_BILL_FORM_HEARING_LOCATION: 'assign-bill-form-hearing-location',
+  ASSIGN_BILL_FORM_HEARING_DATE: 'assign-bill-form-hearing-date',
   ASSIGN_BILL_FORM_COMMITTEE: 'assign-bill-form-committee',
   ASSIGN_BILL_FORM_TYPE: 'assign-bill-form-type',
   ASSIGN_BILL_FORM_LEAD_OFFICE_POSITION: 'assign-bill-form-lead-office-position',
