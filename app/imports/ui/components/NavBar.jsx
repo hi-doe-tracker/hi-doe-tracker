@@ -89,7 +89,9 @@ const NavBar = () => {
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_MANAGE} key="admin-manage-accounts" as={NavLink} to="/admin/manageaccounts">Manage Accounts</NavDropdown.Item>
               </NavDropdown>,
             ]) : ''}
-            <Nav.Link id={COMPONENT_IDS.NAVBAR_CALENDAR_PAGE} as={NavLink} to="/calendar">Calendar</Nav.Link>
+            {currentUser ? ([
+              <Nav.Link id={COMPONENT_IDS.NAVBAR_CALENDAR_PAGE} as={NavLink} to="/calendar">Calendar</Nav.Link>,
+            ]) : ''}
           </Nav>
           <Nav className="justify-content-end">
             {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.USER]) ? (
