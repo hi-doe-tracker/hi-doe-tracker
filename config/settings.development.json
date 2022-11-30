@@ -566,5 +566,5 @@
     { "message":  "Hearing @ 10 AM, 9/19", "messageType":  "New Hearing", "recipient":  "All", "link": "/view-hearings" }
   ],
 
-  "test": false
+  "test": true
 }
