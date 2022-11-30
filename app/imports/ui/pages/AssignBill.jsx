@@ -70,7 +70,7 @@ const formSchema = {
   committeeReports: { type: Array, minCount: 1 },
   'committeeReports.$': String,
   notifiedHearing: String,
-  hearingDate: { type: Date, defaultValue: new Date() },
+  hearingDate: Date,
   hearingLocation: String,
   committee: String,
   type: String,
@@ -181,7 +181,6 @@ const AssignBill = () => {
   const submit = (data, formRef) => {
     const {
       assignedBill,
-      mainOffice,
       deputy,
       ocid,
       ofo,
@@ -210,7 +209,7 @@ const AssignBill = () => {
       hearingComments,
       rationale,
     } = data;
-
+    const mainOffice = mainOfficeValue;
     // Gets the bill data from the bill title chosen.
     const filteredBillData = getChosenBillData(assignedBill, scraperBills);
     const billData = filteredBillData[0];
@@ -264,7 +263,6 @@ const AssignBill = () => {
       hearingComments,
       rationale,
     };
-
     // Inserts the newly created bill into the database.
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -289,7 +287,7 @@ const AssignBill = () => {
             <Card>
               <Card.Body>
                 <Row><Col><SelectField id="assignedBill" name="assignedBill" /></Col></Row>
-                <Row><Col><SelectField id="mainOffice" name="mainOffice" onChange={value => setMainOfficeValue(value)} /></Col></Row>
+                <Row><Col><SelectField id="mainOffice" name="mainOffice" value={mainOfficeValue} onChange={value => setMainOfficeValue(value)} /></Col></Row>
                 <p>Sub Offices</p>
                 <Row style={officeFormStyle}>
                   <Col>

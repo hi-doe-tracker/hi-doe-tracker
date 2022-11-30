@@ -34,11 +34,9 @@ if (Meteor.isServer) {
             const position = testimonyPositions[choice1];
             const testifyingAs = testimonyTestifyingAs[choice2];
             const testifyingMethod = testimonyTestifyingMethod[choice3];
-            const office = ['OCID', 'DEPUTY'];
             const docID = Testimonies.define({
               firstName,
               lastName,
-              office,
               position,
               organization,
               testifyingAs,
