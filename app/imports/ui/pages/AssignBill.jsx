@@ -70,7 +70,7 @@ const formSchema = {
   committeeReports: { type: Array, minCount: 1 },
   'committeeReports.$': String,
   notifiedHearing: String,
-  hearingDate: { type: Date, defaultValue: new Date() },
+  hearingDate: Date,
   hearingLocation: String,
   committee: String,
   type: String,
