@@ -1,5 +1,6 @@
 import { Button, Popover, Card, ListGroup, Table, OverlayTrigger, Form } from 'react-bootstrap';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PlusCircle, DashCircle, Sliders2 } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
@@ -143,7 +144,12 @@ const BillQuickReference = ({ darkTheme }) => {
       </Card.Header>
       <ListGroup variant="flush">
         {ready ? filteredBills().slice(0, (show ? 10 : 5)).map((measure) => (
-          <ListGroup.Item key={measure.billNo} variant={color}>
+          <ListGroup.Item
+            key={measure._id}
+            variant={color}
+            as={NavLink}
+            to={`/viewbill/${measure._id}`}
+          >
             <h6>{measure.billNo}: {measure.measureTitle}</h6>
             {measure.hearingDate.toDateString()}
           </ListGroup.Item>
