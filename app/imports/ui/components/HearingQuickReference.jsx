@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Card, ListGroup, Table, OverlayTrigger, Button, Popover, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Sliders2 } from 'react-bootstrap-icons';
+import { DashCircle, PlusCircle, Sliders2 } from 'react-bootstrap-icons';
 import { Bills } from '../../api/bill/BillCollection';
 import { Hearings } from '../../api/hearing/HearingCollection';
 import LoadingSpinner from './LoadingSpinner';
@@ -57,6 +58,7 @@ const HearingsQuickReference = ({ darkTheme }) => {
     initialFilter = JSON.parse(localStorage.getItem('filter'));
   }
   const [filter, setFilter] = useState(initialFilter);
+  const [show, setShow] = useState(false);
 
   const { ready, bills, hearings } = useTracker(() => {
     const billSubscription = Bills.subscribeBill();
@@ -72,6 +74,14 @@ const HearingsQuickReference = ({ darkTheme }) => {
       hearings: hearingItems,
     };
   }, []);
+
+  const showMore = () => {
+    setShow(true);
+  };
+
+  const showLess = () => {
+    setShow(false);
+  };
 
   const updateFilter = (value) => {
     const temp = filter.concat();
@@ -154,12 +164,22 @@ const HearingsQuickReference = ({ darkTheme }) => {
         </Table>
       </Card.Header>
       <ListGroup>
-        {ready ? getHearings().slice(0, 3).map((hearing) => (
-          <ListGroup.Item variant={color}>
-            <h6>{hearing.measureType} {hearing.measureNumber}</h6>
+        {ready ? getHearings().slice(0, (show ? 6 : 3)).map((hearing) => (
+          <ListGroup.Item
+            variant={color}
+            as={NavLink}
+            to={`/view-hearings/${hearing.notice}`}
+          >
+            <h6>{hearing.notice}</h6>
+            {hearing.datetime}
           </ListGroup.Item>
         )) : <LoadingSpinner message="Loading Data" />}
       </ListGroup>
+      <Card.Footer>
+        <Button variant={color} onClick={show ? showLess : showMore}>
+          {show ? 'Show Less' : 'Show More'} {show ? (<DashCircle />) : (<PlusCircle />)}
+        </Button>
+      </Card.Footer>
     </Card>
   );
 };
