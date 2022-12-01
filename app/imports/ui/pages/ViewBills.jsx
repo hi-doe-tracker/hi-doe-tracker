@@ -73,55 +73,25 @@ const ViewBills = () => {
 
   const [eventKey, setEventKey] = useState('');
   const [name, setName] = useState('');
-  const [sort, setSort] = useState('');
-
-  // switch (sort) {
-  // case 'oldest':
-  //   sortedBills = 'oldest';
-  //   // console.log(sortedBills);
-  //   break;
-  // case 'newest':
-  //   sortedBills = 'newest';
-  //   // console.log(sortedBills);
-  //   break;
-  // default:
-  // }
-
-  function foo() {
-    console.log(sort);
-    return sort;
-  }
+  const [sort, setSort] = useState('oldest');
 
   useEffect(() => {
     const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
     const officeEventKey = officeNames.filter(office => office.name === assignedOffice)[0].eventKey;
     setEventKey(officeEventKey);
     setName(assignedOffice);
-    // setSort('newest');
   }, []);
   const mobileView = useMediaQuery('(max-width: 850px)');
   const hStyle = { marginLeft: '20px' };
-
-  // const sortedBillList = () => {
-  //   return (1 === 0) ?
-  //     'Empty'
-  //     : <BillViewTab
-  //       key={name}
-  //       eventKey={eventKey}
-  //       officeName={name}
-  //       sortedBills={foo()}
-  //     />
-  //   ;
-  // };
 
   const sortedBillList = () => {
     const table =
       (
         <BillViewTab
-          key={name}
+          key={sort}
           eventKey={eventKey}
           officeName={name}
-          sortedBills={foo()}
+          sortedBills={sort}
         />
       );
     return table;
@@ -167,16 +137,6 @@ const ViewBills = () => {
                 </Tab.Pane>
               ) : <div />}
               { sortedBillList() }
-
-              {/* {officeNames.map((officeName) => (
-                <BillViewTab
-                  key={officeName.name}
-                  eventKey={officeName.eventKey}
-                  officeName={officeName.name}
-                  sortedBills={foo()}
-                />
-              ))} */}
-
             </Tab.Content>
           </Col>
         </Row>
