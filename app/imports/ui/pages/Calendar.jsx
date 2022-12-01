@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { Button, ButtonGroup, Card, Col, Container, Row, Table, Accordion } from 'react-bootstrap';
+import { useTracker } from 'meteor/react-meteor-data';
+import { Button, ButtonGroup, Card, Col, Container, Row, Table, Accordion, ListGroup } from 'react-bootstrap';
 import { CaretRight, CaretLeft } from 'react-bootstrap-icons';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { Hearings } from '../../api/hearing/HearingCollection';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { NavLink } from 'react-router-dom';
 
 const months = [
   'January',
@@ -34,6 +38,31 @@ const Calendar = () => {
   const [currentDay, setCurrentDay] = useState(today.getDate());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
+
+  const { ready, hearings } = useTracker(() => {
+    const hearingsSubscription = Hearings.subscribeHearings();
+    // Determine if the subscription is ready
+    const rdy = hearingsSubscription.ready();
+    // Get the hearing data
+    const hearingItems = Hearings.find({}, { sort: { datetime: -1 } }).fetch();
+    return {
+      ready: rdy,
+      hearings: hearingItems,
+    };
+  }, []);
+
+  const isEventArray = new Array(32).fill(false);
+
+  const updateIsEventArray = () => {
+    let testDate;
+    isEventArray.fill(false);
+    for (let i = 0; i < hearings.length; i++) {
+      testDate = new Date(hearings[i].datetime);
+      if (testDate.getMonth() === currentMonth && testDate.getFullYear() === currentYear) {
+        isEventArray[testDate.getDate()] = true;
+      }
+    }
+  };
 
   const selectDay = (day, month) => {
     if (month === currentMonth) {
@@ -72,6 +101,10 @@ const Calendar = () => {
     let text = null;
     let border = null;
 
+    if (isEventArray[day]) {
+      bg = 'warning';
+    }
+
     if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
       bg = 'primary';
       text = 'white';
@@ -96,9 +129,10 @@ const Calendar = () => {
     const content = [];
     let week = [];
     let dayProps;
-    tempDate.setFullYear(currentYear);
-    tempDate.setMonth(currentMonth);
+    updateIsEventArray();
     tempDate.setDate(1);
+    tempDate.setMonth(currentMonth);
+    tempDate.setFullYear(currentYear);
     tempDate.setDate(tempDate.getDate() - tempDate.getDay());
     do {
       for (let i = 0; i < 7; i++) {
@@ -129,7 +163,54 @@ const Calendar = () => {
     return content;
   };
 
-  return (
+  const getHearingsByNotice = (notice) => {
+    const content = [];
+    for (let i = 0; i < hearings.length; i++) {
+      if (hearings[i].notice === notice) {
+        content.push(
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>{hearings[i].measureType}-{hearings[i].measureNumber}</Accordion.Header>
+            <Accordion.Body>
+              {hearings[i].description}
+            </Accordion.Body>
+          </Accordion.Item>,
+        );
+      }
+    }
+    return content;
+  };
+
+  const getHearings = () => {
+    const content = [];
+    let testDate;
+    const filterHearings = hearings.filter((value, index, self) => (self.findIndex(v => v.notice === value.notice) === index));
+    for (let i = 0; i < filterHearings.length; i++) {
+      testDate = new Date(filterHearings[i].datetime);
+      if (
+        testDate.getFullYear() === currentYear &&
+        testDate.getMonth() === currentMonth &&
+        testDate.getDate() === currentDay
+      ) {
+        content.push(
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>{filterHearings[i].notice}</Accordion.Header>
+            <Accordion.Body>
+              <h5>{filterHearings[i].datetime}</h5>
+              <Accordion>
+                {getHearingsByNotice(filterHearings[i].notice)}
+              </Accordion>
+            </Accordion.Body>
+          </Accordion.Item>,
+        );
+      }
+    }
+    if (content.length <= 0) {
+      return 'No Scheduled Hearings';
+    }
+    return content;
+  };
+
+  return ready ? (
     <Container id={PAGE_IDS.CALENDAR}>
       <Row>
         <Col sm={9}>
@@ -169,36 +250,13 @@ const Calendar = () => {
               {currentDay === 0 ? 'No Date Selected' : `${days[getWeekday(currentDay, currentMonth, currentYear)]}, ${months[currentMonth]} ${currentDay}, ${currentYear}`}
             </Card.Header>
             <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>11:00am Hearing</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>12:00pm Hearing</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
+              {getHearings()}
             </Accordion>
           </Card>
         </Col>
       </Row>
     </Container>
-  );
+  ) : <LoadingSpinner message="Loading" />;
 };
 
 export default Calendar;
