@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useMediaQuery } from 'usehooks-ts';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import { Row, Col, Tab, Nav, Container, Table } from 'react-bootstrap';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -70,14 +72,31 @@ const ViewBills = () => {
   }, []);
 
   const [eventKey, setEventKey] = useState('');
+  const [name, setName] = useState('');
+  const [sort, setSort] = useState('oldest');
+
   useEffect(() => {
     const assignedOffice = ready ? userProfile.assignedOffice : 'ALL BILLS';
     const officeEventKey = officeNames.filter(office => office.name === assignedOffice)[0].eventKey;
     setEventKey(officeEventKey);
+    setName(assignedOffice);
   }, []);
-  // console.log(eventKey)
   const mobileView = useMediaQuery('(max-width: 850px)');
   const hStyle = { marginLeft: '20px' };
+
+  const sortedBillList = () => {
+    const table =
+      (
+        <BillViewTab
+          key={sort}
+          eventKey={eventKey}
+          officeName={name}
+          sortedBills={sort}
+        />
+      );
+    return table;
+  };
+
   return (ready ? (
     <Container id={PAGE_IDS.VIEW_BILLS} key="viewbills-container">
       <Tab.Container defaultActiveKey={eventKey}>
@@ -89,12 +108,18 @@ const ViewBills = () => {
             <Nav variant="pills" className={mobileView ? 'mb-3' : 'flex-column'}>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (<Nav.Item><Nav.Link eventKey="unassigned-bills">UNASSIGNED BILLS</Nav.Link></Nav.Item>) : <div />}
               {officeNames.map((office) => (
-                <Nav.Item id="officeitem" key={office.name}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
+                <Nav.Item id="officeitem" key={office.name} onClick={() => { setEventKey(office.eventKey); setName(office.name); }}><Nav.Link eventKey={office.eventKey}>{office.name}</Nav.Link></Nav.Item>
               ))}
             </Nav>
             {mobileView ? <br /> : <div />}
           </Col>
           <Col sm="8">
+            <DropdownButton id="dropdown-basic-button" title="Sort bills" style={{ float: 'right' }}>
+              <Dropdown.Item eventKey={eventKey} onClick={() => { setSort('oldest'); }}>
+                Hearing date (oldest)
+              </Dropdown.Item>
+              <Dropdown.Item eventKey={eventKey} onClick={() => { setSort('newest'); }}> Hearing date (newest)</Dropdown.Item>
+            </DropdownButton>
             <Tab.Content>
               {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
                 <Tab.Pane eventKey="unassigned-bills">
@@ -111,13 +136,7 @@ const ViewBills = () => {
                   </Table>
                 </Tab.Pane>
               ) : <div />}
-              {officeNames.map((officeName) => (
-                <BillViewTab
-                  key={officeName.name}
-                  eventKey={officeName.eventKey}
-                  officeName={officeName.name}
-                />
-              ))}
+              { sortedBillList() }
             </Tab.Content>
           </Col>
         </Row>
