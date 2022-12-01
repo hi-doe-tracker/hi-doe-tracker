@@ -1,30 +1,11 @@
 import React, { useState } from 'react';
+import { useTracker } from 'meteor/react-meteor-data';
 import { Card, Button, ButtonGroup, Table, ToggleButton, ListGroup } from 'react-bootstrap';
 import { CaretRight, CaretLeft } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
-
-const testData = [
-  {
-    measureType: 'hb',
-    measureNumber: 101,
-    datetime: 'Wed Sep 21 2022 08:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
-  },
-  {
-    measureType: 'hb',
-    measureNumber: 103,
-    datetime: 'Wed Sep 21 2022 10:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
-  },
-  {
-    measureType: 'hb',
-    measureNumber: 107,
-    datetime: 'Fri Sep 23 2022 12:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
-  },
-  {
-    measureType: 'hb',
-    measureNumber: 107,
-    datetime: 'Sat Oct 01 2022 12:30:00 GMT-1000 (Hawaii-Aleutian Standard Time)',
-  },
-];
+import { NavLink } from 'react-router-dom';
+import { Hearings } from '../../api/hearing/HearingCollection';
+import LoadingSpinner from './LoadingSpinner';
 
 // Used to keep track to the current date
 const today = new Date();
@@ -55,11 +36,23 @@ const MiniCalendar = ({ darkTheme }) => {
     color = 'dark';
   }
 
+  const { ready, hearings } = useTracker(() => {
+    const hearingsSubscription = Hearings.subscribeHearings();
+    // Determine if the subscription is ready
+    const rdy = hearingsSubscription.ready();
+    // Get the hearing data
+    const hearingItems = Hearings.find({}, { sort: { datetime: -1 } }).fetch();
+    return {
+      ready: rdy,
+      hearings: hearingItems,
+    };
+  }, []);
+
   const updateIsEventArray = () => {
     let testDate;
     isEventArray.fill(false);
-    for (let i = 0; i < testData.length; i++) {
-      testDate = new Date(testData[i].datetime);
+    for (let i = 0; i < hearings.length; i++) {
+      testDate = new Date(hearings[i].datetime);
       if (testDate.getMonth() === date.getMonth() && testDate.getFullYear() === date.getFullYear()) {
         isEventArray[testDate.getDate()] = true;
       }
@@ -164,16 +157,22 @@ const MiniCalendar = ({ darkTheme }) => {
     }
     const content = [];
     let testDate;
-    for (let i = 0; i < testData.length; i++) {
-      testDate = new Date(testData[i].datetime);
+    const filterHearings = hearings.filter((value, index, self) => (self.findIndex(v => v.notice === value.notice) === index));
+    for (let i = 0; i < filterHearings.length; i++) {
+      testDate = new Date(filterHearings[i].datetime);
       if (
         tempDate.getFullYear() === testDate.getFullYear() &&
         tempDate.getMonth() === testDate.getMonth() &&
         tempDate.getDate() === testDate.getDate()
       ) {
         content.push(
-          <ListGroup.Item key={testData[i].measureNumber} variant={color}>
-            <h6>{testData[i].measureNumber} {testData[i].measureType}</h6>
+          <ListGroup.Item
+            key={filterHearings[i].notice}
+            variant={color}
+            as={NavLink}
+            to={`/view-hearings/${hearings[i].notice}`}
+          >
+            <h6>{filterHearings[i].notice}</h6>
             Time: {testDate.toLocaleTimeString('en-US')}
           </ListGroup.Item>,
         );
@@ -198,7 +197,9 @@ const MiniCalendar = ({ darkTheme }) => {
           <tfoot>
             <tr>
               <td className={`w-75 p-0 m-0 ${darkTheme ? 'text-white' : null}`}>
-                {months[date.getMonth()]} {date.getFullYear()}
+                <NavLink to="/calendar" style={{ textDecoration: 'none' }}>
+                  {months[date.getMonth()]} {date.getFullYear()}
+                </NavLink>
               </td>
               <td className="p-0 m-0">
                 <div className="text-center d-grid p-0 m-0">
@@ -230,10 +231,10 @@ const MiniCalendar = ({ darkTheme }) => {
       </ButtonGroup>
       <Card.Footer>
         <h6>{radioValue}</h6>
-        <ListGroup variant="flush">
-          {getEvents(new Date(radioValue))}
-        </ListGroup>
       </Card.Footer>
+      <ListGroup variant="flush">
+        {ready ? getEvents(new Date(radioValue)) : <LoadingSpinner message="Loading Data" />}
+      </ListGroup>
     </Card>
   );
 };

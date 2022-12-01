@@ -9,7 +9,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { getEmailHtml } from './getEmailHtml';
 
-const HearingCard = ({ hearing }) => {
+const HearingCard = ({ hearing, showInitial }) => {
   const { ready, hearings } = useTracker(() => {
     const hearingsSubscription = Hearings.subscribeHearings();
     const rdy = hearingsSubscription.ready();
@@ -20,7 +20,7 @@ const HearingCard = ({ hearing }) => {
     };
   }, []);
   const ref = useRef(null);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(showInitial);
   const [modalShow, setModalShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -186,6 +186,7 @@ HearingCard.propTypes = {
     room: PropTypes.string,
     notice: PropTypes.string,
   }).isRequired,
+  showInitial: PropTypes.bool.isRequired,
 };
 
 export default HearingCard;
