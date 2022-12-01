@@ -20,6 +20,7 @@ class NoticeCollection extends BaseCollection {
         type: String,
         optional: true,
       },
+      offices: String,
       dateOfHearing: Date,
       subject: String,
       message: String,
@@ -37,7 +38,7 @@ class NoticeCollection extends BaseCollection {
    * @param message the context of the email.
    * @return {String} the docID of the new document.
    */
-  define({ to, from, cc, bcc, dateOfHearing, subject, message }) {
+  define({ to, from, cc, bcc, dateOfHearing, offices, subject, message }) {
     const docID = this._collection.insert({
       to,
       from,
@@ -45,6 +46,7 @@ class NoticeCollection extends BaseCollection {
       bcc,
       dateOfHearing,
       subject,
+      offices,
       message,
     });
     return docID;
@@ -60,7 +62,7 @@ class NoticeCollection extends BaseCollection {
    * @param subject the email headline.
    * @param message the context of the email.
    */
-  update(docID, { to, from, cc, bcc, dateOfHearing, subject, message }) {
+  update(docID, { to, from, cc, bcc, offices, dateOfHearing, subject, message }) {
     const updateData = {};
     if (to) {
       updateData.to = to;
@@ -76,6 +78,9 @@ class NoticeCollection extends BaseCollection {
     }
     if (dateOfHearing) {
       updateData.dateOfHearing = dateOfHearing;
+    }
+    if (offices) {
+      updateData.offices = offices;
     }
     if (subject) {
       updateData.subject = subject;

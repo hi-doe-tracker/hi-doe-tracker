@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, SubmitField, TextField, LongTextField, DateField } from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, SubmitField, TextField, LongTextField, DateField, SelectField } from 'uniforms-bootstrap5';
 import Select from 'react-select';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
@@ -9,7 +9,6 @@ import SimpleSchema from 'simpl-schema';
 import { Notices } from '../../api/notice/NoticeCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { SelectField } from 'uniforms-unstyled';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -111,12 +110,7 @@ const SendHearingNotice = () => {
                     <Col>
                       <div className="mb-3 required">
                         <span>Relevant offices</span>
-                          <SelectField
-                            <input class="form-check-input" type="checkbox">
-                              <label class="form-check-label">
-                                options={officeOptions}
-                              </label>
-                            </input>
+                        <SelectField options={officeOptions} name="select field" />
                       </div>
                     </Col>
                     <Col>
