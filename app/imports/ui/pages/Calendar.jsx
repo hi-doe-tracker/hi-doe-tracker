@@ -129,6 +129,7 @@ const Calendar = () => {
     const content = [];
     let week = [];
     let dayProps;
+    let weekKey = 1;
     updateIsEventArray();
     tempDate.setDate(1);
     tempDate.setMonth(currentMonth);
@@ -140,8 +141,9 @@ const Calendar = () => {
         const month = tempDate.getMonth();
         dayProps = getCardStyle(tempDate.getDate(), tempDate.getMonth(), tempDate.getFullYear());
         week.push(
-          <td>
+          <td key={`td${tempDate.getDate()}`}>
             <Card
+              key={tempDate.getDate()}
               bg={dayProps.bg}
               style={dayProps.style}
               text={dayProps.text}
@@ -157,7 +159,8 @@ const Calendar = () => {
         );
         tempDate.setDate(tempDate.getDate() + 1);
       }
-      content.push(<tr>{week}</tr>);
+      content.push(<tr key={`week${weekKey}`}>{week}</tr>);
+      weekKey++;
       week = [];
     } while (currentMonth === tempDate.getMonth());
     return content;
@@ -168,7 +171,7 @@ const Calendar = () => {
     for (let i = 0; i < hearings.length; i++) {
       if (hearings[i].notice === notice) {
         content.push(
-          <Accordion.Item eventKey="0">
+          <Accordion.Item eventKey={hearings[i]._id} key={hearings[i]._id}>
             <Accordion.Header>{hearings[i].measureType}-{hearings[i].measureNumber}</Accordion.Header>
             <Accordion.Body>
               {hearings[i].description}
@@ -192,7 +195,7 @@ const Calendar = () => {
         testDate.getDate() === currentDay
       ) {
         content.push(
-          <Accordion.Item eventKey="0">
+          <Accordion.Item eventKey={hearings[i].notice} key={hearings[i].notice}>
             <Accordion.Header>{filterHearings[i].notice}</Accordion.Header>
             <Accordion.Body>
               <h5>{filterHearings[i].datetime}</h5>
@@ -234,7 +237,7 @@ const Calendar = () => {
               <Table responsive borderless>
                 <thead>
                   <tr>
-                    {days.map((dayName) => <th><div style={{ width: '20px' }}>{dayName}</div></th>)}
+                    {days.map((dayName) => <th key={dayName}><div style={{ width: '20px' }}>{dayName}</div></th>)}
                   </tr>
                 </thead>
                 <tbody>
