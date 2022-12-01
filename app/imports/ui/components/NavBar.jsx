@@ -14,6 +14,7 @@ import { Notifications } from '../../api/notification/NotificationCollection';
 const NavBar = () => {
   const [position, setPosition] = useState('');
   const allowedPosition = ['Admin', 'Writer'];
+  const allowedPosition2 = ['Admin', 'Secretary'];
   const { currentUser, notifications, ready } = useTracker(() => {
     const subscription = UserProfiles.subscribeUserProfiles();
     const subscription2 = Notifications.subscribeNotification();
@@ -81,11 +82,15 @@ const NavBar = () => {
               </NavDropdown>,
             ]) : ''}
             {/* Admin only navbar options */}
-            {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+            {allowedPosition2.includes(position) ? ([
               <NavDropdown id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN} style={menuStyle2} title="Admin" key="admin-dropdown">
-                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount">Create Account</NavDropdown.Item>
-                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_ASSIGN} key="admin-assign-bills" as={NavLink} to="/admin/assignbills/all">Assign a Bill</NavDropdown.Item>
-                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_MANAGE} key="admin-manage-accounts" as={NavLink} to="/admin/manageaccounts">Manage Accounts</NavDropdown.Item>
+                {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_CREATE} key="admin-create" as={NavLink} to="/admin/createaccount"> Create Account </NavDropdown.Item>
+                ]) : ''}
+                {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? ([
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_MANAGE} key="admin-manage-accounts" as={NavLink} to="/admin/manageaccounts">Manage Accounts</NavDropdown.Item>
+                ]) : ''}
+                  <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_ASSIGN} key="admin-assign-bills" as={NavLink} to="/admin/assignbills/all">Assign a Bill</NavDropdown.Item>
               </NavDropdown>,
             ]) : ''}
             {currentUser ? ([

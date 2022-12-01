@@ -158,9 +158,9 @@ const App = () => {
             <Route
               path="/admin/assignbills/:_id"
               element={(
-                <AdminProtectedRoute>
+                <ProtectedRoute>
                   <AssignBill />
-                </AdminProtectedRoute>
+                </ProtectedRoute>
               )}
             />
             <Route
