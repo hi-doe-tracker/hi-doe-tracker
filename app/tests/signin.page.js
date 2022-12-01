@@ -23,7 +23,6 @@ class SignInPage {
     await navBar.isLoggedIn(username);
   }
 
-
   /** Attempts to sign in but does not check if account is logged in, for manageaccounts test to check if deletion worked */
   async attemptsignin(username, password) {
     await this.isDisplayed();

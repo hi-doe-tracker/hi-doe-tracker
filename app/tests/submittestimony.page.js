@@ -20,7 +20,7 @@ class SubmitTestimonyPage {
   }
 
   /** Checks that you can submit testimony  */
-  async addProject(testController) {
+  async addTestimony(testController) {
     const firstName = 'David';
     const lastName = 'Ige';
     // Select position, testifying, and testifying method

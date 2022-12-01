@@ -40,6 +40,7 @@ const EditTestimony = () => {
         window.location = ('/listtestimony');
       }));
   };
+  const transform = (label) => ` ${label}`;
   return ready ? (
     <Container id={PAGE_IDS.EDIT_TESTIMONY} className="py-3">
       <Row className="justify-content-center">
@@ -48,12 +49,13 @@ const EditTestimony = () => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
-                <TextField name="firstName" />
-                <TextField name="lastName" />
-                <SelectField name="position" multiple checkboxes />
-                <SelectField name="testifyingAs" multiple checkboxes />
-                <SelectField name="testifyingMethod" multiple checkboxes />
-                <TextField name="testimony" />
+                <TextField id="firstName" name="firstName" />
+                <TextField id="lastName" name="lastName" />
+                <SelectField id="position" name="position" multiple checkboxes transform={transform} />
+                <SelectField id="testifyingAs" name="testifyingAs" multiple checkboxes transform={transform} />
+                <TextField id="organization" name="organization" />
+                <SelectField id="testifyingMethod" name="testifyingMethod" multiple checkboxes transform={transform} />
+                <TextField id="testimony" name="testimony" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>

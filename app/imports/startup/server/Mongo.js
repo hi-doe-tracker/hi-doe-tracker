@@ -67,7 +67,7 @@ if (Bills.count() === 0) {
   }
 }
 
-// Initialize the StuffsCollection if empty.
+// Initialize the TestimoniesCollection if empty.
 if (Testimonies.count() === 0) {
   if (Meteor.settings.defaultTestimony) {
     console.log('Creating default testimony.');

@@ -66,12 +66,16 @@ class NavBar {
 
   /* Go to the view bill page. */
   async gotoViewBillPage() {
-    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    let visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
     await t.click(`#${COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE}`);
+    visible = await Selector('#bill-view').visible;
+    if (!visible) {
+      await t.click(Selector('button').withText('INACTIVE BILLS'));
+    }
     await t.click('#bill-view');
   }
 
@@ -147,7 +151,19 @@ class NavBar {
       await t.click('button.navbar-toggler');
     }
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_TESTIMONY_DROPDOWN}`);
     await t.click(`#${COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE}`);
+  }
+
+  /* Go to the list testimony page. */
+  async gotoListTestimonyPage() {
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
+    if (!visible) {
+      await t.click('button.navbar-toggler');
+    }
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_TESTIMONY_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_TESTIMONY_PAGE}`);
   }
 
   /* Go to the profile page. */

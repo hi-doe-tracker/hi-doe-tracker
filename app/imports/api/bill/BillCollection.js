@@ -15,6 +15,7 @@ class BillCollection extends BaseCollection {
       billLink: String,
       billNo: String,
       office: [String],
+      mainOffice: String,
       action: String,
       status: String,
       actionNumber: Number,
@@ -28,7 +29,6 @@ class BillCollection extends BaseCollection {
       description: String,
       allVersions: [String],
       committeeReports: [String],
-      hearingNotices: [String],
       lastStatus: [String],
       notifiedHearing: String,
       hearingDate: Date,
@@ -42,7 +42,6 @@ class BillCollection extends BaseCollection {
       approvedTestimony: [String],
       monitoringReports: [String],
       hearingComments: [String],
-      testimony: [String],
       rationale: String,
     }));
   }
@@ -55,16 +54,17 @@ class BillCollection extends BaseCollection {
    * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
-  define({ billLink, billNo, office, action, status, actionNumber, companion,
+  define({ billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
     reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
-    introducedByDate, description, allVersions, committeeReports, hearingNotices,
+    introducedByDate, description, allVersions, committeeReports,
     lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
     testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
-    monitoringReports, hearingComments, testimony, rationale }) {
+    monitoringReports, hearingComments, rationale }) {
     const docID = this._collection.insert({
       billLink,
       billNo,
       office,
+      mainOffice,
       action,
       status,
       actionNumber,
@@ -78,7 +78,6 @@ class BillCollection extends BaseCollection {
       description,
       allVersions,
       committeeReports,
-      hearingNotices,
       lastStatus,
       notifiedHearing,
       hearingDate,
@@ -92,7 +91,6 @@ class BillCollection extends BaseCollection {
       approvedTestimony,
       monitoringReports,
       hearingComments,
-      testimony,
       rationale,
     });
     return docID;
@@ -164,6 +162,7 @@ class BillCollection extends BaseCollection {
     const billLink = docID.billLink;
     const billNo = docID.billNo;
     const office = docID.office;
+    const mainOffice = docID.mainOffice;
     const action = docID.action;
     const status = docID.status;
     const actionNumber = docID.actionNumber;
@@ -177,7 +176,6 @@ class BillCollection extends BaseCollection {
     const description = docID.description;
     const allVersions = docID.allVersions;
     const committeeReports = docID.committeeReports;
-    const hearingNotices = docID.hearingNotices;
     const lastStatus = docID.lastStatus;
     const notifiedHearing = docID.notifiedHearing;
     const hearingDate = docID.hearingDate;
@@ -191,14 +189,13 @@ class BillCollection extends BaseCollection {
     const approvedTestimony = docID.approvedTestimony;
     const monitoringReports = docID.monitoringReports;
     const hearingComments = docID.hearingComments;
-    const testimony = docID.testimony;
     const rationale = docID.rationale;
-    return { billLink, billNo, office, action, status, actionNumber, companion,
+    return { billLink, billNo, office, mainOffice, action, status, actionNumber, companion,
       reportTitle, legalType, committeeReferral, measureTitle, introducedBy,
-      introducedByDate, description, allVersions, committeeReports, hearingNotices,
+      introducedByDate, description, allVersions, committeeReports,
       lastStatus, notifiedHearing, hearingDate, hearingLocation, committee, type,
       testifierContact, similar, leadOfficePosition, testifier, approvedTestimony,
-      monitoringReports, hearingComments, testimony, rationale };
+      monitoringReports, hearingComments, rationale };
   }
 }
 

@@ -53,9 +53,6 @@ const ViewBill = () => {
               >
                 Current Bill
               </Breadcrumb.Item>
-              <Breadcrumb.Item href="#" className="viewbill-breadcrumbItem">
-                Measure(Status)
-              </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </center>
@@ -75,7 +72,15 @@ const ViewBill = () => {
             </ListGroup.Item>
             <ListGroup.Item as="li" className="d-flex">
               <div className="ms-2 me-auto viewbill-div viewbill-font">
-                <span className="fw-bold viewbill-spandiv">Office</span>
+                <span className="fw-bold viewbill-spandiv">Main Office</span>
+                <span className="description-font viewbill-spandiv">
+                  {viewBill.mainOffice}
+                </span>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li" className="d-flex">
+              <div className="ms-2 me-auto viewbill-div viewbill-font">
+                <span className="fw-bold viewbill-spandiv">Offices</span>
                 <span className="description-font viewbill-spandiv">
                   {viewBill.office.join(', ')}
                 </span>
@@ -238,6 +243,7 @@ const ViewBill = () => {
                   className="description-font"
                   href={`https://${viewBill.notifiedHearing}`}
                   target="_blank"
+                  style={{ color: 'black' }}
                   rel="noreferrer"
                 >
                   {viewBill.notifiedHearing}
@@ -282,24 +288,6 @@ const ViewBill = () => {
                   </Accordion.Header>
                   <Accordion.Body className="viewbill-accbody">
                     {viewBill.committeeReports.map((item) => (
-                      <a
-                        className="description-font"
-                        key={item}
-                        href={`https://${item}`}
-                      >
-                        {item}
-                      </a>
-                    ))}
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2" className="flexcenter">
-                  <Accordion.Header className="viewbill-acchead">
-                    <div className="fw-bold divcolor viewbill-font acc-header">
-                      Hearing Notices
-                    </div>
-                  </Accordion.Header>
-                  <Accordion.Body className="viewbill-accbody">
-                    {viewBill.hearingNotices.map((item) => (
                       <a
                         className="description-font"
                         key={item}
@@ -394,7 +382,6 @@ ViewBill.propTypes = {
     description: PropTypes.string,
     allVersions: PropTypes.arrayOf(PropTypes.string),
     committeeReports: PropTypes.arrayOf(PropTypes.string),
-    hearingNotices: PropTypes.arrayOf(PropTypes.string),
     lastStatus: PropTypes.arrayOf(PropTypes.string),
     notifiedHearing: PropTypes.string,
     hearingDate: PropTypes.string,

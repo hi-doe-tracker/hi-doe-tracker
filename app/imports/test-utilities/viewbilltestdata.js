@@ -1,6 +1,6 @@
 export const viewBill = {
   billLink: 'www.google.com',
-  billNo: 'HB 012E',
+  billNo: 'HB-012E',
   office: ['OSIP', 'OPS', 'OCID', 'ABCD', 'EFGH', 'HIJK'],
   action: 'Testimony',
   status: '3rd Crossover',

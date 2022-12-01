@@ -80,13 +80,25 @@ class TestimonyCollection extends BaseCollection {
    * @param testifyingMethod the condition of the item (optional).
    * @param testimony (optional).
    */
-  update(docID, { firstName, lastName, testimony }) {
+  update(docID, { firstName, lastName, position, testifyingAs, organization, testifyingMethod, testimony }) {
     const updateData = {};
     if (firstName) {
       updateData.firstName = firstName;
     }
     if (lastName) {
       updateData.lastName = lastName;
+    }
+    if (position) {
+      updateData.position = position;
+    }
+    if (testifyingAs) {
+      updateData.testifyingAs = testifyingAs;
+    }
+    if (organization) {
+      updateData.organization = organization;
+    }
+    if (testifyingMethod) {
+      updateData.testifyingMethod = testifyingMethod;
     }
     if (testimony) {
       updateData.testimony = testimony;

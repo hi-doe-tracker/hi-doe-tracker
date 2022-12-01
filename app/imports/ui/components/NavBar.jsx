@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
@@ -7,15 +7,42 @@ import { Container, Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
 import { BoxArrowRight, PersonFill, Bell, Person, Alarm, FileText } from 'react-bootstrap-icons';
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 // The NavBar appears at the top of every page. Rendered by the App Layout component.
 const NavBar = () => {
-  const { currentUser } = useTracker(() => ({
-    currentUser: Meteor.user() ? Meteor.user().username : '',
-  }), []);
+  const [position, setPosition] = useState('');
+  const allowedPosition = ['Admin', 'Writer'];
+  const { currentUser, ready } = useTracker(() => {
+    const subscription = UserProfiles.subscribeUserProfiles();
+    const rdy = subscription.ready();
+    const currUser = Meteor.user() ? Meteor.user().username : '';
+    return {
+      currentUser: currUser,
+      ready: rdy,
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentUser !== '' && currentUser !== undefined) {
+      if (ready) {
+        const email = currentUser;
+        const isAdmin = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]);
+        console.log(email);
+        if (!isAdmin) {
+          const pos = UserProfiles.findByEmail(email).position;
+          // console.log(pos)
+          setPosition(pos);
+        } else {
+          setPosition('Admin');
+        }
+      }
+    }
+  });
   const menuStyle = { marginBottom: '10px' };
   const menuStyle1 = { marginLeft: '20px' };
   const menuStyle2 = { marginRight: '10px', marginLeft: '10px' };
+  const iconStyle = { marginRight: '5px', fontSize: '1.2em' };
   return (
     <Navbar bg="light" expand="lg" style={menuStyle}>
       <Container>
@@ -27,7 +54,11 @@ const NavBar = () => {
             {currentUser ? ([
               <Nav.Link id={COMPONENT_IDS.NAVBAR_HOME_PAGE} as={NavLink} to="/home" key="home" style={menuStyle2}>Home</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_BILLS_PAGE} as={NavLink} to="/bills" key="bills" style={menuStyle2}>View Bills</Nav.Link>,
-              <Nav.Link id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit" style={menuStyle2}>Submit Testimony</Nav.Link>,
+              <NavDropdown id={COMPONENT_IDS.NAVBAR_TESTIMONY_DROPDOWN} title="Testimony" key="testimony-dropdown" style={menuStyle2}>
+
+                { allowedPosition.includes(position) ? <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_SUBMIT_TESTIMONY_PAGE} as={NavLink} to="/submit" key="submit">Submit Testimony</NavDropdown.Item> : ''}
+                <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_TESTIMONY_PAGE} as={NavLink} to="/listtestimony" key="list-testimony">List Testimony</NavDropdown.Item>
+              </NavDropdown>,
               <NavDropdown id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN} title="Hearings" key="hearing-dropdown" style={menuStyle2}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_VIEW} key="view-hearings" as={NavLink} to="view-hearings">View Hearings</NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_HEARING_DROPDOWN_SEND} key="send-hearings" as={NavLink} to="send">Send Hearing Notice</NavDropdown.Item>
@@ -59,8 +90,8 @@ const NavBar = () => {
             ) : (
               <NavDropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} key="user-dropdown" title={currentUser}>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_PROFILE} as={NavLink} to="/profile">
+                  <Person style={iconStyle} />
                   Profile
-                  <Person />
                 </NavDropdown.Item>
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} as={NavLink} to="/signout"><BoxArrowRight /> Sign out</NavDropdown.Item>
               </NavDropdown>

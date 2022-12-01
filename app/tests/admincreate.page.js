@@ -14,7 +14,7 @@ class AdminCreatePage {
   }
 
   /** Signs up a new user, then checks to see if it is created by logging out then into that new account. */
-  async signupUser(testController) {
+  async signupUser() {
     const firstName = 'Bat';
     const lastName = 'Man';
     const email = 'batman@foo.com';
