@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Button, ButtonGroup, Card, Col, Container, Row, Table, Accordion, ListGroup } from 'react-bootstrap';
-import { CaretRight, CaretLeft } from 'react-bootstrap-icons';
+import { CaretRight, CaretLeft, BoxArrowUpLeft } from 'react-bootstrap-icons';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Hearings } from '../../api/hearing/HearingCollection';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -196,9 +196,14 @@ const Calendar = () => {
       ) {
         content.push(
           <Accordion.Item eventKey={hearings[i].notice} key={hearings[i].notice}>
-            <Accordion.Header>{filterHearings[i].notice}</Accordion.Header>
+            <Accordion.Header>
+              <NavLink to={`/view-hearings/${hearings[i].notice}`}>
+                <BoxArrowUpLeft style={{ marginRight: '20px' }} />
+              </NavLink>
+              {filterHearings[i].notice}
+            </Accordion.Header>
             <Accordion.Body>
-              <h5>{filterHearings[i].datetime}</h5>
+              <h6>{filterHearings[i].datetime}</h6>
               <Accordion>
                 {getHearingsByNotice(filterHearings[i].notice)}
               </Accordion>
