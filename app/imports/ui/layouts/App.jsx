@@ -84,6 +84,15 @@ const App = () => {
             />
             <Route
               exact
+              path="/view-hearings/:noticeParam"
+              element={(
+                <ProtectedRoute>
+                  <ViewHearings />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              exact
               path="/view-hearings"
               element={(
                 <ProtectedRoute>
